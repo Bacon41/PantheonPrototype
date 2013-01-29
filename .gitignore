@@ -1,0 +1,5 @@
+*.Cache*
+bin
+debug
+*.suo
+*.dia~
