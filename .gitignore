@@ -1,0 +1,5 @@
+*.Cache*
+*obj/
+*bin/
+*.suo
+*.dia~
