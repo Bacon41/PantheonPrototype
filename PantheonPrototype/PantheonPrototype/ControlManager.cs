@@ -12,7 +12,10 @@ using Microsoft.Xna.Framework.Media;
 
 namespace PantheonPrototype
 {
-    class Player : Entity
+    class ControlManager
     {
+        public ControlManager()
+        {
+        }
     }
 }
