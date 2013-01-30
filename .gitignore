@@ -1,5 +1,5 @@
 *.Cache*
-bin
-debug
+*obj/
+*bin/
 *.suo
 *.dia~
