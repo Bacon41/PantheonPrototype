@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
-namespace PersonalCoding
+namespace PantheonPrototype
 {
     /// <summary>
     /// Provides a basic class for managing a sprite on screen. This class
@@ -74,6 +74,8 @@ namespace PersonalCoding
 
         /// <summary>
         /// Loads a sprite with an image.
+        /// 
+        /// Note: This function will clear any classes
         /// </summary>
         /// <param name="image">The image to be used for the sprite.</param>
         /// <param name="rows">The number of frame rows in the image.</param>
