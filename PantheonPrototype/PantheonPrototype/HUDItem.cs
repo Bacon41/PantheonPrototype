@@ -12,7 +12,10 @@ using Microsoft.Xna.Framework.Media;
 
 namespace PantheonPrototype
 {
-    class Enemy : Entity
+    class HUDItem
     {
+        public HUDItem()
+        {
+        }
     }
 }

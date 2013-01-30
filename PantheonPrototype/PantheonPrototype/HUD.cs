@@ -12,7 +12,18 @@ using Microsoft.Xna.Framework.Media;
 
 namespace PantheonPrototype
 {
-    class Enemy : Entity
+    class HUD
     {
+        public HUD()
+        {
+        }
+
+        public void AddItem()
+        {
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+        }
     }
 }
