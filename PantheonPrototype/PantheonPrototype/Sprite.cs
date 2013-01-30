@@ -59,6 +59,19 @@ namespace PersonalCoding
         /// </summary>
         private int currentFrame;
 
+        public Sprite()
+        {
+            stateRange = new Dictionary<string, FrameRange>();
+        }
+
+        public Sprite(Texture2D image, int rows, int columns)
+        {
+            stateRange = new Dictionary<string, FrameRange>();
+
+            //Load the sprite with its initial values
+            loadSprite(image, rows, columns);
+        }
+
         /// <summary>
         /// Loads a sprite with an image.
         /// </summary>
