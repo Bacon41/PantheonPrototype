@@ -15,7 +15,7 @@ namespace PantheonPrototype
     class Entity
     {
         /// <summary>
-        /// The location of the entity.
+        /// The location and bounds of the entity.
         /// </summary>
         protected Rectangle location;
 
@@ -42,10 +42,25 @@ namespace PantheonPrototype
             set { sprite = value; }
         }
 
-        //Collision
+
+        public void Update(GameTime gameTime)
+        {
+        }
+
+        public void Draw(GameTime gameTime)
+        {
+        }
+
+        /// <summary>
+        /// Detects collisions between another entity.
+        /// 
+        /// Uses the rectangle defining sprite to detect collisions.
+        /// </summary>
+        /// <param name="other">The entity to detect collision with.</param>
+        /// <returns>True if the bounding rectangles overlap.</returns>
         public bool collidesWith(Entity other)
         {
-            return true;
+            return this.location.Intersects(other.Location);
         }
     }
 }

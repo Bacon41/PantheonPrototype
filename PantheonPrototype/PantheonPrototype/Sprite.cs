@@ -177,7 +177,7 @@ namespace PantheonPrototype
         /// </summary>
         /// <param name="canvas">An initialized SpriteBatch to which the sprite will be drawn.</param>
         /// <param name="location">The location as a vector to which the sprite should be drawn.</param>
-        public void draw(SpriteBatch canvas, Vector2 location)
+        public void draw(SpriteBatch canvas, Rectangle location)
         {
             //Calculate frame specific information
             int width = image.Width / columns;
@@ -187,10 +187,15 @@ namespace PantheonPrototype
 
             //Calculate the source and destination rectangles for the current frame
             Rectangle sourceRectangle = new Rectangle(column * width, row * height, width, height);
-            Rectangle destinationRectangle = new Rectangle((int)location.X, (int)location.Y, width, height);
+            Rectangle destinationRectangle = location;
 
             //Draw the correct frame of the image
             canvas.Draw(image, destinationRectangle, sourceRectangle, Color.White);
+        }
+
+        internal void draw()
+        {
+            throw new NotImplementedException();
         }
     }
 }
