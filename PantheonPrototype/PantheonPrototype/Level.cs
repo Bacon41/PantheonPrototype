@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
@@ -29,13 +29,17 @@ namespace PantheonPrototype
     class Level
     {
         // Member Variable Declaration
+        protected Hashtable entities;
 
         // Object Function Declaration
         /// <summary>
         /// The constructor for the Level class. Basically doesn't do anything
         /// important at this point.
         /// </summary>
-        public Level() { }
+        public Level()
+        {
+            this.entities = new Hashtable();
+        }
 
         /// <summary>
         /// The Update function will run through the level and perform any
