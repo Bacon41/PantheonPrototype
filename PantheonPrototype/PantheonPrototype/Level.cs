@@ -44,7 +44,7 @@ namespace PantheonPrototype
         }
 
         /// <summary>
-        /// 
+        /// Loads the level from a descriptive script file on the harddrive.
         /// </summary>
         public void Load(string fileName)
         {
@@ -69,7 +69,7 @@ namespace PantheonPrototype
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, this.camera.getTransformation());
-            spriteBatch.End()
+            spriteBatch.End();
         }
     }
 }
