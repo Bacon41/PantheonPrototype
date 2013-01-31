@@ -36,6 +36,11 @@ namespace PantheonPrototype
         private int totalFrames;
 
         /// <summary>
+        /// The frame rate at which the sprite's frames are looped through.
+        /// </summary>
+        private int frameRate;
+
+        /// <summary>
         /// A structure to store the frames for a given state in the sprite.
         /// </summary>
         private struct FrameRange
@@ -59,6 +64,11 @@ namespace PantheonPrototype
         /// </summary>
         private int currentFrame;
 
+        /// <summary>
+        /// The last time that the sprite was updated.
+        /// </summary>
+        private TimeSpan lastUpdate;
+
         public Sprite()
         {
             stateRange = new Dictionary<string, FrameRange>();
@@ -66,7 +76,12 @@ namespace PantheonPrototype
 
         public Sprite(Texture2D image, int rows, int columns)
         {
-            loadSprite(image, rows, columns);
+            loadSprite(image, rows, columns, 30);
+        }
+
+        public Sprite(Texture2D image, int rows, int columns, int frameRate)
+        {
+            loadSprite(image, rows, columns, frameRate);
         }
 
         /// <summary>
@@ -77,7 +92,8 @@ namespace PantheonPrototype
         /// <param name="image">The image to be used for the sprite.</param>
         /// <param name="rows">The number of frame rows in the image.</param>
         /// <param name="columns">The number of frame columns in the image.</param>
-        public void loadSprite(Texture2D image, int rows, int columns)
+        /// <param name="frameRate">The frame rate at which the sprite updates.</param>
+        public void loadSprite(Texture2D image, int rows, int columns, int frameRate)
         {
             //Get the image
             this.image = image;
@@ -88,6 +104,8 @@ namespace PantheonPrototype
 
             //Get the total number of frames
             this.totalFrames = rows * columns;
+
+            this.frameRate = frameRate;
 
             //Initialize to the first frame
             this.currentFrame = 0;
@@ -173,15 +191,22 @@ namespace PantheonPrototype
             }
         }
 
-        public void update()
+        public void Update(GameTime gameTime)
         {
-            //Increment the current frame
-            currentFrame++;
-
-            //Loop around if the frame range for the current state has been exhausted.
-            if (currentFrame < stateRange[currentState].last)
+            //If enough time has passed, update the frame
+            if (gameTime.TotalGameTime.Subtract(lastUpdate).Milliseconds >= 1000 / frameRate)
             {
-                currentFrame = stateRange[currentState].first;
+                //Increment the current frame
+                currentFrame++;
+
+                //Loop around if the frame range for the current state has been exhausted.
+                if (currentFrame < stateRange[currentState].last)
+                {
+                    currentFrame = stateRange[currentState].first;
+                }
+
+                //Store the time of this update
+                lastUpdate = gameTime.TotalGameTime;
             }
         }
 
@@ -190,7 +215,7 @@ namespace PantheonPrototype
         /// </summary>
         /// <param name="canvas">An initialized SpriteBatch to which the sprite will be drawn.</param>
         /// <param name="location">The location as a vector to which the sprite should be drawn.</param>
-        public void draw(SpriteBatch canvas, Rectangle location)
+        public void Draw(SpriteBatch canvas, Rectangle location)
         {
             //Calculate frame specific information
             int width = image.Width / columns;
@@ -204,11 +229,6 @@ namespace PantheonPrototype
 
             //Draw the correct frame of the image
             canvas.Draw(image, destinationRectangle, sourceRectangle, Color.White);
-        }
-
-        internal void draw()
-        {
-            throw new NotImplementedException();
         }
     }
 }

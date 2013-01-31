@@ -12,6 +12,10 @@ using Microsoft.Xna.Framework.Media;
 
 namespace PantheonPrototype
 {
+    /// <summary>
+    /// The Entity defines an object within the game. It has physical presence
+    /// in the game as a Sprite and can collide with other Entities.
+    /// </summary>
     class Entity
     {
         /// <summary>
@@ -42,13 +46,22 @@ namespace PantheonPrototype
             set { sprite = value; }
         }
 
-
+        /// <summary>
+        /// Updates the entity... yeah.
+        /// </summary>
+        /// <param name="gameTime">Even has the option for frame rate, pretty cool eh?</param>
         public void Update(GameTime gameTime)
         {
+            sprite.Update(gameTime);
         }
 
-        public void Draw(GameTime gameTime)
+        /// <summary>
+        /// Draws the entity to its current location.
+        /// </summary>
+        /// <param name="canvas">An initialized sprite batch to draw the sprite upon.</param>
+        public void Draw(SpriteBatch canvas)
         {
+            sprite.Draw(canvas, location);
         }
 
         /// <summary>
