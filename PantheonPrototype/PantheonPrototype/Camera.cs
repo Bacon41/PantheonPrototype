@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-namespace ProofOfConcept
+namespace PantheonPrototype
 {
     /// <summary>
     /// The class that contains all of the information for the camera's rotation, position, zoom, and related.
