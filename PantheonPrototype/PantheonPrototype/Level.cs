@@ -48,7 +48,20 @@ namespace PantheonPrototype
         /// </summary>
         public void Load(string fileName)
         {
-            // ADD LEVEL LOADING CODE HERE
+            // Open file
+            // Read file
+            // initialize tile set
+            //  -- read in tiles
+            //  -- associate with ids
+            // initialize map
+            //  -- create tile map
+            //  -- build collision map (?)
+            //  -- build portal map (?)
+            // initialize entities
+            //  -- build entities using factory
+            //  -- string together into an entity map
+            //  -- initialize each entitiy as it is stored
+            // DONE
         }
 
         /// <summary>
