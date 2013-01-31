@@ -53,6 +53,14 @@ namespace PantheonPrototype
         public Sprite Sprite { get; set; }
 
         /// <summary>
+        /// Constructs a basic entity.
+        /// </summary>
+        public Entity()
+        {
+            currentState ="Default";
+        }
+
+        /// <summary>
         /// Updates the entity... yeah.
         /// </summary>
         /// <param name="gameTime">Even has the option for frame rate, pretty cool eh?</param>
