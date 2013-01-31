@@ -29,6 +29,7 @@ namespace PantheonPrototype
     class Level
     {
         // Member Variable Declaration
+        protected Camera camera;
         protected Hashtable entities;
 
         // Object Function Declaration
@@ -36,9 +37,17 @@ namespace PantheonPrototype
         /// The constructor for the Level class. Basically doesn't do anything
         /// important at this point.
         /// </summary>
-        public Level()
+        public Level(GraphicsDevice graphicsDevice)
         {
             this.entities = new Hashtable();
+            this.camera = new Camera(graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Load(string fileName)
+        {
         }
 
         /// <summary>
@@ -47,7 +56,7 @@ namespace PantheonPrototype
         /// going through the list of active entities in the level and
         /// updating them as well.
         /// </summary>
-        public void Update()
+        public void Update(GameTime gameTime)
         {
         }
 
@@ -57,8 +66,10 @@ namespace PantheonPrototype
         /// be in charge of drawing itself, and the level will merely
         /// draw the physical level. (Tiles, Sprites, Etc)
         /// </summary>
-        public void Draw()
+        public void Draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, this.camera.getTransformation());
+            spriteBatch.End()
         }
     }
 }
