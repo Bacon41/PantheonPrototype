@@ -23,28 +23,34 @@ namespace PantheonPrototype
         /// </summary>
         protected Rectangle location;
 
+        public Rectangle Location { get; set; }
+
+        /// <summary>
+        /// A string representing the current state.
+        /// </summary>
+        protected string currentState;
+
+        public string CurrentState {
+            get
+            {
+                return currentState;
+            }
+            set
+            {
+                //Change the sprite state
+                sprite.changeState(value);
+
+                //Change the current state
+                currentState = value;
+            }
+        }
+
         /// <summary>
         /// The visual representation of the entity.
         /// </summary>
         protected Sprite sprite;
 
-        /// <summary>
-        /// Public access to the location vector.                               
-        /// </summary>
-        public Rectangle Location
-        {
-            get { return location; }
-            set { location = value; }
-        }
-
-        /// <summary>
-        /// Public access to the sprite.
-        /// </summary>
-        public Sprite Sprite
-        {
-            get { return sprite; }
-            set { sprite = value; }
-        }
+        public Sprite Sprite { get; set; }
 
         /// <summary>
         /// Updates the entity... yeah.

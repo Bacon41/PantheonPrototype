@@ -77,6 +77,10 @@ namespace PantheonPrototype
         {
             base.Update(gameTime);
 
+            //Move the player by velocity
+            location.X += (int)velocity.X;
+            location.Y += (int)velocity.Y;
+
             //If the shield is on, drain it
             if (shieldOn)
             {
