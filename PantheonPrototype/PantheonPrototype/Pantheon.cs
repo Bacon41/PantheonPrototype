@@ -19,6 +19,12 @@ namespace PantheonPrototype
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        ControlManager controlManager;
+
+        HUD hud;
+
+        Level currentLevel;
+
         public Pantheon()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -33,7 +39,10 @@ namespace PantheonPrototype
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            controlManager = new ControlManager();
+
+            hud = new HUD();
+            currentLevel = new Level(GraphicsDevice);
 
             base.Initialize();
         }
@@ -70,7 +79,8 @@ namespace PantheonPrototype
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
 
-            // TODO: Add your update logic here
+            currentLevel.Update(gameTime);
+            hud.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -83,7 +93,8 @@ namespace PantheonPrototype
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            currentLevel.Draw(spriteBatch);
+            hud.Draw(spriteBatch);
 
             base.Draw(gameTime);
         }
