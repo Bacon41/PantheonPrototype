@@ -50,7 +50,11 @@ namespace PantheonPrototype
         /// </summary>
         protected Sprite sprite;
 
-        public Sprite Sprite { get; set; }
+        public Sprite Sprite
+        {
+            get { return sprite; }
+            set { sprite = value; }
+        }
 
         /// <summary>
         /// Constructs a basic entity.
@@ -64,7 +68,7 @@ namespace PantheonPrototype
         /// Updates the entity... yeah.
         /// </summary>
         /// <param name="gameTime">Even has the option for frame rate, pretty cool eh?</param>
-        public void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime)
         {
             sprite.Update(gameTime);
         }
@@ -73,7 +77,7 @@ namespace PantheonPrototype
         /// Draws the entity to its current location.
         /// </summary>
         /// <param name="canvas">An initialized sprite batch to draw the sprite upon.</param>
-        public void Draw(SpriteBatch canvas)
+        public virtual void Draw(SpriteBatch canvas)
         {
             sprite.Draw(canvas, location);
         }
