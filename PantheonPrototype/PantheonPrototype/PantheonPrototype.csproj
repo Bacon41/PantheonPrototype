@@ -72,11 +72,13 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ButterflyEntity.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="CharacterEntity.cs" />
     <Compile Include="ControlManager.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="Entity.cs" />
+    <Compile Include="FishEntity.cs" />
     <Compile Include="HUD.cs" />
     <Compile Include="HUDItem.cs" />
     <Compile Include="Level.cs" />
