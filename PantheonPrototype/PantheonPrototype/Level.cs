@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections;
 using System.Linq;
 using System.Text;
@@ -79,7 +79,7 @@ namespace PantheonPrototype
         /// </summary>
         public void Update(GameTime gameTime)
         {
-            foreach (Entity thing in this.entities.Keys)
+            foreach (Entity thing in this.entities)
             {
                 thing.Update(gameTime);
             }
@@ -97,7 +97,7 @@ namespace PantheonPrototype
 
             levelMap.Draw(spriteBatch);
 
-            foreach (Entity thing in this.entities.Keys)
+            foreach (Entity thing in this.entities)
             {
                 thing.Draw(spriteBatch);
             }
