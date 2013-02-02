@@ -31,6 +31,7 @@ namespace PantheonPrototype
         // Member Variable Declaration
         protected Camera camera;
         protected Hashtable entities;
+        protected Hashtable tileset;
 
         // Object Function Declaration
         /// <summary>
@@ -48,6 +49,20 @@ namespace PantheonPrototype
         /// </summary>
         public void Load(string fileName)
         {
+            // Open file
+            // Read file
+            // initialize tile set
+            //  -- read in tiles
+            //  -- associate with ids
+            // initialize map
+            //  -- create tile map
+            //  -- build collision map (?)
+            //  -- build portal map (?)
+            // initialize entities
+            //  -- build entities using factory
+            //  -- string together into an entity map
+            //  -- initialize each entitiy as it is stored
+            // DONE
         }
 
         /// <summary>
@@ -58,6 +73,10 @@ namespace PantheonPrototype
         /// </summary>
         public void Update(GameTime gameTime)
         {
+            foreach (Entity thing in this.entities.Keys)
+            {
+                thing.Update(gameTime);
+            }
         }
 
         /// <summary>
@@ -69,6 +88,12 @@ namespace PantheonPrototype
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, this.camera.getTransformation());
+
+            foreach (Entity thing in this.entities.Keys)
+            {
+                thing.Draw(spriteBatch);
+            }
+
             spriteBatch.End();
         }
     }
