@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections;
 using System.Linq;
 using System.Text;
@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using CustomLoad;
 
 namespace PantheonPrototype
 {
@@ -31,6 +32,8 @@ namespace PantheonPrototype
         // Member Variable Declaration
         protected Camera camera;
         protected Hashtable entities;
+        protected Hashtable tileset;
+        protected Map levelMap;
 
         // Object Function Declaration
         /// <summary>
@@ -40,13 +43,14 @@ namespace PantheonPrototype
         public Level(GraphicsDevice graphicsDevice)
         {
             this.entities = new Hashtable();
+            this.tileset = new Hashtable();
             this.camera = new Camera(graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height);
         }
 
         /// <summary>
         /// Loads the level from a descriptive script file on the harddrive.
         /// </summary>
-        public void Load(string fileName)
+        public void Load(string fileName, ContentManager contentManager)
         {
             // Open file
             // Read file
@@ -62,6 +66,9 @@ namespace PantheonPrototype
             //  -- string together into an entity map
             //  -- initialize each entitiy as it is stored
             // DONE
+
+            levelMap = contentManager.Load<Map>(fileName);
+            levelMap.Load(contentManager);
         }
 
         /// <summary>
@@ -87,6 +94,8 @@ namespace PantheonPrototype
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, this.camera.getTransformation());
+
+            levelMap.Draw(spriteBatch);
 
             foreach (Entity thing in this.entities)
             {

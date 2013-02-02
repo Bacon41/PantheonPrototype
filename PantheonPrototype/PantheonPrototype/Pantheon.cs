@@ -25,6 +25,8 @@ namespace PantheonPrototype
 
         Level currentLevel;
 
+        SpriteFont debugFont;
+
         public Pantheon()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -56,7 +58,9 @@ namespace PantheonPrototype
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            currentLevel.Load("Map1", Content);
+
+            debugFont = Content.Load<SpriteFont>("DebugFont");
         }
 
         /// <summary>
@@ -94,7 +98,7 @@ namespace PantheonPrototype
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             currentLevel.Draw(spriteBatch);
-            hud.Draw(spriteBatch);
+            hud.Draw(spriteBatch, debugFont);
 
             base.Draw(gameTime);
         }
