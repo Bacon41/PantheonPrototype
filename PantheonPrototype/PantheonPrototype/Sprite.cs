@@ -36,11 +36,6 @@ namespace PantheonPrototype
         private int totalFrames;
 
         /// <summary>
-        /// The frame rate at which the sprite's frames are looped through.
-        /// </summary>
-        private int frameRate;
-
-        /// <summary>
         /// A structure to store the frames for a given state in the sprite.
         /// </summary>
         private struct FrameRange
@@ -63,11 +58,6 @@ namespace PantheonPrototype
         /// The current frame in the sprite's animation.
         /// </summary>
         private int currentFrame;
-
-        /// <summary>
-        /// The last time that the sprite was updated.
-        /// </summary>
-        private TimeSpan lastUpdate;
 
         public Sprite()
         {
@@ -104,8 +94,6 @@ namespace PantheonPrototype
 
             //Get the total number of frames
             this.totalFrames = rows * columns;
-
-            this.frameRate = frameRate;
 
             //Initialize to the first frame
             this.currentFrame = 0;
@@ -193,20 +181,13 @@ namespace PantheonPrototype
 
         public void Update(GameTime gameTime)
         {
-            //If enough time has passed, update the frame
-            if (gameTime.TotalGameTime.Subtract(lastUpdate).Milliseconds >= 1000 / frameRate)
+            //Increment the current frame
+            currentFrame++;
+
+            //Loop around if the frame range for the current state has been exhausted.
+            if (currentFrame < stateRange[currentState].last)
             {
-                //Increment the current frame
-                currentFrame++;
-
-                //Loop around if the frame range for the current state has been exhausted.
-                if (currentFrame < stateRange[currentState].last)
-                {
-                    currentFrame = stateRange[currentState].first;
-                }
-
-                //Store the time of this update
-                lastUpdate = gameTime.TotalGameTime;
+                currentFrame = stateRange[currentState].first;
             }
         }
 
