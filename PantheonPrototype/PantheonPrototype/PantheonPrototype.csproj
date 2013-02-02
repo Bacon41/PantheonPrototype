@@ -93,6 +93,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CustomLoad\CustomLoad.csproj">
+      <Project>{BDB776DE-D81A-4AF7-A7B2-D2574822617C}</Project>
+      <Name>CustomLoad</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PantheonPrototypeContent\PantheonPrototypeContent.contentproj">
       <Name>PantheonPrototypeContent</Name>
       <XnaReferenceType>Content</XnaReferenceType>

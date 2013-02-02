@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <!-- TODO: replace this Asset with your own XML asset data. -->
+  <Asset Type="CustomLoad.Map">
+    <Width>3</Width>
+    <Height>2</Height>
+    
+    <TextureGrid>
+      0 1 0
+      0 0 1
+    </TextureGrid>
+
+    <CollisionGrid>
+      0 0 0
+      0 1 0
+    </CollisionGrid>
+  </Asset>
+</XnaContent>

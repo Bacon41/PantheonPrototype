@@ -50,8 +50,13 @@ namespace PantheonPrototype
         /// The method to draw all of the different HUDItems.
         /// </summary>
         /// <param name="spriteBatch">The object that we will use to draw to the screen.</param>
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, SpriteFont font)
         {
+            spriteBatch.Begin();
+
+            spriteBatch.DrawString(font, "Pantheon Prototype", new Vector2(0, 0), Color.Black);
+
+            spriteBatch.End();
         }
     }
 }
