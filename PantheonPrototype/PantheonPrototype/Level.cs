@@ -90,8 +90,6 @@ namespace PantheonPrototype
 
             foreach (Entity thing in this.entities)
             {
-                // DRAW THE MAP
-
                 thing.Draw(spriteBatch);
             }
 
