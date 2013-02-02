@@ -31,6 +31,7 @@ namespace PantheonPrototype
         // Member Variable Declaration
         protected Camera camera;
         protected Hashtable entities;
+        protected Hashtable tileset;
 
         // Object Function Declaration
         /// <summary>
@@ -72,6 +73,10 @@ namespace PantheonPrototype
         /// </summary>
         public void Update(GameTime gameTime)
         {
+            foreach (Entity thing in this.entities.Keys)
+            {
+                thing.Update(gameTime);
+            }
         }
 
         /// <summary>
@@ -83,6 +88,12 @@ namespace PantheonPrototype
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, this.camera.getTransformation());
+
+            foreach (Entity thing in this.entities.Keys)
+            {
+                thing.Draw(spriteBatch);
+            }
+
             spriteBatch.End();
         }
     }
