@@ -27,6 +27,7 @@ namespace PantheonPrototype
 
         public HUD()
         {
+            hudItems = new List<HUDItem>();
         }
 
         /// <summary>

@@ -23,7 +23,11 @@ namespace PantheonPrototype
         /// </summary>
         protected Rectangle location;
 
-        public Rectangle Location { get; set; }
+        public Rectangle Location
+        {
+            get { return location; }
+            set { location = value; }
+        }
 
         /// <summary>
         /// A string representing the current state.
