@@ -1,5 +1,5 @@
 ﻿﻿using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
@@ -31,8 +31,7 @@ namespace PantheonPrototype
     {
         // Member Variable Declaration
         protected Camera camera;
-        protected Hashtable entities;
-        protected Hashtable tileset;
+        protected Dictionary<string, Entity> entities;
         protected Map levelMap;
 
         // Object Function Declaration
@@ -42,8 +41,7 @@ namespace PantheonPrototype
         /// </summary>
         public Level(GraphicsDevice graphicsDevice)
         {
-            this.entities = new Hashtable();
-            this.tileset = new Hashtable();
+            this.entities = new Dictionary<string, Entity>();
             this.camera = new Camera(graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height);
         }
 
@@ -79,9 +77,9 @@ namespace PantheonPrototype
         /// </summary>
         public void Update(GameTime gameTime)
         {
-            foreach (Entity thing in this.entities)
+            foreach (string entityName in this.entities.Keys)
             {
-                thing.Update(gameTime);
+                this.entities[entityName].Update(gameTime);
             }
         }
 
@@ -97,9 +95,9 @@ namespace PantheonPrototype
 
             levelMap.Draw(spriteBatch);
 
-            foreach (Entity thing in this.entities)
+            foreach (string entityName in this.entities.Keys)
             {
-                thing.Draw(spriteBatch);
+                this.entities[entityName].Draw(spriteBatch);
             }
 
             spriteBatch.End();
