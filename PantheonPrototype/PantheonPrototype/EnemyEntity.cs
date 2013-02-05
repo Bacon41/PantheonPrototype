@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace PantheonPrototype
 {
-    class Enemy : Entity
+    class EnemyEntity : Entity
     {
     }
 }

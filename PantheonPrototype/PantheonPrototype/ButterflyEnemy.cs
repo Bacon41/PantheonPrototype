@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace PantheonPrototype
 {
-    class ButterflyEntity : Entity
+    class ButterflyEnemy : EnemyEntity
     {
         /// <summary>
         /// UPDATE THE BUTTERFLY CLASS FOR THE WIN
