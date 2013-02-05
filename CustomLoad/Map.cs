@@ -28,11 +28,18 @@ namespace CustomLoad
             set { height = value; }
         }
 
-        int[] textureGrid;
-        public int[] TextureGrid
+        int[] baseGrid;
+        public int[] BaseGrid
         {
-            get { return textureGrid; }
-            set { textureGrid = value; }
+            get { return baseGrid; }
+            set { baseGrid = value; }
+        }
+
+        int[] modifierGrid;
+        public int[] ModifierGrid
+        {
+            get { return modifierGrid; }
+            set { modifierGrid = value; }
         }
 
         int[] collisionGrid;
@@ -40,6 +47,13 @@ namespace CustomLoad
         {
             get { return collisionGrid; }
             set { collisionGrid = value; }
+        }
+
+        int[] ceilingGrid;
+        public int[] CeilingGrid
+        {
+            get { return ceilingGrid; }
+            set { ceilingGrid = value; }
         }
 
         private Texture2D testSheet;
@@ -60,7 +74,7 @@ namespace CustomLoad
                 for (int y = 0; y < height; y++)
                 {
                     spriteBatch.Draw(testSheet, new Rectangle(64 * x, 64 * y, 64, 64),
-                        new Rectangle(64 * textureGrid[width * y + x], 0, 64, 64), Color.White);
+                        new Rectangle(64 * baseGrid[width * y + x], 0, 64, 64), Color.White);
                 }
             }
         }
