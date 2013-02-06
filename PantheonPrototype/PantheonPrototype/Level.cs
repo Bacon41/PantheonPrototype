@@ -33,6 +33,7 @@ namespace PantheonPrototype
         protected Camera camera;
         protected Dictionary<string, Entity> entities;
         protected Map levelMap;
+        protected Player player;
 
         // Object Function Declaration
         /// <summary>
@@ -60,6 +61,7 @@ namespace PantheonPrototype
             //  -- build collision map (?)
             //  -- build portal map (?)
             // initialize entities
+            //player = new Player();
             //  -- build entities using factory
             //  -- string together into an entity map
             //  -- initialize each entitiy as it is stored

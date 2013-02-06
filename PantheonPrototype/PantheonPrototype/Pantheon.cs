@@ -43,7 +43,11 @@ namespace PantheonPrototype
         {
             controlManager = new ControlManager();
 
-            hud = new HUD();
+            int SCREEN_WIDTH = GraphicsDevice.Viewport.Width;
+            int SCREEN_HEIGHT = GraphicsDevice.Viewport.Height;
+
+            hud = new HUD(Content, SCREEN_HEIGHT, SCREEN_HEIGHT);
+
             currentLevel = new Level(GraphicsDevice);
 
             base.Initialize();

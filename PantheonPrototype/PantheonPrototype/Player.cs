@@ -14,5 +14,12 @@ namespace PantheonPrototype
 {
     class Player : CharacterEntity
     {
+        Player()
+        {
+            TotalArmor = 100;
+            CurrentArmor = 100;
+            ShieldCapacity = 100;
+            ShieldStrength = 100;
+        }
     }
 }

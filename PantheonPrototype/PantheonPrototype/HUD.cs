@@ -24,18 +24,35 @@ namespace PantheonPrototype
         /// More or less can be registered.
         /// </summary>
         protected List<HUDItem> hudItems;
+        protected ContentManager content;
+        protected Texture2D background;
+        protected Vector2 HUDcoords;
+        protected int SCREEN_WIDTH;
+        protected int SCREEN_HEIGHT;
 
-        public HUD()
+        public HUD(ContentManager Content, int WIDTH, int HEIGHT)
         {
+            content = Content;
+            SCREEN_WIDTH = WIDTH;
+            SCREEN_HEIGHT = HEIGHT;
+
+            background = Content.Load<Texture2D>("HUDbackground3");
             hudItems = new List<HUDItem>();
+            HUDcoords = new Vector2(20, SCREEN_HEIGHT - background.Height - 20);
+
+
+            AddItem("ArmorTic", 5, 30);
+            AddItem("IndicatorG", 230, 10);
         }
 
         /// <summary>
         /// This is the method to add more items to the HUD. It will probably have
         /// parameters later, but I'm not sure what yet.
+        /// Accepts a string that defines an image in the preloaded content.
         /// </summary>
-        public void AddItem()
+        public void AddItem(String img, int x, int y)
         {
+            hudItems.Add(new HUDItem(content, img, (int)HUDcoords.X + x, (int)HUDcoords.Y + y));
         }
 
         /// <summary>
@@ -54,7 +71,20 @@ namespace PantheonPrototype
         {
             spriteBatch.Begin();
 
-            spriteBatch.DrawString(font, "Pantheon Prototype", new Vector2(0, 0), Color.Black);
+            spriteBatch.DrawString(font, "Pantheon Prototype XD", new Vector2(0, 0), Color.Black);
+            
+            for (int i = 0; i < 15; i++)
+            {
+                spriteBatch.Draw(hudItems[0].Image, new Rectangle((int)(5+(i*hudItems[0].Image.Width) + HUDcoords.X), (int)(30 + HUDcoords.Y), hudItems[0].Image.Width, hudItems[0].Image.Height), hudItems[0].Opacity); //hudItems[0].Coordinates, Color.White);
+                //Code subject to change
+            }
+
+            spriteBatch.Draw(background, new Rectangle((int)HUDcoords.X, (int)HUDcoords.Y, background.Width, background.Height), Color.White);
+
+            for (int i = 1; i < hudItems.Count; i++)
+            {
+                spriteBatch.Draw(hudItems[i].Image, hudItems[i].Coordinates, hudItems[0].Opacity);
+            }
 
             spriteBatch.End();
         }
