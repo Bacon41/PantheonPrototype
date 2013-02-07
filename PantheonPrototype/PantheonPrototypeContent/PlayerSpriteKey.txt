@@ -1,0 +1,71 @@
+Note first frame is indexed as 0 in this file.
+Also note, frame ranges are inclusive.
+(Neither of these are guaranteed in the code... Although I'll check in a bit)
+
+0	12	Attack	Right
+13	25	Attack	Back
+26	38	Attack	Back Right
+39	51	Attack	Back Left
+52	64	Attack	Forward
+65	77	Attack	Forward Right
+78	90	Attack	Forward Left
+91	103	Attack	Left
+104	113	Die	Right
+114	123	Die	Back
+124	133	Die	Back Right
+134	143	Die	Back Left
+144	153	Die	Forward
+154	163	Die	Forward Right
+164	173	Die	Forward Left
+174	183	Die	Left
+184	186	Idle	Right
+187	189	Idle	Back
+190	192	Idle	Back Right
+193	195	Idle	Back Left
+196	198	Idle	Forward
+199	201	Idle	Forward Right
+202	204	Idle	Forward Left
+205	207	Idle	Left
+208	223	Move	Right
+224	239	Move	Back
+240	255	Move	Back Right
+256	271	Move	Back Left
+272	287	Move	Forward
+288	303	Move	Forward Right
+304	319	Move	Forward Left
+320	335	Move	Left
+
+Tentative Function Calls
+
+sprite.addState("Attack Right", 0, 12)
+sprite.addState("Attack Back", 13, 25)
+sprite.addState("Attack Back Right", 26, 38)
+sprite.addState("Attack Back Left", 39, 51)
+sprite.addState("Attack Forward", 52, 64)
+sprite.addState("Attack Forward Right", 65, 77)
+sprite.addState("Attack Forward Left", 78, 90)
+sprite.addState("Attack Left", 91, 103)
+sprite.addState("Die Right", 104, 113)
+sprite.addState("Die Back", 114, 123)
+sprite.addState("Die Back Right", 124, 133)
+sprite.addState("Die Back Left", 134, 143)
+sprite.addState("Die Forward", 144, 153)
+sprite.addState("Die Forward Right", 154, 163)
+sprite.addState("Die Forward Left", 164, 173)
+sprite.addState("Die Left", 174, 183)
+sprite.addState("Idle Right", 184, 186)
+sprite.addState("Idle Back", 187, 189)
+sprite.addState("Idle Back Right", 190, 192)
+sprite.addState("Idle Back Left", 193, 195)
+sprite.addState("Idle Forward", 196, 198)
+sprite.addState("Idle Forward Right", 199, 201)
+sprite.addState("Idle Forward Left", 202, 204)
+sprite.addState("Idle Left", 205, 207)
+sprite.addState("Move Right", 208, 223)
+sprite.addState("Move Back", 224, 239)
+sprite.addState("Move Back Right", 240, 255)
+sprite.addState("Move Back Left", 256, 271)
+sprite.addState("Move Forward", 272, 287)
+sprite.addState("Move Forward Right", 288, 303)
+sprite.addState("Move Forward Left", 304, 319)
+sprite.addState("Move Left", 320, 335)
