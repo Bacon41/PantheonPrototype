@@ -73,17 +73,18 @@ namespace PantheonPrototype
 
             spriteBatch.DrawString(font, "Pantheon Prototype XD", new Vector2(0, 0), Color.Black);
             
-            for (int i = 0; i < 15; i++)
-            {
-                spriteBatch.Draw(hudItems[0].Image, new Rectangle((int)(5+(i*hudItems[0].Image.Width) + HUDcoords.X), (int)(30 + HUDcoords.Y), hudItems[0].Image.Width, hudItems[0].Image.Height), hudItems[0].Opacity); //hudItems[0].Coordinates, Color.White);
-                //Code subject to change
-            }
-
+            // Set the width of the Armor Bar with respect to the current percent of the player's armor. (Player not implemented yet)
+            hudItems[0].Coordinates = new Rectangle(hudItems[0].Coordinates.X, hudItems[0].Coordinates.Y, hudItems[0].Coordinates.Width/* * Player.currentArmor/Player.TotalArmor*/, hudItems[0].Coordinates.Height);
+            // Draw the Armor Bar (Must be done first due to shape)
+            spriteBatch.Draw(hudItems[0].Image, hudItems[0].Coordinates, hudItems[0].Opacity);
+            
+            // Draw the Background
             spriteBatch.Draw(background, new Rectangle((int)HUDcoords.X, (int)HUDcoords.Y, background.Width, background.Height), Color.White);
 
+            // Draw all the remaining items
             for (int i = 1; i < hudItems.Count; i++)
             {
-                spriteBatch.Draw(hudItems[i].Image, hudItems[i].Coordinates, hudItems[0].Opacity);
+                spriteBatch.Draw(hudItems[i].Image, hudItems[i].Coordinates, hudItems[i].Opacity);
             }
 
             spriteBatch.End();

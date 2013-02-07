@@ -43,6 +43,7 @@ namespace PantheonPrototype
         public Rectangle Coordinates
         {
             get { return coordinates; }
+            set { coordinates = value; }
         }
 
         /// <summary>
@@ -52,7 +53,11 @@ namespace PantheonPrototype
         {
             get { return opacity; }
         }
-
+        
+        /// <summary>
+        /// Sets the opacity using an integer so you don't have to create a whole new Color()
+        /// </summary>
+        /// <param name="n"></param>
         public void SetOpacity(int n) 
         {
             opacity.A = (byte)n;
