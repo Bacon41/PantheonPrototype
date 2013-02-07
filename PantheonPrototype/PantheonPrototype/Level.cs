@@ -72,6 +72,7 @@ namespace PantheonPrototype
             
             // HACK HACK HACK
             this.entities.Add("character", new CharacterEntity());
+            this.entities["character"].Load(contentManager);
         }
 
         /// <summary>

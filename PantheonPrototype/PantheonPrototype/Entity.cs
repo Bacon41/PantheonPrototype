@@ -66,6 +66,7 @@ namespace PantheonPrototype
         public Entity()
         {
             this.sprite = new Sprite();
+            this.location = new Rectangle(0, 0, 40, 40);
 
             currentState ="Default";
         }
