@@ -61,6 +61,8 @@ namespace PantheonPrototype
         /// <param name="gameTime">The object that holds all the time information.</param>
         public void Update(GameTime gameTime)
         {
+            // Set the width of the Armor Bar with respect to the current percent of the player's armor. (Player not implemented yet)
+            hudItems[0].Coordinates = new Rectangle(hudItems[0].Coordinates.X, hudItems[0].Coordinates.Y, hudItems[0].Coordinates.Width/* * Player.currentArmor/Player.TotalArmor*/, hudItems[0].Coordinates.Height);
         }
 
         /// <summary>
@@ -73,8 +75,6 @@ namespace PantheonPrototype
 
             spriteBatch.DrawString(font, "Pantheon Prototype XD", new Vector2(0, 0), Color.Black);
             
-            // Set the width of the Armor Bar with respect to the current percent of the player's armor. (Player not implemented yet)
-            hudItems[0].Coordinates = new Rectangle(hudItems[0].Coordinates.X, hudItems[0].Coordinates.Y, hudItems[0].Coordinates.Width/* * Player.currentArmor/Player.TotalArmor*/, hudItems[0].Coordinates.Height);
             // Draw the Armor Bar (Must be done first due to shape)
             spriteBatch.Draw(hudItems[0].Image, hudItems[0].Coordinates, hudItems[0].Opacity);
             
