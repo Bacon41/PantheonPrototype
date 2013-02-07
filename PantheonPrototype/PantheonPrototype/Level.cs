@@ -102,5 +102,13 @@ namespace PantheonPrototype
 
             spriteBatch.End();
         }
+
+        /// <summary>
+        /// Retrieve an entity from an entity via its instance id.
+        /// </summary>
+        public Entity getEntity(string id)
+        {
+            return this.entities[id];
+        }
     }
 }
