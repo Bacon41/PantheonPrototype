@@ -33,6 +33,7 @@ namespace PantheonPrototype
         protected Camera camera;
         protected Dictionary<string, Entity> entities;
         protected Map levelMap;
+        protected Player player;
 
         // Object Function Declaration
         /// <summary>
@@ -60,6 +61,7 @@ namespace PantheonPrototype
             //  -- build collision map (?)
             //  -- build portal map (?)
             // initialize entities
+            //player = new Player();
             //  -- build entities using factory
             //  -- string together into an entity map
             //  -- initialize each entitiy as it is stored
@@ -67,7 +69,7 @@ namespace PantheonPrototype
 
             levelMap = contentManager.Load<Map>(fileName);
             levelMap.Load(contentManager);
-
+            
             // HACK HACK HACK
             this.entities.Add("character", new CharacterEntity());
         }
@@ -104,14 +106,6 @@ namespace PantheonPrototype
             }
 
             spriteBatch.End();
-        }
-
-        /// <summary>
-        /// Retrieve an entity from an entity via its instance id.
-        /// </summary>
-        public Entity getEntity(string id)
-        {
-            return this.entities[id];
         }
     }
 }
