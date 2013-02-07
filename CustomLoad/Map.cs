@@ -74,7 +74,7 @@ namespace CustomLoad
                 for (int y = 0; y < height; y++)
                 {
                     spriteBatch.Draw(testSheet, new Rectangle(64 * x, 64 * y, 64, 64),
-                        new Rectangle(64 * baseGrid[width * y + x], 0, 64, 64), Color.White);
+                        new Rectangle(64 * baseGrid[width * y + x], 0, 64, 64), Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
                 }
             }
         }
