@@ -81,11 +81,11 @@ namespace PantheonPrototype
         /// going through the list of active entities in the level and
         /// updating them as well.
         /// </summary>
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Pantheon gameReference)
         {
             foreach (string entityName in this.entities.Keys)
             {
-                this.entities[entityName].Update(gameTime);
+                this.entities[entityName].Update(gameTime, gameReference);
             }
         }
 

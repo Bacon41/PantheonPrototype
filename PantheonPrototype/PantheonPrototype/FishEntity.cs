@@ -18,7 +18,8 @@ namespace PantheonPrototype
         /// Update the FEESH
         /// </summary>
         /// <param name="gameTime">The game time object for letting you know how old you've gotten since starting the game.</param>
-        public override void Update(GameTime gameTime)
+        /// <param name="gameReference">Another global game reference.</param>
+        public override void Update(GameTime gameTime, Pantheon gameReference)
         {
         }
 

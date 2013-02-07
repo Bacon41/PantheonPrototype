@@ -62,7 +62,7 @@ namespace PantheonPrototype
     /// possible input devices and will return whether or not the button for
     /// a particular action (whatever button that is) is pushed.
     /// </summary>
-    class ControlManager
+    public class ControlManager
     {
         /// <summary>
         /// The current active actions from the player input.
@@ -86,7 +86,7 @@ namespace PantheonPrototype
             
             //Get the mouse state
             MouseState mouse = Mouse.GetState();
-            mouseTest(mouse);
+            //mouseTest(mouse);
             
             //Get the gamepad state
             GamePadState gamepad = GamePad.GetState(PlayerIndex.One);
@@ -96,8 +96,8 @@ namespace PantheonPrototype
                 
             }
             //Set action true if keyboard button is pressed
-            if (keyboard.IsKeyDown(Keys.W)) { actions.MoveForward = true; }
-            if (keyboard.IsKeyDown(Keys.S)) { actions.MoveBackward = true; }
+            if (keyboard.IsKeyDown(Keys.S)) { actions.MoveForward = true; }
+            if (keyboard.IsKeyDown(Keys.W)) { actions.MoveBackward = true; }
             if (keyboard.IsKeyDown(Keys.A)) { actions.MoveLeft = true; }
             if (keyboard.IsKeyDown(Keys.D)) { actions.MoveRight = true; }
             if (keyboard.IsKeyDown(Keys.Escape) && !actions.Pause) { actions.Pause = true; }
@@ -107,7 +107,7 @@ namespace PantheonPrototype
             if (mouse.LeftButton == ButtonState.Pressed) { actions.Attack = true; }
 
             actions.CursorPosition = new Vector2(mouse.X, mouse.Y);
-            Console.WriteLine(actions.CursorPosition);
+            //Console.WriteLine(actions.CursorPosition);
         }
 
         /// <summary>

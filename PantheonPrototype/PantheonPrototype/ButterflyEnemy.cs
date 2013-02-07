@@ -18,7 +18,8 @@ namespace PantheonPrototype
         /// UPDATE THE BUTTERFLY CLASS FOR THE WIN
         /// </summary>
         /// <param name="gameTime">The game time object for letting you know how old you've gotten since starting the game.</param>
-        public override void Update(GameTime gameTime)
+        /// <param name="gameReference">Game reference of doom</param>
+        public override void Update(GameTime gameTime, Pantheon gameReference)
         {
 
         }

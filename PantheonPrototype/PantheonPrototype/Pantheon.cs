@@ -19,7 +19,7 @@ namespace PantheonPrototype
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        ControlManager controlManager;
+        public ControlManager controlManager;
 
         HUD hud;
 
@@ -94,7 +94,7 @@ namespace PantheonPrototype
                 this.Exit();
             }
 
-            currentLevel.Update(gameTime);
+            currentLevel.Update(gameTime, this);
             hud.Update(gameTime);
 
             base.Update(gameTime);
