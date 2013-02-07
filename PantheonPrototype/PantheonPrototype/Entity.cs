@@ -84,6 +84,7 @@ namespace PantheonPrototype
         /// <param name="gameTime">Even has the option for frame rate, pretty cool eh?</param>
         public virtual void Update(GameTime gameTime)
         {
+            this.sprite.Update(gameTime);
         }
 
         /// <summary>
@@ -92,7 +93,7 @@ namespace PantheonPrototype
         /// <param name="canvas">An initialized sprite batch to draw the sprite upon.</param>
         public virtual void Draw(SpriteBatch canvas)
         {
-            sprite.Draw(canvas, location);
+            this.sprite.Draw(canvas, location);
         }
 
         /// <summary>

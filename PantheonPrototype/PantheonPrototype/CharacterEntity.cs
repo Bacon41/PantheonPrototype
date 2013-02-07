@@ -100,7 +100,7 @@ namespace PantheonPrototype
 
             if (sprite != null)
             {
-                this.Sprite.loadSprite(sprite, 20, 18, 30);
+                this.Sprite.loadSprite(sprite, 17, 20, 30);
             }
             else
             {
