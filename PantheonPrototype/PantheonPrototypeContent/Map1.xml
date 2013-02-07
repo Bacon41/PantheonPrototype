@@ -5,14 +5,24 @@
     <Width>3</Width>
     <Height>2</Height>
     
-    <TextureGrid>
+    <BaseGrid>
       0 1 0
       0 0 1
-    </TextureGrid>
+    </BaseGrid>
+
+    <ModifierGrid>
+      0 1 0
+      0 0 1
+    </ModifierGrid>
 
     <CollisionGrid>
       0 0 0
       0 1 0
     </CollisionGrid>
+
+    <CeilingGrid>
+      0 1 0
+      0 0 1
+    </CeilingGrid>
   </Asset>
 </XnaContent>

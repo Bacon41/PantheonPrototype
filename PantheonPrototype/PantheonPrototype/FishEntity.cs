@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace PantheonPrototype
 {
-    class FishEntity : Entity
+    class FishEntity : NPCEntity
     {
         /// <summary>
         /// Update the FEESH
