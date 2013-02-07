@@ -80,8 +80,15 @@ namespace PantheonPrototype
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                //this.Exit();
+
+            controlManager.Update();
+
+            if (controlManager.actions.Pause)
+            {
                 this.Exit();
+            }
 
             currentLevel.Update(gameTime);
             hud.Update(gameTime);
