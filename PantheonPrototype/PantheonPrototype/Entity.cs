@@ -65,7 +65,16 @@ namespace PantheonPrototype
         /// </summary>
         public Entity()
         {
+            this.sprite = new Sprite();
+
             currentState ="Default";
+        }
+
+        /// <summary>
+        /// Loads any assets this particular entity needs.
+        /// </summary>
+        public virtual void Load(ContentManager contentManager)
+        {
         }
 
         /// <summary>
@@ -74,7 +83,6 @@ namespace PantheonPrototype
         /// <param name="gameTime">Even has the option for frame rate, pretty cool eh?</param>
         public virtual void Update(GameTime gameTime)
         {
-            sprite.Update(gameTime);
         }
 
         /// <summary>

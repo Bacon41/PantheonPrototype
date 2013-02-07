@@ -198,6 +198,8 @@ namespace PantheonPrototype
         /// <param name="location">The location as a vector to which the sprite should be drawn.</param>
         public void Draw(SpriteBatch canvas, Rectangle location)
         {
+            if (image == null) return;
+
             //Calculate frame specific information
             int width = image.Width / columns;
             int height = image.Height / rows;

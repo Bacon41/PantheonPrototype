@@ -86,6 +86,29 @@ namespace PantheonPrototype
         }
 
         /// <summary>
+        /// Loads any assets the entity may or may not need.
+        /// </summary>
+        /// <param name="contentManager">The intialized content manager that will be used to load the asset information.</param>
+        /// <exception cref="ContentLoadException">Thrown when the content manager is unable to load the player sprite.</exception>
+        public override void Load(ContentManager contentManager)
+        {
+            Texture2D sprite;
+
+            base.Load(contentManager);
+
+            sprite = contentManager.Load<Texture2D>("PlayerSprite");
+
+            if (sprite != null)
+            {
+                this.Sprite.loadSprite(sprite, 20, 18, 30);
+            }
+            else
+            {
+                throw new ContentLoadException();
+            }
+        }
+
+        /// <summary>
         /// Update the character class.
         /// </summary>
         /// <param name="gameTime">The game time object for letting you know how old you've gotten since starting the game.</param>
