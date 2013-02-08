@@ -25,6 +25,7 @@ namespace PantheonPrototype
         /// </summary>
         protected List<HUDItem> hudItems;
         protected ContentManager content;
+        protected Texture2D backing;
         protected Texture2D background;
         protected Vector2 HUDcoords;
         protected int SCREEN_WIDTH;
@@ -36,6 +37,7 @@ namespace PantheonPrototype
             SCREEN_WIDTH = WIDTH;
             SCREEN_HEIGHT = HEIGHT;
 
+            backing = Content.Load<Texture2D>("HUDbacking");
             background = Content.Load<Texture2D>("HUDbackground");
             hudItems = new List<HUDItem>();
             HUDcoords = new Vector2(20, SCREEN_HEIGHT - background.Height - 20);
@@ -82,7 +84,10 @@ namespace PantheonPrototype
             spriteBatch.Begin();
 
             spriteBatch.DrawString(font, "Pantheon Prototype XD", new Vector2(0, 0), Color.Black);
-            
+
+            // Draw the Backing
+            spriteBatch.Draw(backing, new Rectangle((int)HUDcoords.X, (int)HUDcoords.Y, background.Width, background.Height), Color.White);
+
             // Draw the Armor Bar (Must be done first due to shape)
             spriteBatch.Draw(hudItems[0].Image, hudItems[0].Coordinates, hudItems[0].Opacity);
             
