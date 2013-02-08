@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace PantheonPrototype
 {
+    // Currenly Obsolete. Possibly will store Inventory. We'll see.
     class Player : CharacterEntity
     {
         Player()

@@ -122,7 +122,7 @@ namespace PantheonPrototype
                 
             }
             //Set action true if keyboard button is pressed
-            if (keyboard.IsKeyDown(keyboardAndMouse.MoveUpKey)) { actions.MoveForward = true; }
+            if (keyboard.IsKeyDown(keyboardAndMouse.MoveUpKey) || keyboard.IsKeyDown(Keys.Down)) { actions.MoveForward = true; }
             if (keyboard.IsKeyDown(keyboardAndMouse.MoveDownKey) || keyboard.IsKeyDown(Keys.Up)) { actions.MoveBackward = true; }
             if (keyboard.IsKeyDown(keyboardAndMouse.MoveLeftKey) || keyboard.IsKeyDown(Keys.Left)) { actions.MoveLeft = true; }
             if (keyboard.IsKeyDown(keyboardAndMouse.MoveRightKey) || keyboard.IsKeyDown(Keys.Right)) { actions.MoveRight = true; }
