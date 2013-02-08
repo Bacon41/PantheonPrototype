@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using CustomLoad;
+using FuncWorks.XNA.XTiled;
 
 namespace PantheonPrototype
 {
@@ -68,7 +68,7 @@ namespace PantheonPrototype
             // DONE
 
             levelMap = contentManager.Load<Map>(fileName);
-            levelMap.Load(contentManager);
+            //levelMap.Load(contentManager);
             
             // HACK HACK HACK
             this.entities.Add("character", new PlayerEntity());
@@ -95,11 +95,11 @@ namespace PantheonPrototype
         /// be in charge of drawing itself, and the level will merely
         /// draw the physical level. (Tiles, Sprites, Etc)
         /// </summary>
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Rectangle screenRect)
         {
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, this.camera.getTransformation());
 
-            levelMap.Draw(spriteBatch);
+            levelMap.Draw(spriteBatch, screenRect);
 
             foreach (string entityName in this.entities.Keys)
             {
