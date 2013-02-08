@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{3F554306-7A52-4C17-97F9-34A715F0794B}</ProjectGuid>
@@ -71,7 +71,7 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
-    <ItemGroup>
+  <ItemGroup>
     <Compile Include="HUDbackground.png">
       <Name>HUDbackground</Name>
       <Importer>TextureImporter</Importer>
@@ -79,15 +79,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArmorTic.png">
-      <Name>ArmorTic</Name>
+    <Compile Include="IndicatorG.png">
+      <Name>IndicatorG</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IndicatorG.png">
-      <Name>IndicatorG</Name>
+    <Compile Include="HUDbackgroundS.png">
+      <Name>HUDbackgroundS</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ArmorBar.png">
+      <Name>ArmorBar</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

@@ -95,7 +95,7 @@ namespace PantheonPrototype
             }
 
             currentLevel.Update(gameTime, this);
-            hud.Update(gameTime);
+            hud.Update(gameTime, this.currentLevel);
 
             base.Update(gameTime);
         }

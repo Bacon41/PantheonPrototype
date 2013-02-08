@@ -21,10 +21,12 @@ namespace PantheonPrototype
         protected Texture2D image;
         protected Rectangle coordinates;
         protected Color opacity;
+        protected int defaultWidth;
 
         public HUDItem(ContentManager Content, String img, int x, int y)
         {
             image = Content.Load<Texture2D>(img);
+            defaultWidth = image.Width;
             coordinates = new Rectangle(x, y, image.Width, image.Height);
             opacity = new Color(256,256,256,256);
         }
@@ -64,6 +66,14 @@ namespace PantheonPrototype
             opacity.B = (byte)n;
             opacity.G = (byte)n;
             opacity.R = (byte)n;
+        }
+
+        /// <summary>
+        /// Returns the original (default) width of the image
+        /// </summary>
+        public int DefaultWidth
+        {
+            get { return defaultWidth; }
         }
 
         /// <summary>

@@ -17,7 +17,7 @@ namespace PantheonPrototype
         Player()
         {
             TotalArmor = 100;
-            CurrentArmor = 100;
+            CurrentArmor = 75;
             ShieldCapacity = 100;
             ShieldStrength = 100;
         }
