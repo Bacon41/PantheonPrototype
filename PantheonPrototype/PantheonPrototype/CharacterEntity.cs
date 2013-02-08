@@ -118,8 +118,6 @@ namespace PantheonPrototype
         /// <exception cref="ContentLoadException">Thrown when the content manager is unable to load the player sprite.</exception>
         public override void Load(ContentManager contentManager)
         {
-            Texture2D sprite;
-
             base.Load(contentManager);
         }
 
@@ -131,6 +129,8 @@ namespace PantheonPrototype
         public override void Update(GameTime gameTime, Pantheon gameReference)
         {
             base.Update(gameTime, gameReference);
+
+            prevLocation = location;
 
             //Move the player by velocity
             location.X += (int)velocity.X;

@@ -29,6 +29,14 @@ namespace PantheonPrototype
             set { location = value; }
         }
 
+        protected Rectangle prevLocation;
+
+        public Rectangle PrevLocation
+        {
+            get { return prevLocation; }
+            set { prevLocation = value; }
+        }
+
         /// <summary>
         /// A string representing the current state.
         /// </summary>
@@ -67,6 +75,7 @@ namespace PantheonPrototype
         {
             this.sprite = new Sprite();
             this.location = new Rectangle(0, 0, 40, 40);
+            this.prevLocation = this.location;
 
             currentState ="Default";
         }
