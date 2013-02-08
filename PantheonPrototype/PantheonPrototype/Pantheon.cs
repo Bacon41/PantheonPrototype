@@ -31,6 +31,9 @@ namespace PantheonPrototype
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            this.IsFixedTimeStep = true;
+            this.TargetElapsedTime = TimeSpan.FromSeconds(1/30f);
         }
 
         /// <summary>
