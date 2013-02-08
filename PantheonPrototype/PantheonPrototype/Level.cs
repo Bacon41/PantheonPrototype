@@ -106,6 +106,11 @@ namespace PantheonPrototype
                     }
                 }
             }
+
+            // Makes the camera follow the character
+            // This works, but I'm not sure if this is where we want to put this. ~Tumbler
+            camera.Pos = new Vector2(this.entities["character"].Location.X, this.entities["character"].Location.Y);
+                        
         }
 
         /// <summary>
