@@ -75,6 +75,11 @@ namespace PantheonPrototype
             this.entities["character"].Load(contentManager);
         }
 
+        public Dictionary<string, Entity> Entities
+        {
+            get { return entities; }
+        }
+
         /// <summary>
         /// The Update function will run through the level and perform any
         /// necessary operations for processing the frame. This includes
