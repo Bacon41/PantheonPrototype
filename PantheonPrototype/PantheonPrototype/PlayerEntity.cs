@@ -133,7 +133,7 @@ namespace PantheonPrototype
             ///<summary>
             ///TEMPORARY: This should be replaced by an entity feature... probably.
             ///</summary>
-            int movementSpeed = 10;
+            int movementSpeed = 5;
 
             //Reset the velocity to nothing...
             velocity = Vector2.Zero;
@@ -141,22 +141,28 @@ namespace PantheonPrototype
             //Poll for input and update velocity accordingly
             if (gameReference.controlManager.actions.MoveForward)
             {
-                velocity += new Vector2(0, movementSpeed);
+                velocity += new Vector2(0, 1);
             }
 
             if (gameReference.controlManager.actions.MoveBackward)
             {
-                velocity += new Vector2(0, -movementSpeed);
+                velocity += new Vector2(0, -1);
             }
 
             if (gameReference.controlManager.actions.MoveLeft)
             {
-                velocity += new Vector2(-movementSpeed, 0);
+                velocity += new Vector2(-1, 0);
             }
 
             if (gameReference.controlManager.actions.MoveRight)
             {
-                velocity += new Vector2(movementSpeed, 0);
+                velocity += new Vector2(1, 0);
+            }
+
+            if (velocity != Vector2.Zero)
+            {
+                velocity.Normalize();
+                velocity *= movementSpeed;
             }
 
             //Modify the direction in which the character faces

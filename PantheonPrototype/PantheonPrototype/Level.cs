@@ -68,7 +68,6 @@ namespace PantheonPrototype
             // DONE
 
             levelMap = contentManager.Load<Map>(fileName);
-            //levelMap.Load(contentManager);
             
             // HACK HACK HACK
             this.entities.Add("character", new PlayerEntity());
@@ -91,6 +90,21 @@ namespace PantheonPrototype
             foreach (string entityName in this.entities.Keys)
             {
                 this.entities[entityName].Update(gameTime, gameReference);
+            }
+            for (int i = 0; i < levelMap.TileLayers["Collision"].Tiles.Length; i++)
+            {
+                for (int j = 0; j < levelMap.TileLayers["Collision"].Tiles[i].Length; j++)
+                {
+                    if (levelMap.TileLayers["Collision"].Tiles[i][j].SourceID == 0)
+                    {
+                        Rectangle source = levelMap.TileLayers["Collision"].Tiles[i][j].Target;
+                        Rectangle test = new Rectangle(source.X - source.Width / 2, source.Y - source.Height / 2, source.Width, source.Height);
+                        if (test.Intersects(this.entities["character"].Location))
+                        {
+                            this.entities["character"].Location = this.entities["character"].PrevLocation;
+                        }
+                    }
+                }
             }
         }
 
