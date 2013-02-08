@@ -164,7 +164,7 @@ namespace FuncWorks.XNA.XTiled {
 
             for (int l = 0; l < this.TileLayers.Count; l++) {
                 if (this.TileLayers[l].Visible || drawHiddenLayers) {
-                    DrawLayer(spriteBatch, l, ref region, txMin, txMax, tyMin, tyMax, 0);
+                    DrawLayer(spriteBatch, l, ref region, txMin, txMax, tyMin, tyMax, 1);
                 }
             }
         }
