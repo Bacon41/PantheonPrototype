@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="6" height="3" tilewidth="64" tileheight="64">
+<map version="1.0" orientation="orthogonal" width="12" height="12" tilewidth="64" tileheight="64">
  <tileset firstgid="1" name="collision" tilewidth="64" tileheight="64">
   <image source="collision.png" width="128" height="64"/>
  </tileset>
  <tileset firstgid="3" name="test" tilewidth="64" tileheight="64">
   <image source="testImg.png" width="128" height="64"/>
  </tileset>
- <layer name="Tile Layer 1" width="6" height="3">
+ <layer name="Tile Layer 1" width="12" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjZmBgYAFiZjTMgkQjY2Yc6gEJXAA+
+   eJxjZmBgYAZiFhIwMxYaG2ZBk8dlDi42ulnEqMdGDyb1+PRSqh5f2KKbhS++SMEASb4CBQ==
   </data>
  </layer>
- <layer name="Collision" width="6" height="3" visible="0" opacity="0.51">
+ <layer name="Collision" width="12" height="12" visible="0" opacity="0.51">
   <data encoding="base64" compression="zlib">
-   eJxjYmBgYARiJjTMiEQjYyYc6gEEkAAe
+   eJxjYmBgYAJiRijNhMTHhZmw0NgwI5o8LnNwsdHNIkY9Nnowqcenl1L1+MIW3Sx88UUKBgDxEADQ
   </data>
  </layer>
 </map>
