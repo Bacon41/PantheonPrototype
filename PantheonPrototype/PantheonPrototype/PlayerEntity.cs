@@ -19,6 +19,13 @@ namespace PantheonPrototype
     class PlayerEntity : CharacterEntity
     {
         /// <summary>
+        /// The constructor for the player entity class.
+        /// </summary>
+        public PlayerEntity(): base()
+        {
+        }
+
+        /// <summary>
         /// Load the player entity.
         /// </summary>
         /// <param name="contentManager">Read the parameter name... that's what it is.</param>

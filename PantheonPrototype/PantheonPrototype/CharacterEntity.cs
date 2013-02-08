@@ -105,6 +105,13 @@ namespace PantheonPrototype
         }
 
         /// <summary>
+        /// The constuctor... does nothing except call the parent constructor.
+        /// </summary>
+        public CharacterEntity(): base()
+        {
+        }
+
+        /// <summary>
         /// Loads any assets the entity may or may not need.
         /// </summary>
         /// <param name="contentManager">The intialized content manager that will be used to load the asset information.</param>
