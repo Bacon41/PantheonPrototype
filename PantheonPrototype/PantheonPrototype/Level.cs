@@ -71,7 +71,7 @@ namespace PantheonPrototype
             levelMap.Load(contentManager);
             
             // HACK HACK HACK
-            this.entities.Add("character", new CharacterEntity());
+            this.entities.Add("character", new PlayerEntity());
             this.entities["character"].Load(contentManager);
         }
 

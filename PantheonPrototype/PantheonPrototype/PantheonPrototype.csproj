@@ -84,6 +84,7 @@
     <Compile Include="Level.cs" />
     <Compile Include="NPCEntity.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="PlayerEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Pantheon.cs" />
