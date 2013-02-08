@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using FuncWorks.XNA.XTiled;
 
 namespace PantheonPrototype
 {
@@ -26,6 +27,8 @@ namespace PantheonPrototype
         Level currentLevel;
 
         SpriteFont debugFont;
+
+        Rectangle screenRect;
 
         public Pantheon()
         {
@@ -52,6 +55,7 @@ namespace PantheonPrototype
             hud = new HUD(Content, SCREEN_HEIGHT, SCREEN_HEIGHT);
 
             currentLevel = new Level(GraphicsDevice);
+            screenRect = graphics.GraphicsDevice.Viewport.Bounds;
 
             base.Initialize();
         }
@@ -64,8 +68,9 @@ namespace PantheonPrototype
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            Map.InitObjectDrawing(graphics.GraphicsDevice);
 
-            currentLevel.Load("Map1", Content);
+            currentLevel.Load("tiledMap", Content);
 
             debugFont = Content.Load<SpriteFont>("DebugFont");
         }
@@ -111,7 +116,7 @@ namespace PantheonPrototype
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            currentLevel.Draw(spriteBatch);
+            currentLevel.Draw(spriteBatch, screenRect);
             hud.Draw(spriteBatch, debugFont);
 
             base.Draw(gameTime);

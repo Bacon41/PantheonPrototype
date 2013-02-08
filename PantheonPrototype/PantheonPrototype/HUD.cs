@@ -62,7 +62,7 @@ namespace PantheonPrototype
         public void Update(GameTime gameTime, Level level) 
         {
             PlayerEntity player = (PlayerEntity)(level.Entities["character"]);
-            // Set the width of the Armor Bar with respect to the current percent of the player's armor. (Player not implemented yet)
+            // Set the width of the Armor Bar with respect to the current percent of the player's armor.
             try
             {
                 hudItems[0].Coordinates = new Rectangle(hudItems[0].Coordinates.X, hudItems[0].Coordinates.Y, (int)(hudItems[0].DefaultWidth * ((float)player.CurrentArmor / player.TotalArmor)), hudItems[0].Coordinates.Height);

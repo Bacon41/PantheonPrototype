@@ -97,9 +97,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CustomLoad\CustomLoad.csproj">
-      <Project>{BDB776DE-D81A-4AF7-A7B2-D2574822617C}</Project>
-      <Name>CustomLoad</Name>
+    <ProjectReference Include="..\..\XTiled\XTiled [Windows].csproj">
+      <Project>{B2FDF76B-253A-4D65-A622-712DAC4BD2B2}</Project>
+      <Name>XTiled [Windows]</Name>
     </ProjectReference>
     <ProjectReference Include="..\PantheonPrototypeContent\PantheonPrototypeContent.contentproj">
       <Name>PantheonPrototypeContent</Name>
