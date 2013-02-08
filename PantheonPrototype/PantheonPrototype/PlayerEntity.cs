@@ -23,6 +23,10 @@ namespace PantheonPrototype
         /// </summary>
         public PlayerEntity(): base()
         {
+            TotalArmor = 100;
+            CurrentArmor = 75;
+            ShieldCapacity = 100;
+            ShieldStrength = 100;
         }
 
         /// <summary>
