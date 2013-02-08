@@ -185,7 +185,7 @@ namespace PantheonPrototype
             currentFrame++;
 
             //Loop around if the frame range for the current state has been exhausted.
-            if (currentFrame > stateRange[currentState].last)
+            if (currentFrame > stateRange[currentState].last || currentFrame < stateRange[currentState].first)
             {
                 currentFrame = stateRange[currentState].first;
             }
