@@ -76,13 +76,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HUDbackgroundS.png">
-      <Name>HUDbackgroundS</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="ArmorBar.png">
       <Name>ArmorBar</Name>
       <Importer>TextureImporter</Importer>
