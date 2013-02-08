@@ -36,7 +36,7 @@ namespace PantheonPrototype
             SCREEN_WIDTH = WIDTH;
             SCREEN_HEIGHT = HEIGHT;
 
-            background = Content.Load<Texture2D>("HUDbackgroundS");
+            background = Content.Load<Texture2D>("HUDbackground");
             hudItems = new List<HUDItem>();
             HUDcoords = new Vector2(20, SCREEN_HEIGHT - background.Height - 20);
 

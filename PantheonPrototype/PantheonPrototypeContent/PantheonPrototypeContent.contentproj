@@ -72,13 +72,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HUDbackground.png">
-      <Name>HUDbackground</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="IndicatorG.png">
       <Name>IndicatorG</Name>
       <Importer>TextureImporter</Importer>
@@ -86,8 +79,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HUDbackgroundS.png">
-      <Name>HUDbackgroundS</Name>
+    <Compile Include="HUDbackground.png">
+      <Name>HUDbackground</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
