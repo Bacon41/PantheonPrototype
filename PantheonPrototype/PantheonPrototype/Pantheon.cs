@@ -34,6 +34,9 @@ namespace PantheonPrototype
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            this.IsFixedTimeStep = true;
+            this.TargetElapsedTime = TimeSpan.FromSeconds(1/30f);
         }
 
         /// <summary>
@@ -100,7 +103,7 @@ namespace PantheonPrototype
             }
 
             currentLevel.Update(gameTime, this);
-            hud.Update(gameTime);
+            hud.Update(gameTime, this.currentLevel);
 
             base.Update(gameTime);
         }

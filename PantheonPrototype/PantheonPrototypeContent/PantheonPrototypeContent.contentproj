@@ -69,15 +69,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArmorTic.png">
-      <Name>ArmorTic</Name>
+    <Compile Include="IndicatorG.png">
+      <Name>IndicatorG</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IndicatorG.png">
-      <Name>IndicatorG</Name>
+    <Compile Include="HUDbackgroundS.png">
+      <Name>HUDbackgroundS</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ArmorBar.png">
+      <Name>ArmorBar</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

@@ -36,12 +36,12 @@ namespace PantheonPrototype
             SCREEN_WIDTH = WIDTH;
             SCREEN_HEIGHT = HEIGHT;
 
-            background = Content.Load<Texture2D>("HUDbackground");
+            background = Content.Load<Texture2D>("HUDbackgroundS");
             hudItems = new List<HUDItem>();
             HUDcoords = new Vector2(20, SCREEN_HEIGHT - background.Height - 20);
 
 
-            AddItem("ArmorTic", 5, 30);
+            AddItem("ArmorBar", 5, 45);
             AddItem("IndicatorG", 230, 10);
         }
 
@@ -59,10 +59,18 @@ namespace PantheonPrototype
         /// The method to update all of the HUDItems' information.
         /// </summary>
         /// <param name="gameTime">The object that holds all the time information.</param>
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Level level) 
         {
+            PlayerEntity player = (PlayerEntity)(level.Entities["character"]);
             // Set the width of the Armor Bar with respect to the current percent of the player's armor. (Player not implemented yet)
-            hudItems[0].Coordinates = new Rectangle(hudItems[0].Coordinates.X, hudItems[0].Coordinates.Y, hudItems[0].Coordinates.Width/* * Player.currentArmor/Player.TotalArmor*/, hudItems[0].Coordinates.Height);
+            try
+            {
+                hudItems[0].Coordinates = new Rectangle(hudItems[0].Coordinates.X, hudItems[0].Coordinates.Y, (int)(hudItems[0].DefaultWidth * ((float)player.CurrentArmor / player.TotalArmor)), hudItems[0].Coordinates.Height);
+            }
+            catch (DivideByZeroException)
+            {
+                Console.Write("Total armor is zero!");
+            }
         }
 
         /// <summary>

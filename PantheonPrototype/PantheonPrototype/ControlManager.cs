@@ -56,6 +56,29 @@ namespace PantheonPrototype
         //add more when remember what we need
 
     }
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    public struct MouseAndKeyboardControls
+    {
+        public Keys MoveUpKey;
+        public Keys MoveDownKey;
+        public Keys MoveLeftKey;
+        public Keys MoveRightKey;
+
+        public Keys MeleeAttackKey;
+        public Keys PauseKey;
+        public Keys ShieldKey;
+        public Keys InteractKey;
+
+        public ButtonState AttackMouseButton;
+        public Keys WeaponSwapButton;
+        public MouseState ZoomButton;
+        //public Keys ZoomButton;
+        //public Keys AttackButton;
+
+    }
 
     /// <summary>
     /// This is the class that handles the input. It will keep track of all
@@ -69,10 +92,13 @@ namespace PantheonPrototype
         /// </summary>
         public ControlActions actions;
         public GamePadControls gamepadControls;
+        public MouseAndKeyboardControls keyboardAndMouse;
 
         public ControlManager()
         {
-            setDefaultControlScheme();
+           
+            setDefaultGamepadControlScheme();
+            setDefaultMouseAndKeyboardControlScheme();            
             reset();
         }
 
@@ -96,12 +122,13 @@ namespace PantheonPrototype
                 
             }
             //Set action true if keyboard button is pressed
-            if (keyboard.IsKeyDown(Keys.S)) { actions.MoveForward = true; }
-            if (keyboard.IsKeyDown(Keys.W)) { actions.MoveBackward = true; }
-            if (keyboard.IsKeyDown(Keys.A)) { actions.MoveLeft = true; }
-            if (keyboard.IsKeyDown(Keys.D)) { actions.MoveRight = true; }
-            if (keyboard.IsKeyDown(Keys.Escape) && !actions.Pause) { actions.Pause = true; }
-            if (keyboard.IsKeyDown(Keys.Space) && !actions.Shield) { actions.Shield = true; }
+            if (keyboard.IsKeyDown(keyboardAndMouse.MoveUpKey) || keyboard.IsKeyDown(Keys.Down)) { actions.MoveForward = true; }
+            if (keyboard.IsKeyDown(keyboardAndMouse.MoveDownKey) || keyboard.IsKeyDown(Keys.Up)) { actions.MoveBackward = true; }
+            if (keyboard.IsKeyDown(keyboardAndMouse.MoveLeftKey) || keyboard.IsKeyDown(Keys.Left)) { actions.MoveLeft = true; }
+            if (keyboard.IsKeyDown(keyboardAndMouse.MoveRightKey) || keyboard.IsKeyDown(Keys.Right)) { actions.MoveRight = true; }
+            if (keyboard.IsKeyDown(keyboardAndMouse.PauseKey) && !actions.Pause) { actions.Pause = true; }
+            if (keyboard.IsKeyDown(keyboardAndMouse.ShieldKey) && !actions.Shield) { actions.Shield = true; }
+            if (keyboardAndMouse.AttackMouseButton == ButtonState.Pressed) { actions.Attack = true;}
 
             //
             if (mouse.LeftButton == ButtonState.Pressed) { actions.Attack = true; }
@@ -132,7 +159,7 @@ namespace PantheonPrototype
         /// <summary>
         /// Set the default button scheme for the XBOX360 gamepad controller
         /// </summary>
-        private void setDefaultControlScheme()
+        private void setDefaultGamepadControlScheme()
         {
             //TODO: Edit button scheme if buttons need to be changed
             GamePadState gameDefault = GamePad.GetState(PlayerIndex.One);
@@ -146,6 +173,24 @@ namespace PantheonPrototype
             gamepadControls.Magic = gameDefault.Buttons.B;
             gamepadControls.ZoomControl = gameDefault.ThumbSticks.Right;
         }
+
+        private void setDefaultMouseAndKeyboardControlScheme()
+        {
+            KeyboardState keyboardDefault = Keyboard.GetState();
+            MouseState mouseDefault = Mouse.GetState();
+
+            keyboardAndMouse.MoveUpKey = Keys.S;
+            keyboardAndMouse.MoveDownKey = Keys.W;
+            keyboardAndMouse.MoveLeftKey = Keys.A;
+            keyboardAndMouse.MoveRightKey = Keys.D;
+
+            keyboardAndMouse.PauseKey = Keys.Escape;
+            keyboardAndMouse.ShieldKey = Keys.Space;
+            keyboardAndMouse.InteractKey = Keys.E;
+            keyboardAndMouse.AttackMouseButton = mouseDefault.RightButton;
+            
+        }
+
 
         /// <summary>
         /// This function will change the Control binding of a single button to
