@@ -33,7 +33,7 @@ namespace PantheonPrototype
             Content.RootDirectory = "Content";
 
             this.IsFixedTimeStep = true;
-            this.TargetElapsedTime = TimeSpan.FromSeconds(1/1f);
+            this.TargetElapsedTime = TimeSpan.FromSeconds(1/30f);
         }
 
         /// <summary>
