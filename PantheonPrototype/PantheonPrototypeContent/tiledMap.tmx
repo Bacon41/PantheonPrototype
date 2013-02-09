@@ -6,14 +6,19 @@
  <tileset firstgid="3" name="test" tilewidth="64" tileheight="64">
   <image source="testImg.png" width="128" height="64"/>
  </tileset>
- <layer name="Tile Layer 1" width="12" height="12">
+ <layer name="Base" width="12" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjZmBgYAZiFhIwMxYaG2ZBk8dlDi42ulnEqMdGDyb1+PRSqh5f2KKbhS++SMEASb4CBQ==
+   eJxjYWBgYCERMyPR+DALmjpc5uBio5tFjHps9GBSj08vperxhS26WfjiixQMAEw6AgY=
   </data>
  </layer>
  <layer name="Collision" width="12" height="12" visible="0" opacity="0.51">
   <data encoding="base64" compression="zlib">
-   eJxjYmBgYAJiRijNhMTHhZmw0NgwI5o8LnNwsdHNIkY9Nnowqcenl1L1+MIW3Sx88UUKBgDxEADQ
+   eJxjZGBgYCQRMyHR+DAjmjpc5uBio5tFjHps9GBSj08vperxhS26WfjiixQMAOgEAMw=
+  </data>
+ </layer>
+ <layer name="Spawn" width="12" height="12" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJxjYCAdMJKhZxQMTwAABEwAAg==
   </data>
  </layer>
 </map>

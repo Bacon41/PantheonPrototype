@@ -164,6 +164,7 @@ namespace FuncWorks.XNA.XTiled {
 
             for (int l = 0; l < this.TileLayers.Count; l++) {
                 if (this.TileLayers[l].Visible || drawHiddenLayers) {
+                    // Changed this to be on the bottom layer.
                     DrawLayer(spriteBatch, l, ref region, txMin, txMax, tyMin, tyMax, 1);
                 }
             }
@@ -206,8 +207,9 @@ namespace FuncWorks.XNA.XTiled {
                 for (int x = txMin; x <= txMax; x++) {
                     if (x < this.TileLayers[layerID].Tiles.Length && y < this.TileLayers[layerID].Tiles[x].Length && this.TileLayers[layerID].Tiles[x][y] != null) {
                         Rectangle tileTarget = this.TileLayers[layerID].Tiles[x][y].Target;
-                        tileTarget.X = tileTarget.X - region.X;
-                        tileTarget.Y = tileTarget.Y - region.Y;
+                        // Removed the offset part of this code.
+                        //tileTarget.X = tileTarget.X - region.X;
+                        //tileTarget.Y = tileTarget.Y - region.Y;
 
                         spriteBatch.Draw(
                             this.Tilesets[this.SourceTiles[this.TileLayers[layerID].Tiles[x][y].SourceID].TilesetID].Texture,

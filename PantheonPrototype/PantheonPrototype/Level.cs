@@ -34,6 +34,7 @@ namespace PantheonPrototype
         protected Dictionary<string, Entity> entities;
         protected Map levelMap;
         protected Player player;
+        protected Rectangle screenRect;
 
         // Object Function Declaration
         /// <summary>
@@ -44,6 +45,7 @@ namespace PantheonPrototype
         {
             this.entities = new Dictionary<string, Entity>();
             this.camera = new Camera(graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height);
+            this.screenRect = Rectangle.Empty;
         }
 
         /// <summary>
@@ -72,6 +74,20 @@ namespace PantheonPrototype
             // HACK HACK HACK
             this.entities.Add("character", new PlayerEntity());
             this.entities["character"].Load(contentManager);
+
+            // This spawns the character in the right place in the map.
+            for (int i = 0; i < levelMap.TileLayers["Spawn"].Tiles.Length; i++)
+            {
+                for (int j = 0; j < levelMap.TileLayers["Spawn"].Tiles[i].Length; j++)
+                {
+                    if (levelMap.TileLayers["Spawn"].Tiles[i][j] != null && levelMap.TileLayers["Spawn"].Tiles[i][j].SourceID == 0)
+                    {
+                        Rectangle source = levelMap.TileLayers["Spawn"].Tiles[i][j].Target;
+                        this.entities["character"].Location = new Rectangle(source.X - source.Width / 2, source.Y - source.Height / 2,
+                            entities["character"].Location.Width, entities["character"].Location.Height);
+                    }
+                }
+            }
         }
 
         public Dictionary<string, Entity> Entities
@@ -110,7 +126,14 @@ namespace PantheonPrototype
             // Makes the camera follow the character
             // This works, but I'm not sure if this is where we want to put this. ~Tumbler
             camera.Pos = new Vector2(this.entities["character"].Location.X, this.entities["character"].Location.Y);
-                        
+
+            // This is a fairly ugly way of making the tiles draw in the right locations.
+            screenRect.X = this.entities["character"].Location.X - gameReference.GraphicsDevice.Viewport.Width / 2;
+            if (screenRect.X < 0) screenRect.X = 0;
+            screenRect.Y = this.entities["character"].Location.Y - gameReference.GraphicsDevice.Viewport.Height / 2;
+            if (screenRect.Y < 0) screenRect.Y = 0;
+            screenRect.Width = this.entities["character"].Location.X + gameReference.GraphicsDevice.Viewport.Width / 2;
+            screenRect.Height = this.entities["character"].Location.Y + gameReference.GraphicsDevice.Viewport.Height / 2;
         }
 
         /// <summary>
@@ -119,10 +142,10 @@ namespace PantheonPrototype
         /// be in charge of drawing itself, and the level will merely
         /// draw the physical level. (Tiles, Sprites, Etc)
         /// </summary>
-        public void Draw(SpriteBatch spriteBatch, Rectangle screenRect)
+        public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, this.camera.getTransformation());
-
+            
             levelMap.Draw(spriteBatch, screenRect);
 
             foreach (string entityName in this.entities.Keys)

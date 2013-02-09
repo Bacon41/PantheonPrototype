@@ -28,8 +28,6 @@ namespace PantheonPrototype
 
         SpriteFont debugFont;
 
-        Rectangle screenRect;
-
         public Pantheon()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -55,7 +53,6 @@ namespace PantheonPrototype
             hud = new HUD(Content, SCREEN_HEIGHT, SCREEN_HEIGHT);
 
             currentLevel = new Level(GraphicsDevice);
-            screenRect = graphics.GraphicsDevice.Viewport.Bounds;
 
             base.Initialize();
         }
@@ -114,9 +111,9 @@ namespace PantheonPrototype
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
-            currentLevel.Draw(spriteBatch, screenRect);
+            currentLevel.Draw(spriteBatch);
             hud.Draw(spriteBatch, debugFont);
 
             base.Draw(gameTime);
