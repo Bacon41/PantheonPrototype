@@ -50,7 +50,7 @@ namespace PantheonPrototype
             int SCREEN_WIDTH = GraphicsDevice.Viewport.Width;
             int SCREEN_HEIGHT = GraphicsDevice.Viewport.Height;
 
-            hud = new HUD(Content, SCREEN_WIDTH, SCREEN_HEIGHT);
+            hud = new HUD(GraphicsDevice, Content, SCREEN_WIDTH, SCREEN_HEIGHT);
 
             currentLevel = new Level(GraphicsDevice);
 
@@ -109,7 +109,7 @@ namespace PantheonPrototype
                 currentLevel.Load("map1", Content);
             }
 
-            hud.Update(gameTime, this.currentLevel);
+            hud.Update(gameTime, this, this.currentLevel);
 
             base.Update(gameTime);
         }

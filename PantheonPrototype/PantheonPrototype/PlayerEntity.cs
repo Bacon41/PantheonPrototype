@@ -19,21 +19,15 @@ namespace PantheonPrototype
     /// </summary>
     class PlayerEntity : CharacterEntity
     {
-        protected Vector2 cursorLocation;
-        protected Texture2D blank;
-
         /// <summary>
         /// The constructor for the player entity class.
         /// </summary>
-        public PlayerEntity(Pantheon gameReference): base()
+        public PlayerEntity(GraphicsDevice graphicsDevice): base()
         {
             TotalArmor = 100;
             CurrentArmor = 75;
             ShieldCapacity = 100;
             ShieldStrength = 100;
-
-            this.cursorLocation = Vector2.Zero;
-            this.blank = new Texture2D(gameReference.GraphicsDevice, 1, 1);
         }
 
         /// <summary>
@@ -112,8 +106,6 @@ namespace PantheonPrototype
             //Update the sprite appropriately
             updateSprite();
 
-            this.cursorLocation = gameReference.controlManager.actions.CursorDirection;
-
             base.Update(gameTime, gameReference);
         }
 
@@ -124,10 +116,6 @@ namespace PantheonPrototype
         public override void Draw(SpriteBatch canvas)
         {
             base.Draw(canvas);
-            
-            Vector2 blah = new Vector2(this.location.Center.X, this.location.Center.Y);
-
-            HamburgerHelper.DrawLine(canvas, this.blank, (float)5, Color.Red, blah, this.cursorLocation);
         }
 
         /// <summary>

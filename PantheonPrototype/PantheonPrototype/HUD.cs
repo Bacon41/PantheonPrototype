@@ -25,14 +25,17 @@ namespace PantheonPrototype
         /// </summary>
         protected List<HUDItem> hudItems;
         protected ContentManager content;
+        protected GraphicsDevice graphicsDevice;
         protected Texture2D backing;
         protected Texture2D background;
         protected Vector2 HUDcoords;
+        protected Vector2 cursorLocation;
         protected int SCREEN_WIDTH;
         protected int SCREEN_HEIGHT;
 
-        public HUD(ContentManager Content, int WIDTH, int HEIGHT)
+        public HUD(GraphicsDevice graphicsDevice, ContentManager Content, int WIDTH, int HEIGHT)
         {
+            this.graphicsDevice = graphicsDevice;
             content = Content;
             SCREEN_WIDTH = WIDTH;
             SCREEN_HEIGHT = HEIGHT;
@@ -41,7 +44,7 @@ namespace PantheonPrototype
             background = Content.Load<Texture2D>("HUDbackground");
             hudItems = new List<HUDItem>();
             HUDcoords = new Vector2(0, SCREEN_HEIGHT - background.Height - 20);
-
+            cursorLocation = Vector2.Zero;
 
             AddItem("ArmorBar", 5, 45);
             AddItem("IndicatorG", 230, 10);
@@ -61,8 +64,10 @@ namespace PantheonPrototype
         /// The method to update all of the HUDItems' information.
         /// </summary>
         /// <param name="gameTime">The object that holds all the time information.</param>
-        public void Update(GameTime gameTime, Level level) 
+        public void Update(GameTime gameTime, Pantheon gameReference, Level level) 
         {
+            this.cursorLocation = gameReference.controlManager.actions.CursorPosition;
+
             PlayerEntity player = (PlayerEntity)(level.Entities["character"]);
             // Set the width of the Armor Bar with respect to the current percent of the player's armor.
             try
@@ -102,6 +107,8 @@ namespace PantheonPrototype
             {
                 spriteBatch.Draw(hudItems[i].Image, hudItems[i].Coordinates, hudItems[i].Opacity);
             }
+
+            HamburgerHelper.DrawLine(spriteBatch, new Texture2D(this.graphicsDevice, 1, 1), (float)1.25, Color.Red, new Vector2(this.graphicsDevice.Viewport.Width/2, this.graphicsDevice.Viewport.Height/2), this.cursorLocation);
 
             spriteBatch.End();
         }
