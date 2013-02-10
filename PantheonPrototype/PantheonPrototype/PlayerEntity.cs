@@ -9,7 +9,6 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using PantheonPrototype;
 
 namespace PantheonPrototype
 {
@@ -22,12 +21,16 @@ namespace PantheonPrototype
         /// <summary>
         /// The constructor for the player entity class.
         /// </summary>
-        public PlayerEntity(GraphicsDevice graphicsDevice): base()
+        public PlayerEntity(): base()
         {
             TotalArmor = 100;
             CurrentArmor = 75;
             ShieldCapacity = 100;
             ShieldStrength = 100;
+
+            //Set the initial location
+            Location = new Rectangle(0, 0, 40, 40);
+            BoundingBox = new Rectangle(15, 25, 10, 10);
         }
 
         /// <summary>

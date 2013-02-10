@@ -104,13 +104,13 @@ namespace PantheonPrototype
             {
                 this.entities[entityName].Update(gameTime, gameReference);
             }
-            foreach (TileData tile in levelMap.GetTilesInRegion(this.entities["character"].Location))
+            foreach (TileData tile in levelMap.GetTilesInRegion(this.entities["character"].BoundingBox))
             {
                 if (tile.SourceID == 0)
                 {
                     Rectangle test = new Rectangle(tile.Target.X - tile.Target.Width / 2, tile.Target.Y - tile.Target.Height / 2,
                         tile.Target.Width, tile.Target.Height);
-                    if (test.Intersects(this.entities["character"].Location))
+                    if (test.Intersects(this.entities["character"].BoundingBox))
                     {
                         this.entities["character"].Location = this.entities["character"].PrevLocation;
                     }
