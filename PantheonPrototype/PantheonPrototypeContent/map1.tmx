@@ -3,15 +3,12 @@
  <tileset firstgid="1" name="collision" tilewidth="64" tileheight="64">
   <image source="collision.png" width="128" height="64"/>
  </tileset>
- <tileset firstgid="3" name="spawn" tilewidth="64" tileheight="64">
-  <image source="spawn.png" width="128" height="64"/>
- </tileset>
- <tileset firstgid="5" name="test" tilewidth="64" tileheight="64">
-  <image source="testImg.png" width="128" height="64"/>
+ <tileset firstgid="3" name="base" tilewidth="64" tileheight="64">
+  <image source="baseTiles.png" width="128" height="64"/>
  </tileset>
  <layer name="Base" width="12" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjY2BgYCMRsyLR+DAbmjpc5uBio5tFjHps9GBSj08vperxhS26WfjiixQMAJKJAyY=
+   eJxjYWBgYCERMyPR+DALmjpc5uBio5tFjHps9GBSj08vperxhS26WfjiixQMAEw6AgY=
   </data>
  </layer>
  <layer name="Collision" width="12" height="12" visible="0" opacity="0.51">

@@ -67,7 +67,7 @@ namespace PantheonPrototype
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Map.InitObjectDrawing(graphics.GraphicsDevice);
 
-            currentLevel.Load("tiledMap", Content);
+            currentLevel.Load("map1", Content);
 
             debugFont = Content.Load<SpriteFont>("DebugFont");
         }
