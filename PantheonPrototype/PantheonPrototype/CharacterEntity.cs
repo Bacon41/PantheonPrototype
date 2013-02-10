@@ -133,8 +133,9 @@ namespace PantheonPrototype
             prevLocation = location;
 
             //Move the player by velocity
-            location.X += (int)velocity.X;
-            location.Y += (int)velocity.Y;
+            //location.X += (int)velocity.X;
+            //location.Y += (int)velocity.Y;
+            Location = new Rectangle(location.X + (int)velocity.X, location.Y + (int)velocity.Y, location.Width, location.Height);
 
             //If the shield is on, drain it
             if (shieldOn)

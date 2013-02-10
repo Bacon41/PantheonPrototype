@@ -27,6 +27,10 @@ namespace PantheonPrototype
             CurrentArmor = 75;
             ShieldCapacity = 100;
             ShieldStrength = 100;
+
+            //Set the initial location
+            Location = new Rectangle(0, 0, 40, 40);
+            BoundingBox = new Rectangle(15, 25, 10, 10);
         }
 
         /// <summary>

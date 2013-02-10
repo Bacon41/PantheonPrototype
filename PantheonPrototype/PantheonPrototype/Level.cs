@@ -115,7 +115,7 @@ namespace PantheonPrototype
                 {
                     Rectangle source = tile.Target;
                     Rectangle test = new Rectangle(source.X - source.Width / 2, source.Y - source.Height / 2, source.Width, source.Height);
-                    if (test.Intersects(this.entities["character"].Location))
+                    if (test.Intersects(this.entities["character"].BoundingBox))
                     {
                         this.entities["character"].Location = this.entities["character"].PrevLocation;
                     }

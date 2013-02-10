@@ -26,7 +26,17 @@ namespace PantheonPrototype
         public Rectangle Location
         {
             get { return location; }
-            set { location = value; }
+            set
+            {
+                //Cows...............................
+                int offsetX = boundingBox.X - location.X;
+                int offsetY = boundingBox.Y - location.Y;
+
+                location = value;
+
+                //Updait the bounding rabbits
+                boundingBox = new Rectangle(location.X + offsetX, location.Y + offsetY, boundingBox.Width, boundingBox.Height);
+            }
         }
 
         protected Rectangle prevLocation;
@@ -35,6 +45,28 @@ namespace PantheonPrototype
         {
             get { return prevLocation; }
             set { prevLocation = value; }
+        }
+
+        /// <summary>
+        /// Puppies!!!
+        /// 
+        /// Also, this is the bounding box. It defaults to the size of the
+        /// location, but it can be changed.
+        /// </summary>
+        protected Rectangle boundingBox;
+
+        public Rectangle BoundingBox
+        {
+            get { return boundingBox; }
+            set {
+                boundingBox = value;
+
+                if (location != null)
+                {
+                    boundingBox.X = location.X + boundingBox.X;
+                    boundingBox.Y = location.Y + boundingBox.Y;
+                }
+            }
         }
 
         /// <summary>
@@ -75,6 +107,7 @@ namespace PantheonPrototype
         {
             this.sprite = new Sprite();
             this.location = new Rectangle(0, 0, 40, 40);
+            this.boundingBox = new Rectangle(0, 0, 40, 40);
             this.prevLocation = this.location;
 
             currentState ="Default";
