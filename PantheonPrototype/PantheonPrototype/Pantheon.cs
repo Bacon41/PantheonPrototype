@@ -50,7 +50,7 @@ namespace PantheonPrototype
             int SCREEN_WIDTH = GraphicsDevice.Viewport.Width;
             int SCREEN_HEIGHT = GraphicsDevice.Viewport.Height;
 
-            hud = new HUD(Content, SCREEN_HEIGHT, SCREEN_HEIGHT);
+            hud = new HUD(Content, SCREEN_WIDTH, SCREEN_HEIGHT);
 
             currentLevel = new Level(GraphicsDevice);
 
@@ -67,7 +67,7 @@ namespace PantheonPrototype
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Map.InitObjectDrawing(graphics.GraphicsDevice);
 
-            currentLevel.Load("tiledMap", Content);
+            currentLevel.Load("map1", Content);
 
             debugFont = Content.Load<SpriteFont>("DebugFont");
         }
@@ -99,7 +99,16 @@ namespace PantheonPrototype
                 this.Exit();
             }
 
-            currentLevel.Update(gameTime, this);
+            if (currentLevel.LevelPlaying)
+            {
+                currentLevel.Update(gameTime, this);
+            }
+            else
+            {
+                currentLevel = new Level(GraphicsDevice);
+                currentLevel.Load("map1", Content);
+            }
+
             hud.Update(gameTime, this.currentLevel);
 
             base.Update(gameTime);

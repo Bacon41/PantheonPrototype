@@ -40,7 +40,7 @@ namespace PantheonPrototype
             backing = Content.Load<Texture2D>("HUDbacking");
             background = Content.Load<Texture2D>("HUDbackground");
             hudItems = new List<HUDItem>();
-            HUDcoords = new Vector2(20, SCREEN_HEIGHT - background.Height - 20);
+            HUDcoords = new Vector2(0, SCREEN_HEIGHT - background.Height - 20);
 
 
             AddItem("ArmorBar", 5, 45);
@@ -83,7 +83,10 @@ namespace PantheonPrototype
         {
             spriteBatch.Begin();
 
-            spriteBatch.DrawString(font, "Pantheon Prototype XD", new Vector2(0, 0), Color.Black);
+            string title = "Pantheon Prototype XDRAGONS";
+
+            spriteBatch.DrawString(font, title, new Vector2(1, 1), Color.DarkGray);
+            spriteBatch.DrawString(font, title, new Vector2(0, 0), Color.LightGray);
 
             // Draw the Backing
             spriteBatch.Draw(backing, new Rectangle((int)HUDcoords.X, (int)HUDcoords.Y, background.Width, background.Height), Color.White);

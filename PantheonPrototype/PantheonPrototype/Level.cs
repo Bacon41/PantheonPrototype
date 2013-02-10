@@ -35,7 +35,16 @@ namespace PantheonPrototype
         protected Map levelMap;
         protected Player player;
         protected Rectangle screenRect;
-        protected Texture2D blank;
+        protected Texture2D hideTexture;
+        protected Rectangle hideRect;
+        protected int hideRectDimen;
+        protected bool levelStart;
+        protected bool levelPlaying;
+
+        public bool LevelPlaying
+        {
+            get { return levelPlaying; }
+        }
 
         // Object Function Declaration
         /// <summary>
@@ -47,7 +56,11 @@ namespace PantheonPrototype
             this.entities = new Dictionary<string, Entity>();
             this.camera = new Camera(graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height);
             this.screenRect = Rectangle.Empty;
-            this.blank = new Texture2D(graphicsDevice, 1, 1, false, SurfaceFormat.Color);
+            this.hideTexture = new Texture2D(graphicsDevice, 1, 1, false, SurfaceFormat.Color);
+            this.hideRect = Rectangle.Empty;
+            this.hideRectDimen = graphicsDevice.Viewport.Height;
+            this.levelStart = true;
+            this.levelPlaying = true;
         }
 
         /// <summary>
@@ -55,39 +68,18 @@ namespace PantheonPrototype
         /// </summary>
         public void Load(string fileName, ContentManager contentManager)
         {
-            // Open file
-            // Read file
-            // initialize tile set
-            //  -- read in tiles
-            //  -- associate with ids
-            // initialize map
-            //  -- create tile map
-            //  -- build collision map (?)
-            //  -- build portal map (?)
-            // initialize entities
-            //player = new Player();
-            //  -- build entities using factory
-            //  -- string together into an entity map
-            //  -- initialize each entitiy as it is stored
-            // DONE
-
             levelMap = contentManager.Load<Map>(fileName);
             
-            // HACK HACK HACK
             this.entities.Add("character", new PlayerEntity());
             this.entities["character"].Load(contentManager);
 
             // This spawns the character in the right place in the map.
-            for (int i = 0; i < levelMap.TileLayers["Spawn"].Tiles.Length; i++)
+            foreach (MapObject obj in levelMap.ObjectLayers["Spawn"].MapObjects)
             {
-                for (int j = 0; j < levelMap.TileLayers["Spawn"].Tiles[i].Length; j++)
+                if (obj.Name == "start")
                 {
-                    if (levelMap.TileLayers["Spawn"].Tiles[i][j] != null && levelMap.TileLayers["Spawn"].Tiles[i][j].SourceID == 2)
-                    {
-                        Rectangle source = levelMap.TileLayers["Spawn"].Tiles[i][j].Target;
-                        this.entities["character"].Location = new Rectangle(source.X - source.Width / 2, source.Y - source.Height / 2,
-                            entities["character"].Location.Width, entities["character"].Location.Height);
-                    }
+                    this.entities["character"].Location = new Rectangle(obj.Bounds.X, obj.Bounds.Y,
+                        entities["character"].Location.Width, entities["character"].Location.Height);
                 }
             }
         }
@@ -109,12 +101,12 @@ namespace PantheonPrototype
             {
                 this.entities[entityName].Update(gameTime, gameReference);
             }
-            foreach (TileData tile in levelMap.GetTilesInRegion(this.entities["character"].Location))
+            foreach (TileData tile in levelMap.GetTilesInRegion(this.entities["character"].BoundingBox))
             {
                 if (tile.SourceID == 0)
                 {
-                    Rectangle source = tile.Target;
-                    Rectangle test = new Rectangle(source.X - source.Width / 2, source.Y - source.Height / 2, source.Width, source.Height);
+                    Rectangle test = new Rectangle(tile.Target.X - tile.Target.Width / 2, tile.Target.Y - tile.Target.Height / 2,
+                        tile.Target.Width, tile.Target.Height);
                     if (test.Intersects(this.entities["character"].BoundingBox))
                     {
                         this.entities["character"].Location = this.entities["character"].PrevLocation;
@@ -133,6 +125,26 @@ namespace PantheonPrototype
             if (screenRect.Y < 0) screenRect.Y = 0;
             screenRect.Width = this.entities["character"].Location.X + gameReference.GraphicsDevice.Viewport.Width / 2;
             screenRect.Height = this.entities["character"].Location.Y + gameReference.GraphicsDevice.Viewport.Height / 2;
+
+            if (levelStart)
+            {
+                hideRect = new Rectangle(screenRect.X, screenRect.Y, gameReference.GraphicsDevice.Viewport.Width, hideRectDimen);
+                hideRectDimen -= 10;
+                if (hideRectDimen < 0) levelStart = false;
+            }
+
+            foreach (MapObject obj in levelMap.ObjectLayers["Spawn"].MapObjects)
+            {
+                if (obj.Name == "end" && obj.Bounds.Intersects(this.entities["character"].Location))
+                {
+                    hideRect = new Rectangle(screenRect.X, screenRect.Y, gameReference.GraphicsDevice.Viewport.Width, hideRectDimen);
+                    hideRectDimen += 10;
+                    if (hideRectDimen > gameReference.GraphicsDevice.Viewport.Height)
+                    {
+                        levelPlaying = false;
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -152,6 +164,9 @@ namespace PantheonPrototype
                 this.entities[entityName].Draw(spriteBatch);
             }
 
+            hideTexture.SetData(new[] { Color.Black });
+            spriteBatch.Draw(hideTexture, hideRect, Color.White);
+
             spriteBatch.End();
         }
 
@@ -168,10 +183,10 @@ namespace PantheonPrototype
             // The angle between the two points (to get the rotation of the texture) and the distance between them
             float angle = (float)Math.Atan2(point2.Y - point1.Y, point2.X - point1.X);
             float length = Vector2.Distance(point1, point2);
-            blank.SetData(new[] { color });
+            hideTexture.SetData(new[] { color });
 
             // Drawing the empty texture from point1 to point2
-            batch.Draw(blank, point1, null, color, angle, Vector2.Zero, new Vector2(length, width), SpriteEffects.None, 0);
+            batch.Draw(hideTexture, point1, null, color, angle, Vector2.Zero, new Vector2(length, width), SpriteEffects.None, 0);
         }
     }
 }
