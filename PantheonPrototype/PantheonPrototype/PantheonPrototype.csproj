@@ -79,6 +79,7 @@
     <Compile Include="ControlManager.cs" />
     <Compile Include="EnemyEntity.cs" />
     <Compile Include="Entity.cs" />
+    <Compile Include="HamburgerHelper.cs" />
     <Compile Include="HUD.cs" />
     <Compile Include="HUDItem.cs" />
     <Compile Include="Level.cs" />
