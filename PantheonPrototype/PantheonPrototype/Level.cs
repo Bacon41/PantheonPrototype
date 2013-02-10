@@ -35,6 +35,7 @@ namespace PantheonPrototype
         protected Map levelMap;
         protected Player player;
         protected Rectangle screenRect;
+        protected Texture2D blank;
 
         // Object Function Declaration
         /// <summary>
@@ -46,6 +47,7 @@ namespace PantheonPrototype
             this.entities = new Dictionary<string, Entity>();
             this.camera = new Camera(graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height);
             this.screenRect = Rectangle.Empty;
+            this.blank = new Texture2D(graphicsDevice, 1, 1, false, SurfaceFormat.Color);
         }
 
         /// <summary>
@@ -80,7 +82,7 @@ namespace PantheonPrototype
             {
                 for (int j = 0; j < levelMap.TileLayers["Spawn"].Tiles[i].Length; j++)
                 {
-                    if (levelMap.TileLayers["Spawn"].Tiles[i][j] != null && levelMap.TileLayers["Spawn"].Tiles[i][j].SourceID == 0)
+                    if (levelMap.TileLayers["Spawn"].Tiles[i][j] != null && levelMap.TileLayers["Spawn"].Tiles[i][j].SourceID == 2)
                     {
                         Rectangle source = levelMap.TileLayers["Spawn"].Tiles[i][j].Target;
                         this.entities["character"].Location = new Rectangle(source.X - source.Width / 2, source.Y - source.Height / 2,
@@ -107,18 +109,15 @@ namespace PantheonPrototype
             {
                 this.entities[entityName].Update(gameTime, gameReference);
             }
-            for (int i = 0; i < levelMap.TileLayers["Collision"].Tiles.Length; i++)
+            foreach (TileData tile in levelMap.GetTilesInRegion(this.entities["character"].Location))
             {
-                for (int j = 0; j < levelMap.TileLayers["Collision"].Tiles[i].Length; j++)
+                if (tile.SourceID == 0)
                 {
-                    if (levelMap.TileLayers["Collision"].Tiles[i][j].SourceID == 0)
+                    Rectangle source = tile.Target;
+                    Rectangle test = new Rectangle(source.X - source.Width / 2, source.Y - source.Height / 2, source.Width, source.Height);
+                    if (test.Intersects(this.entities["character"].Location))
                     {
-                        Rectangle source = levelMap.TileLayers["Collision"].Tiles[i][j].Target;
-                        Rectangle test = new Rectangle(source.X - source.Width / 2, source.Y - source.Height / 2, source.Width, source.Height);
-                        if (test.Intersects(this.entities["character"].Location))
-                        {
-                            this.entities["character"].Location = this.entities["character"].PrevLocation;
-                        }
+                        this.entities["character"].Location = this.entities["character"].PrevLocation;
                     }
                 }
             }
@@ -154,6 +153,25 @@ namespace PantheonPrototype
             }
 
             spriteBatch.End();
+        }
+
+        /// <summary>
+        /// The method to draw the lines for the level edging.
+        /// </summary>
+        /// <param name="batch">The object that allows the drawing.</param>
+        /// <param name="width">The thickness of the line.</param>
+        /// <param name="color">The color of the line.</param>
+        /// <param name="point1">The start point for the line.</param>
+        /// <param name="point2">The end point for the line.</param>
+        void DrawLine(SpriteBatch batch, float width, Color color, Vector2 point1, Vector2 point2)
+        {
+            // The angle between the two points (to get the rotation of the texture) and the distance between them
+            float angle = (float)Math.Atan2(point2.Y - point1.Y, point2.X - point1.X);
+            float length = Vector2.Distance(point1, point2);
+            blank.SetData(new[] { color });
+
+            // Drawing the empty texture from point1 to point2
+            batch.Draw(blank, point1, null, color, angle, Vector2.Zero, new Vector2(length, width), SpriteEffects.None, 0);
         }
     }
 }
