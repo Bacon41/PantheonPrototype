@@ -23,13 +23,16 @@ namespace PantheonPrototype
         public bool MoveRight;
 
         public bool Attack;
-        public bool Shield;       
+        public bool Shield;     
 
         public bool Pause;
         public bool Zoom;
         public bool Interact;
 
+        public bool CursorEnabled;
+
         public Vector2 CursorPosition;
+        public Vector2 CursorDirection;
     }
 
     /// <summary>
@@ -118,8 +121,16 @@ namespace PantheonPrototype
             GamePadState gamepad = GamePad.GetState(PlayerIndex.One);
             if (gamepad.IsConnected)
             {
+                //No longer using a mouse
+                actions.CursorEnabled = false;
+
                 if (gamepadControls.Pause == ButtonState.Pressed) { actions.Pause = true; }
-                
+
+            }
+            else
+            {
+                //We are using a mouse
+                actions.CursorEnabled = true;
             }
             //Set action true if keyboard button is pressed
             if (keyboard.IsKeyDown(keyboardAndMouse.MoveUpKey) || keyboard.IsKeyDown(Keys.Down)) { actions.MoveForward = true; }
