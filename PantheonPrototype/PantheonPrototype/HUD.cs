@@ -83,7 +83,7 @@ namespace PantheonPrototype
         {
             spriteBatch.Begin();
 
-            spriteBatch.DrawString(font, "Pantheon Prototype XD", new Vector2(0, 0), Color.Black);
+            spriteBatch.DrawString(font, "Pantheon Prototype XDRAGONS", new Vector2(0, 0), Color.Black);
 
             // Draw the Backing
             spriteBatch.Draw(backing, new Rectangle((int)HUDcoords.X, (int)HUDcoords.Y, background.Width, background.Height), Color.White);
