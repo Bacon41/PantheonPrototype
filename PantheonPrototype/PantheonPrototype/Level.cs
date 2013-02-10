@@ -78,16 +78,12 @@ namespace PantheonPrototype
             this.entities["character"].Load(contentManager);
 
             // This spawns the character in the right place in the map.
-            for (int i = 0; i < levelMap.TileLayers["Spawn"].Tiles.Length; i++)
+            foreach (MapObject obj in levelMap.ObjectLayers["Spawn"].MapObjects)
             {
-                for (int j = 0; j < levelMap.TileLayers["Spawn"].Tiles[i].Length; j++)
+                if (obj.Name == "start")
                 {
-                    if (levelMap.TileLayers["Spawn"].Tiles[i][j] != null && levelMap.TileLayers["Spawn"].Tiles[i][j].SourceID == 2)
-                    {
-                        Rectangle source = levelMap.TileLayers["Spawn"].Tiles[i][j].Target;
-                        this.entities["character"].Location = new Rectangle(source.X - source.Width / 2, source.Y - source.Height / 2,
-                            entities["character"].Location.Width, entities["character"].Location.Height);
-                    }
+                    this.entities["character"].Location = new Rectangle(obj.Bounds.X, obj.Bounds.Y,
+                        entities["character"].Location.Width, entities["character"].Location.Height);
                 }
             }
         }

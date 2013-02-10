@@ -19,9 +19,8 @@
    eJxjZGBgYCQRMyHR+DAjmjpc5uBio5tFjHps9GBSj08vperxhS26WfjiixQMAOgEAMw=
   </data>
  </layer>
- <layer name="Spawn" width="12" height="12" visible="0">
-  <data encoding="base64" compression="zlib">
-   eJxjYCAdMJOhZxSQB1gG2gEEAAAK5AAI
-  </data>
- </layer>
+ <objectgroup name="Spawn" width="12" height="12">
+  <object name="start" x="76" y="76" width="38" height="36"/>
+  <object name="end" x="524" y="527" width="44" height="40"/>
+ </objectgroup>
 </map>
