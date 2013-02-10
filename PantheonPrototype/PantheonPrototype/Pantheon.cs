@@ -50,7 +50,7 @@ namespace PantheonPrototype
             int SCREEN_WIDTH = GraphicsDevice.Viewport.Width;
             int SCREEN_HEIGHT = GraphicsDevice.Viewport.Height;
 
-            hud = new HUD(Content, SCREEN_HEIGHT, SCREEN_HEIGHT);
+            hud = new HUD(Content, SCREEN_WIDTH, SCREEN_HEIGHT);
 
             currentLevel = new Level(GraphicsDevice);
 
