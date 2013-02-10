@@ -99,7 +99,16 @@ namespace PantheonPrototype
                 this.Exit();
             }
 
-            currentLevel.Update(gameTime, this);
+            if (currentLevel.LevelPlaying)
+            {
+                currentLevel.Update(gameTime, this);
+            }
+            else
+            {
+                currentLevel = new Level(GraphicsDevice);
+                currentLevel.Load("map1", Content);
+            }
+
             hud.Update(gameTime, this.currentLevel);
 
             base.Update(gameTime);

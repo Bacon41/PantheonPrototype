@@ -17,7 +17,7 @@
   </data>
  </layer>
  <objectgroup name="Spawn" width="12" height="12">
-  <object name="start" x="76" y="76" width="38" height="36"/>
-  <object name="end" x="524" y="527" width="44" height="40"/>
+  <object name="start" x="75" y="289" width="38" height="36"/>
+  <object name="end" x="201" y="652" width="44" height="40"/>
  </objectgroup>
 </map>
