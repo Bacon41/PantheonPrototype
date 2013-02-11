@@ -143,15 +143,21 @@ namespace PantheonPrototype
 
             if (levelStart)
             {
+                gameReference.controlManager.disableControls();
                 hideRect = new Rectangle(screenRect.X, screenRect.Y, gameReference.GraphicsDevice.Viewport.Width, hideRectDimen);
                 hideRectDimen -= 10;
-                if (hideRectDimen < 0) levelStart = false;
+                if (hideRectDimen < 0)
+                {
+                    levelStart = false;
+                    gameReference.controlManager.enableControls();
+                }
             }
 
             foreach (MapObject obj in levelMap.ObjectLayers["Spawn"].MapObjects)
             {
                 if (obj.Name.Substring(0, 3) == "end" && obj.Bounds.Intersects(this.entities["character"].Location))
                 {
+                    gameReference.controlManager.disableControls();
                     hideRect = new Rectangle(screenRect.X, screenRect.Y, gameReference.GraphicsDevice.Viewport.Width, hideRectDimen);
                     hideRectDimen += 10;
                     if (hideRectDimen > gameReference.GraphicsDevice.Viewport.Height)

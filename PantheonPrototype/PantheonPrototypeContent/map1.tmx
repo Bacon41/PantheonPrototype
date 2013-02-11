@@ -8,16 +8,17 @@
  </tileset>
  <layer name="Base" width="12" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjYWBgYCERMyPR+DALmjpc5uBio5tFjHps9GBSj08vperxhS26WfjiixQMAEw6AgY=
+   eJxjYWBgYCERMyPR+DALmjpc5uBio5uFTw26GLHm01s9Ib9Qoh5f2KKbhS++SMEASroCBQ==
   </data>
  </layer>
  <layer name="Collision" width="12" height="12" visible="0" opacity="0.51">
   <data encoding="base64" compression="zlib">
-   eJxjZGBgYCQRMyHR+DAjmjpc5uBio5tFjHps9GBSj08vperxhS26WfjiixQMAOgEAMw=
+   eJxjZGBgYCQRMyHR+DAjmjpc5uBio5uFTw26GLHm01s9Ib9Qoh5f2KKbhS++SMEA6YQAzQ==
   </data>
  </layer>
  <objectgroup name="Spawn" width="12" height="12">
-  <object name="startmap0" x="75" y="289" width="38" height="36"/>
-  <object name="endmap2" x="201" y="652" width="44" height="40"/>
+  <object name="startmap0" x="75" y="74" width="38" height="36"/>
+  <object name="endmap2" x="3" y="262" width="11" height="45"/>
+  <object name="startmap2" x="35" y="266" width="17" height="37"/>
  </objectgroup>
 </map>
