@@ -17,6 +17,7 @@ namespace PantheonPrototype
     /// </summary>
     public struct ControlActions
     {
+        public bool isControlEnabled;
         public bool MoveForward;
         public bool MoveBackward;
         public bool MoveLeft;
@@ -99,7 +100,7 @@ namespace PantheonPrototype
 
         public ControlManager()
         {
-           
+            actions.isControlEnabled = true;
             setDefaultGamepadControlScheme();
             setDefaultMouseAndKeyboardControlScheme();            
             reset();
@@ -119,40 +120,45 @@ namespace PantheonPrototype
             
             //Get the gamepad state
             GamePadState gamepad = GamePad.GetState(PlayerIndex.One);
-            if (gamepad.IsConnected)
+            if (actions.isControlEnabled == true)
             {
-                //No longer using a mouse
-                actions.CursorEnabled = false;
 
-                if (gamepadControls.Pause == ButtonState.Pressed) { actions.Pause = true; }
+                if (gamepad.IsConnected)
+                {
+                    //No longer using a mouse
+                    actions.CursorEnabled = false;
 
+                    if (gamepadControls.Pause == ButtonState.Pressed) { actions.Pause = true; }
+
+                }
+                else
+                {
+                    //We are using a mouse
+                    actions.CursorEnabled = true;
+                }
+                //Set action true if keyboard button is pressed
+                if (keyboard.IsKeyDown(keyboardAndMouse.MoveUpKey) || keyboard.IsKeyDown(Keys.Down)) { actions.MoveForward = true; }
+                if (keyboard.IsKeyDown(keyboardAndMouse.MoveDownKey) || keyboard.IsKeyDown(Keys.Up)) { actions.MoveBackward = true; }
+                if (keyboard.IsKeyDown(keyboardAndMouse.MoveLeftKey) || keyboard.IsKeyDown(Keys.Left)) { actions.MoveLeft = true; }
+                if (keyboard.IsKeyDown(keyboardAndMouse.MoveRightKey) || keyboard.IsKeyDown(Keys.Right)) { actions.MoveRight = true; }
+                if (keyboard.IsKeyDown(keyboardAndMouse.PauseKey) && !actions.Pause) { actions.Pause = true; }
+                if (keyboard.IsKeyDown(keyboardAndMouse.ShieldKey) && !actions.Shield) { actions.Shield = true; }
+                if (keyboardAndMouse.AttackMouseButton == ButtonState.Pressed) { actions.Attack = true; }
+
+                //
+                if (mouse.LeftButton == ButtonState.Pressed) { actions.Attack = true; }
+
+                
             }
-            else
-            {
-                //We are using a mouse
-                actions.CursorEnabled = true;
-            }
-            //Set action true if keyboard button is pressed
-            if (keyboard.IsKeyDown(keyboardAndMouse.MoveUpKey) || keyboard.IsKeyDown(Keys.Down)) { actions.MoveForward = true; }
-            if (keyboard.IsKeyDown(keyboardAndMouse.MoveDownKey) || keyboard.IsKeyDown(Keys.Up)) { actions.MoveBackward = true; }
-            if (keyboard.IsKeyDown(keyboardAndMouse.MoveLeftKey) || keyboard.IsKeyDown(Keys.Left)) { actions.MoveLeft = true; }
-            if (keyboard.IsKeyDown(keyboardAndMouse.MoveRightKey) || keyboard.IsKeyDown(Keys.Right)) { actions.MoveRight = true; }
-            if (keyboard.IsKeyDown(keyboardAndMouse.PauseKey) && !actions.Pause) { actions.Pause = true; }
-            if (keyboard.IsKeyDown(keyboardAndMouse.ShieldKey) && !actions.Shield) { actions.Shield = true; }
-            if (keyboardAndMouse.AttackMouseButton == ButtonState.Pressed) { actions.Attack = true;}
-
-            //
-            if (mouse.LeftButton == ButtonState.Pressed) { actions.Attack = true; }
 
             actions.CursorPosition = new Vector2(mouse.X, mouse.Y);
-            //Console.WriteLine(actions.CursorPosition);
         }
 
         /// <summary>
         /// Resets all the thingies.
         /// </summary>
         private void reset()
-        {
+        {            
             actions.MoveForward = false;
             actions.MoveBackward = false;
             actions.MoveLeft = false;
@@ -164,6 +170,16 @@ namespace PantheonPrototype
             actions.Pause = false;
 
             actions.CursorPosition = new Vector2(0, 0);
+        }
+
+        public void disableControls()
+        {
+            actions.isControlEnabled = false;
+        }
+
+        public void enableControls()
+        {
+            actions.isControlEnabled = true;
         }
 
 
@@ -210,10 +226,15 @@ namespace PantheonPrototype
         /// <param name="oldbutton">The action that corresponds to a button that will be changed</param>
         /// <param name="newButton">The button on the gamepad that the action will now be set to</param>
         /// <param name="gamepad">The gamepadState that is already in place</param>
-        public void changeControlBindings(ButtonState oldButton, GamePadButtons newButton, GamePadState gamepad)
+        public void changeGamepadBindings(ButtonState oldButton, GamePadButtons newButton, GamePadState gamepad)
         {
             //TODO:
             
+        }
+
+        public void changeKeyControlBindings(Keys oldKey, Keys newKey, KeyboardState keyboard)
+        {
+            oldKey = newKey;
         }
 
         /// <summary>
