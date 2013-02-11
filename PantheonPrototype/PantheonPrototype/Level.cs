@@ -37,7 +37,6 @@ namespace PantheonPrototype
         protected Rectangle screenRect;
         protected Texture2D hideTexture;
         protected Rectangle hideRect;
-        protected GraphicsDevice tempGD;
         protected int hideRectDimen;
         protected bool levelStart;
         protected bool levelPlaying;
@@ -45,6 +44,20 @@ namespace PantheonPrototype
         public bool LevelPlaying
         {
             get { return levelPlaying; }
+        }
+
+        protected string levelNum;
+
+        public string LevelNum
+        {
+            get { return levelNum; }
+        }
+
+        protected string nextLevel;
+
+        public string NextLevel
+        {
+            get { return nextLevel; }
         }
 
         // Object Function Declaration
@@ -62,24 +75,23 @@ namespace PantheonPrototype
             this.hideRectDimen = graphicsDevice.Viewport.Height;
             this.levelStart = true;
             this.levelPlaying = true;
-
-            tempGD = graphicsDevice;
         }
 
         /// <summary>
         /// Loads the level from a descriptive script file on the harddrive.
         /// </summary>
-        public void Load(string fileName, ContentManager contentManager)
+        public void Load(string newLevel, string oldLevel, ContentManager contentManager)
         {
-            levelMap = contentManager.Load<Map>(fileName);
+            levelMap = contentManager.Load<Map>(newLevel);
+            levelNum = newLevel;
             
-            this.entities.Add("character", new PlayerEntity(this.tempGD));
+            this.entities.Add("character", new PlayerEntity());
             this.entities["character"].Load(contentManager);
 
             // This spawns the character in the right place in the map.
             foreach (MapObject obj in levelMap.ObjectLayers["Spawn"].MapObjects)
             {
-                if (obj.Name == "start")
+                if (obj.Name.Substring(0, 5) == "start" && obj.Name.Substring(5) == oldLevel)
                 {
                     this.entities["character"].Location = new Rectangle(obj.Bounds.X, obj.Bounds.Y,
                         entities["character"].Location.Width, entities["character"].Location.Height);
@@ -138,13 +150,14 @@ namespace PantheonPrototype
 
             foreach (MapObject obj in levelMap.ObjectLayers["Spawn"].MapObjects)
             {
-                if (obj.Name == "end" && obj.Bounds.Intersects(this.entities["character"].Location))
+                if (obj.Name.Substring(0, 3) == "end" && obj.Bounds.Intersects(this.entities["character"].Location))
                 {
                     hideRect = new Rectangle(screenRect.X, screenRect.Y, gameReference.GraphicsDevice.Viewport.Width, hideRectDimen);
                     hideRectDimen += 10;
                     if (hideRectDimen > gameReference.GraphicsDevice.Viewport.Height)
                     {
                         levelPlaying = false;
+                        nextLevel = obj.Name.Substring(3);
                     }
                 }
             }

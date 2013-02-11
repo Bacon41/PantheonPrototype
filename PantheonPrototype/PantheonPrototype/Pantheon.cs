@@ -67,7 +67,7 @@ namespace PantheonPrototype
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Map.InitObjectDrawing(graphics.GraphicsDevice);
 
-            currentLevel.Load("map1", Content);
+            currentLevel.Load("map1", "map0", Content);
 
             debugFont = Content.Load<SpriteFont>("DebugFont");
         }
@@ -105,8 +105,10 @@ namespace PantheonPrototype
             }
             else
             {
+                string nextLevel = currentLevel.NextLevel;
+                string prevLevel = currentLevel.LevelNum;
                 currentLevel = new Level(GraphicsDevice);
-                currentLevel.Load("map1", Content);
+                currentLevel.Load(nextLevel, prevLevel, Content);
             }
 
             hud.Update(gameTime, this, this.currentLevel);
