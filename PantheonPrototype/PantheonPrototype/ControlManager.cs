@@ -103,7 +103,9 @@ namespace PantheonPrototype
 
         public ControlManager()
         {
+            actions.Shield = false;
             actions.isControlEnabled = true;
+
             setDefaultGamepadControlScheme();
             setDefaultMouseAndKeyboardControlScheme();            
             reset();
@@ -144,8 +146,9 @@ namespace PantheonPrototype
                 if (keyboard.IsKeyDown(keyboardAndMouse.MoveDownKey) || keyboard.IsKeyDown(Keys.Up)) { actions.MoveBackward = true; }
                 if (keyboard.IsKeyDown(keyboardAndMouse.MoveLeftKey) || keyboard.IsKeyDown(Keys.Left)) { actions.MoveLeft = true; }
                 if (keyboard.IsKeyDown(keyboardAndMouse.MoveRightKey) || keyboard.IsKeyDown(Keys.Right)) { actions.MoveRight = true; }
-                if (keyboard.IsKeyDown(keyboardAndMouse.PauseKey) && !actions.Pause) { actions.Pause = true; }
-                if (keyboard.IsKeyDown(keyboardAndMouse.ShieldKey) && !actions.Shield) { actions.Shield = true; }
+                if (keyboard.IsKeyDown(keyboardAndMouse.PauseKey) && !actions.Pause) { actions.Pause = true; }                
+                if (keyboard.IsKeyDown(keyboardAndMouse.ShieldKey) && actions.Shield) { actions.Shield = false; }
+                else if (keyboard.IsKeyDown(keyboardAndMouse.ShieldKey) && !actions.Shield) { actions.Shield = true; }
                 if (keyboardAndMouse.AttackMouseButton == ButtonState.Pressed) { actions.Attack = true; }
                 if (keyboard.IsKeyDown(keyboardAndMouse.TakeDamage)) { actions.beingDamaged = true;}
 
@@ -170,7 +173,7 @@ namespace PantheonPrototype
             actions.MoveRight = false;
 
             actions.Attack = false;
-            actions.Shield = false;
+            //actions.Shield = false;
 
             actions.Pause = false;
 
