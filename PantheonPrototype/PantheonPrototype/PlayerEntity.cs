@@ -24,7 +24,7 @@ namespace PantheonPrototype
         public PlayerEntity(): base()
         {
             TotalArmor = 100;
-            CurrentArmor = 75;
+            CurrentArmor = 100;
             ShieldCapacity = 100;
             ShieldStrength = 100;
 
@@ -95,6 +95,30 @@ namespace PantheonPrototype
         }
 
         /// <summary>
+        /// The damage calculation will be in this function.
+        /// </summary>
+        /// <param name="damage">The amount of damage that is being taken</param>
+        public void Damage(int damage)
+        {
+            //Damage calculations being done here
+            if ((ShieldOn == true) && (ShieldStrength >= damage))
+            {
+                ShieldStrength = ShieldStrength - damage;
+            }
+            else if ((ShieldOn = true) &&(ShieldStrength < damage))
+            {
+                int calculatedDamage = damage - ShieldStrength;
+                CurrentArmor = CurrentArmor - calculatedDamage;
+                
+            }
+            else 
+            {
+                
+                CurrentArmor -= damage;
+            }
+        }
+
+        /// <summary>
         /// Updates the player entity.
         /// 
         /// Unlike the name suggests... (What did you think it did?)
@@ -106,6 +130,17 @@ namespace PantheonPrototype
             //Update the velocity and facing
             updateLocation(gameReference);
 
+
+            if (gameReference.controlManager.actions.Shield == true && ShieldOn == false)
+            {
+                ShieldOn = true;
+            }
+
+            if (gameReference.controlManager.actions.beingDamaged == true)
+            {
+                Damage(10);
+                gameReference.controlManager.actions.beingDamaged = false;
+            }
             //Update the sprite appropriately
             updateSprite();
 

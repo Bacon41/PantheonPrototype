@@ -22,6 +22,7 @@ namespace PantheonPrototype
         public bool MoveBackward;
         public bool MoveLeft;
         public bool MoveRight;
+        public bool beingDamaged;
 
         public bool Attack;
         public bool Shield;     
@@ -81,6 +82,8 @@ namespace PantheonPrototype
         public MouseState ZoomButton;
         //public Keys ZoomButton;
         //public Keys AttackButton;
+
+        public Keys TakeDamage;
 
     }
 
@@ -144,6 +147,7 @@ namespace PantheonPrototype
                 if (keyboard.IsKeyDown(keyboardAndMouse.PauseKey) && !actions.Pause) { actions.Pause = true; }
                 if (keyboard.IsKeyDown(keyboardAndMouse.ShieldKey) && !actions.Shield) { actions.Shield = true; }
                 if (keyboardAndMouse.AttackMouseButton == ButtonState.Pressed) { actions.Attack = true; }
+                if (keyboard.IsKeyDown(keyboardAndMouse.TakeDamage)) { actions.beingDamaged = true;}
 
                 //
                 if (mouse.LeftButton == ButtonState.Pressed) { actions.Attack = true; }
@@ -158,7 +162,8 @@ namespace PantheonPrototype
         /// Resets all the thingies.
         /// </summary>
         private void reset()
-        {            
+        {
+            actions.beingDamaged = false;
             actions.MoveForward = false;
             actions.MoveBackward = false;
             actions.MoveLeft = false;
@@ -214,7 +219,10 @@ namespace PantheonPrototype
             keyboardAndMouse.PauseKey = Keys.Escape;
             keyboardAndMouse.ShieldKey = Keys.Space;
             keyboardAndMouse.InteractKey = Keys.E;
-            keyboardAndMouse.AttackMouseButton = mouseDefault.RightButton;
+            keyboardAndMouse.AttackMouseButton = mouseDefault.LeftButton;
+
+            //temporary: REMOVE THIS ONCE COMBAT WORKS
+            keyboardAndMouse.TakeDamage = Keys.Tab;
             
         }
 
