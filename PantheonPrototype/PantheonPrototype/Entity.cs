@@ -36,14 +36,7 @@ namespace PantheonPrototype
             get { return drawingBox; }
             set
             {
-                //Cows...............................
-                int offsetX = boundingBox.X - drawingBox.X;
-                int offsetY = boundingBox.Y - drawingBox.Y;
-
                 drawingBox = value;
-
-                //Updait the bounding rabbits
-                boundingBox = new Rectangle(drawingBox.X + offsetX, drawingBox.Y + offsetY, boundingBox.Width, boundingBox.Height);
             }
         }
 
@@ -68,12 +61,6 @@ namespace PantheonPrototype
             get { return boundingBox; }
             set {
                 boundingBox = value;
-
-                if (drawingBox != null)
-                {
-                    boundingBox.X = drawingBox.X + boundingBox.X;
-                    boundingBox.Y = drawingBox.Y + boundingBox.Y;
-                }
             }
         }
 
