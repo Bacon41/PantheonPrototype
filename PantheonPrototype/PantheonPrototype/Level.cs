@@ -93,8 +93,8 @@ namespace PantheonPrototype
             {
                 if (obj.Name.Substring(0, 5) == "start" && obj.Name.Substring(5) == oldLevel)
                 {
-                    this.entities["character"].Location = new Rectangle(obj.Bounds.X, obj.Bounds.Y,
-                        entities["character"].Location.Width, entities["character"].Location.Height);
+                    this.entities["character"].DrawingBox = new Rectangle(obj.Bounds.X, obj.Bounds.Y,
+                        entities["character"].DrawingBox.Width, entities["character"].DrawingBox.Height);
                 }
             }
         }
@@ -124,15 +124,15 @@ namespace PantheonPrototype
                         tile.Target.Width, tile.Target.Height);
                     if (test.Intersects(this.entities["character"].BoundingBox))
                     {
-                        this.entities["character"].Location = this.entities["character"].PrevLocation;
+                        this.entities["character"].DrawingBox = this.entities["character"].PrevLocation;
                     }
                 }
             }
 
             // Makes the camera follow the character
             // This works, but I'm not sure if this is where we want to put this. ~Tumbler
-            camera.Pos = new Vector2(this.entities["character"].Location.X + entities["character"].Location.Width / 2,
-                this.entities["character"].Location.Y + entities["character"].Location.Height / 2);
+            camera.Pos = new Vector2(this.entities["character"].DrawingBox.X + entities["character"].DrawingBox.Width / 2,
+                this.entities["character"].DrawingBox.Y + entities["character"].DrawingBox.Height / 2);
 
             // This is a fairly ugly way of making the tiles draw in the right locations.
             screenRect.X = (int)camera.Pos.X - gameReference.GraphicsDevice.Viewport.Width / 2;
@@ -156,7 +156,7 @@ namespace PantheonPrototype
 
             foreach (MapObject obj in levelMap.ObjectLayers["Spawn"].MapObjects)
             {
-                if (obj.Name.Substring(0, 3) == "end" && obj.Bounds.Intersects(this.entities["character"].Location))
+                if (obj.Name.Substring(0, 3) == "end" && obj.Bounds.Intersects(this.entities["character"].DrawingBox))
                 {
                     gameReference.controlManager.disableControls();
                     hideRect = new Rectangle(screenRect.X, screenRect.Y, gameReference.GraphicsDevice.Viewport.Width, hideRectDimen);

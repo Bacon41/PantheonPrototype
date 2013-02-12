@@ -18,24 +18,32 @@ namespace PantheonPrototype
     /// </summary>
     class Entity
     {
+        protected Vector2 actionPoint;
+
+        public Vector2 Location
+        {
+            get { return actionPoint; }
+            set { actionPoint = value; }
+        }
+
         /// <summary>
         /// The location and bounds of the entity.
         /// </summary>
-        protected Rectangle location;
+        protected Rectangle drawingBox;
 
-        public Rectangle Location
+        public Rectangle DrawingBox
         {
-            get { return location; }
+            get { return drawingBox; }
             set
             {
                 //Cows...............................
-                int offsetX = boundingBox.X - location.X;
-                int offsetY = boundingBox.Y - location.Y;
+                int offsetX = boundingBox.X - drawingBox.X;
+                int offsetY = boundingBox.Y - drawingBox.Y;
 
-                location = value;
+                drawingBox = value;
 
                 //Updait the bounding rabbits
-                boundingBox = new Rectangle(location.X + offsetX, location.Y + offsetY, boundingBox.Width, boundingBox.Height);
+                boundingBox = new Rectangle(drawingBox.X + offsetX, drawingBox.Y + offsetY, boundingBox.Width, boundingBox.Height);
             }
         }
 
@@ -61,10 +69,10 @@ namespace PantheonPrototype
             set {
                 boundingBox = value;
 
-                if (location != null)
+                if (drawingBox != null)
                 {
-                    boundingBox.X = location.X + boundingBox.X;
-                    boundingBox.Y = location.Y + boundingBox.Y;
+                    boundingBox.X = drawingBox.X + boundingBox.X;
+                    boundingBox.Y = drawingBox.Y + boundingBox.Y;
                 }
             }
         }
@@ -106,9 +114,9 @@ namespace PantheonPrototype
         public Entity()
         {
             this.sprite = new Sprite();
-            this.location = new Rectangle(0, 0, 40, 40);
+            this.drawingBox = new Rectangle(0, 0, 40, 40);
             this.boundingBox = new Rectangle(0, 0, 40, 40);
-            this.prevLocation = this.location;
+            this.prevLocation = this.drawingBox;
 
             currentState ="Default";
         }
@@ -136,7 +144,7 @@ namespace PantheonPrototype
         /// <param name="canvas">An initialized sprite batch to draw the sprite upon.</param>
         public virtual void Draw(SpriteBatch canvas)
         {
-            this.sprite.Draw(canvas, location);
+            this.sprite.Draw(canvas, drawingBox);
         }
 
         /// <summary>
@@ -148,7 +156,7 @@ namespace PantheonPrototype
         /// <returns>True if the bounding rectangles overlap.</returns>
         public bool collidesWith(Entity other)
         {
-            return this.location.Intersects(other.Location);
+            return this.drawingBox.Intersects(other.DrawingBox);
         }
     }
 }
