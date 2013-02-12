@@ -131,21 +131,22 @@ namespace PantheonPrototype
 
             // Makes the camera follow the character
             // This works, but I'm not sure if this is where we want to put this. ~Tumbler
-            camera.Pos = new Vector2(this.entities["character"].Location.X, this.entities["character"].Location.Y);
+            camera.Pos = new Vector2(this.entities["character"].Location.X + entities["character"].Location.Width / 2,
+                this.entities["character"].Location.Y + entities["character"].Location.Height / 2);
 
             // This is a fairly ugly way of making the tiles draw in the right locations.
-            screenRect.X = this.entities["character"].Location.X - gameReference.GraphicsDevice.Viewport.Width / 2;
+            screenRect.X = (int)camera.Pos.X - gameReference.GraphicsDevice.Viewport.Width / 2;
             if (screenRect.X < 0) screenRect.X = 0;
-            screenRect.Y = this.entities["character"].Location.Y - gameReference.GraphicsDevice.Viewport.Height / 2;
+            screenRect.Y = (int)camera.Pos.Y - gameReference.GraphicsDevice.Viewport.Height / 2;
             if (screenRect.Y < 0) screenRect.Y = 0;
-            screenRect.Width = this.entities["character"].Location.X + gameReference.GraphicsDevice.Viewport.Width / 2;
-            screenRect.Height = this.entities["character"].Location.Y + gameReference.GraphicsDevice.Viewport.Height / 2;
+            screenRect.Width = (int)camera.Pos.X + gameReference.GraphicsDevice.Viewport.Width / 2;
+            screenRect.Height = (int)camera.Pos.Y + gameReference.GraphicsDevice.Viewport.Height / 2;
 
             if (levelStart)
             {
                 gameReference.controlManager.disableControls();
                 hideRect = new Rectangle(screenRect.X, screenRect.Y, gameReference.GraphicsDevice.Viewport.Width, hideRectDimen);
-                hideRectDimen -= 10;
+                hideRectDimen -= 20;
                 if (hideRectDimen < 0)
                 {
                     levelStart = false;
@@ -159,7 +160,7 @@ namespace PantheonPrototype
                 {
                     gameReference.controlManager.disableControls();
                     hideRect = new Rectangle(screenRect.X, screenRect.Y, gameReference.GraphicsDevice.Viewport.Width, hideRectDimen);
-                    hideRectDimen += 10;
+                    hideRectDimen += 20;
                     if (hideRectDimen > gameReference.GraphicsDevice.Viewport.Height)
                     {
                         levelPlaying = false;
