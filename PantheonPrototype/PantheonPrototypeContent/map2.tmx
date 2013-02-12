@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="12" height="12" tilewidth="64" tileheight="64">
- <tileset firstgid="1" name="collision" tilewidth="64" tileheight="64">
-  <image source="collision.png" width="128" height="64"/>
- </tileset>
- <tileset firstgid="3" name="base" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="base" tilewidth="64" tileheight="64">
   <image source="baseTiles.png" width="128" height="64"/>
+  <tile id="0">
+   <properties>
+    <property name="isWalkable" value="true"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="isWalkable" value="false"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="Base" width="12" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjYWBgYCERMxOJB5t6ZhqbP1zUk4IBHEIB3A==
-  </data>
- </layer>
- <layer name="Collision" width="12" height="12" visible="0" opacity="0.51">
-  <data encoding="base64" compression="zlib">
-   eJxjZGBgYCQRMxGJB5t6JhqbP1zUk4IBGAsA9g==
+   eJxjYmBgYCIRMxKJB5t6RhqbP1zUk4IB1eQAvA==
   </data>
  </layer>
  <objectgroup name="Spawn" width="12" height="12">
-  <object name="startmap1" x="703" y="268" width="17" height="37"/>
-  <object name="endmap1" x="755" y="270" width="10" height="37"/>
+  <object name="endmap1" x="751" y="264" width="11" height="45"/>
+  <object name="startmap1" x="703" y="267" width="17" height="37"/>
  </objectgroup>
 </map>

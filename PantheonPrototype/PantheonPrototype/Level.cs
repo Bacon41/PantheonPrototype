@@ -71,6 +71,7 @@ namespace PantheonPrototype
             this.camera = new Camera(graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height);
             this.screenRect = Rectangle.Empty;
             this.hideTexture = new Texture2D(graphicsDevice, 1, 1, false, SurfaceFormat.Color);
+            this.hideTexture.SetData(new[] { Color.Black });
             this.hideRect = Rectangle.Empty;
             this.hideRectDimen = graphicsDevice.Viewport.Height;
             this.levelStart = true;
@@ -80,13 +81,13 @@ namespace PantheonPrototype
         /// <summary>
         /// Loads the level from a descriptive script file on the harddrive.
         /// </summary>
-        public void Load(string newLevel, string oldLevel, ContentManager contentManager)
+        public void Load(string newLevel, string oldLevel, Pantheon gameReference)
         {
-            levelMap = contentManager.Load<Map>(newLevel);
+            levelMap = gameReference.Content.Load<Map>(newLevel);
             levelNum = newLevel;
             
             this.entities.Add("character", new PlayerEntity());
-            this.entities["character"].Load(contentManager);
+            this.entities["character"].Load(gameReference.Content);
 
             // This spawns the character in the right place in the map.
             foreach (MapObject obj in levelMap.ObjectLayers["Spawn"].MapObjects)
@@ -97,6 +98,11 @@ namespace PantheonPrototype
                         entities["character"].Location.Width, entities["character"].Location.Height);
                 }
             }
+
+            hideRect.X = (int)camera.Pos.X - gameReference.GraphicsDevice.Viewport.Width / 2;
+            hideRect.Y = (int)camera.Pos.Y - gameReference.GraphicsDevice.Viewport.Height / 2;
+            hideRect.Width = gameReference.GraphicsDevice.Viewport.Width;
+            hideRect.Height = hideRectDimen;
         }
 
         public Dictionary<string, Entity> Entities
@@ -118,7 +124,7 @@ namespace PantheonPrototype
             }
             foreach (TileData tile in levelMap.GetTilesInRegion(this.entities["character"].BoundingBox))
             {
-                if (tile.SourceID == 0)
+                if (levelMap.SourceTiles[tile.SourceID].Properties["isWalkable"].AsBoolean == false)
                 {
                     Rectangle test = new Rectangle(tile.Target.X - tile.Target.Width / 2, tile.Target.Y - tile.Target.Height / 2,
                         tile.Target.Width, tile.Target.Height);
@@ -145,7 +151,11 @@ namespace PantheonPrototype
             if (levelStart)
             {
                 gameReference.controlManager.disableControls();
-                hideRect = new Rectangle(screenRect.X, screenRect.Y, gameReference.GraphicsDevice.Viewport.Width, hideRectDimen);
+                hideRect.X = (int)camera.Pos.X - gameReference.GraphicsDevice.Viewport.Width / 2;
+                hideRect.Y = (int)camera.Pos.Y - gameReference.GraphicsDevice.Viewport.Height / 2;
+                hideRect.Width = gameReference.GraphicsDevice.Viewport.Width;
+                hideRect.Height = hideRectDimen;
+
                 hideRectDimen -= 20;
                 if (hideRectDimen < 0)
                 {
@@ -159,7 +169,11 @@ namespace PantheonPrototype
                 if (obj.Name.Substring(0, 3) == "end" && obj.Bounds.Intersects(this.entities["character"].Location))
                 {
                     gameReference.controlManager.disableControls();
-                    hideRect = new Rectangle(screenRect.X, screenRect.Y, gameReference.GraphicsDevice.Viewport.Width, hideRectDimen);
+                    hideRect.X = (int)camera.Pos.X - gameReference.GraphicsDevice.Viewport.Width / 2;
+                    hideRect.Y = (int)camera.Pos.Y - gameReference.GraphicsDevice.Viewport.Height / 2;
+                    hideRect.Width = gameReference.GraphicsDevice.Viewport.Width;
+                    hideRect.Height = hideRectDimen;
+
                     hideRectDimen += 20;
                     if (hideRectDimen > gameReference.GraphicsDevice.Viewport.Height)
                     {
@@ -186,8 +200,7 @@ namespace PantheonPrototype
             {
                 this.entities[entityName].Draw(spriteBatch);
             }
-
-            hideTexture.SetData(new[] { Color.Black });
+            
             spriteBatch.Draw(hideTexture, hideRect, Color.White);
 
             spriteBatch.End();

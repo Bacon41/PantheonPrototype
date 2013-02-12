@@ -67,7 +67,7 @@ namespace PantheonPrototype
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Map.InitObjectDrawing(graphics.GraphicsDevice);
 
-            currentLevel.Load("map1", "map0", Content);
+            currentLevel.Load("map1", "map0", this);
 
             debugFont = Content.Load<SpriteFont>("DebugFont");
         }
@@ -88,10 +88,6 @@ namespace PantheonPrototype
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // Allows the game to exit
-            //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                //this.Exit();
-
             controlManager.Update();
 
             if (controlManager.actions.Pause)
@@ -108,7 +104,7 @@ namespace PantheonPrototype
                 string nextLevel = currentLevel.NextLevel;
                 string prevLevel = currentLevel.LevelNum;
                 currentLevel = new Level(GraphicsDevice);
-                currentLevel.Load(nextLevel, prevLevel, Content);
+                currentLevel.Load(nextLevel, prevLevel, this);
             }
 
             hud.Update(gameTime, this, this.currentLevel);
@@ -124,7 +120,10 @@ namespace PantheonPrototype
         {
             GraphicsDevice.Clear(Color.Black);
 
-            currentLevel.Draw(spriteBatch);
+            if (currentLevel.LevelPlaying)
+            {
+                currentLevel.Draw(spriteBatch);
+            }
             hud.Draw(spriteBatch, debugFont);
 
             base.Draw(gameTime);
