@@ -29,8 +29,8 @@ namespace PantheonPrototype
         {
             TotalArmor = 100;
             CurrentArmor = 100;
-            TotalShield = 100;
-            CurrentShield = 100;
+            TotalShield = 300;
+            CurrentShield = 300;
 
             this.ActionPoint = Vector2.Zero;
         }
@@ -107,15 +107,14 @@ namespace PantheonPrototype
             {
                 CurrentShield = CurrentShield - damage;
             }
-            else if ((ShieldOn = true) &&(CurrentShield < damage))
+            else if ((ShieldOn = true) && (CurrentShield < damage))
             {
+                CurrentShield = 0;
                 int calculatedDamage = damage - CurrentShield;
-                CurrentArmor = CurrentArmor - calculatedDamage;
-                
+                CurrentArmor = CurrentArmor - calculatedDamage;                
             }
             else 
-            {
-                
+            {                
                 CurrentArmor -= damage;
             }
         }

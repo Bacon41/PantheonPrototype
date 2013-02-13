@@ -32,6 +32,7 @@ namespace PantheonPrototype
         protected Vector2 cursorLocation;
         protected int SCREEN_WIDTH;
         protected int SCREEN_HEIGHT;
+        protected int danger;
 
         public HUD(GraphicsDevice graphicsDevice, ContentManager Content, int WIDTH, int HEIGHT)
         {
@@ -46,10 +47,14 @@ namespace PantheonPrototype
             HUDcoords = new Vector2(0, SCREEN_HEIGHT - background.Height - 20);
             cursorLocation = Vector2.Zero;
 
+            danger = 0;
+
             AddItem("ArmorBar", 5, 46);
             AddItem("IndicatorG", 230, 10);
             AddItem("IndicatorY", 230, 10);
             AddItem("IndicatorR", 230, 10);
+            AddItem("IndicatorD", 230, 10);
+            AddItem("IndicatorEmpty", 230, 10);
         }
 
         /// <summary>
@@ -77,12 +82,51 @@ namespace PantheonPrototype
                 hudItems[0].Coordinates = new Rectangle(hudItems[0].Coordinates.X, hudItems[0].Coordinates.Y, (int)(hudItems[0].DefaultWidth * ((float)player.CurrentArmor / player.TotalArmor)), hudItems[0].Coordinates.Height);
                 
                 // Update the Shield indicator
-                //int shieldPercent = (float)player.
+                int shieldPercent = (int)(100 * (float)player.CurrentShield / player.TotalShield);
+                hudItems[1].SetOpacity((int)((shieldPercent - 55) * 5.66)); // (% - min) * (255 / (max - min))
+
+                if (shieldPercent > 55)
+                {
+                    hudItems[2].SetOpacity((int)(255 - (shieldPercent - 55) * 5.66));
+                }
+                else
+                {
+                    hudItems[2].SetOpacity((int)((shieldPercent - 10) * 5.66));
+                }
+
+                if (shieldPercent > 10)
+                {
+                    hudItems[3].SetOpacity((int)(255 - (shieldPercent - 10) * 5.66));
+                }
+                else
+                {
+                    hudItems[3].SetOpacity(0);
+                }
+
+                if (shieldPercent <= 10 && shieldPercent > 0)
+                {
+                    hudItems[4].SetOpacity(danger);
+                    danger = (danger + (30 - (shieldPercent * 2))) % 256; 
+                }
+                else
+                {
+                    hudItems[4].SetOpacity(0);
+                }
+
+                if (shieldPercent == 0)
+                {
+                    hudItems[5].SetOpacity(255);
+                }
+                else
+                {
+                    hudItems[5].SetOpacity(0);
+                }
+                
 
             }
             catch (DivideByZeroException)
             {
-                Console.Write("Total armor is zero!");
+                Console.Write("Total armor or shield is zero!");
             }
         }
 
@@ -94,7 +138,7 @@ namespace PantheonPrototype
         {
             spriteBatch.Begin();
 
-            string title = "Pantheon Prototype XDRAGONS";
+            string title = "Pantheon Prototype XDRAGONSPLEAN";
 
             spriteBatch.DrawString(font, title, new Vector2(1, 1), Color.DarkGray);
             spriteBatch.DrawString(font, title, new Vector2(0, 0), Color.LightGray);
@@ -111,9 +155,9 @@ namespace PantheonPrototype
             // Draw all the remaining items
             for (int i = 1; i < hudItems.Count; i++)
             {
-                spriteBatch.Draw(hudItems[i].Image, hudItems[i].Coordinates, hudItems[i].Opacity);
-                //hudItems[i].Draw(spriteBatch);
+                hudItems[i].Draw(spriteBatch);
             }
+
 
             HamburgerHelper.DrawLine(spriteBatch, new Texture2D(this.graphicsDevice, 1, 1), (float)1.25, Color.Red, new Vector2(this.graphicsDevice.Viewport.Width/2, this.graphicsDevice.Viewport.Height/2), this.cursorLocation);
 

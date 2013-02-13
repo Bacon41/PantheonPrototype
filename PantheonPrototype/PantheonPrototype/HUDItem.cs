@@ -57,15 +57,33 @@ namespace PantheonPrototype
         }
         
         /// <summary>
-        /// Sets the opacity using an integer so you don't have to create a whole new Color()
+        /// Sets the opacity using an integer so you don't have to create a whole new Color().
+        /// Takes an integer from 0 to 255
         /// </summary>
         /// <param name="n"></param>
         public void SetOpacity(int n) 
         {
-            opacity.A = (byte)n;
-            opacity.B = (byte)n;
-            opacity.G = (byte)n;
-            opacity.R = (byte)n;
+            if (n < 0)
+            {
+                opacity.A = 0;
+                opacity.B = 0;
+                opacity.G = 0;
+                opacity.R = 0;
+            }
+            else if (n > 255)
+            {
+                opacity.A = 255;
+                opacity.B = 255;
+                opacity.G = 255;
+                opacity.R = 255;
+            }
+            else
+            {
+                opacity.A = (byte)n;
+                opacity.B = (byte)n;
+                opacity.G = (byte)n;
+                opacity.R = (byte)n;
+            }
         }
 
         /// <summary>

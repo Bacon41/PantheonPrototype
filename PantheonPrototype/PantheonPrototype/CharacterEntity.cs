@@ -142,9 +142,12 @@ namespace PantheonPrototype
             //If the shield is on, drain it
             if (shieldOn)
             {
-                currentShield--;
+                if (currentShield > 0)
+                {
+                    currentShield--;
+                }
             }
-            else //Otherwise, charge it
+            else if (currentShield < totalShield) //Otherwise, charge it
             {
                 currentShield++;
             }
