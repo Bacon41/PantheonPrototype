@@ -31,6 +31,8 @@ namespace PantheonPrototype
             CurrentArmor = 100;
             ShieldCapacity = 100;
             ShieldStrength = 100;
+
+            this.ActionPoint = Vector2.Zero;
         }
 
         /// <summary>

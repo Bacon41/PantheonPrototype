@@ -31,6 +31,27 @@ namespace PantheonPrototype
             set { actionPoint = value; }
         }
 
+        /// <summary>
+        /// Gets and sets the action point relative to the top left corner.
+        /// </summary>
+        public Vector2 ActionPoint
+        {
+            get
+            {
+                return new Vector2(
+                    -drawingBox.X,
+                    -drawingBox.Y);
+            }
+            set
+            {
+                drawingBox.X = -(int)value.X;
+                drawingBox.Y = -(int)value.Y;
+
+                boundingBox.X = -((int)value.X - (drawingBox.Width - boundingBox.Width) / 2);
+                boundingBox.Y = -((int)value.Y - (drawingBox.Height - boundingBox.Height) / 2);
+            }
+        }
+
         protected Vector2 prevLocation;
 
         public Vector2 PrevLocation
@@ -46,7 +67,8 @@ namespace PantheonPrototype
 
         public Rectangle DrawingBox
         {
-            get {
+            get
+            {
                 return new Rectangle(
                     (int)(Location.X + drawingBox.X),
                     (int)(Location.Y + drawingBox.Y),
