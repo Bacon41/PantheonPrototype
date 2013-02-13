@@ -90,6 +90,7 @@ namespace PantheonPrototype
         /// <param name="spriteBatch">A shared SpriteBatch for the HUD.</param>
         public void Draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw(Image, Coordinates, Opacity);
         }
     }
 }

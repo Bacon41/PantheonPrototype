@@ -52,23 +52,23 @@ namespace PantheonPrototype
         /// <summary>
         /// The total amount of shield energy available when fully charged.
         /// </summary>
-        protected int shieldCapacity;
+        protected int totalShield;
 
-        public int ShieldCapacity
+        public int TotalShield
         {
-            get { return shieldCapacity; }
-            set { shieldCapacity = value; }
+            get { return totalShield; }
+            set { totalShield = value; }
         }
 
         /// <summary>
         /// The current shield strength for the character.
         /// </summary>
-        protected int shieldStrength;
+        protected int currentShield;
 
-        public int ShieldStrength
+        public int CurrentShield
         {
-            get { return shieldStrength; }
-            set { shieldStrength = value; }
+            get { return currentShield; }
+            set { currentShield = value; }
         }
 
         /// <summary>
@@ -142,11 +142,11 @@ namespace PantheonPrototype
             //If the shield is on, drain it
             if (shieldOn)
             {
-                shieldStrength--;
+                currentShield--;
             }
             else //Otherwise, charge it
             {
-                shieldStrength++;
+                currentShield++;
             }
         }
 

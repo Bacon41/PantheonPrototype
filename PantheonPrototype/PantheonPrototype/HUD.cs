@@ -46,8 +46,10 @@ namespace PantheonPrototype
             HUDcoords = new Vector2(0, SCREEN_HEIGHT - background.Height - 20);
             cursorLocation = Vector2.Zero;
 
-            AddItem("ArmorBar", 5, 45);
+            AddItem("ArmorBar", 5, 46);
             AddItem("IndicatorG", 230, 10);
+            AddItem("IndicatorY", 230, 10);
+            AddItem("IndicatorR", 230, 10);
         }
 
         /// <summary>
@@ -73,6 +75,10 @@ namespace PantheonPrototype
             try
             {
                 hudItems[0].Coordinates = new Rectangle(hudItems[0].Coordinates.X, hudItems[0].Coordinates.Y, (int)(hudItems[0].DefaultWidth * ((float)player.CurrentArmor / player.TotalArmor)), hudItems[0].Coordinates.Height);
+                
+                // Update the Shield indicator
+                //int shieldPercent = (float)player.
+
             }
             catch (DivideByZeroException)
             {
@@ -106,6 +112,7 @@ namespace PantheonPrototype
             for (int i = 1; i < hudItems.Count; i++)
             {
                 spriteBatch.Draw(hudItems[i].Image, hudItems[i].Coordinates, hudItems[i].Opacity);
+                //hudItems[i].Draw(spriteBatch);
             }
 
             HamburgerHelper.DrawLine(spriteBatch, new Texture2D(this.graphicsDevice, 1, 1), (float)1.25, Color.Red, new Vector2(this.graphicsDevice.Viewport.Width/2, this.graphicsDevice.Viewport.Height/2), this.cursorLocation);
