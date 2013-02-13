@@ -94,8 +94,7 @@ namespace PantheonPrototype
             {
                 if (obj.Name.Substring(0, 5) == "start" && obj.Name.Substring(5) == oldLevel)
                 {
-                    this.entities["character"].DrawingBox = new Rectangle(obj.Bounds.X, obj.Bounds.Y,
-                        entities["character"].DrawingBox.Width, entities["character"].DrawingBox.Height);
+                    this.entities["character"].Location = new Vector2(obj.Bounds.X, obj.Bounds.Y);
                 }
             }
 
@@ -130,7 +129,7 @@ namespace PantheonPrototype
                         tile.Target.Width, tile.Target.Height);
                     if (test.Intersects(this.entities["character"].BoundingBox))
                     {
-                        this.entities["character"].DrawingBox = this.entities["character"].PrevLocation;
+                        this.entities["character"].Location = this.entities["character"].PrevLocation;
                     }
                 }
             }

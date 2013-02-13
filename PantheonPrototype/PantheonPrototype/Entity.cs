@@ -18,6 +18,11 @@ namespace PantheonPrototype
     /// </summary>
     class Entity
     {
+        /// <summary>
+        /// This is the point around which the sprite is drawn. It functions
+        /// as the center of the entity and is automatically set to the center
+        /// of the bounding box.
+        /// </summary>
         protected Vector2 actionPoint;
 
         public Vector2 Location
@@ -26,42 +31,50 @@ namespace PantheonPrototype
             set { actionPoint = value; }
         }
 
-        /// <summary>
-        /// The location and bounds of the entity.
-        /// </summary>
-        protected Rectangle drawingBox;
+        protected Vector2 prevLocation;
 
-        public Rectangle DrawingBox
-        {
-            get { return drawingBox; }
-            set
-            {
-                drawingBox = value;
-            }
-        }
-
-        protected Rectangle prevLocation;
-
-        public Rectangle PrevLocation
+        public Vector2 PrevLocation
         {
             get { return prevLocation; }
             set { prevLocation = value; }
         }
 
         /// <summary>
+        /// The box to which the sprite will be drawn.
+        /// </summary>
+        protected Rectangle drawingBox;
+
+        public Rectangle DrawingBox
+        {
+            get {
+                return new Rectangle(
+                    (int)(Location.X + drawingBox.X),
+                    (int)(Location.Y + drawingBox.Y),
+                    drawingBox.Width,
+                    drawingBox.Height
+                    );
+            }
+            set { drawingBox = value; }
+        }
+
+        /// <summary>
         /// Puppies!!!
         /// 
-        /// Also, this is the bounding box. It defaults to the size of the
-        /// location, but it can be changed.
+        /// Also, this is the bounding box.
         /// </summary>
         protected Rectangle boundingBox;
 
         public Rectangle BoundingBox
         {
-            get { return boundingBox; }
-            set {
-                boundingBox = value;
+            get {
+                return new Rectangle(
+                    (int)(Location.X + boundingBox.X),
+                    (int)(Location.Y + boundingBox.Y),
+                    boundingBox.Width,
+                    boundingBox.Height
+                    );
             }
+            set { boundingBox = value; }
         }
 
         /// <summary>
@@ -96,17 +109,55 @@ namespace PantheonPrototype
         }
 
         /// <summary>
-        /// Constructs a basic entity.
+        /// A no parameter entity for conveniences sake.
         /// </summary>
         public Entity()
+            : this(0,0,new Rectangle(-20, -20, 40, 40), new Rectangle(-5, -5, 10,10))
+        { }
+
+        /// <summary>
+        /// Constructs a basic entity. This is the technical constructor. Unless
+        /// you understand exactly how the entity is stored, I recommend using the
+        /// other constructor.
+        /// </summary>
+        /// <param name="x">The x coordinate of the action point.</param>
+        /// <param name="y">The y coordinate of the action point.</param>
+        /// <param name="drawBox">The draw box defines the area to which the sprite is drawn relative to the action point.</param>
+        /// <param name="boundingBox">The bounding box relative to the action point.</param>
+        public Entity(float x, float y, Rectangle drawBox, Rectangle boundingBox)
         {
             this.sprite = new Sprite();
-            this.drawingBox = new Rectangle(0, 0, 40, 40);
-            this.boundingBox = new Rectangle(0, 0, 40, 40);
-            this.prevLocation = this.drawingBox;
+            this.drawingBox = drawBox;
+            this.boundingBox = boundingBox;
+            this.actionPoint = new Vector2(x, y);
+            this.prevLocation = actionPoint;
 
             currentState ="Default";
         }
+
+        /// <summary>
+        /// Constructs a basic entity. This is a more accessible constructor.
+        /// In general, use this constructor when making new entities.
+        /// </summary>
+        /// <param name="location">The location of the entity relative to global space. Note that the reference point of the entity is the center of the bounding box.</param>
+        /// <param name="drawBox">The box to which the sprite will be drawn. Only the width and height will be used.</param>
+        /// <param name="boundingBox">The bounding box of the entity relative to the upper right hand corner of the entity.</param>
+        public Entity(Vector2 location, Rectangle drawBox, Rectangle boundingBox)
+            : this(
+                location.X,
+                location.Y,
+                new Rectangle(
+                    -(boundingBox.X + boundingBox.Width/2),
+                    -(boundingBox.Y + boundingBox.Height/2),
+                    drawBox.Width,
+                    drawBox.Height),
+                new Rectangle(
+                    -boundingBox.Width/2,
+                    -boundingBox.Height/2,
+                    boundingBox.Width,
+                    boundingBox.Height)
+                    )
+        { }
 
         /// <summary>
         /// Loads any assets this particular entity needs.
@@ -131,7 +182,7 @@ namespace PantheonPrototype
         /// <param name="canvas">An initialized sprite batch to draw the sprite upon.</param>
         public virtual void Draw(SpriteBatch canvas)
         {
-            this.sprite.Draw(canvas, drawingBox);
+            this.sprite.Draw(canvas, DrawingBox);
         }
 
         /// <summary>

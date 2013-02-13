@@ -21,16 +21,16 @@ namespace PantheonPrototype
         /// <summary>
         /// The constructor for the player entity class.
         /// </summary>
-        public PlayerEntity(): base()
+        public PlayerEntity():
+            base(
+                Vector2.Zero,
+                new Rectangle(0,0,40,40),
+                new Rectangle(15,25,10,10))
         {
             TotalArmor = 100;
             CurrentArmor = 100;
             ShieldCapacity = 100;
             ShieldStrength = 100;
-
-            //Set the initial location
-            DrawingBox = new Rectangle(0, 0, 40, 40);
-            BoundingBox = new Rectangle(15, 25, 10, 10);
         }
 
         /// <summary>

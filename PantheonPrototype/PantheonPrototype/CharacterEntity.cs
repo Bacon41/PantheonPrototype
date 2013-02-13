@@ -107,7 +107,11 @@ namespace PantheonPrototype
         /// <summary>
         /// The constuctor... does nothing except call the parent constructor.
         /// </summary>
-        public CharacterEntity(): base()
+        /// <param name="location">The location of the entity relative to global space. Note that the reference point of the entity is the center of the bounding box.</param>
+        /// <param name="drawBox">The box to which the sprite will be drawn. Only the width and height will be used.</param>
+        /// <param name="boundingBox">The bounding box of the entity relative to the upper right hand corner of the entity.</param>
+        public CharacterEntity(Vector2 location, Rectangle drawBox, Rectangle boundingBox):
+            base(location, drawBox, boundingBox)
         {
         }
 
@@ -130,12 +134,10 @@ namespace PantheonPrototype
         {
             base.Update(gameTime, gameReference);
 
-            prevLocation = drawingBox;
+            prevLocation = Location;
 
             //Move the player by velocity
-            //location.X += (int)velocity.X;
-            //location.Y += (int)velocity.Y;
-            DrawingBox = new Rectangle(drawingBox.X + (int)velocity.X, drawingBox.Y + (int)velocity.Y, drawingBox.Width, drawingBox.Height);
+            Location = new Vector2(Location.X + Velocity.X, Location.Y + Velocity.Y);
 
             //If the shield is on, drain it
             if (shieldOn)

@@ -19,7 +19,7 @@
   </data>
  </layer>
  <objectgroup name="Spawn" width="12" height="12">
-  <object name="startmap0" x="75" y="74" width="38" height="36"/>
+  <object name="startmap0" x="84" y="90" width="19" height="19"/>
   <object name="endmap2" x="3" y="262" width="11" height="45"/>
   <object name="startmap2" x="35" y="266" width="17" height="37"/>
  </objectgroup>
