@@ -14,5 +14,8 @@ namespace PantheonPrototype
 {
     class EnemyCharacter : CharacterEntity
     {
+        public EnemyCharacter(): base(Vector2.Zero, new Rectangle(0, 0, 40, 40), new Rectangle(15, 25, 10, 10))
+        {
+        }
     }
 }
