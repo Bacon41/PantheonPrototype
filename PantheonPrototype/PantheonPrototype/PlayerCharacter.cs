@@ -16,7 +16,7 @@ namespace PantheonPrototype
     /// This is the visual element of the player. It extends the Character
     /// Entity.
     /// </summary>
-    class PlayerEntity : CharacterEntity
+    class PlayerCharacter : CharacterEntity
     {
         /// <summary>
         /// Class variables.
@@ -27,7 +27,7 @@ namespace PantheonPrototype
         /// <summary>
         /// The constructor for the player entity class.
         /// </summary>
-        public PlayerEntity(Pantheon gameReference):
+        public PlayerCharacter(Pantheon gameReference):
             base(
                 Vector2.Zero,
                 new Rectangle(0,0,40,40),

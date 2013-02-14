@@ -12,8 +12,17 @@ using Microsoft.Xna.Framework.Media;
 
 namespace PantheonPrototype
 {
-    class FishEntity : NPCEntity
+    class FishCharacter : NPCCharacter
     {
+        /// <summary>
+        /// The constructor for the fish NPC, currently only passes that variables from its constructor to the base classes constructor.
+        /// </summary>
+        /// <param name="location">The initialize placement of the Fish.</param>
+        public FishCharacter(Vector2 location)
+            : base(location, new Rectangle(0, 0, 40, 40), new Rectangle(15, 25, 10, 10))
+        {
+        }
+
         /// <summary>
         /// Update the FEESH
         /// </summary>

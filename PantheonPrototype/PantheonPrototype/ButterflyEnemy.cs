@@ -12,8 +12,17 @@ using Microsoft.Xna.Framework.Media;
 
 namespace PantheonPrototype
 {
-    class ButterflyEnemy : EnemyEntity
+    class ButterflyEnemy : EnemyCharacter
     {
+        /// <summary>
+        /// The constructor for the Butterfly enemy, currently just sets up the base class.
+        /// </summary>
+        /// <param name="location">The initial position of the Butterfly.</param>
+        public ButterflyEnemy(Vector2 location)
+            : base(location, new Rectangle(0, 0, 40, 40), new Rectangle(15, 25, 10, 10))
+        {
+        }
+
         /// <summary>
         /// UPDATE THE BUTTERFLY CLASS FOR THE WIN
         /// </summary>
