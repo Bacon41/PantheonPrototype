@@ -58,5 +58,24 @@ namespace PantheonPrototype
                 this.sprite.addState("Right", 7, 7);
             }
         }
+
+        /// <summary>
+        /// May the bullet update evermore... or at least until it reaches the edge of the screen...
+        /// </summary>
+        /// <param name="gameTime">The amount of time since last calling the Update function.</param>
+        /// <param name="gameReference">The reference to life the universe and everything.</param>
+        public override void Update(GameTime gameTime, Pantheon gameReference)
+        {
+            base.Update(gameTime, gameReference);
+        }
+
+        /// <summary>
+        /// Draws the bullet... yes it does.
+        /// </summary>
+        /// <param name="canvas">The thingy onto which the bullet is drawn.</param>
+        public override void Draw(SpriteBatch canvas)
+        {
+            base.Draw(canvas);
+        }
     }
 }
