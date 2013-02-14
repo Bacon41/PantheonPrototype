@@ -190,8 +190,8 @@ namespace PantheonPrototype
         /// Updates the entity... yeah.
         /// </summary>
         /// <param name="gameTime">Even has the option for frame rate, pretty cool eh?</param>
-        /// <param name="gameRefence">The ugly global game reference of doom.</param>
-        public virtual void Update(GameTime gameTime, Pantheon gameRefence)
+        /// <param name="gameReference">The ugly global game reference of doom.</param>
+        public virtual void Update(GameTime gameTime, Pantheon gameReference)
         {
             this.sprite.Update(gameTime);
         }
