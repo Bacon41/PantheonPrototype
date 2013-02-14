@@ -44,11 +44,20 @@ namespace PantheonPrototype
         { }
 
         /// <summary>
+        /// Loads the projectile object.
+        /// </summary>
+        /// <param name="contentManager">The content manager for loading resources.</param>
+        public override void Load(ContentManager contentManager)
+        {
+            base.Load(contentManager);
+        }
+
+        /// <summary>
         /// Updates the projectile each frame.
         /// </summary>
         /// <param name="gameTime">The amount of time since the last call of Update.</param>
         /// <param name="gameReference">A reference to the entire game.</param>
-        public void Update(GameTime gameTime, Pantheon gameReference)
+        public override void Update(GameTime gameTime, Pantheon gameReference)
         {
             base.Update(gameTime, gameReference);
 
@@ -60,7 +69,7 @@ namespace PantheonPrototype
         /// Draws the projectile.
         /// </summary>
         /// <param name="canvas">The spritebatch onto which to draw the projectile.</param>
-        public void Draw(SpriteBatch canvas)
+        public override void Draw(SpriteBatch canvas)
         {
             base.Draw(canvas);
         }
