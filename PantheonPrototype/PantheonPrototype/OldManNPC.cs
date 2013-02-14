@@ -17,6 +17,7 @@ namespace PantheonPrototype
         /// <summary>
         /// The constuctor for the OldMan NPC character. Takes care of setting up the NPCCharacter base class.
         /// </summary>
+        /// <param name="location">The initial location of the Old Man!</param>
         public OldManNPC(Vector2 location)
             : base(location, new Rectangle(0, 0, 40, 40), new Rectangle(15, 25, 10, 10))
         {
