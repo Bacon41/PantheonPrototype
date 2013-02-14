@@ -111,6 +111,7 @@ namespace PantheonPrototype
                 else
                 {
                     hudItems[4].SetOpacity(0);
+                    danger = 0;
                 }
 
                 if (shieldPercent == 0)
