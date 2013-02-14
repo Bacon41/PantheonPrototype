@@ -31,7 +31,7 @@ namespace PantheonPrototype
             blank.SetData(new[] { color });
 
             // Drawing the empty texture from point1 to point2
-            batch.Draw(blank, point1, null, color, angle, Vector2.Zero, new Vector2(length, width), SpriteEffects.None, 0);
+            batch.Draw(blank, point1, null, color, angle, Vector2.Zero, new Vector2(length, width), SpriteEffects.None, 0.5f);
         }
     }
 }

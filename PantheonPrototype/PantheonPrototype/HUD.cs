@@ -29,7 +29,6 @@ namespace PantheonPrototype
         protected Texture2D backing;
         protected Texture2D background;
         protected Vector2 HUDcoords;
-        protected Vector2 cursorLocation;
         protected int SCREEN_WIDTH;
         protected int SCREEN_HEIGHT;
         protected int danger;
@@ -45,7 +44,6 @@ namespace PantheonPrototype
             background = Content.Load<Texture2D>("HUDbackground");
             hudItems = new List<HUDItem>();
             HUDcoords = new Vector2(0, SCREEN_HEIGHT - background.Height - 20);
-            cursorLocation = Vector2.Zero;
 
             danger = 0;
 
@@ -73,8 +71,6 @@ namespace PantheonPrototype
         /// <param name="gameTime">The object that holds all the time information.</param>
         public void Update(GameTime gameTime, Pantheon gameReference, Level level) 
         {
-            this.cursorLocation = gameReference.controlManager.actions.CursorPosition;
-
             PlayerEntity player = (PlayerEntity)(level.Entities["character"]);
             // Set the width of the Armor Bar with respect to the current percent of the player's armor.
             try
@@ -158,9 +154,6 @@ namespace PantheonPrototype
             {
                 hudItems[i].Draw(spriteBatch);
             }
-
-
-            HamburgerHelper.DrawLine(spriteBatch, new Texture2D(this.graphicsDevice, 1, 1), (float)1.25, Color.Red, new Vector2(this.graphicsDevice.Viewport.Width/2, this.graphicsDevice.Viewport.Height/2), this.cursorLocation);
 
             spriteBatch.End();
         }

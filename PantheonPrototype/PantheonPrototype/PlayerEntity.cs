@@ -19,6 +19,12 @@ namespace PantheonPrototype
     class PlayerEntity : CharacterEntity
     {
         /// <summary>
+        /// Class variables.
+        /// </summary>
+        protected Vector2 cursorLocation;
+        protected Texture2D laserTexture;
+
+        /// <summary>
         /// The constructor for the player entity class.
         /// </summary>
         public PlayerEntity():
@@ -31,6 +37,7 @@ namespace PantheonPrototype
             CurrentArmor = 100;
             TotalShield = 300;
             CurrentShield = 300;
+            cursorLocation = Vector2.Zero;
         }
 
         /// <summary>
@@ -126,9 +133,11 @@ namespace PantheonPrototype
         /// <param name="gameReference">A reference to the entire game universe for the purpose of making the player feel small.</param>
         public override void Update(GameTime gameTime, Pantheon gameReference)
         {
+            laserTexture = new Texture2D(gameReference.GraphicsDevice, 1, 1);
+
             //Update the velocity and facing
             updateLocation(gameReference);
-
+            updateLaser(gameReference);
 
             if (gameReference.controlManager.actions.Shield == true && ShieldOn == false)
             {
@@ -150,9 +159,10 @@ namespace PantheonPrototype
         /// Draw the player.
         /// </summary>
         /// <param name="canvas">The sprite batch to which the player will be drawn.</param>
-        public override void Draw(SpriteBatch canvas)
+        public override void Draw(SpriteBatch spriteBatch)
         {
-            base.Draw(canvas);
+            HamburgerHelper.DrawLine(spriteBatch, laserTexture, 1.25f, Color.Red, Location, this.cursorLocation);
+            base.Draw(spriteBatch);
         }
 
         /// <summary>
@@ -239,6 +249,17 @@ namespace PantheonPrototype
             {
                 currentState = "Idle";
             }
+        }
+
+        /// <summary>
+        /// Puts the laser in the right spot on screen.
+        /// </summary>
+        /// <param name="gameReference">Object to access the control manager.</param>
+        private void updateLaser(Pantheon gameReference)
+        {
+            cursorLocation = gameReference.controlManager.actions.CursorPosition;
+            cursorLocation.X += Location.X - gameReference.GraphicsDevice.Viewport.Width / 2;
+            cursorLocation.Y += Location.Y - gameReference.GraphicsDevice.Viewport.Height / 2;
         }
 
         /// <summary>
