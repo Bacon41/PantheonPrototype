@@ -136,7 +136,15 @@ namespace PantheonPrototype
         {
             //Update the velocity and facing
             updateLocation(gameReference);
-            updateLaser(gameReference);
+            UpdateLaser(gameReference, Vector2.Zero);
+
+            gameReference.controlManager.enableMotion();
+
+            if (gameReference.controlManager.actions.Aim)
+            {
+                gameReference.controlManager.disableMotion();
+                gameReference.MoveCamera(new Vector2(0, -100));
+            }
 
             if (gameReference.controlManager.actions.Shield == true && ShieldOn == false)
             {
@@ -254,11 +262,11 @@ namespace PantheonPrototype
         /// Puts the laser in the right spot on screen.
         /// </summary>
         /// <param name="gameReference">Object to access the control manager.</param>
-        private void updateLaser(Pantheon gameReference)
+        public void UpdateLaser(Pantheon gameReference, Vector2 offset)
         {
             cursorLocation = gameReference.controlManager.actions.CursorPosition;
-            cursorLocation.X += Location.X - gameReference.GraphicsDevice.Viewport.Width / 2;
-            cursorLocation.Y += Location.Y - gameReference.GraphicsDevice.Viewport.Height / 2;
+            cursorLocation.X += Location.X - gameReference.GraphicsDevice.Viewport.Width / 2 + offset.X;
+            cursorLocation.Y += Location.Y - gameReference.GraphicsDevice.Viewport.Height / 2 + offset.Y;
         }
 
         /// <summary>

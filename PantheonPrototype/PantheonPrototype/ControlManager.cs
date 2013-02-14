@@ -18,6 +18,7 @@ namespace PantheonPrototype
     public struct ControlActions
     {
         public bool isControlEnabled;
+        public bool isMotionEnabled;
         public bool MoveForward;
         public bool MoveBackward;
         public bool MoveLeft;
@@ -25,7 +26,8 @@ namespace PantheonPrototype
         public bool beingDamaged;
 
         public bool Attack;
-        public bool Shield;     
+        public bool Shield;
+        public bool Aim;
 
         public bool Pause;
         public bool Zoom;
@@ -82,6 +84,7 @@ namespace PantheonPrototype
         public MouseState ZoomButton;
         //public Keys ZoomButton;
         //public Keys AttackButton;
+        public Keys AimKey;
 
         public Keys TakeDamage;
 
@@ -105,6 +108,7 @@ namespace PantheonPrototype
         {
             actions.Shield = false;
             actions.isControlEnabled = true;
+            actions.isMotionEnabled = true;
 
             setDefaultGamepadControlScheme();
             setDefaultMouseAndKeyboardControlScheme();            
@@ -142,10 +146,13 @@ namespace PantheonPrototype
                     actions.CursorEnabled = true;
                 }
                 //Set action true if keyboard button is pressed
-                if (keyboard.IsKeyDown(keyboardAndMouse.MoveUpKey) || keyboard.IsKeyDown(Keys.Down)) { actions.MoveForward = true; }
-                if (keyboard.IsKeyDown(keyboardAndMouse.MoveDownKey) || keyboard.IsKeyDown(Keys.Up)) { actions.MoveBackward = true; }
-                if (keyboard.IsKeyDown(keyboardAndMouse.MoveLeftKey) || keyboard.IsKeyDown(Keys.Left)) { actions.MoveLeft = true; }
-                if (keyboard.IsKeyDown(keyboardAndMouse.MoveRightKey) || keyboard.IsKeyDown(Keys.Right)) { actions.MoveRight = true; }
+                if (actions.isMotionEnabled)
+                {
+                    if (keyboard.IsKeyDown(keyboardAndMouse.MoveUpKey) || keyboard.IsKeyDown(Keys.Down)) { actions.MoveForward = true; }
+                    if (keyboard.IsKeyDown(keyboardAndMouse.MoveDownKey) || keyboard.IsKeyDown(Keys.Up)) { actions.MoveBackward = true; }
+                    if (keyboard.IsKeyDown(keyboardAndMouse.MoveLeftKey) || keyboard.IsKeyDown(Keys.Left)) { actions.MoveLeft = true; }
+                    if (keyboard.IsKeyDown(keyboardAndMouse.MoveRightKey) || keyboard.IsKeyDown(Keys.Right)) { actions.MoveRight = true; }
+                }
                 if (keyboard.IsKeyDown(keyboardAndMouse.PauseKey) && !actions.Pause) { actions.Pause = true; }                
                 if (keyboard.IsKeyDown(keyboardAndMouse.ShieldKey) && actions.Shield) { actions.Shield = false; }
                 else if (keyboard.IsKeyDown(keyboardAndMouse.ShieldKey) && !actions.Shield) { actions.Shield = true; }
@@ -154,7 +161,7 @@ namespace PantheonPrototype
 
                 //
                 if (mouse.LeftButton == ButtonState.Pressed) { actions.Attack = true; }
-
+                if (keyboard.IsKeyDown(keyboardAndMouse.AimKey)) { actions.Aim = true; }
                 
             }
 
@@ -174,6 +181,7 @@ namespace PantheonPrototype
 
             actions.Attack = false;
             //actions.Shield = false;
+            actions.Aim = false;
 
             actions.Pause = false;
 
@@ -188,6 +196,16 @@ namespace PantheonPrototype
         public void enableControls()
         {
             actions.isControlEnabled = true;
+        }
+
+        public void disableMotion()
+        {
+            actions.isMotionEnabled = false;
+        }
+
+        public void enableMotion()
+        {
+            actions.isMotionEnabled = true;
         }
 
 
@@ -226,7 +244,8 @@ namespace PantheonPrototype
 
             //temporary: REMOVE THIS ONCE COMBAT WORKS
             keyboardAndMouse.TakeDamage = Keys.Tab;
-            
+
+            keyboardAndMouse.AimKey = Keys.LeftShift;
         }
 
 
