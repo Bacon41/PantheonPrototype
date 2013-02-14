@@ -12,7 +12,57 @@ using Microsoft.Xna.Framework.Media;
 
 namespace PantheonPrototype
 {
+    /// <summary>
+    /// Contains all that is necessary to create a projectile in the game.
+    /// May be used for bullets, fireballs, and maybe even eggs.
+    /// 
+    /// When given an initial location and velocity, the projectile shall
+    /// continue onwards unless told otherwise.
+    /// </summary>
     class Projectile : Entity
     {
+        /// <summary>
+        /// This is the velocity of the projectile. This class causes the projectile
+        /// to move by this amount every Update cycle.
+        /// </summary>
+        protected Vector2 velocity;
+
+        public Vector2 Velocity
+        {
+            get { return velocity; }
+            set { velocity = value; }
+        }
+
+        /// <summary>
+        /// A pass through constructor for the Entity class
+        /// </summary>
+        /// <param name="location">The location of the entity relative to global space. Note that the reference point of the entity is the center of the bounding box.</param>
+        /// <param name="drawBox">The box to which the sprite will be drawn. Only the width and height will be used.</param>
+        /// <param name="boundingBox">The bounding box of the entity relative to the upper right hand corner of the entity.</param>
+        public Projectile(Vector2 location, Rectangle drawBox, Rectangle boundingBox)
+            : base(location, drawBox, boundingBox)
+        { }
+
+        /// <summary>
+        /// Updates the projectile each frame.
+        /// </summary>
+        /// <param name="gameTime">The amount of time since the last call of Update.</param>
+        /// <param name="gameReference">A reference to the entire game.</param>
+        public void Update(GameTime gameTime, Pantheon gameReference)
+        {
+            base.Update(gameTime, gameReference);
+
+            //Update the location
+            this.Location = Location + velocity;
+        }
+
+        /// <summary>
+        /// Draws the projectile.
+        /// </summary>
+        /// <param name="canvas">The spritebatch onto which to draw the projectile.</param>
+        public void Draw(SpriteBatch canvas)
+        {
+            base.Draw(canvas);
+        }
     }
 }
