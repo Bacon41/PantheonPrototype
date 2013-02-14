@@ -14,7 +14,7 @@ namespace PantheonPrototype
 {
     class NPCCharacter : CharacterEntity
     {
-        public NPCCharacter(): base(Vector2.Zero, new Rectangle(0, 0, 40, 40), new Rectangle(15, 25, 10, 10))
+        public NPCCharacter(Vector2 location, Rectangle drawBox, Rectangle boundingBox): base(location, drawBox, boundingBox)
         {
         }
     }
