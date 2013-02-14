@@ -46,9 +46,6 @@ namespace PantheonPrototype
             {
                 drawingBox.X = -(int)value.X;
                 drawingBox.Y = -(int)value.Y;
-
-                boundingBox.X = -((int)value.X - (drawingBox.Width - boundingBox.Width) / 2);
-                boundingBox.Y = -((int)value.Y - (drawingBox.Height - boundingBox.Height) / 2);
             }
         }
 
@@ -90,8 +87,8 @@ namespace PantheonPrototype
         {
             get {
                 return new Rectangle(
-                    (int)(Location.X + boundingBox.X),
-                    (int)(Location.Y + boundingBox.Y),
+                    (int)(DrawingBox.X + boundingBox.X),
+                    (int)(DrawingBox.Y + boundingBox.Y),
                     boundingBox.Width,
                     boundingBox.Height
                     );
@@ -134,7 +131,7 @@ namespace PantheonPrototype
         /// A no parameter entity for conveniences sake.
         /// </summary>
         public Entity()
-            : this(0,0,new Rectangle(-20, -20, 40, 40), new Rectangle(-5, -5, 10,10))
+            : this(0,0,new Rectangle(-20, -20, 40, 40), new Rectangle(15, 15, 10,10))
         { }
 
         /// <summary>
@@ -144,7 +141,8 @@ namespace PantheonPrototype
         /// </summary>
         /// <param name="x">The x coordinate of the action point.</param>
         /// <param name="y">The y coordinate of the action point.</param>
-        /// <param name="drawBox">The draw box defines the area to which the sprite is drawn relative to the action point.</param>
+        /// <param name="drawBox">The draw box defines the area to which the sprite
+        /// is drawn relative to the upper left hand corner..</param>
         /// <param name="boundingBox">The bounding box relative to the action point.</param>
         public Entity(float x, float y, Rectangle drawBox, Rectangle boundingBox)
         {
@@ -174,8 +172,8 @@ namespace PantheonPrototype
                     drawBox.Width,
                     drawBox.Height),
                 new Rectangle(
-                    -boundingBox.Width/2,
-                    -boundingBox.Height/2,
+                    boundingBox.X,
+                    boundingBox.Y,
                     boundingBox.Width,
                     boundingBox.Height)
                     )

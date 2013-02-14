@@ -31,8 +31,6 @@ namespace PantheonPrototype
             CurrentArmor = 100;
             TotalShield = 300;
             CurrentShield = 300;
-
-            this.ActionPoint = Vector2.Zero;
         }
 
         /// <summary>
