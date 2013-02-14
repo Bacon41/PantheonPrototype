@@ -185,7 +185,7 @@ namespace PantheonPrototype
 
             actions.Pause = false;
 
-            actions.CursorPosition = new Vector2(0, 0);
+            actions.CursorPosition = Vector2.Zero;
         }
 
         public void disableControls()

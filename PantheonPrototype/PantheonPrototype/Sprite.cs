@@ -155,10 +155,19 @@ namespace PantheonPrototype
         /// <summary>
         /// Removes the specified state from the sprite.
         /// </summary>
-        /// <param name="state"></param>
+        /// <param name="state">The name of the state to remove.</param>
         public void removeState(string state)
         {
             stateRange.Remove(state);
+        }
+
+        /// <summary>
+        /// This method returns the name of the curren state.
+        /// </summary>
+        /// <returns>The current state of the sprite.</returns>
+        public string getState()
+        {
+            return currentState;
         }
 
         /// <summary>

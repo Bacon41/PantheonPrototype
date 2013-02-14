@@ -143,7 +143,46 @@ namespace PantheonPrototype
             if (gameReference.controlManager.actions.Aim)
             {
                 gameReference.controlManager.disableMotion();
-                gameReference.MoveCamera(new Vector2(0, -100));
+                Vector2 offset = Vector2.Zero;
+                if (sprite.getState().Contains("Forward"))
+                {
+                    offset.Y = 100;
+
+                    if (sprite.getState().Contains("Left"))
+                    {
+                        offset.X = (int)(-100 * Math.Sin(Math.PI / 4));
+                        offset.Y = (int)(100 * Math.Sin(Math.PI / 4));
+                    }
+                    else if (sprite.getState().Contains("Right"))
+                    {
+                        offset.X = (int)(100 * Math.Sin(Math.PI / 4));
+                        offset.Y = (int)(100 * Math.Sin(Math.PI / 4));
+                    }
+                }
+                else if (sprite.getState().Contains("Back"))
+                {
+                    offset.Y = -100;
+
+                    if (sprite.getState().Contains("Left"))
+                    {
+                        offset.X = (int)(-100 * Math.Sin(Math.PI / 4));
+                        offset.Y = (int)(-100 * Math.Sin(Math.PI / 4));
+                    }
+                    else if (sprite.getState().Contains("Right"))
+                    {
+                        offset.X = (int)(100 * Math.Sin(Math.PI / 4));
+                        offset.Y = (int)(-100 * Math.Sin(Math.PI / 4));
+                    }
+                }
+                else if (sprite.getState().Contains("Left"))
+                {
+                    offset.X = -100;
+                }
+                else if (sprite.getState().Contains("Right"))
+                {
+                    offset.X = 100;
+                }
+                gameReference.MoveCamera(offset);
             }
 
             if (gameReference.controlManager.actions.Shield == true && ShieldOn == false)
