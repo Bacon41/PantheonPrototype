@@ -92,27 +92,6 @@ namespace PantheonPrototype
             //this.entities.Add("theOldMan", new OldManNPC(Vector2.Zero));
             //this.entities["theOldMan"].Load(gameReference.Content);
 
-            //this.entities.Add("theOldMan", new OldManNPC(Vector2.Zero));
-            //this.entities["theOldMan"].Load(gameReference.Content);
-
-            //this.entities.Add("theOldMan", new OldManNPC(Vector2.Zero));
-            //this.entities["theOldMan"].Load(gameReference.Content);
-
-            //this.entities.Add("theOldMan", new OldManNPC(Vector2.Zero));
-            //this.entities["theOldMan"].Load(gameReference.Content);
-
-            //this.entities.Add("theOldMan", new OldManNPC(Vector2.Zero));
-            //this.entities["theOldMan"].Load(gameReference.Content);
-
-            //this.entities.Add("theOldMan", new OldManNPC(Vector2.Zero));
-            //this.entities["theOldMan"].Load(gameReference.Content);
-
-            //this.entities.Add("theOldMan", new OldManNPC(Vector2.Zero));
-            //this.entities["theOldMan"].Load(gameReference.Content);
-
-            //this.entities.Add("theOldMan", new OldManNPC(Vector2.Zero));
-            //this.entities["theOldMan"].Load(gameReference.Content);
-
             // This spawns the character in the right place in the map.
             foreach (MapObject obj in levelMap.ObjectLayers["Spawn"].MapObjects)
             {
