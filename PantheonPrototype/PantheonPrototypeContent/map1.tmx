@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="12" height="12" tilewidth="114" tileheight="64">
  <tileset firstgid="1" name="base" tilewidth="114" tileheight="64">
-  <image source="TileMap.png" width="228" height="64"/>
+  <image source="TileMapSeamless.png" width="228" height="64"/>
   <tile id="0">
    <properties>
     <property name="isWalkable" value="false"/>
