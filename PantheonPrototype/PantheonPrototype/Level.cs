@@ -92,6 +92,27 @@ namespace PantheonPrototype
             //this.entities.Add("theOldMan", new OldManNPC(Vector2.Zero));
             //this.entities["theOldMan"].Load(gameReference.Content);
 
+            //this.entities.Add("theOldMan", new OldManNPC(Vector2.Zero));
+            //this.entities["theOldMan"].Load(gameReference.Content);
+
+            //this.entities.Add("theOldMan", new OldManNPC(Vector2.Zero));
+            //this.entities["theOldMan"].Load(gameReference.Content);
+
+            //this.entities.Add("theOldMan", new OldManNPC(Vector2.Zero));
+            //this.entities["theOldMan"].Load(gameReference.Content);
+
+            //this.entities.Add("theOldMan", new OldManNPC(Vector2.Zero));
+            //this.entities["theOldMan"].Load(gameReference.Content);
+
+            //this.entities.Add("theOldMan", new OldManNPC(Vector2.Zero));
+            //this.entities["theOldMan"].Load(gameReference.Content);
+
+            //this.entities.Add("theOldMan", new OldManNPC(Vector2.Zero));
+            //this.entities["theOldMan"].Load(gameReference.Content);
+
+            //this.entities.Add("theOldMan", new OldManNPC(Vector2.Zero));
+            //this.entities["theOldMan"].Load(gameReference.Content);
+
             // This spawns the character in the right place in the map.
             foreach (MapObject obj in levelMap.ObjectLayers["Spawn"].MapObjects)
             {
@@ -101,6 +122,10 @@ namespace PantheonPrototype
                 }
             }
 
+            camera.Pos = new Vector2(this.entities["character"].DrawingBox.X + entities["character"].DrawingBox.Width / 2,
+                this.entities["character"].DrawingBox.Y + entities["character"].DrawingBox.Height / 2);
+
+            // This is the level-load-in-from-black feature.
             hideRect.X = (int)camera.Pos.X - gameReference.GraphicsDevice.Viewport.Width / 2;
             hideRect.Y = (int)camera.Pos.Y - gameReference.GraphicsDevice.Viewport.Height / 2;
             hideRect.Width = gameReference.GraphicsDevice.Viewport.Width;
@@ -137,10 +162,10 @@ namespace PantheonPrototype
                 }
             }
 
-            // Makes the camera follow the character
-            // This works, but I'm not sure if this is where we want to put this. ~Tumbler
-            camera.Pos = new Vector2(this.entities["character"].DrawingBox.X + entities["character"].DrawingBox.Width / 2,
-                this.entities["character"].DrawingBox.Y + entities["character"].DrawingBox.Height / 2);
+            if (!gameReference.controlManager.actions.Aim)
+            {
+                MoveCamera(gameReference, Vector2.Zero);
+            }
 
             // This is a fairly ugly way of making the tiles draw in the right locations.
             screenRect.X = (int)camera.Pos.X - gameReference.GraphicsDevice.Viewport.Width / 2;
@@ -184,6 +209,14 @@ namespace PantheonPrototype
                     }
                 }
             }
+        }
+
+        public void MoveCamera(Pantheon gameReference, Vector2 offset)
+        {
+            camera.Pos = new Vector2(this.entities["character"].DrawingBox.X + entities["character"].DrawingBox.Width / 2,
+                this.entities["character"].DrawingBox.Y + entities["character"].DrawingBox.Height / 2);
+            camera.Pos += offset;
+            ((PlayerCharacter)entities["character"]).UpdateLaser(gameReference, offset);
         }
 
         /// <summary>

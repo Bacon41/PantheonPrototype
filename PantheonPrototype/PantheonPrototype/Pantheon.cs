@@ -112,6 +112,11 @@ namespace PantheonPrototype
             base.Update(gameTime);
         }
 
+        public void MoveCamera(Vector2 offset)
+        {
+            currentLevel.MoveCamera(this, offset);
+        }
+
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
