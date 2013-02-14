@@ -86,7 +86,7 @@ namespace PantheonPrototype
             levelMap = gameReference.Content.Load<Map>(newLevel);
             levelNum = newLevel;
             
-            this.entities.Add("character", new PlayerEntity(gameReference));
+            this.entities.Add("character", new PlayerCharacter(gameReference));
             this.entities["character"].Load(gameReference.Content);
 
             // This spawns the character in the right place in the map.

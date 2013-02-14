@@ -71,7 +71,7 @@ namespace PantheonPrototype
         /// <param name="gameTime">The object that holds all the time information.</param>
         public void Update(GameTime gameTime, Pantheon gameReference, Level level) 
         {
-            PlayerEntity player = (PlayerEntity)(level.Entities["character"]);
+            PlayerCharacter player = (PlayerCharacter)(level.Entities["character"]);
             // Set the width of the Armor Bar with respect to the current percent of the player's armor.
             try
             {
@@ -135,7 +135,7 @@ namespace PantheonPrototype
         {
             spriteBatch.Begin();
 
-            string title = "Pantheon Prototype XDRAGONSPLEAN";
+            string title = "Pantheon Prototype XDRAGONSPLEAN WITH MORE DRAGONS";
 
             spriteBatch.DrawString(font, title, new Vector2(1, 1), Color.DarkGray);
             spriteBatch.DrawString(font, title, new Vector2(0, 0), Color.LightGray);
