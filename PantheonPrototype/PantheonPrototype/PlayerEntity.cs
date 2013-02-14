@@ -27,7 +27,7 @@ namespace PantheonPrototype
         /// <summary>
         /// The constructor for the player entity class.
         /// </summary>
-        public PlayerEntity():
+        public PlayerEntity(Pantheon gameReference):
             base(
                 Vector2.Zero,
                 new Rectangle(0,0,40,40),
@@ -38,6 +38,7 @@ namespace PantheonPrototype
             TotalShield = 300;
             CurrentShield = 300;
             cursorLocation = Vector2.Zero;
+            laserTexture = new Texture2D(gameReference.GraphicsDevice, 1, 1);
         }
 
         /// <summary>
@@ -133,8 +134,6 @@ namespace PantheonPrototype
         /// <param name="gameReference">A reference to the entire game universe for the purpose of making the player feel small.</param>
         public override void Update(GameTime gameTime, Pantheon gameReference)
         {
-            laserTexture = new Texture2D(gameReference.GraphicsDevice, 1, 1);
-
             //Update the velocity and facing
             updateLocation(gameReference);
             updateLaser(gameReference);
