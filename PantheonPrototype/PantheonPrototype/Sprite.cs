@@ -220,7 +220,7 @@ namespace PantheonPrototype
             Rectangle destinationRectangle = location;
 
             //Draw the correct frame of the image
-            canvas.Draw(image, destinationRectangle, sourceRectangle, Color.White);
+            canvas.Draw(image, destinationRectangle, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0);
         }
     }
 }

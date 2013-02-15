@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="12" height="12" tilewidth="64" tileheight="64">
- <tileset firstgid="1" name="base" tilewidth="64" tileheight="64">
-  <image source="baseTiles.png" width="128" height="64"/>
+<map version="1.0" orientation="orthogonal" width="12" height="12" tilewidth="114" tileheight="64">
+ <tileset firstgid="1" name="TileMap" tilewidth="114" tileheight="64">
+  <image source="TileMap.png" width="228" height="64"/>
+  <tile id="0">
+   <properties>
+    <property name="isWalkable" value="false"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="isWalkable" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="3" name="modifierTiles" tilewidth="114" tileheight="64">
+  <image source="modifierTiles.png" width="228" height="64"/>
   <tile id="0">
    <properties>
     <property name="isWalkable" value="true"/>
@@ -9,17 +22,22 @@
   </tile>
   <tile id="1">
    <properties>
-    <property name="isWalkable" value="false"/>
+    <property name="isWalkable" value="true"/>
    </properties>
   </tile>
  </tileset>
  <layer name="Base" width="12" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjYmBgYCIRMxKJB5t6RhqbP1zUk4IB1eQAvA==
+   eJxjZGBgYCQRMxGJR9UPTfWkYAAWtwD1
+  </data>
+ </layer>
+ <layer name="Modifer" width="12" height="12">
+  <data encoding="base64" compression="zlib">
+   eJxjYKAOYMFB0woMdfOHCwAAJEAAFQ==
   </data>
  </layer>
  <objectgroup name="Spawn" width="12" height="12">
-  <object name="endmap1" x="751" y="264" width="11" height="45"/>
-  <object name="startmap1" x="703" y="267" width="17" height="37"/>
+  <object name="startmap1" x="183" y="636" width="12" height="13"/>
+  <object name="endmap1" x="95" y="661" width="49" height="59"/>
  </objectgroup>
 </map>
