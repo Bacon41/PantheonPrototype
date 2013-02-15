@@ -137,52 +137,15 @@ namespace PantheonPrototype
             //Update the velocity and facing
             updateLocation(gameReference);
             UpdateLaser(gameReference, Vector2.Zero);
+            updateScope(gameReference);
 
-            gameReference.controlManager.enableMotion();
-
-            if (gameReference.controlManager.actions.Aim)
+            if (gameReference.controlManager.actions.Attack)
             {
-                gameReference.controlManager.disableMotion();
-                Vector2 offset = Vector2.Zero;
-                if (sprite.getState().Contains("Forward"))
-                {
-                    offset.Y = 100;
-
-                    if (sprite.getState().Contains("Left"))
-                    {
-                        offset.X = (int)(-100 * Math.Sin(Math.PI / 4));
-                        offset.Y = (int)(100 * Math.Sin(Math.PI / 4));
-                    }
-                    else if (sprite.getState().Contains("Right"))
-                    {
-                        offset.X = (int)(100 * Math.Sin(Math.PI / 4));
-                        offset.Y = (int)(100 * Math.Sin(Math.PI / 4));
-                    }
-                }
-                else if (sprite.getState().Contains("Back"))
-                {
-                    offset.Y = -100;
-
-                    if (sprite.getState().Contains("Left"))
-                    {
-                        offset.X = (int)(-100 * Math.Sin(Math.PI / 4));
-                        offset.Y = (int)(-100 * Math.Sin(Math.PI / 4));
-                    }
-                    else if (sprite.getState().Contains("Right"))
-                    {
-                        offset.X = (int)(100 * Math.Sin(Math.PI / 4));
-                        offset.Y = (int)(-100 * Math.Sin(Math.PI / 4));
-                    }
-                }
-                else if (sprite.getState().Contains("Left"))
-                {
-                    offset.X = -100;
-                }
-                else if (sprite.getState().Contains("Right"))
-                {
-                    offset.X = 100;
-                }
-                gameReference.MoveCamera(offset);
+                float angle = (float)Math.Atan2(cursorLocation.Y - Location.Y, cursorLocation.X - Location.X);
+                Vector2 velocity = new Vector2(5 * (float)Math.Cos(angle), 5 * (float)Math.Sin(angle));
+                Bullet bullet = new Bullet(Location, velocity);
+                bullet.Load(gameReference.Content);
+                bullets.Add(bullet);
             }
 
             if (gameReference.controlManager.actions.Shield == true && ShieldOn == false)
@@ -199,16 +162,6 @@ namespace PantheonPrototype
             updateSprite();
 
             base.Update(gameTime, gameReference);
-        }
-
-        /// <summary>
-        /// Draw the player.
-        /// </summary>
-        /// <param name="canvas">The sprite batch to which the player will be drawn.</param>
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            HamburgerHelper.DrawLine(spriteBatch, laserTexture, 1.25f, Color.Red, Location, this.cursorLocation);
-            base.Draw(spriteBatch);
         }
 
         /// <summary>
@@ -309,6 +262,62 @@ namespace PantheonPrototype
         }
 
         /// <summary>
+        /// Updates where the camera should be looking while the player is scoping.
+        /// </summary>
+        /// <param name="gameReference">The key to accessing the camera.</param>
+        private void updateScope(Pantheon gameReference)
+        {
+            if (gameReference.controlManager.actions.Aim)
+            {
+                gameReference.controlManager.disableMotion();
+                Vector2 offset = Vector2.Zero;
+                if (sprite.getState().Contains("Forward"))
+                {
+                    offset.Y = 100;
+
+                    if (sprite.getState().Contains("Left"))
+                    {
+                        offset.X = (int)(-100 / Math.Sqrt(2));
+                        offset.Y = (int)(100 / Math.Sqrt(2));
+                    }
+                    else if (sprite.getState().Contains("Right"))
+                    {
+                        offset.X = (int)(100 / Math.Sqrt(2));
+                        offset.Y = (int)(100 / Math.Sqrt(2));
+                    }
+                }
+                else if (sprite.getState().Contains("Back"))
+                {
+                    offset.Y = -100;
+
+                    if (sprite.getState().Contains("Left"))
+                    {
+                        offset.X = (int)(-100 * Math.Sin(Math.PI / 4));
+                        offset.Y = (int)(-100 * Math.Sin(Math.PI / 4));
+                    }
+                    else if (sprite.getState().Contains("Right"))
+                    {
+                        offset.X = (int)(100 * Math.Sin(Math.PI / 4));
+                        offset.Y = (int)(-100 * Math.Sin(Math.PI / 4));
+                    }
+                }
+                else if (sprite.getState().Contains("Left"))
+                {
+                    offset.X = -100;
+                }
+                else if (sprite.getState().Contains("Right"))
+                {
+                    offset.X = 100;
+                }
+                gameReference.MoveCamera(offset);
+            }
+            else
+            {
+                gameReference.controlManager.enableMotion();
+            }
+        }
+
+        /// <summary>
         /// Updates the sprite into the correct state.
         /// </summary>
         private void updateSprite()
@@ -343,6 +352,16 @@ namespace PantheonPrototype
                     sprite.changeState(currentState + " Forward");
                     break;
             }
+        }
+
+        /// <summary>
+        /// Draw the player.
+        /// </summary>
+        /// <param name="canvas">The sprite batch to which the player will be drawn.</param>
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            HamburgerHelper.DrawLine(spriteBatch, laserTexture, 1.25f, Color.Red, Location, this.cursorLocation);
+            base.Draw(spriteBatch);
         }
     }
 }

@@ -83,6 +83,17 @@ namespace PantheonPrototype
         }
 
         /// <summary>
+        /// The list of all the bullets this character has fired.
+        /// </summary>
+        protected List<Bullet> bullets;
+
+        public List<Bullet> Bullets
+        {
+            get { return bullets; }
+            set { bullets = value; }
+        }
+
+        /// <summary>
         /// The velocity of the character.
         /// </summary>
         protected Vector2 velocity;
@@ -113,6 +124,7 @@ namespace PantheonPrototype
         public CharacterEntity(Vector2 location, Rectangle drawBox, Rectangle boundingBox):
             base(location, drawBox, boundingBox)
         {
+            bullets = new List<Bullet>();
         }
 
         /// <summary>
@@ -151,6 +163,11 @@ namespace PantheonPrototype
             {
                 currentShield++;
             }
+
+            foreach (Bullet bullet in bullets)
+            {
+                bullet.Update(gameTime, gameReference);
+            }
         }
 
         /// <summary>
@@ -158,9 +175,13 @@ namespace PantheonPrototype
         /// take over the entity. Let none of it survive... except all of it.
         /// </summary>
         /// <param name="canvas">An initialized SpriteBatch.</param>
-        public override void Draw(SpriteBatch canvas)
+        public override void Draw(SpriteBatch spriteBatch)
         {
-            base.Draw(canvas);
+            foreach (Bullet bullet in bullets)
+            {
+                bullet.Draw(spriteBatch);
+            }
+            base.Draw(spriteBatch);
         }
     }
 }
