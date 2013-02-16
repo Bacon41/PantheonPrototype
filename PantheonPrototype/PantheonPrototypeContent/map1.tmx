@@ -4,11 +4,13 @@
   <image source="TileMapSeamless.png" width="228" height="64"/>
   <tile id="0">
    <properties>
+    <property name="isShootable" value="true"/>
     <property name="isWalkable" value="false"/>
    </properties>
   </tile>
   <tile id="1">
    <properties>
+    <property name="isShootable" value="true"/>
     <property name="isWalkable" value="true"/>
    </properties>
   </tile>
@@ -17,11 +19,13 @@
   <image source="modifierTiles.png" width="228" height="64"/>
   <tile id="0">
    <properties>
+    <property name="isShootable" value="false"/>
     <property name="isWalkable" value="true"/>
    </properties>
   </tile>
   <tile id="1">
    <properties>
+    <property name="isShootable" value="false"/>
     <property name="isWalkable" value="true"/>
    </properties>
   </tile>

@@ -124,10 +124,13 @@ namespace PantheonPrototype
         /// </summary>
         public void Update(GameTime gameTime, Pantheon gameReference)
         {
+            // Updating all entities
             foreach (string entityName in this.entities.Keys)
             {
                 this.entities[entityName].Update(gameTime, gameReference);
             }
+
+            // Checking the character entity for collision with nonwalkable tiles.
             foreach (TileData tile in levelMap.GetTilesInRegion(this.entities["character"].BoundingBox))
             {
                 if (levelMap.SourceTiles[tile.SourceID].Properties["isWalkable"].AsBoolean == false)
@@ -141,6 +144,30 @@ namespace PantheonPrototype
                 }
             }
 
+            // Checking the character's bullets for collision with nonshootable tiles.
+            List<Bullet> bullets = ((CharacterEntity)this.entities["character"]).Bullets;
+            for (int x = 0; x < bullets.Count; x++)
+            {
+                if (bullets[x].BoundingBox.X > 0 && bullets[x].BoundingBox.Right < levelMap.Width * levelMap.TileWidth
+                    && bullets[x].BoundingBox.Y > 0 && bullets[x].BoundingBox.Bottom < levelMap.Height * levelMap.TileHeight)
+                {
+                    foreach (TileData tile in levelMap.GetTilesInRegion(bullets[x].BoundingBox))
+                    {
+                        if (levelMap.SourceTiles[tile.SourceID].Properties["isShootable"].AsBoolean == false)
+                        {
+                            Rectangle test = new Rectangle(tile.Target.X - tile.Target.Width / 2, tile.Target.Y - tile.Target.Height / 2,
+                                tile.Target.Width, tile.Target.Height);
+                            if (test.Intersects(bullets[x].BoundingBox))
+                            {
+                                bullets.RemoveAt(x);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Updating the camera when the character isn't scoping.
             if (!gameReference.controlManager.actions.Aim)
             {
                 Camera.Pos = new Vector2(this.entities["character"].DrawingBox.X + entities["character"].DrawingBox.Width / 2,
@@ -155,6 +182,7 @@ namespace PantheonPrototype
             screenRect.Width = (int)Camera.Pos.X + gameReference.GraphicsDevice.Viewport.Width / 2;
             screenRect.Height = (int)Camera.Pos.Y + gameReference.GraphicsDevice.Viewport.Height / 2;
 
+            // This part draws the rectangle that covers the screen completely black when the level is loading.
             if (levelStart)
             {
                 gameReference.controlManager.disableControls();
@@ -171,6 +199,7 @@ namespace PantheonPrototype
                 }
             }
 
+            // This checks each spawn oblect for collision with the character, and tells it to end the level if necessary.
             foreach (MapObject obj in levelMap.ObjectLayers["Spawn"].MapObjects)
             {
                 if (obj.Name.Substring(0, 3) == "end" && obj.Bounds.Intersects(this.entities["character"].DrawingBox))
