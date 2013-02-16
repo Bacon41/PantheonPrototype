@@ -85,107 +85,104 @@ namespace PantheonPrototype
         /// </summary>
         private void setDirection()
         {
-            int length = (int)velocity.Length();
+            //Unit vector in the direction of the velocity
+            Vector2 unitVelocity = velocity;
 
-            List<Vector2> cardinalDirections = new List<Vector2>();
+            //The angle of the unitVelocity with the positive x axis
+            double angle;
 
-            Vector2 velocityNormalized = velocity;
-            velocityNormalized.Normalize();
+            unitVelocity.Normalize();
 
-            //The current cardinal direction to be added to the list
-            Vector2 direction;
-
-            //The distance between velocity and the direction
-            Vector2 distance;
-
-            //The minimum distance between the velocity and the cardinal direction
-            //Should be initialized to greater than any possible value.
-            double minDistance = 10;
-
-            //The current distance being measured
-            double currentDistance;
-
-            //The index of the minimum distance
-            int indexOfMin = 0;
-            
-            //Load all the cardinal directions
-            direction = Vector2.UnitX;
-            direction *= length;
-            cardinalDirections.Add(direction);
-
-            direction = Vector2.UnitX + Vector2.UnitY;
-            direction.Normalize();
-            direction *= length;
-            cardinalDirections.Add(direction);
-
-            direction = Vector2.UnitY;
-            direction *= length;
-            cardinalDirections.Add(direction);
-
-            direction = -Vector2.UnitX + Vector2.UnitY;
-            direction.Normalize();
-            direction *= length;
-            cardinalDirections.Add(direction);
-
-            direction = -Vector2.UnitX;
-            direction *= length;
-            cardinalDirections.Add(direction);
-
-            direction = -Vector2.UnitX - Vector2.UnitY;
-            direction.Normalize();
-            direction *= length;
-            cardinalDirections.Add(direction);
-
-            direction = -Vector2.UnitY;
-            direction *= length;
-            cardinalDirections.Add(direction);
-
-            direction = Vector2.UnitX - Vector2.UnitY;
-            direction.Normalize();
-            direction *= length;
-            cardinalDirections.Add(direction);
-
-            //Find the minimum distance
-            for(int i = 0; i < cardinalDirections.Count; i++)
+            //Check for the case where arcsin will not work
+            /*if (unitVelocity.Y == 0)
             {
-                distance = velocityNormalized - cardinalDirections[i];
-                currentDistance = distance.Length();
-                Console.WriteLine(currentDistance + " at " + i);
-                if (currentDistance < minDistance)
+                if (unitVelocity.X < 0)
                 {
-                    minDistance = currentDistance;
-                    indexOfMin = i;
+                    this.CurrentState = "Left";
                 }
+                else
+                {
+                    this.CurrentState = "Right";
+                }
+            }*/
+
+            //Find the angle
+            angle = Math.Asin(unitVelocity.Y);
+
+            //Make sure that the direction is correct for right and left
+            //(sine doesn't handle right and left)
+            if (unitVelocity.X < 0)
+            {
+                angle += Math.PI;
             }
 
-            switch (indexOfMin)
+            //Make sure that 0 < angle < 2*pi
+            while (angle < 0)
             {
-                case 0:
-                    this.CurrentState = "Right";
-                    break;
-                case 1:
-                    this.CurrentState = "Forward Right";
-                    break;
-                case 2:
-                    this.CurrentState = "Forward";
-                    break;
-                case 3:
-                    this.CurrentState = "Forward Left";
-                    break;
-                case 4:
-                    this.CurrentState = "Left";
-                    break;
-                case 5:
-                    this.CurrentState = "Back Left";
-                    break;
-                case 6:
+                angle += 2 * Math.PI;
+            }
+
+            while (angle > 2 * Math.PI)
+            {
+                angle -= 2 * Math.PI;
+            }
+
+            Console.WriteLine(angle / (2 * Math.PI) * 360 + " or " + angle + " in radians");
+
+            //Find the angle range of the bullet and set the direction
+            if (Math.PI * 15 / 8 < angle || angle < Math.PI / 8)
+            {
+                this.CurrentState = "Right";
+                Console.WriteLine("Choose between 15pi/8 (" + (Math.PI * 15 / 8) + ") and pi/8 (" + (Math.PI / 8) + ")");
+            }
+            else if (Math.PI / 8 < angle && angle < Math.PI * 3 / 8)
+            {
+                this.CurrentState = "Forward Right";
+                Console.WriteLine("Choose between pi/8 (" + (Math.PI / 8) + ") and 3pi/8 (" + (Math.PI * 3 / 8) + ")");
+            }
+            else if (Math.PI * 3 / 8 < angle && angle < Math.PI * 5 / 8)
+            {
+                if (unitVelocity.Y < 0)
+                {
                     this.CurrentState = "Back";
-                    break;
-                case 7:
-                    this.CurrentState = "Back Right";
-                    break;
-                default:
-                    break;
+                }
+                else
+                {
+                    this.CurrentState = "Forward";
+                }
+                Console.WriteLine("Choose between 3pi/8 (" + (Math.PI * 3 / 8) + ") and 5pi/8 (" + (Math.PI * 5 / 8) + ")");
+            }
+            else if (Math.PI * 5 / 8 < angle && angle < Math.PI * 7 / 8)
+            {
+                this.CurrentState = "Back Left";
+                Console.WriteLine("Choose between 5pi/8 (" + (Math.PI * 5 / 8) + ") and 7pi/8 (" + (Math.PI * 7 / 8) + ")");
+            }
+            else if (Math.PI * 7 / 8 < angle && angle < Math.PI * 9 / 8)
+            {
+                this.CurrentState = "Left";
+                Console.WriteLine("Choose between 7pi/8 (" + (Math.PI * 7 / 8) + ") and 9pi/8 (" + (Math.PI * 9 / 8) + ")");
+            }
+            else if (Math.PI * 9 / 8 < angle && angle < Math.PI * 11 / 8)
+            {
+                this.CurrentState = "Forward Left";
+                Console.WriteLine("Choose between 9pi/8 (" + (Math.PI * 9 / 8) + ") and 11pi/8 (" + (Math.PI * 11 / 8) + ")");
+            }
+            else if (Math.PI * 11 / 8 < angle && angle < Math.PI * 13 / 8)
+            {
+                if (unitVelocity.Y < 0)
+                {
+                    this.CurrentState = "Back";
+                }
+                else
+                {
+                    this.CurrentState = "Forward";
+                }
+                Console.WriteLine("Choose between 11pi/8 (" + (Math.PI * 11 / 8) + ") and 13pi/8 (" + (Math.PI * 13 / 8) + ")");
+            }
+            else
+            {
+                this.CurrentState = "Back Right";
+                Console.WriteLine("Choose between 13pi/8 (" + (Math.PI * 13 / 8) + ") and 15pi/8 (" + (Math.PI * 15 / 8) + ")");
             }
         }
     }
