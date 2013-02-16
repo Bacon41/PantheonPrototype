@@ -164,9 +164,13 @@ namespace PantheonPrototype
                 currentShield++;
             }
 
-            foreach (Bullet bullet in bullets)
+            for (int x = 0; x < bullets.Count; x++)
             {
-                bullet.Update(gameTime, gameReference);
+                bullets[x].Update(gameTime, gameReference);
+                if (bullets[x].ToDestroy)
+                {
+                    bullets.Remove(bullets[x]);
+                }
             }
         }
 

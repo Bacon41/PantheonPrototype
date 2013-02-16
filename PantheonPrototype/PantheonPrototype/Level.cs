@@ -30,7 +30,7 @@ namespace PantheonPrototype
     class Level
     {
         // Member Variable Declaration
-        protected Camera camera;
+        public Camera Camera;
         protected Dictionary<string, Entity> entities;
         protected Map levelMap;
         protected Player player;
@@ -68,7 +68,7 @@ namespace PantheonPrototype
         public Level(GraphicsDevice graphicsDevice)
         {
             this.entities = new Dictionary<string, Entity>();
-            this.camera = new Camera(graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height);
+            this.Camera = new Camera(graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height);
             this.screenRect = Rectangle.Empty;
             this.hideTexture = new Texture2D(graphicsDevice, 1, 1, false, SurfaceFormat.Color);
             this.hideTexture.SetData(new[] { Color.Black });
@@ -101,12 +101,12 @@ namespace PantheonPrototype
                 }
             }
 
-            camera.Pos = new Vector2(this.entities["character"].DrawingBox.X + entities["character"].DrawingBox.Width / 2,
+            Camera.Pos = new Vector2(this.entities["character"].DrawingBox.X + entities["character"].DrawingBox.Width / 2,
                 this.entities["character"].DrawingBox.Y + entities["character"].DrawingBox.Height / 2);
 
             // This is the level-load-in-from-black feature.
-            hideRect.X = (int)camera.Pos.X - gameReference.GraphicsDevice.Viewport.Width / 2;
-            hideRect.Y = (int)camera.Pos.Y - gameReference.GraphicsDevice.Viewport.Height / 2;
+            hideRect.X = (int)Camera.Pos.X - gameReference.GraphicsDevice.Viewport.Width / 2;
+            hideRect.Y = (int)Camera.Pos.Y - gameReference.GraphicsDevice.Viewport.Height / 2;
             hideRect.Width = gameReference.GraphicsDevice.Viewport.Width;
             hideRect.Height = hideRectDimen;
         }
@@ -143,22 +143,23 @@ namespace PantheonPrototype
 
             if (!gameReference.controlManager.actions.Aim)
             {
-                MoveCamera(gameReference, Vector2.Zero);
+                Camera.Pos = new Vector2(this.entities["character"].DrawingBox.X + entities["character"].DrawingBox.Width / 2,
+                    this.entities["character"].DrawingBox.Y + entities["character"].DrawingBox.Height / 2);
             }
 
             // This is a fairly ugly way of making the tiles draw in the right locations.
-            screenRect.X = (int)camera.Pos.X - gameReference.GraphicsDevice.Viewport.Width / 2;
+            screenRect.X = (int)Camera.Pos.X - gameReference.GraphicsDevice.Viewport.Width / 2;
             if (screenRect.X < 0) screenRect.X = 0;
-            screenRect.Y = (int)camera.Pos.Y - gameReference.GraphicsDevice.Viewport.Height / 2;
+            screenRect.Y = (int)Camera.Pos.Y - gameReference.GraphicsDevice.Viewport.Height / 2;
             if (screenRect.Y < 0) screenRect.Y = 0;
-            screenRect.Width = (int)camera.Pos.X + gameReference.GraphicsDevice.Viewport.Width / 2;
-            screenRect.Height = (int)camera.Pos.Y + gameReference.GraphicsDevice.Viewport.Height / 2;
+            screenRect.Width = (int)Camera.Pos.X + gameReference.GraphicsDevice.Viewport.Width / 2;
+            screenRect.Height = (int)Camera.Pos.Y + gameReference.GraphicsDevice.Viewport.Height / 2;
 
             if (levelStart)
             {
                 gameReference.controlManager.disableControls();
-                hideRect.X = (int)camera.Pos.X - gameReference.GraphicsDevice.Viewport.Width / 2;
-                hideRect.Y = (int)camera.Pos.Y - gameReference.GraphicsDevice.Viewport.Height / 2;
+                hideRect.X = (int)Camera.Pos.X - gameReference.GraphicsDevice.Viewport.Width / 2;
+                hideRect.Y = (int)Camera.Pos.Y - gameReference.GraphicsDevice.Viewport.Height / 2;
                 hideRect.Width = gameReference.GraphicsDevice.Viewport.Width;
                 hideRect.Height = hideRectDimen;
 
@@ -175,8 +176,8 @@ namespace PantheonPrototype
                 if (obj.Name.Substring(0, 3) == "end" && obj.Bounds.Intersects(this.entities["character"].DrawingBox))
                 {
                     gameReference.controlManager.disableControls();
-                    hideRect.X = (int)camera.Pos.X - gameReference.GraphicsDevice.Viewport.Width / 2;
-                    hideRect.Y = (int)camera.Pos.Y - gameReference.GraphicsDevice.Viewport.Height / 2;
+                    hideRect.X = (int)Camera.Pos.X - gameReference.GraphicsDevice.Viewport.Width / 2;
+                    hideRect.Y = (int)Camera.Pos.Y - gameReference.GraphicsDevice.Viewport.Height / 2;
                     hideRect.Width = gameReference.GraphicsDevice.Viewport.Width;
                     hideRect.Height = hideRectDimen;
 
@@ -190,14 +191,6 @@ namespace PantheonPrototype
             }
         }
 
-        public void MoveCamera(Pantheon gameReference, Vector2 offset)
-        {
-            camera.Pos = new Vector2(this.entities["character"].DrawingBox.X + entities["character"].DrawingBox.Width / 2,
-                this.entities["character"].DrawingBox.Y + entities["character"].DrawingBox.Height / 2);
-            camera.Pos += offset;
-            ((PlayerCharacter)entities["character"]).UpdateLaser(gameReference, offset);
-        }
-
         /// <summary>
         /// The Draw function will draw the level itself, as well as any
         /// subentities that are a part of the level. Each entity will
@@ -206,7 +199,7 @@ namespace PantheonPrototype
         /// </summary>
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, this.camera.getTransformation());
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, this.Camera.getTransformation());
             
             levelMap.Draw(spriteBatch, screenRect);
 

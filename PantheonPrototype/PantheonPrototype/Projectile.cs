@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using FuncWorks.XNA.XTiled;
 
 namespace PantheonPrototype
 {
@@ -33,6 +34,13 @@ namespace PantheonPrototype
             set { velocity = value; }
         }
 
+        protected bool toDestroy;
+
+        public bool ToDestroy
+        {
+            get { return toDestroy; }
+        }
+
         /// <summary>
         /// A pass through constructor for the Entity class
         /// </summary>
@@ -41,7 +49,9 @@ namespace PantheonPrototype
         /// <param name="boundingBox">The bounding box of the entity relative to the upper right hand corner of the entity.</param>
         public Projectile(Vector2 location, Rectangle drawBox, Rectangle boundingBox)
             : base(location, drawBox, boundingBox)
-        { }
+        {
+            toDestroy = false;
+        }
 
         /// <summary>
         /// Loads the projectile object.
@@ -63,6 +73,28 @@ namespace PantheonPrototype
 
             //Update the location
             this.Location = Location + velocity;
+
+            checkBounds(gameReference);
+        }
+
+        private void checkBounds(Pantheon gameReference)
+        {
+            if (Location.X < gameReference.GetCamera().Pos.X - gameReference.GraphicsDevice.Viewport.Width / 2)
+            {
+                toDestroy = true;
+            }
+            if (Location.X > gameReference.GetCamera().Pos.X + gameReference.GraphicsDevice.Viewport.Width / 2)
+            {
+                toDestroy = true;
+            }
+            if (Location.Y < gameReference.GetCamera().Pos.Y - gameReference.GraphicsDevice.Viewport.Height / 2)
+            {
+                toDestroy = true;
+            }
+            if (Location.Y > gameReference.GetCamera().Pos.Y + gameReference.GraphicsDevice.Viewport.Height / 2)
+            {
+                toDestroy = true;
+            }
         }
 
         /// <summary>

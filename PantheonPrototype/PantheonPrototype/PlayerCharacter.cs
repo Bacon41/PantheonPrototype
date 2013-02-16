@@ -22,6 +22,7 @@ namespace PantheonPrototype
         /// Class variables.
         /// </summary>
         protected Vector2 cursorLocation;
+        protected Vector2 totalOffset;
         protected Texture2D laserTexture;
 
         /// <summary>
@@ -136,7 +137,7 @@ namespace PantheonPrototype
         {
             //Update the velocity and facing
             updateLocation(gameReference);
-            UpdateLaser(gameReference, Vector2.Zero);
+            updateLaser(gameReference, Vector2.Zero);
             updateScope(gameReference);
 
             if (gameReference.controlManager.actions.Attack)
@@ -251,17 +252,6 @@ namespace PantheonPrototype
         }
 
         /// <summary>
-        /// Puts the laser in the right spot on screen.
-        /// </summary>
-        /// <param name="gameReference">Object to access the control manager.</param>
-        public void UpdateLaser(Pantheon gameReference, Vector2 offset)
-        {
-            cursorLocation = gameReference.controlManager.actions.CursorPosition;
-            cursorLocation.X += Location.X - gameReference.GraphicsDevice.Viewport.Width / 2 + offset.X;
-            cursorLocation.Y += Location.Y - gameReference.GraphicsDevice.Viewport.Height / 2 + offset.Y;
-        }
-
-        /// <summary>
         /// Updates where the camera should be looking while the player is scoping.
         /// </summary>
         /// <param name="gameReference">The key to accessing the camera.</param>
@@ -269,52 +259,70 @@ namespace PantheonPrototype
         {
             if (gameReference.controlManager.actions.Aim)
             {
+                int offsetNum = 10;
                 gameReference.controlManager.disableMotion();
                 Vector2 offset = Vector2.Zero;
                 if (sprite.getState().Contains("Forward"))
                 {
-                    offset.Y = 100;
+                    offset.Y = offsetNum;
 
                     if (sprite.getState().Contains("Left"))
                     {
-                        offset.X = (int)(-100 / Math.Sqrt(2));
-                        offset.Y = (int)(100 / Math.Sqrt(2));
+                        offset.X = (int)(-offsetNum / Math.Sqrt(2));
+                        offset.Y = (int)(offsetNum / Math.Sqrt(2));
                     }
                     else if (sprite.getState().Contains("Right"))
                     {
-                        offset.X = (int)(100 / Math.Sqrt(2));
-                        offset.Y = (int)(100 / Math.Sqrt(2));
+                        offset.X = (int)(offsetNum / Math.Sqrt(2));
+                        offset.Y = (int)(offsetNum / Math.Sqrt(2));
                     }
                 }
                 else if (sprite.getState().Contains("Back"))
                 {
-                    offset.Y = -100;
+                    offset.Y = -offsetNum;
 
                     if (sprite.getState().Contains("Left"))
                     {
-                        offset.X = (int)(-100 * Math.Sin(Math.PI / 4));
-                        offset.Y = (int)(-100 * Math.Sin(Math.PI / 4));
+                        offset.X = (int)(-offsetNum * Math.Sin(Math.PI / 4));
+                        offset.Y = (int)(-offsetNum * Math.Sin(Math.PI / 4));
                     }
                     else if (sprite.getState().Contains("Right"))
                     {
-                        offset.X = (int)(100 * Math.Sin(Math.PI / 4));
-                        offset.Y = (int)(-100 * Math.Sin(Math.PI / 4));
+                        offset.X = (int)(offsetNum * Math.Sin(Math.PI / 4));
+                        offset.Y = (int)(-offsetNum * Math.Sin(Math.PI / 4));
                     }
                 }
                 else if (sprite.getState().Contains("Left"))
                 {
-                    offset.X = -100;
+                    offset.X = -offsetNum;
                 }
                 else if (sprite.getState().Contains("Right"))
                 {
-                    offset.X = 100;
+                    offset.X = offsetNum;
                 }
-                gameReference.MoveCamera(offset);
+                if (totalOffset.Length() < 170)
+                {
+                    gameReference.GetCamera().Pos += offset;
+                    totalOffset += offset;
+                }
+                updateLaser(gameReference, totalOffset);
             }
             else
             {
                 gameReference.controlManager.enableMotion();
+                totalOffset = Vector2.Zero;
             }
+        }
+
+        /// <summary>
+        /// Puts the laser in the right spot on screen.
+        /// </summary>
+        /// <param name="gameReference">Object to access the control manager.</param>
+        private void updateLaser(Pantheon gameReference, Vector2 offset)
+        {
+            cursorLocation = gameReference.controlManager.actions.CursorPosition;
+            cursorLocation.X += Location.X - gameReference.GraphicsDevice.Viewport.Width / 2 + offset.X;
+            cursorLocation.Y += Location.Y - gameReference.GraphicsDevice.Viewport.Height / 2 + offset.Y;
         }
 
         /// <summary>

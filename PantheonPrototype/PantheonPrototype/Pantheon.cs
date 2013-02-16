@@ -112,9 +112,12 @@ namespace PantheonPrototype
             base.Update(gameTime);
         }
 
-        public void MoveCamera(Vector2 offset)
+        /// <summary>
+        /// Public method to allow access to the level's Camera object.
+        /// </summary>
+        public Camera GetCamera()
         {
-            currentLevel.MoveCamera(this, offset);
+            return currentLevel.Camera;
         }
 
         /// <summary>
