@@ -22,6 +22,8 @@ namespace PantheonPrototype
 
         public ControlManager controlManager;
 
+        Menu menu;
+
         HUD hud;
 
         Level currentLevel;
@@ -50,6 +52,8 @@ namespace PantheonPrototype
             int SCREEN_WIDTH = GraphicsDevice.Viewport.Width;
             int SCREEN_HEIGHT = GraphicsDevice.Viewport.Height;
 
+            menu = new Menu();
+
             hud = new HUD(GraphicsDevice, Content, SCREEN_WIDTH, SCREEN_HEIGHT);
 
             currentLevel = new Level(GraphicsDevice);
@@ -66,6 +70,8 @@ namespace PantheonPrototype
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Map.InitObjectDrawing(graphics.GraphicsDevice);
+
+            menu.Load(this);
 
             currentLevel.Load("map1", "map0", this);
 
@@ -90,24 +96,32 @@ namespace PantheonPrototype
         {
             controlManager.Update();
 
+            // REMOVE LATER
+            if (Keyboard.GetState().IsKeyDown(Keys.Back)) { this.Exit(); }
+
             if (controlManager.actions.Pause)
             {
-                this.Exit();
-            }
-
-            if (currentLevel.LevelPlaying)
-            {
-                currentLevel.Update(gameTime, this);
+                this.IsMouseVisible = true;
+                menu.Update(gameTime, this);
             }
             else
             {
-                string nextLevel = currentLevel.NextLevel;
-                string prevLevel = currentLevel.LevelNum;
-                currentLevel = new Level(GraphicsDevice);
-                currentLevel.Load(nextLevel, prevLevel, this);
-            }
+                this.IsMouseVisible = false;
 
-            hud.Update(gameTime, this, this.currentLevel);
+                if (currentLevel.LevelPlaying)
+                {
+                    currentLevel.Update(gameTime, this);
+                }
+                else
+                {
+                    string nextLevel = currentLevel.NextLevel;
+                    string prevLevel = currentLevel.LevelNum;
+                    currentLevel = new Level(GraphicsDevice);
+                    currentLevel.Load(nextLevel, prevLevel, this);
+                }
+
+                hud.Update(gameTime, this, this.currentLevel);
+            }
 
             base.Update(gameTime);
         }
@@ -128,11 +142,18 @@ namespace PantheonPrototype
         {
             GraphicsDevice.Clear(Color.Black);
 
-            if (currentLevel.LevelPlaying)
+            if (controlManager.actions.Pause)
             {
-                currentLevel.Draw(spriteBatch);
+                menu.Draw(spriteBatch);
             }
-            hud.Draw(spriteBatch, debugFont);
+            else
+            {
+                if (currentLevel.LevelPlaying)
+                {
+                    currentLevel.Draw(spriteBatch);
+                }
+                hud.Draw(spriteBatch, debugFont);
+            }
 
             base.Draw(gameTime);
         }

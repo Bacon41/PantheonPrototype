@@ -104,11 +104,17 @@ namespace PantheonPrototype
         public GamePadControls gamepadControls;
         public MouseAndKeyboardControls keyboardAndMouse;
 
+        private KeyboardState keyboard;
+        private KeyboardState oldKeyboard;
+
         public ControlManager()
         {
             actions.Shield = false;
             actions.isControlEnabled = true;
             actions.isMotionEnabled = true;
+
+            keyboard = Keyboard.GetState();
+            oldKeyboard = keyboard;
 
             setDefaultGamepadControlScheme();
             setDefaultMouseAndKeyboardControlScheme();            
@@ -121,7 +127,7 @@ namespace PantheonPrototype
             reset();
 
             //Get the current keyboard state
-            KeyboardState keyboard = Keyboard.GetState();           
+            keyboard = Keyboard.GetState();           
             
             //Get the mouse state
             MouseState mouse = Mouse.GetState();
@@ -131,7 +137,6 @@ namespace PantheonPrototype
             GamePadState gamepad = GamePad.GetState(PlayerIndex.One);
             if (actions.isControlEnabled == true)
             {
-
                 if (gamepad.IsConnected)
                 {
                     //No longer using a mouse
@@ -153,7 +158,8 @@ namespace PantheonPrototype
                     if (keyboard.IsKeyDown(keyboardAndMouse.MoveLeftKey) || keyboard.IsKeyDown(Keys.Left)) { actions.MoveLeft = true; }
                     if (keyboard.IsKeyDown(keyboardAndMouse.MoveRightKey) || keyboard.IsKeyDown(Keys.Right)) { actions.MoveRight = true; }
                 }
-                if (keyboard.IsKeyDown(keyboardAndMouse.PauseKey) && !actions.Pause) { actions.Pause = true; }                
+                if (keyboard.IsKeyDown(keyboardAndMouse.PauseKey) && !oldKeyboard.IsKeyDown(keyboardAndMouse.PauseKey))
+                { actions.Pause = !actions.Pause; }                
                 if (keyboard.IsKeyDown(keyboardAndMouse.ShieldKey) && actions.Shield) { actions.Shield = false; }
                 else if (keyboard.IsKeyDown(keyboardAndMouse.ShieldKey) && !actions.Shield) { actions.Shield = true; }
                 if (keyboardAndMouse.AttackMouseButton == ButtonState.Pressed) { actions.Attack = true; }
@@ -166,6 +172,8 @@ namespace PantheonPrototype
             }
 
             actions.CursorPosition = new Vector2(mouse.X, mouse.Y);
+
+            oldKeyboard = keyboard;
         }
 
         /// <summary>
@@ -182,8 +190,6 @@ namespace PantheonPrototype
             actions.Attack = false;
             //actions.Shield = false;
             actions.Aim = false;
-
-            actions.Pause = false;
 
             actions.CursorPosition = Vector2.Zero;
         }
