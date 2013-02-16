@@ -56,6 +56,8 @@ namespace PantheonPrototype
                 this.sprite.addState("Back", 5, 5);
                 this.sprite.addState("Back Right", 6, 6);
                 this.sprite.addState("Right", 7, 7);
+
+                setDirection();
             }
         }
 
@@ -76,6 +78,115 @@ namespace PantheonPrototype
         public override void Draw(SpriteBatch canvas)
         {
             base.Draw(canvas);
+        }
+
+        /// <summary>
+        /// Sets the direction of the sprite based on the current velocity.
+        /// </summary>
+        private void setDirection()
+        {
+            int length = (int)velocity.Length();
+
+            List<Vector2> cardinalDirections = new List<Vector2>();
+
+            Vector2 velocityNormalized = velocity;
+            velocityNormalized.Normalize();
+
+            //The current cardinal direction to be added to the list
+            Vector2 direction;
+
+            //The distance between velocity and the direction
+            Vector2 distance;
+
+            //The minimum distance between the velocity and the cardinal direction
+            //Should be initialized to greater than any possible value.
+            double minDistance = 10;
+
+            //The current distance being measured
+            double currentDistance;
+
+            //The index of the minimum distance
+            int indexOfMin = 0;
+            
+            //Load all the cardinal directions
+            direction = Vector2.UnitX;
+            direction *= length;
+            cardinalDirections.Add(direction);
+
+            direction = Vector2.UnitX + Vector2.UnitY;
+            direction.Normalize();
+            direction *= length;
+            cardinalDirections.Add(direction);
+
+            direction = Vector2.UnitY;
+            direction *= length;
+            cardinalDirections.Add(direction);
+
+            direction = -Vector2.UnitX + Vector2.UnitY;
+            direction.Normalize();
+            direction *= length;
+            cardinalDirections.Add(direction);
+
+            direction = -Vector2.UnitX;
+            direction *= length;
+            cardinalDirections.Add(direction);
+
+            direction = -Vector2.UnitX - Vector2.UnitY;
+            direction.Normalize();
+            direction *= length;
+            cardinalDirections.Add(direction);
+
+            direction = -Vector2.UnitY;
+            direction *= length;
+            cardinalDirections.Add(direction);
+
+            direction = Vector2.UnitX - Vector2.UnitY;
+            direction.Normalize();
+            direction *= length;
+            cardinalDirections.Add(direction);
+
+            //Find the minimum distance
+            for(int i = 0; i < cardinalDirections.Count; i++)
+            {
+                distance = velocityNormalized - cardinalDirections[i];
+                currentDistance = distance.Length();
+                Console.WriteLine(currentDistance + " at " + i);
+                if (currentDistance < minDistance)
+                {
+                    minDistance = currentDistance;
+                    indexOfMin = i;
+                }
+            }
+
+            switch (indexOfMin)
+            {
+                case 0:
+                    this.CurrentState = "Right";
+                    break;
+                case 1:
+                    this.CurrentState = "Forward Right";
+                    break;
+                case 2:
+                    this.CurrentState = "Forward";
+                    break;
+                case 3:
+                    this.CurrentState = "Forward Left";
+                    break;
+                case 4:
+                    this.CurrentState = "Left";
+                    break;
+                case 5:
+                    this.CurrentState = "Back Left";
+                    break;
+                case 6:
+                    this.CurrentState = "Back";
+                    break;
+                case 7:
+                    this.CurrentState = "Back Right";
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
