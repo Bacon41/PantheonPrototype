@@ -164,8 +164,8 @@ namespace FuncWorks.XNA.XTiled {
 
             for (int l = 0; l < this.TileLayers.Count; l++) {
                 if (this.TileLayers[l].Visible || drawHiddenLayers) {
-                    // Changed this to be on the bottom layer.
-                    DrawLayer(spriteBatch, l, ref region, txMin, txMax, tyMin, tyMax, 1);
+                    // Changed the leayer depth to change based on the height of the layer
+                    DrawLayer(spriteBatch, l, ref region, txMin, txMax, tyMin, tyMax, (float)(1-(l+1) * 0.1f));
                 }
             }
         }

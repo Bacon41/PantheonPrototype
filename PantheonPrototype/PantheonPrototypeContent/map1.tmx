@@ -13,14 +13,32 @@
    </properties>
   </tile>
  </tileset>
+ <tileset firstgid="3" name="modifier" tilewidth="114" tileheight="64">
+  <image source="modifierTiles.png" width="228" height="64"/>
+  <tile id="0">
+   <properties>
+    <property name="isWalkable" value="true"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="isWalkable" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
  <layer name="Base" width="12" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjZGBgYCQRMyHR+DAjmjpc5uBio5uFTw26GLHm01s9Ib9Qoh5f2KKbhS++SMEA6YQAzQ==
+   eJxjZGBgYCQRM+HBjGhsQurR9ZJiD6nuI9ZsaqvHph+fWnRxfP4jNb5IjWtCGAD8zADV
+  </data>
+ </layer>
+ <layer name="Modifer" width="12" height="12">
+  <data encoding="base64" compression="zlib">
+   eJxjYCAdsJChBx9gprJ5o4B+AAAPpAAI
   </data>
  </layer>
  <objectgroup name="Spawn" width="12" height="12">
-  <object name="startmap0" x="152" y="85" width="39" height="28"/>
-  <object name="startmap2" x="49" y="262" width="32" height="52"/>
-  <object name="endmap2" x="6" y="259" width="14" height="59"/>
+  <object name="startmap0" x="371" y="634" width="39" height="28"/>
+  <object name="startmap2" x="990" y="206" width="33" height="32"/>
+  <object name="endmap2" x="1039" y="135" width="78" height="48"/>
  </objectgroup>
 </map>

@@ -142,7 +142,7 @@ namespace PantheonPrototype
             if (gameReference.controlManager.actions.Attack)
             {
                 float angle = (float)Math.Atan2(cursorLocation.Y - Location.Y, cursorLocation.X - Location.X);
-                Vector2 velocity = new Vector2(5 * (float)Math.Cos(angle), 5 * (float)Math.Sin(angle));
+                Vector2 velocity = new Vector2(25 * (float)Math.Cos(angle), 25 * (float)Math.Sin(angle));
                 Bullet bullet = new Bullet(Location, velocity);
                 bullet.Load(gameReference.Content);
                 bullets.Add(bullet);
