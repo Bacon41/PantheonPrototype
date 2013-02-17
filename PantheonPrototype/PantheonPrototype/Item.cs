@@ -22,6 +22,24 @@ namespace PantheonPrototype
     class Item
     {
         /// <summary>
+        /// The representation of the item on the HUD.
+        /// 
+        /// For the moment, this is the same as the representation in the inventory.
+        /// That could change.
+        /// </summary>
+        Sprite HUDRepresentation;
+
+        /// <summary>
+        /// One of those constructor thingies. Defined so that you can initialize
+        /// all the thingies in the item class
+        /// </summary>
+        public Item()
+        {
+            //Right now just an empty declaration
+            HUDRepresentation = new Sprite();
+        }
+
+        /// <summary>
         /// The super ambiguous function designed to be super ambiguous.
         /// 
         /// Basically, call this function for some random object to do some
