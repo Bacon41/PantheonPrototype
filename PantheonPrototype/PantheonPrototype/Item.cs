@@ -21,5 +21,16 @@ namespace PantheonPrototype
     /// </summary>
     class Item
     {
+        /// <summary>
+        /// The super ambiguous function designed to be super ambiguous.
+        /// 
+        /// Basically, call this function for some random object to do some
+        /// random thing.
+        /// 
+        /// See? Super ambiguous.
+        /// </summary>
+        public virtual void activate()
+        {
+        }
     }
 }

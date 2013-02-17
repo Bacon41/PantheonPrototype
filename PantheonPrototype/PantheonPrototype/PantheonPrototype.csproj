@@ -86,6 +86,7 @@
     <Compile Include="HamburgerHelper.cs" />
     <Compile Include="HUD.cs" />
     <Compile Include="HUDItem.cs" />
+    <Compile Include="Item.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="MenuItem.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Pantheon.cs" />
     <Compile Include="Sprite.cs" />
+    <Compile Include="Weapon.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
