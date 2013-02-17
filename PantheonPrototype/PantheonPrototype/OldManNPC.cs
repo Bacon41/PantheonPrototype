@@ -21,6 +21,44 @@ namespace PantheonPrototype
         public OldManNPC(Vector2 location)
             : base(location, new Rectangle(0, 0, 40, 40), new Rectangle(15, 25, 10, 10))
         {
+            
+        }
+
+        /// <summary>
+        /// Load the old man NPC.
+        /// </summary>
+        /// <param name="contentManager">Read the parameter name... that's what it is.</param>
+        public override void Load(ContentManager contentManager)
+        {
+            base.Load(contentManager);
+
+            Texture2D sprite;
+
+            //Load the image
+            sprite = contentManager.Load<Texture2D>("oldman");
+
+            this.Sprite.loadSprite(sprite, 1, 1, 30);
+
+            velocity = Vector2.Zero;
+        }
+
+        /// <summary>
+        /// Updates the OLDE MAN
+        /// </summary>
+        /// <param name="gameTime">SHOWS JUST HOW OLD OF A MAN HE IS.</param>
+        /// <param name="gameReference">THE OLD MAN NEEDS NO SUCH REFERENCE BECAUSE HE ALREADY HAS THE WISDOM OF THE UNIVERSE.</param>
+        public override void Update(GameTime gameTime, Pantheon gameReference)
+        {
+            base.Update(gameTime, gameReference);
+        }
+
+        /// <summary>
+        /// Draw the OLD MAN.
+        /// </summary>
+        /// <param name="canvas">YOU SHALL SEE IN THIS BATCH JUST HOW OLD HE IS.</param>
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
         }
     }
 }
