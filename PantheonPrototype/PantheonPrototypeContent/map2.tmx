@@ -32,7 +32,7 @@
  </tileset>
  <layer name="Base" width="12" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjZGBgYCQRMxGJR9UPTfWkYAAWtwD1
+   eJxjZGBgYCQRMxGJR9UPvHpi1SKbTwoGABcXAPY=
   </data>
  </layer>
  <layer name="Modifer" width="12" height="12">
@@ -41,7 +41,7 @@
   </data>
  </layer>
  <objectgroup name="Spawn" width="12" height="12">
-  <object name="startmap1" x="183" y="636" width="12" height="13"/>
-  <object name="endmap1" x="95" y="661" width="49" height="59"/>
+  <object name="startmap1" x="60" y="669" width="12" height="13"/>
+  <object name="endmap1" x="0" y="640" width="19" height="64"/>
  </objectgroup>
 </map>
