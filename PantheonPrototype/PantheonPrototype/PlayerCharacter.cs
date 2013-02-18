@@ -24,6 +24,7 @@ namespace PantheonPrototype
         protected Vector2 cursorLocation;
         protected Vector2 totalOffset;
         protected Texture2D laserTexture;
+        protected Texture2D laserDot;
 
         /// <summary>
         /// The constructor for the player entity class.
@@ -54,6 +55,9 @@ namespace PantheonPrototype
 
             //Load the image
             sprite = contentManager.Load<Texture2D>("PlayerSprite");
+
+            //Load the laser Dot
+            laserDot = contentManager.Load<Texture2D>("laserDot");
 
             //If the image has been loaded
             if (sprite != null)
@@ -379,6 +383,10 @@ namespace PantheonPrototype
         {
             HamburgerHelper.DrawLine(spriteBatch, laserTexture, 1.25f, Color.Red, Location, this.cursorLocation);
             base.Draw(spriteBatch);
+
+            Vector2 laserDotCoords = new Vector2((int)(cursorLocation.X - laserDot.Width/2), (int)(cursorLocation.Y - laserDot.Height/2));
+            spriteBatch.Draw(laserDot, new Rectangle((int)laserDotCoords.X, (int)laserDotCoords.Y, (int)laserDot.Width, (int)laserDot.Height), Color.White);
+
         }
     }
 }
