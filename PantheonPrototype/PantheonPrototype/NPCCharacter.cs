@@ -17,5 +17,9 @@ namespace PantheonPrototype
         public NPCCharacter(Vector2 location, Rectangle drawBox, Rectangle boundingBox): base(location, drawBox, boundingBox)
         {
         }
+
+        public virtual void Interact()
+        {
+        }
     }
 }
