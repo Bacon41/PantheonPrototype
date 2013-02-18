@@ -299,39 +299,7 @@ namespace PantheonPrototype
             cursorLocation.Y += Location.Y - gameReference.GraphicsDevice.Viewport.Height / 2 + offset.Y;
 
             //Modify the direction in which the character faces
-            float angle = (float)(Math.Atan2(cursorLocation.Y - Location.Y, cursorLocation.X - Location.X) + Math.PI);
-            if (angle > Math.PI / 8 && angle < 3 * Math.PI / 8)
-            {
-                facing = Direction.backLeft;
-            }
-            else if (angle > 3 * Math.PI / 8 && angle < 5 * Math.PI / 8)
-            {
-                facing = Direction.back;
-            }
-            else if (angle > 5 * Math.PI / 8 && angle < 7 * Math.PI / 8)
-            {
-                facing = Direction.backRight;
-            }
-            else if (angle > 7 * Math.PI / 8 && angle < 9 * Math.PI / 8)
-            {
-                facing = Direction.Right;
-            }
-            else if (angle > 9 * Math.PI / 8 && angle < 11 * Math.PI / 8)
-            {
-                facing = Direction.forwardRight;
-            }
-            else if (angle > 11 * Math.PI / 8 && angle < 13 * Math.PI / 8)
-            {
-                facing = Direction.forward;
-            }
-            else if (angle > 13 * Math.PI / 8 && angle < 15 * Math.PI / 8)
-            {
-                facing = Direction.forwardLeft;
-            }
-            else
-            {
-                facing = Direction.Left;
-            }
+            facing = HamburgerHelper.reduceAngle(cursorLocation - Location);
         }
 
         /// <summary>
