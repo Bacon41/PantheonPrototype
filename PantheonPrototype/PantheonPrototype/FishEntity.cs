@@ -30,6 +30,7 @@ namespace PantheonPrototype
         /// <param name="gameReference">Another global game reference.</param>
         public override void Update(GameTime gameTime, Pantheon gameReference)
         {
+            base.Update(gameTime, gameReference);
         }
 
         /// <summary>

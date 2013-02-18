@@ -237,7 +237,7 @@ namespace PantheonPrototype
         {
             if (gameReference.controlManager.actions.Aim)
             {
-                int offsetNum = 10;
+                int offsetNum = 15;
                 gameReference.controlManager.disableMotion();
                 Vector2 offset = Vector2.Zero;
                 switch (facing)
@@ -274,7 +274,7 @@ namespace PantheonPrototype
                         offset = Vector2.Zero;
                         break;
                 }
-                if (totalOffset.Length() < 170)
+                if (totalOffset.Length() < 300)
                 {
                     gameReference.GetCamera().Pos += offset;
                     totalOffset += offset;

@@ -39,7 +39,20 @@ namespace PantheonPrototype
 
             this.Sprite.loadSprite(sprite, 1, 1, 30);
 
+            //Load the interaction information
+            // DO IT --
+            // ADD IT --
+            // ETC --
+
             velocity = Vector2.Zero;
+        }
+
+        /// <summary>
+        /// Runs the NPC's interaction 
+        /// </summary>
+        public override void Interact()
+        {
+
         }
 
         /// <summary>
