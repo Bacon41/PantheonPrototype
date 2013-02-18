@@ -26,12 +26,27 @@ namespace PantheonPrototype
         /// </summary>
         /// <param name="location">The initial position for the bullet.</param>
         /// <param name="velocity">The initial velocity of the bullet.</param>
-        public Bullet(Vector2 location, Vector2 velocity)
+        public Bullet(Vector2 location, int speed, float angle, Pantheon gameReference)
             : base(location,
                 new Rectangle(0,0,20,20),
                 new Rectangle(1,1,18,18))
         {
-            this.Velocity = velocity;
+            // If scoping, then use perfect accuracy.
+            // otherwies use a random deviation.
+            if (gameReference.controlManager.actions.Aim)
+            {
+                this.Velocity = new Vector2(speed * (float)Math.Cos(angle), speed * (float)Math.Sin(angle));
+            }
+            else
+            {
+                double randomDeviation = new Random().NextDouble();
+                float randomAngle = (float)(angle + (randomDeviation * .1) - .05);
+                // Max deviaion of .01 radians
+                // -.05 to center the deviation around the laser
+
+                this.Velocity = new Vector2(speed * (float)Math.Cos(randomAngle), speed * (float)Math.Sin(randomAngle));     
+            }
+
         }
 
         /// <summary>

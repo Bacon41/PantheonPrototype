@@ -147,13 +147,10 @@ namespace PantheonPrototype
             if (gameReference.controlManager.actions.Attack)
             {
                 float angle = (float)Math.Atan2(cursorLocation.Y - Location.Y, cursorLocation.X - Location.X);
-                double randomDeviation = new Random().NextDouble();
-                float randomAngle = (float)(angle + (randomDeviation * .1) - .05);
-                // Max deviaion of 1 * .01
-                // -.05 to center the deviation around the laser
+                
 
-                Vector2 velocity = new Vector2(25 * (float)Math.Cos(randomAngle), 25 * (float)Math.Sin(randomAngle));
-                Bullet bullet = new Bullet(Location, velocity);
+                //Vector2 velocity = new Vector2(25 * (float)Math.Cos(randomAngle), 25 * (float)Math.Sin(randomAngle));
+                Bullet bullet = new Bullet(Location, 25, angle, gameReference);
                 bullet.Load(gameReference.Content);
                 bullets.Add(bullet);
             }
