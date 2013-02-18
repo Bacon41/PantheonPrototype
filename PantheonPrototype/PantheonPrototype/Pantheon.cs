@@ -26,7 +26,7 @@ namespace PantheonPrototype
 
         HUD hud;
 
-        Level currentLevel;
+        public Level currentLevel;
 
         SpriteFont debugFont;
 

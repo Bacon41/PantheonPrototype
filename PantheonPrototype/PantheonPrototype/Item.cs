@@ -27,7 +27,7 @@ namespace PantheonPrototype
         /// For the moment, this is the same as the representation in the inventory.
         /// That could change.
         /// </summary>
-        Sprite HUDRepresentation;
+        public Sprite HUDRepresentation;
 
         /// <summary>
         /// One of those constructor thingies. Defined so that you can initialize
@@ -47,7 +47,9 @@ namespace PantheonPrototype
         /// 
         /// See? Super ambiguous.
         /// </summary>
-        public virtual void activate()
+        /// <param name="gameReference">A supremely useful reference to everything, just in case you need it.</param>
+        /// <param name="holder">A reference to the character holding the weapon.</param>
+        public virtual void activate(Pantheon gameReference, CharacterEntity holder)
         {
         }
     }

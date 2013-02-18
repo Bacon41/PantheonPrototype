@@ -21,6 +21,17 @@ namespace PantheonPrototype
     /// </summary>
     class Bullet : Projectile
     {
+        private static int nextId = 0;
+
+        public static int NextId
+        {
+            get
+            {
+                return nextId++;
+            }
+            set { nextId = value; }
+        }
+
         /// <summary>
         /// The constructor assumes that you are generating the bullet from a given location at a given velocity.
         /// </summary>

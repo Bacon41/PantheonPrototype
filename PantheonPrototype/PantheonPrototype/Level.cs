@@ -27,13 +27,13 @@ namespace PantheonPrototype
     /// Level content will be loaded dynamically through
     /// some sort of WAD-type file.
     ///</summary>
-    class Level
+    public class Level
     {
         // Member Variable Declaration
         public Camera Camera;
         protected Dictionary<string, Entity> entities;
         protected Map levelMap;
-        protected Player player;
+        //protected Player player;
         protected Rectangle screenRect;
         protected Texture2D hideTexture;
         protected Rectangle hideRect;
@@ -60,6 +60,21 @@ namespace PantheonPrototype
             get { return nextLevel; }
         }
 
+        public Dictionary<string, Entity> Entities
+        {
+            get { return entities; }
+        }
+
+        /// <summary>
+        /// A list of entities to add to the level entity list.
+        /// </summary>
+        public Dictionary<string, Entity> addList;
+
+        /// <summary>
+        /// A list of entities to remove from the level entity list.
+        /// </summary>
+        public List<string> removeList;
+
         // Object Function Declaration
         /// <summary>
         /// The constructor for the Level class. Basically doesn't do anything
@@ -68,6 +83,8 @@ namespace PantheonPrototype
         public Level(GraphicsDevice graphicsDevice)
         {
             this.entities = new Dictionary<string, Entity>();
+            this.addList = new Dictionary<string, Entity>();
+            this.removeList = new List<string>();
             this.Camera = new Camera(graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height);
             this.screenRect = Rectangle.Empty;
             this.hideTexture = new Texture2D(graphicsDevice, 1, 1, false, SurfaceFormat.Color);
@@ -112,11 +129,6 @@ namespace PantheonPrototype
             hideRect.Height = hideRectDimen;
         }
 
-        public Dictionary<string, Entity> Entities
-        {
-            get { return entities; }
-        }
-
         /// <summary>
         /// The Update function will run through the level and perform any
         /// necessary operations for processing the frame. This includes
@@ -125,6 +137,21 @@ namespace PantheonPrototype
         /// </summary>
         public void Update(GameTime gameTime, Pantheon gameReference)
         {
+            // Update the entity list
+            foreach (string entityName in this.removeList)
+            {
+                this.entities.Remove(entityName);
+            }
+
+            this.removeList = new List<string>();
+
+            foreach (string entityName in this.addList.Keys)
+            {
+                this.entities.Add(entityName, addList[entityName]);
+            }
+
+            this.addList = new Dictionary<string, Entity>();
+
             // Updating all entities
             foreach (string entityName in this.entities.Keys)
             {

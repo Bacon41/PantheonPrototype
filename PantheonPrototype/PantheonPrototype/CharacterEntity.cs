@@ -20,6 +20,20 @@ namespace PantheonPrototype
     class CharacterEntity : Entity
     {
         /// <summary>
+        /// The currently equipped items.
+        /// 
+        /// Just holds two items which are equipped and usable.
+        /// The character can do things with equipped items. Because they're equipped.
+        /// If they weren't equipped, the character couldn't use them. I just want to make sure
+        /// you understand that these are the equipped items. Not the non-equipped ones. If they
+        /// were not equipped, why would the list be called equipped items? Use your brain. It's
+        /// not that hard to figure out. Why would anyone need a comment like this to help them
+        /// understand what an equiped item is? Go... eat a hamburger... and realize it was actually a tortoise...
+        /// or something equally demeaning.
+        /// </summary>
+        public List<Item> EquippedItems;
+
+        /// <summary>
         /// The total armor of the character.
         /// </summary>
         protected int totalArmor;

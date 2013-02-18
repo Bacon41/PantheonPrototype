@@ -20,5 +20,57 @@ namespace PantheonPrototype
     /// </summary>
     class Weapon : Item
     {
+        /// <summary>
+        /// A list of all bullets belonging to this weapon.
+        /// </summary>
+        public List<Bullet> Bullets;
+
+        public Weapon()
+            : base()
+        {
+            Bullets = new List<Bullet>();
+        }
+
+        /// <summary>
+        /// Shoot the weapon. That's what this game is really about, right?
+        /// 
+        /// Also, we need to rethink the way that shooting works right now. Eventually, I think that the
+        /// Character Entity class needs an aiming point. This makes it so both Enemies and Players can use
+        /// weapons.
+        /// </summary>
+        /// <param name="gameReference">A reference so we can see where everything is.</param>
+        /// <param name="holder">A reference to the character holding the weapon.</param>
+        public override void activate(Pantheon gameReference, CharacterEntity holder)
+        {
+            base.activate(gameReference, holder);
+
+            Console.WriteLine("Shooting that weapon thingy.");
+            shootABullet(gameReference, holder);
+        }
+
+        /// <summary>
+        /// Shoots a bullet.
+        /// </summary>
+        /// <param name="gameReference">A reference to the entire game thiny.</param>
+        /// <param name="holder">A reference to the holder character.</param>
+        private void shootABullet(Pantheon gameReference, CharacterEntity holder)
+        {
+            Vector2 cursorLocation = gameReference.controlManager.actions.CursorPosition;
+
+
+            float angle = (float)Math.Atan2(cursorLocation.Y - holder.Location.Y, cursorLocation.X - holder.Location.X);
+            double randomDeviation = new Random().NextDouble();
+            float randomAngle = (float)(angle + (randomDeviation * .1) - .05);
+            // Max deviaion of 1 * .01
+            // -.05 to center the deviation around the laser
+
+            Vector2 velocity = new Vector2(25 * (float)Math.Cos(randomAngle), 25 * (float)Math.Sin(randomAngle));
+            Bullet bullet = new Bullet(holder.Location, velocity);
+            bullet.Load(gameReference.Content);
+
+            gameReference.currentLevel.addList.Add("bullet_" + Bullet.NextId, bullet);
+
+            //Bullets.Add(bullet);
+        }
     }
 }

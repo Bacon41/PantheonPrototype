@@ -34,12 +34,16 @@ namespace PantheonPrototype
                 new Rectangle(0,0,40,40),
                 new Rectangle(15,25,10,10))
         {
+            EquippedItems = new List<Item>();
+
             TotalArmor = 100;
             CurrentArmor = 100;
             TotalShield = 300;
             CurrentShield = 300;
             cursorLocation = Vector2.Zero;
             laserTexture = new Texture2D(gameReference.GraphicsDevice, 1, 1);
+
+            EquippedItems.Add(new Weapon());
         }
 
         /// <summary>
@@ -139,8 +143,9 @@ namespace PantheonPrototype
             updateLocation(gameReference);
             updateLaser(gameReference, Vector2.Zero);
             updateScope(gameReference);
+            updateEquipped(gameReference);
 
-            if (gameReference.controlManager.actions.Attack)
+            /*if (gameReference.controlManager.actions.Attack)
             {
                 float angle = (float)Math.Atan2(cursorLocation.Y - Location.Y, cursorLocation.X - Location.X);
                 double randomDeviation = new Random().NextDouble();
@@ -152,7 +157,7 @@ namespace PantheonPrototype
                 Bullet bullet = new Bullet(Location, velocity);
                 bullet.Load(gameReference.Content);
                 bullets.Add(bullet);
-            }
+            }*/
 
             if (gameReference.controlManager.actions.Shield == true && ShieldOn == false)
             {
@@ -300,6 +305,19 @@ namespace PantheonPrototype
 
             //Modify the direction in which the character faces
             facing = HamburgerHelper.reduceAngle(cursorLocation - Location);
+        }
+
+        /// <summary>
+        /// Updates the equipped items according to user input.
+        /// </summary>
+        /// <param name="gameReference">A reference to the game so that the items can do their jobs.</param>
+        private void updateEquipped(Pantheon gameReference)
+        {
+            if (gameReference.controlManager.actions.Attack)
+            {
+                //Fire all (one of) the weapons!
+                this.EquippedItems[0].activate(gameReference, this);
+            }
         }
 
         /// <summary>
