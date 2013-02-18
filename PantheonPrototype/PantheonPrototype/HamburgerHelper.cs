@@ -12,6 +12,14 @@ using FuncWorks.XNA.XTiled;
 
 namespace PantheonPrototype
 {
+    /// <summary>
+    /// The facing directions.
+    /// </summary>
+    public enum Direction
+    {
+        forward, forwardLeft, Left, backLeft, back, backRight, Right, forwardRight
+    }
+
     public class HamburgerHelper
     {
         /// <summary>

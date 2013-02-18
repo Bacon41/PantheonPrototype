@@ -13,14 +13,6 @@ using Microsoft.Xna.Framework.Media;
 namespace PantheonPrototype
 {
     /// <summary>
-    /// The facing directions.
-    /// </summary>
-    public enum Direction
-    {
-        forward, forwardLeft, Left, backLeft, back, backRight, Right, forwardRight
-    }
-
-    /// <summary>
     /// The character entity provides the properties and methods
     /// used for a character in the game. It inherits the basic
     /// traits of an Entity and adds things such as velocity and healing.
