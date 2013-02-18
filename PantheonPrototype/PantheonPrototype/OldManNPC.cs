@@ -14,6 +14,8 @@ namespace PantheonPrototype
 {
     class OldManNPC : NPCCharacter
     {
+        String direction = "left";
+
         /// <summary>
         /// The constuctor for the OldMan NPC character. Takes care of setting up the NPCCharacter base class.
         /// </summary>
@@ -45,6 +47,7 @@ namespace PantheonPrototype
             // ETC --
 
             velocity = Vector2.Zero;
+                       
         }
 
         /// <summary>
@@ -63,6 +66,24 @@ namespace PantheonPrototype
         public override void Update(GameTime gameTime, Pantheon gameReference)
         {
             base.Update(gameTime, gameReference);
+
+            if (direction.Equals("left"))
+            {
+                velocity = new Vector2(-3, 0);
+            }
+            else
+            {
+                velocity = new Vector2(3, 0);
+            }
+
+            if (Location.X < 912)
+            {
+                direction = "right";
+            }
+            else if (Location.X > 1140)
+            {
+                direction = "left";
+            }
         }
 
         /// <summary>
