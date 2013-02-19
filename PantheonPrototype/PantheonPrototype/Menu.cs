@@ -18,6 +18,8 @@ namespace PantheonPrototype
     class Menu
     {
         protected Dictionary<string, MenuItem> items;
+        protected Rectangle backgroundRect;
+        protected Texture2D backgroundTex;
 
         public Menu()
         {
@@ -26,9 +28,29 @@ namespace PantheonPrototype
 
         public void Load(Pantheon gameReference)
         {
-            MenuItem item = new MenuItem("Resume", new Rectangle(0, 0, 100, 20));
-            item.Load(gameReference);
-            items.Add("resume", item);
+            backgroundRect = new Rectangle((gameReference.GraphicsDevice.Viewport.Width - 300) / 2,
+                (gameReference.GraphicsDevice.Viewport.Height - 400) / 2, 300, 400);
+            backgroundTex = new Texture2D(gameReference.GraphicsDevice, 1, 1);
+            backgroundTex.SetData(new[] { Color.White });
+            
+            loadDefaultMenu(gameReference);
+        }
+
+        /// <summary>
+        /// This is the method to set up a basic menu with items in it (resume / exit).
+        /// </summary>
+        /// <param name="gameReference">The whole game.</param>
+        private void loadDefaultMenu(Pantheon gameReference)
+        {
+            MenuItem resumeItem = new MenuItem("Resume", new Rectangle((backgroundRect.Width - 250) / 2 + backgroundRect.X,
+                backgroundRect.Y + 25, 250, 50));
+            resumeItem.Load(gameReference);
+            items.Add("resume", resumeItem);
+
+            MenuItem exitItem = new MenuItem("Exit", new Rectangle((backgroundRect.Width - 250) / 2 + backgroundRect.X,
+                backgroundRect.Y + 100, 250, 50));
+            exitItem.Load(gameReference);
+            items.Add("exit", exitItem);
         }
 
         /// <summary>
@@ -42,6 +64,20 @@ namespace PantheonPrototype
             {
                 this.items[itemName].Update(gameTime, gameReference);
             }
+
+            if (gameReference.controlManager.actions.Attack)
+            {
+                if (items["resume"].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
+                    (int)gameReference.controlManager.actions.CursorPosition.Y))
+                {
+                    gameReference.controlManager.actions.Pause = false;
+                }
+                if (items["exit"].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
+                    (int)gameReference.controlManager.actions.CursorPosition.Y))
+                {
+                    gameReference.Exit();
+                }
+            }
         }
 
         /// <summary>
@@ -52,6 +88,7 @@ namespace PantheonPrototype
         {
             spriteBatch.Begin();
 
+            spriteBatch.Draw(backgroundTex, backgroundRect, Color.White);
             foreach (string itemName in this.items.Keys)
             {
                 this.items[itemName].Draw(spriteBatch);
