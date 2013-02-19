@@ -172,22 +172,34 @@ namespace PantheonPrototype
                 }
             }
 
+            // Black magicks to select all the bullets (SQL in C# with XNA and LINQ!!! Look at all the acronyms! Also, I feel nerdy.)
+            var bulletQuery =
+                from entity in this.entities
+                where entity.Key.Contains("bullet")
+                select entity.Key;
+
             // Checking the character's bullets for collision with nonshootable tiles.
-            List<Bullet> bullets = ((CharacterEntity)this.entities["character"]).Bullets;
-            for (int x = 0; x < bullets.Count; x++)
+            foreach (String x in bulletQuery)
             {
-                if (bullets[x].BoundingBox.X > 0 && bullets[x].BoundingBox.Right < levelMap.Width * levelMap.TileWidth
-                    && bullets[x].BoundingBox.Y > 0 && bullets[x].BoundingBox.Bottom < levelMap.Height * levelMap.TileHeight)
+                Console.WriteLine(x + ": " + this.entities[x].BoundingBox.ToString());
+
+                if (((Projectile)this.entities[x]).ToDestroy)
                 {
-                    foreach (TileData tile in levelMap.GetTilesInRegion(bullets[x].BoundingBox))
+                    this.removeList.Add(x);
+                }
+                else if (this.entities[x].BoundingBox.X > 0 && this.entities[x].BoundingBox.Right < levelMap.Width * levelMap.TileWidth
+                    && this.entities[x].BoundingBox.Y > 0 && this.entities[x].BoundingBox.Bottom < levelMap.Height * levelMap.TileHeight)
+                {
+                    foreach (TileData tile in levelMap.GetTilesInRegion(this.entities[x].BoundingBox))
                     {
                         if (levelMap.SourceTiles[tile.SourceID].Properties["isShootable"].AsBoolean == false)
                         {
                             Rectangle test = new Rectangle(tile.Target.X - tile.Target.Width / 2, tile.Target.Y - tile.Target.Height / 2,
                                 tile.Target.Width, tile.Target.Height);
-                            if (test.Intersects(bullets[x].BoundingBox))
+
+                            if (test.Intersects(this.entities[x].BoundingBox))
                             {
-                                bullets.RemoveAt(x);
+                                this.removeList.Add(x);
                                 break;
                             }
                         }

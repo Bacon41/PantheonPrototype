@@ -25,6 +25,8 @@ namespace PantheonPrototype
         protected Vector2 totalOffset;
         protected Texture2D laserTexture;
 
+        protected List<Item> inventory;
+
         /// <summary>
         /// The constructor for the player entity class.
         /// </summary>
@@ -35,6 +37,7 @@ namespace PantheonPrototype
                 new Rectangle(15,25,10,10))
         {
             EquippedItems = new List<Item>();
+            inventory = new List<Item>();
 
             TotalArmor = 100;
             CurrentArmor = 100;
