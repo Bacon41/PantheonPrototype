@@ -26,7 +26,7 @@ namespace PantheonPrototype
         protected Texture2D laserTexture;
         protected Texture2D laserDot;
 
-        protected List<Item> inventory;
+        public List<Item> inventory;
 
         /// <summary>
         /// The constructor for the player entity class.
