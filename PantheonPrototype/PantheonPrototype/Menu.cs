@@ -30,6 +30,7 @@ namespace PantheonPrototype
         {
             backgroundRect = new Rectangle((gameReference.GraphicsDevice.Viewport.Width - 300) / 2,
                 (gameReference.GraphicsDevice.Viewport.Height - 400) / 2, 300, 400);
+            
             backgroundTex = new Texture2D(gameReference.GraphicsDevice, 1, 1);
             backgroundTex.SetData(new[] { Color.White });
             

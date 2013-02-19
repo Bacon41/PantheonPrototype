@@ -49,8 +49,9 @@ namespace PantheonPrototype
 
         public void Load(Pantheon gameReference)
         {
-            background = new Texture2D(gameReference.GraphicsDevice, 1, 1);
-            background.SetData(new[] { Color.Gray });
+            background = gameReference.Content.Load<Texture2D>("Button");
+            //background = new Texture2D(gameReference.GraphicsDevice, 1, 1);
+            //background.SetData(new[] { Color.Gray });
 
             font = gameReference.Content.Load<SpriteFont>("DebugFont");
         }
