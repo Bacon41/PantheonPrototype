@@ -56,7 +56,8 @@ namespace PantheonPrototype
         private void shootABullet(Pantheon gameReference, CharacterEntity holder)
         {
             Vector2 cursorLocation = gameReference.controlManager.actions.CursorPosition;
-
+            cursorLocation.X += holder.Location.X - gameReference.GraphicsDevice.Viewport.Width / 2; // + offset.X // Whenever we figure out how to do this...
+            cursorLocation.Y += holder.Location.Y - gameReference.GraphicsDevice.Viewport.Height / 2; // + offset.Y // Whenever we figure out how to do this...
 
             float angle = (float)Math.Atan2(cursorLocation.Y - holder.Location.Y, cursorLocation.X - holder.Location.X);
             double randomDeviation = new Random().NextDouble();
