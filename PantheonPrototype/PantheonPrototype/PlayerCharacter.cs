@@ -166,6 +166,10 @@ namespace PantheonPrototype
             {
                 ShieldOn = true;
             }
+            else if (gameReference.controlManager.actions.Shield == false && ShieldOn == true)
+            {
+                ShieldOn = false;
+            }
 
             if (gameReference.controlManager.actions.beingDamaged == true)
             {

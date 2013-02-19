@@ -159,9 +159,9 @@ namespace PantheonPrototype
                     if (keyboard.IsKeyDown(keyboardAndMouse.MoveRightKey) || keyboard.IsKeyDown(Keys.Right)) { actions.MoveRight = true; }
                 }
                 if (keyboard.IsKeyDown(keyboardAndMouse.PauseKey) && !oldKeyboard.IsKeyDown(keyboardAndMouse.PauseKey))
-                { actions.Pause = !actions.Pause; }                
-                if (keyboard.IsKeyDown(keyboardAndMouse.ShieldKey) && actions.Shield) { actions.Shield = false; }
-                else if (keyboard.IsKeyDown(keyboardAndMouse.ShieldKey) && !actions.Shield) { actions.Shield = true; }
+                { actions.Pause = !actions.Pause; }
+                if (keyboard.IsKeyDown(keyboardAndMouse.ShieldKey) && !oldKeyboard.IsKeyDown(keyboardAndMouse.ShieldKey)) { actions.Shield = !actions.Shield; }
+                //else if (keyboard.IsKeyDown(keyboardAndMouse.ShieldKey) && !actions.Shield) { actions.Shield = true; }
                 if (keyboardAndMouse.AttackMouseButton == ButtonState.Pressed) { actions.Attack = true; }
                 if (keyboard.IsKeyDown(keyboardAndMouse.TakeDamage)) { actions.beingDamaged = true;}
 

@@ -158,10 +158,11 @@ namespace PantheonPrototype
                     currentShield--;
                 }
             }
-            else if (currentShield < totalShield) //Otherwise, charge it
+            /*else if (currentShield < totalShield) //Otherwise, charge it
             {
                 currentShield++;
             }
+             * */
         }
 
         /// <summary>
