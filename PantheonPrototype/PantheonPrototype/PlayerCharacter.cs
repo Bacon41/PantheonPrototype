@@ -26,6 +26,8 @@ namespace PantheonPrototype
         protected Texture2D laserTexture;
         protected Texture2D laserDot;
 
+        protected List<Item> inventory;
+
         /// <summary>
         /// The constructor for the player entity class.
         /// </summary>
@@ -35,12 +37,16 @@ namespace PantheonPrototype
                 new Rectangle(0,0,40,40),
                 new Rectangle(15,25,10,10))
         {
+            inventory = new List<Item>();
+
             TotalArmor = 100;
             CurrentArmor = 100;
             TotalShield = 300;
             CurrentShield = 300;
             cursorLocation = Vector2.Zero;
             laserTexture = new Texture2D(gameReference.GraphicsDevice, 1, 1);
+
+            EquippedItems.Add("weapon", new Weapon());
         }
 
         /// <summary>
@@ -143,8 +149,9 @@ namespace PantheonPrototype
             updateLocation(gameReference);
             updateLaser(gameReference, Vector2.Zero);
             updateScope(gameReference);
+            updateEquipped(gameReference);
 
-            if (gameReference.controlManager.actions.Attack)
+            /*if (gameReference.controlManager.actions.Attack)
             {
                 float angle = (float)Math.Atan2(cursorLocation.Y - Location.Y, cursorLocation.X - Location.X);
                 
@@ -153,7 +160,7 @@ namespace PantheonPrototype
                 Bullet bullet = new Bullet(Location, 25, angle, gameReference);
                 bullet.Load(gameReference.Content);
                 bullets.Add(bullet);
-            }
+            }*/
 
             if (gameReference.controlManager.actions.Shield == true && ShieldOn == false)
             {
@@ -300,38 +307,19 @@ namespace PantheonPrototype
             cursorLocation.Y += Location.Y - gameReference.GraphicsDevice.Viewport.Height / 2 + offset.Y;
 
             //Modify the direction in which the character faces
-            float angle = (float)(Math.Atan2(cursorLocation.Y - Location.Y, cursorLocation.X - Location.X) + Math.PI);
-            if (angle > Math.PI / 8 && angle < 3 * Math.PI / 8)
+            facing = HamburgerHelper.reduceAngle(cursorLocation - Location);
+        }
+
+        /// <summary>
+        /// Updates the equipped items according to user input.
+        /// </summary>
+        /// <param name="gameReference">A reference to the game so that the items can do their jobs.</param>
+        private void updateEquipped(Pantheon gameReference)
+        {
+            if (gameReference.controlManager.actions.Attack)
             {
-                facing = Direction.backLeft;
-            }
-            else if (angle > 3 * Math.PI / 8 && angle < 5 * Math.PI / 8)
-            {
-                facing = Direction.back;
-            }
-            else if (angle > 5 * Math.PI / 8 && angle < 7 * Math.PI / 8)
-            {
-                facing = Direction.backRight;
-            }
-            else if (angle > 7 * Math.PI / 8 && angle < 9 * Math.PI / 8)
-            {
-                facing = Direction.Right;
-            }
-            else if (angle > 9 * Math.PI / 8 && angle < 11 * Math.PI / 8)
-            {
-                facing = Direction.forwardRight;
-            }
-            else if (angle > 11 * Math.PI / 8 && angle < 13 * Math.PI / 8)
-            {
-                facing = Direction.forward;
-            }
-            else if (angle > 13 * Math.PI / 8 && angle < 15 * Math.PI / 8)
-            {
-                facing = Direction.forwardLeft;
-            }
-            else
-            {
-                facing = Direction.Left;
+                //Fire all (one of) the weapons!
+                this.EquippedItems["weapon"].activate(gameReference, this);
             }
         }
 

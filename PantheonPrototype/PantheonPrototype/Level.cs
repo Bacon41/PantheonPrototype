@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,13 +27,13 @@ namespace PantheonPrototype
     /// Level content will be loaded dynamically through
     /// some sort of WAD-type file.
     ///</summary>
-    class Level
+    public class Level
     {
         // Member Variable Declaration
         public Camera Camera;
         protected Dictionary<string, Entity> entities;
         protected Map levelMap;
-        protected Player player;
+        //protected Player player;
         protected Rectangle screenRect;
         protected Texture2D hideTexture;
         protected Rectangle hideRect;
@@ -59,6 +59,21 @@ namespace PantheonPrototype
         {
             get { return nextLevel; }
         }
+		
+		public Dictionary<string, Entity> Entities
+        {
+            get { return entities; }
+        }
+		
+		/// <summary>
+        /// A list of entities to add to the level entity list.
+        /// </summary>
+        public Dictionary<string, Entity> addList;
+
+        /// <summary>
+        /// A list of entities to remove from the level entity list.
+        /// </summary>
+        public List<string> removeList;
 
         // Object Function Declaration
         /// <summary>
@@ -68,6 +83,8 @@ namespace PantheonPrototype
         public Level(GraphicsDevice graphicsDevice)
         {
             this.entities = new Dictionary<string, Entity>();
+			this.addList = new Dictionary<string, Entity>();
+            this.removeList = new List<string>();
             this.Camera = new Camera(graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height);
             this.screenRect = Rectangle.Empty;
             this.hideTexture = new Texture2D(graphicsDevice, 1, 1, false, SurfaceFormat.Color);
@@ -112,11 +129,6 @@ namespace PantheonPrototype
             hideRect.Height = hideRectDimen;
         }
 
-        public Dictionary<string, Entity> Entities
-        {
-            get { return entities; }
-        }
-
         /// <summary>
         /// The Update function will run through the level and perform any
         /// necessary operations for processing the frame. This includes
@@ -125,6 +137,21 @@ namespace PantheonPrototype
         /// </summary>
         public void Update(GameTime gameTime, Pantheon gameReference)
         {
+			// Update the entity list
+            foreach (string entityName in this.removeList)
+            {
+                this.entities.Remove(entityName);
+            }
+
+            this.removeList = new List<string>();
+
+            foreach (string entityName in this.addList.Keys)
+            {
+                this.entities.Add(entityName, addList[entityName]);
+            }
+			
+			this.addList = new Dictionary<string,Entity>();
+		
             // Updating all entities
             foreach (string entityName in this.entities.Keys)
             {
@@ -145,22 +172,33 @@ namespace PantheonPrototype
                 }
             }
 
+            // Black magicks to select all the bullets (SQL in C# with XNA and LINQ!!! Look at all the acronyms! Also, I feel nerdy.)
+            var bulletQuery =
+                from entity in this.entities
+                where entity.Key.Contains("bullet")
+                select entity.Key;
+
             // Checking the character's bullets for collision with nonshootable tiles.
-            List<Bullet> bullets = ((CharacterEntity)this.entities["character"]).Bullets;
-            for (int x = 0; x < bullets.Count; x++)
+            foreach (String x in bulletQuery)
             {
-                if (bullets[x].BoundingBox.X > 0 && bullets[x].BoundingBox.Right < levelMap.Width * levelMap.TileWidth
-                    && bullets[x].BoundingBox.Y > 0 && bullets[x].BoundingBox.Bottom < levelMap.Height * levelMap.TileHeight)
+
+                if (((Projectile)this.entities[x]).ToDestroy)
                 {
-                    foreach (TileData tile in levelMap.GetTilesInRegion(bullets[x].BoundingBox))
+                    this.removeList.Add(x);
+                }
+                else if (this.entities[x].BoundingBox.X > 0 && this.entities[x].BoundingBox.Right < levelMap.Width * levelMap.TileWidth
+                    && this.entities[x].BoundingBox.Y > 0 && this.entities[x].BoundingBox.Bottom < levelMap.Height * levelMap.TileHeight)
+                {
+                    foreach (TileData tile in levelMap.GetTilesInRegion(this.entities[x].BoundingBox))
                     {
                         if (levelMap.SourceTiles[tile.SourceID].Properties["isShootable"].AsBoolean == false)
                         {
                             Rectangle test = new Rectangle(tile.Target.X - tile.Target.Width / 2, tile.Target.Y - tile.Target.Height / 2,
                                 tile.Target.Width, tile.Target.Height);
-                            if (test.Intersects(bullets[x].BoundingBox))
+
+                            if (test.Intersects(this.entities[x].BoundingBox))
                             {
-                                bullets.RemoveAt(x);
+                                this.removeList.Add(x);
                                 break;
                             }
                         }
@@ -244,3 +282,4 @@ namespace PantheonPrototype
         }
     }
 }
+﻿

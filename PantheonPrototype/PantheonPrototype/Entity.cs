@@ -16,7 +16,7 @@ namespace PantheonPrototype
     /// The Entity defines an object within the game. It has physical presence
     /// in the game as a Sprite and can collide with other Entities.
     /// </summary>
-    class Entity
+    public class Entity
     {
         /// <summary>
         /// This is the point around which the sprite is drawn. It functions

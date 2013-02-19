@@ -13,7 +13,7 @@ namespace PantheonPrototype
     /// contains a loading method, a potential state system, and a drawing
     /// method.
     /// </summary>
-    class Sprite
+    public class Sprite
     {
         /// <summary>
         /// The sprite's image property.
