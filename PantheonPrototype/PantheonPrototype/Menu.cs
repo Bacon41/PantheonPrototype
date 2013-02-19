@@ -64,6 +64,15 @@ namespace PantheonPrototype
             foreach (string itemName in this.items.Keys)
             {
                 this.items[itemName].Update(gameTime, gameReference);
+                if (this.items[itemName].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
+                    (int)gameReference.controlManager.actions.CursorPosition.Y))
+                {
+                    this.items[itemName].IsSelected = true;
+                }
+                else
+                {
+                    this.items[itemName].IsSelected = false;
+                }
             }
 
             if (gameReference.controlManager.actions.Attack)

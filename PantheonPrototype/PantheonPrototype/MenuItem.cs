@@ -18,7 +18,9 @@ namespace PantheonPrototype
     class MenuItem
     {
         protected Texture2D background;
+        protected Texture2D selcted;
         protected SpriteFont font;
+        protected Boolean isSelected;
 
         /// <summary>
         /// The text to display on the menu item.
@@ -45,11 +47,18 @@ namespace PantheonPrototype
         {
             this.text = text;
             this.drawBox = drawBox;
+            this.isSelected = false;
+        }
+
+        public Boolean IsSelected
+        {
+            set { isSelected = value; }
         }
 
         public void Load(Pantheon gameReference)
         {
             background = gameReference.Content.Load<Texture2D>("Button");
+            selcted = gameReference.Content.Load<Texture2D>("ButtonSelect");
             //background = new Texture2D(gameReference.GraphicsDevice, 1, 1);
             //background.SetData(new[] { Color.Gray });
 
@@ -73,6 +82,10 @@ namespace PantheonPrototype
             spriteBatch.Draw(background, drawBox, Color.White);
             spriteBatch.DrawString(font, text, new Vector2((drawBox.Width - text.Length * 15) / 2 + drawBox.X,
                 (drawBox.Height - 25) / 2 + drawBox.Y), Color.White);
+            if (isSelected)
+            {
+                spriteBatch.Draw(selcted, drawBox, Color.White);
+            }
         }
     }
 }
