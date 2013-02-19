@@ -238,7 +238,7 @@ namespace PantheonPrototype
                 this.entities[entityName].Draw(spriteBatch);
             }
             
-            spriteBatch.Draw(hideTexture, hideRect, Color.White);
+            spriteBatch.Draw(hideTexture, hideRect, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0);
 
             spriteBatch.End();
         }

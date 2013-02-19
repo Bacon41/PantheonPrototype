@@ -194,7 +194,7 @@ namespace PantheonPrototype
             currentFrame++;
 
             //Loop around if the frame range for the current state has been exhausted.
-            if (currentFrame > stateRange[currentState].last || currentFrame < stateRange[currentState].first)
+            if (currentFrame >= stateRange[currentState].last || currentFrame < stateRange[currentState].first)
             {
                 currentFrame = stateRange[currentState].first;
             }
@@ -220,7 +220,7 @@ namespace PantheonPrototype
             Rectangle destinationRectangle = location;
 
             //Draw the correct frame of the image
-            canvas.Draw(image, destinationRectangle, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0);
+            canvas.Draw(image, destinationRectangle, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, .1f);
         }
     }
 }

@@ -382,8 +382,8 @@ namespace PantheonPrototype
             base.Draw(spriteBatch);
 
             Vector2 laserDotCoords = new Vector2((int)(cursorLocation.X - laserDot.Width/2), (int)(cursorLocation.Y - laserDot.Height/2));
-            spriteBatch.Draw(laserDot, new Rectangle((int)laserDotCoords.X, (int)laserDotCoords.Y, (int)laserDot.Width, (int)laserDot.Height), Color.White);
-
+            spriteBatch.Draw(laserDot, new Rectangle((int)laserDotCoords.X, (int)laserDotCoords.Y, laserDot.Width, laserDot.Height),
+                null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .1f);
         }
     }
 }
