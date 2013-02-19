@@ -181,7 +181,6 @@ namespace PantheonPrototype
             // Checking the character's bullets for collision with nonshootable tiles.
             foreach (String x in bulletQuery)
             {
-                Console.WriteLine(x + ": " + this.entities[x].BoundingBox.ToString());
 
                 if (((Projectile)this.entities[x]).ToDestroy)
                 {

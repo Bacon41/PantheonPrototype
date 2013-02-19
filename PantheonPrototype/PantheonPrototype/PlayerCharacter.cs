@@ -36,7 +36,6 @@ namespace PantheonPrototype
                 new Rectangle(0,0,40,40),
                 new Rectangle(15,25,10,10))
         {
-            EquippedItems = new List<Item>();
             inventory = new List<Item>();
 
             TotalArmor = 100;
@@ -46,7 +45,7 @@ namespace PantheonPrototype
             cursorLocation = Vector2.Zero;
             laserTexture = new Texture2D(gameReference.GraphicsDevice, 1, 1);
 
-            EquippedItems.Add(new Weapon());
+            EquippedItems.Add("weapon", new Weapon());
         }
 
         /// <summary>
@@ -319,7 +318,7 @@ namespace PantheonPrototype
             if (gameReference.controlManager.actions.Attack)
             {
                 //Fire all (one of) the weapons!
-                this.EquippedItems[0].activate(gameReference, this);
+                this.EquippedItems["weapon"].activate(gameReference, this);
             }
         }
 

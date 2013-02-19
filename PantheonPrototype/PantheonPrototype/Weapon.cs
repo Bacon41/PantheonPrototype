@@ -33,7 +33,6 @@ namespace PantheonPrototype
         {
             base.activate(gameReference, holder);
 
-            Console.WriteLine("Shooting that weapon thingy.");
             shootABullet(gameReference, holder);
         }
 
