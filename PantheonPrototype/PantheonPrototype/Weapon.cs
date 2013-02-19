@@ -21,17 +21,6 @@ namespace PantheonPrototype
     class Weapon : Item
     {
         /// <summary>
-        /// A list of all bullets belonging to this weapon.
-        /// </summary>
-        public List<Bullet> Bullets;
-
-        public Weapon()
-            : base()
-        {
-            Bullets = new List<Bullet>();
-        }
-
-        /// <summary>
         /// Shoot the weapon. That's what this game is really about, right?
         /// 
         /// Also, we need to rethink the way that shooting works right now. Eventually, I think that the
@@ -70,8 +59,6 @@ namespace PantheonPrototype
             bullet.Load(gameReference.Content);
 
             gameReference.currentLevel.addList.Add("bullet_" + Bullet.NextId, bullet);
-
-            //Bullets.Add(bullet);
         }
     }
 }
