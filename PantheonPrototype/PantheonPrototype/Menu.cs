@@ -18,6 +18,7 @@ namespace PantheonPrototype
     class Menu
     {
         protected Dictionary<string, MenuItem> items;
+        protected Dictionary<string, MenuItem> inventoryButtons;
         protected Rectangle mainBackgroundRect;
         protected Texture2D mainBackgroundTex;
         protected Texture2D inventoryBackground;
@@ -36,6 +37,7 @@ namespace PantheonPrototype
         public Menu()
         {
             items = new Dictionary<string, MenuItem>();
+            inventoryButtons = new Dictionary<string, MenuItem>();
             menuState = "main";
         }
 
@@ -76,6 +78,24 @@ namespace PantheonPrototype
                 mainBackgroundRect.Y + 175, 250, 50));
             inventoryItem.Load(gameReference);
             items.Add("inventory", inventoryItem);
+
+            // This is not the default menu, but I wasn't sure where else to put it.
+
+            MenuItem equipInventory = new MenuItem("Equip/Use", new Rectangle(480, 230, 150, 50));
+            equipInventory.Load(gameReference);
+            inventoryButtons.Add("equip", equipInventory);
+
+            MenuItem trashInventory = new MenuItem("Trash", new Rectangle(640, 230, 150, 50));
+            trashInventory.Load(gameReference);
+            inventoryButtons.Add("trash", trashInventory);
+
+            MenuItem resumeInventory = new MenuItem("Resume", new Rectangle(480, 305, 150, 50));
+            resumeInventory.Load(gameReference);
+            inventoryButtons.Add("resumeInv", resumeInventory);
+
+            MenuItem mainInventory = new MenuItem("Main Menu", new Rectangle(640, 305, 150, 50));
+            mainInventory.Load(gameReference);
+            inventoryButtons.Add("mainMenu", mainInventory);
         }
 
         /// <summary>
@@ -124,7 +144,39 @@ namespace PantheonPrototype
                         }
                     }
                     break;
-                case ("inventory"):
+                case "inventory":
+                    foreach (string itemName in this.inventoryButtons.Keys)
+                    {
+                        // Update every Button
+                        this.inventoryButtons[itemName].Update(gameTime, gameReference);
+
+                        // If mouse is on a button, Update the isSelected variable
+                        if (this.inventoryButtons[itemName].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
+                            (int)gameReference.controlManager.actions.CursorPosition.Y))
+                        {
+                            this.inventoryButtons[itemName].IsSelected = true;
+                        }
+                        else
+                        {
+                            this.inventoryButtons[itemName].IsSelected = false;
+                        }
+                    }
+
+                    if (gameReference.controlManager.actions.Attack)
+                    {
+                        if (inventoryButtons["resumeInv"].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
+                            (int)gameReference.controlManager.actions.CursorPosition.Y))
+                        {
+                            gameReference.controlManager.actions.Pause = false;
+                        }
+                        if (inventoryButtons["mainMenu"].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
+                            (int)gameReference.controlManager.actions.CursorPosition.Y))
+                        {
+                            menuState = "main";
+                        }
+                        
+                    }
+
                     break;
             }
         }
@@ -149,6 +201,11 @@ namespace PantheonPrototype
                 case "inventory": 
                     spriteBatch.Draw(inventoryBackgroundTex, new Rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT), Color.White);
                     spriteBatch.Draw(inventoryBackground, new Rectangle( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) , Color.White);
+
+                    foreach (string itemName in this.inventoryButtons.Keys)
+                    {
+                        this.inventoryButtons[itemName].Draw(spriteBatch);
+                    }
                     break;
             }
 
