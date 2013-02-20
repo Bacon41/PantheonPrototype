@@ -18,7 +18,7 @@ namespace PantheonPrototype
     public class Pantheon : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        public SpriteBatch spriteBatch;
 
         public ControlManager controlManager;
 
@@ -103,6 +103,11 @@ namespace PantheonPrototype
             {
                 this.IsMouseVisible = true;
                 menu.Update(gameTime, this);
+
+                if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+                {
+                    menu.MenuState = "main";
+                }
             }
             else
             {

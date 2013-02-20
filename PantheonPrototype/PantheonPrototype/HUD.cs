@@ -154,7 +154,7 @@ namespace PantheonPrototype
             {
                 hudItems[i].Draw(spriteBatch);
             }
-
+            
             spriteBatch.End();
         }
     }

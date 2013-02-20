@@ -79,6 +79,7 @@
     <Compile Include="ButterflyEnemy.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="CharacterEntity.cs" />
+    <Compile Include="Shield.cs" />
     <Compile Include="FishEntity.cs" />
     <Compile Include="ControlManager.cs" />
     <Compile Include="EnemyCharacter.cs" />

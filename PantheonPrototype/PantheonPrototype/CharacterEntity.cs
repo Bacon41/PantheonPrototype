@@ -157,6 +157,10 @@ namespace PantheonPrototype
                 {
                     currentShield--;
                 }
+                else
+                {
+                    shieldOn = false;
+                }
             }
             /*else if (currentShield < totalShield) //Otherwise, charge it
             {

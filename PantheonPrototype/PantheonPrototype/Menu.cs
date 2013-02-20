@@ -18,21 +18,40 @@ namespace PantheonPrototype
     class Menu
     {
         protected Dictionary<string, MenuItem> items;
-        protected Rectangle backgroundRect;
-        protected Texture2D backgroundTex;
+        protected Rectangle mainBackgroundRect;
+        protected Texture2D mainBackgroundTex;
+        protected Texture2D inventoryBackground;
+        protected Texture2D inventoryBackgroundTex;
+        protected String menuState;
+
+        protected int SCREEN_WIDTH;
+        protected int SCREEN_HEIGHT;
+
+        public String MenuState
+        {
+            get { return menuState; }
+            set { menuState = value; }
+        }
 
         public Menu()
         {
             items = new Dictionary<string, MenuItem>();
+            menuState = "main";
         }
 
         public void Load(Pantheon gameReference)
         {
-            backgroundRect = new Rectangle((gameReference.GraphicsDevice.Viewport.Width - 300) / 2,
+            mainBackgroundRect = new Rectangle((gameReference.GraphicsDevice.Viewport.Width - 300) / 2,
                 (gameReference.GraphicsDevice.Viewport.Height - 400) / 2, 300, 400);
             
-            backgroundTex = new Texture2D(gameReference.GraphicsDevice, 1, 1);
-            backgroundTex.SetData(new[] { Color.White });
+            mainBackgroundTex = new Texture2D(gameReference.GraphicsDevice, 1, 1);
+            mainBackgroundTex.SetData(new[] { Color.White });
+
+            inventoryBackground = gameReference.Content.Load<Texture2D>("InventoryBackground");
+            inventoryBackgroundTex = gameReference.Content.Load<Texture2D>("InventoryBackgroundTexture");
+
+            SCREEN_WIDTH = gameReference.GraphicsDevice.Viewport.Width;
+            SCREEN_HEIGHT = gameReference.GraphicsDevice.Viewport.Height;
             
             loadDefaultMenu(gameReference);
         }
@@ -43,15 +62,20 @@ namespace PantheonPrototype
         /// <param name="gameReference">The whole game.</param>
         private void loadDefaultMenu(Pantheon gameReference)
         {
-            MenuItem resumeItem = new MenuItem("Resume", new Rectangle((backgroundRect.Width - 250) / 2 + backgroundRect.X,
-                backgroundRect.Y + 25, 250, 50));
+            MenuItem resumeItem = new MenuItem("Resume", new Rectangle((mainBackgroundRect.Width - 250) / 2 + mainBackgroundRect.X,
+                mainBackgroundRect.Y + 25, 250, 50));
             resumeItem.Load(gameReference);
             items.Add("resume", resumeItem);
 
-            MenuItem exitItem = new MenuItem("Exit", new Rectangle((backgroundRect.Width - 250) / 2 + backgroundRect.X,
-                backgroundRect.Y + 100, 250, 50));
+            MenuItem exitItem = new MenuItem("Exit", new Rectangle((mainBackgroundRect.Width - 250) / 2 + mainBackgroundRect.X,
+                mainBackgroundRect.Y + 100, 250, 50));
             exitItem.Load(gameReference);
             items.Add("exit", exitItem);
+
+            MenuItem inventoryItem = new MenuItem("Inventory", new Rectangle((mainBackgroundRect.Width - 250) / 2 + mainBackgroundRect.X,
+                mainBackgroundRect.Y + 175, 250, 50));
+            inventoryItem.Load(gameReference);
+            items.Add("inventory", inventoryItem);
         }
 
         /// <summary>
@@ -61,32 +85,47 @@ namespace PantheonPrototype
         /// <param name="gameReference">The reference to everything.</param>
         public void Update(GameTime gameTime, Pantheon gameReference)
         {
-            foreach (string itemName in this.items.Keys)
+            switch (menuState)
             {
-                this.items[itemName].Update(gameTime, gameReference);
-                if (this.items[itemName].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
-                    (int)gameReference.controlManager.actions.CursorPosition.Y))
-                {
-                    this.items[itemName].IsSelected = true;
-                }
-                else
-                {
-                    this.items[itemName].IsSelected = false;
-                }
-            }
+                case "main":
+                    foreach (string itemName in this.items.Keys)
+                    {
+                        // Update every Button
+                        this.items[itemName].Update(gameTime, gameReference);
 
-            if (gameReference.controlManager.actions.Attack)
-            {
-                if (items["resume"].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
-                    (int)gameReference.controlManager.actions.CursorPosition.Y))
-                {
-                    gameReference.controlManager.actions.Pause = false;
-                }
-                if (items["exit"].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
-                    (int)gameReference.controlManager.actions.CursorPosition.Y))
-                {
-                    gameReference.Exit();
-                }
+                        // If mouse is on a button, Update the isSelected variable
+                        if (this.items[itemName].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
+                            (int)gameReference.controlManager.actions.CursorPosition.Y))
+                        {
+                            this.items[itemName].IsSelected = true;
+                        }
+                        else
+                        {
+                            this.items[itemName].IsSelected = false;
+                        }
+                    }
+
+                    if (gameReference.controlManager.actions.Attack)
+                    {
+                        if (items["resume"].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
+                            (int)gameReference.controlManager.actions.CursorPosition.Y))
+                        {
+                            gameReference.controlManager.actions.Pause = false;
+                        }
+                        if (items["exit"].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
+                            (int)gameReference.controlManager.actions.CursorPosition.Y))
+                        {
+                            gameReference.Exit();
+                        }
+                        if (items["inventory"].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
+                            (int)gameReference.controlManager.actions.CursorPosition.Y))
+                        {
+                            menuState = "inventory";
+                        }
+                    }
+                    break;
+                case ("inventory"):
+                    break;
             }
         }
 
@@ -98,10 +137,19 @@ namespace PantheonPrototype
         {
             spriteBatch.Begin();
 
-            spriteBatch.Draw(backgroundTex, backgroundRect, Color.White);
-            foreach (string itemName in this.items.Keys)
+            switch (menuState)
             {
-                this.items[itemName].Draw(spriteBatch);
+                case "main":
+                    spriteBatch.Draw(mainBackgroundTex, mainBackgroundRect, Color.White);
+                    foreach (string itemName in this.items.Keys)
+                    {
+                        this.items[itemName].Draw(spriteBatch);
+                    }
+                    break;
+                case "inventory": 
+                    spriteBatch.Draw(inventoryBackgroundTex, new Rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT), Color.White);
+                    spriteBatch.Draw(inventoryBackground, new Rectangle( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) , Color.White);
+                    break;
             }
 
             spriteBatch.End();

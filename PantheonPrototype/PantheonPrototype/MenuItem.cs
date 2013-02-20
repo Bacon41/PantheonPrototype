@@ -80,12 +80,15 @@ namespace PantheonPrototype
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(background, drawBox, Color.White);
-            spriteBatch.DrawString(font, text, new Vector2((drawBox.Width - text.Length * 15) / 2 + drawBox.X,
-                (drawBox.Height - 25) / 2 + drawBox.Y), Color.White);
+
             if (isSelected)
             {
                 spriteBatch.Draw(selcted, drawBox, Color.White);
             }
+
+            spriteBatch.DrawString(font, text, new Vector2((drawBox.Width - text.Length * 15) / 2 + drawBox.X,
+                (drawBox.Height - 25) / 2 + drawBox.Y), Color.White);
+            
         }
     }
 }
