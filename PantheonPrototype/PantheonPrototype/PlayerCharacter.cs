@@ -326,8 +326,6 @@ namespace PantheonPrototype
                 //Fire all (one of) the weapons!
                 this.EquippedItems["weapon"].activate(gameReference, this);
             }
-
-           
         }
 
         /// <summary>
