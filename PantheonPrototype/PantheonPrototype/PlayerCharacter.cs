@@ -47,6 +47,7 @@ namespace PantheonPrototype
             laserTexture = new Texture2D(gameReference.GraphicsDevice, 1, 1);
 
             EquippedItems.Add("weapon", new Weapon());
+            EquippedItems.Add("shield", new Shield(gameReference.Content));
         }
 
         /// <summary>
@@ -120,11 +121,11 @@ namespace PantheonPrototype
         public void Damage(int damage)
         {
             //Damage calculations being done here
-            if ((ShieldOn == true) && (CurrentShield >= damage))
+            if ((ShieldOn) && (CurrentShield >= damage))
             {
                 CurrentShield = CurrentShield - damage;
             }
-            else if ((ShieldOn = true) && (CurrentShield < damage))
+            else if ((ShieldOn) && (CurrentShield < damage))
             {
                 CurrentShield = 0;
                 int calculatedDamage = damage - CurrentShield;
@@ -325,6 +326,12 @@ namespace PantheonPrototype
                 //Fire all (one of) the weapons!
                 this.EquippedItems["weapon"].activate(gameReference, this);
             }
+
+            if (ShieldOn)
+            {
+                this.Velocity = new Vector2(25, 25);
+                this.EquippedItems["shield"].activate(gameReference, this);
+            }
         }
 
         /// <summary>
@@ -376,6 +383,8 @@ namespace PantheonPrototype
             Vector2 laserDotCoords = new Vector2((int)(cursorLocation.X - laserDot.Width/2), (int)(cursorLocation.Y - laserDot.Height/2));
             spriteBatch.Draw(laserDot, new Rectangle((int)laserDotCoords.X, (int)laserDotCoords.Y, laserDot.Width, laserDot.Height),
                 null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .1f);
+
+            
         }
     }
 }
