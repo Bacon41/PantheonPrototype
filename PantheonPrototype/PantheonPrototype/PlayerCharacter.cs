@@ -26,6 +26,11 @@ namespace PantheonPrototype
         protected Texture2D laserTexture;
         protected Texture2D laserDot;
 
+        public Vector2 CursorLocation
+        {
+            get { return cursorLocation; }
+        }
+
         public List<Item> inventory;
 
         /// <summary>
@@ -310,6 +315,7 @@ namespace PantheonPrototype
             cursorLocation = gameReference.controlManager.actions.CursorPosition;
             cursorLocation.X += Location.X - gameReference.GraphicsDevice.Viewport.Width / 2 + offset.X;
             cursorLocation.Y += Location.Y - gameReference.GraphicsDevice.Viewport.Height / 2 + offset.Y;
+            angleFacing = (float)Math.Atan2(cursorLocation.Y - Location.Y, cursorLocation.X - Location.X);
 
             //Modify the direction in which the character faces
             facing = HamburgerHelper.reduceAngle(cursorLocation - Location);
@@ -382,8 +388,6 @@ namespace PantheonPrototype
             {
                 spriteBatch.Draw(((Shield)this.EquippedItems["shield"]).ShieldTexture, new Rectangle((int)Location.X - 25, (int)Location.Y - 25, 50, 50), Color.White);
             }
-
-            
         }
     }
 }

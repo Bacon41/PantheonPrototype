@@ -42,6 +42,13 @@ namespace PantheonPrototype
         /// </summary>
         protected int totalArmor;
 
+        protected float angleFacing;
+
+        public float AngleFacing
+        {
+            get { return angleFacing; }
+        }
+
         public int TotalArmor
         {
             get { return totalArmor; }
@@ -124,6 +131,7 @@ namespace PantheonPrototype
             base(location, drawBox, boundingBox)
         {
             EquippedItems = new Dictionary<string, Item>();
+            angleFacing = 0;
         }
 
         /// <summary>
