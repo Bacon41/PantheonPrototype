@@ -35,6 +35,14 @@ namespace PantheonPrototype
         /// </summary>
         private int totalFrames;
 
+        protected float rotation;
+
+        public float Rotation
+        {
+            get { return rotation; }
+            set { rotation = value; }
+        }
+
         /// <summary>
         /// A structure to store the frames for a given state in the sprite.
         /// </summary>
@@ -71,6 +79,7 @@ namespace PantheonPrototype
 
         public Sprite(Texture2D image, int rows, int columns, int frameRate)
         {
+            this.rotation = 0;
             loadSprite(image, rows, columns, frameRate);
         }
 
@@ -220,7 +229,7 @@ namespace PantheonPrototype
             Rectangle destinationRectangle = location;
 
             //Draw the correct frame of the image
-            canvas.Draw(image, destinationRectangle, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, .1f);
+            canvas.Draw(image, destinationRectangle, sourceRectangle, Color.White, rotation, Vector2.Zero, SpriteEffects.None, .1f);
         }
     }
 }

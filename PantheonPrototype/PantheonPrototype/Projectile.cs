@@ -53,7 +53,7 @@ namespace PantheonPrototype
             : base(location, drawBox, boundingBox)
         {
             toDestroy = false;
-            timeToLive = 500;
+            timeToLive = 250;
         }
 
         /// <summary>

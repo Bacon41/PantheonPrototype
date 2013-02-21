@@ -23,6 +23,7 @@ namespace PantheonPrototype
         /// </summary>
         protected Vector2 cursorLocation;
         protected Vector2 totalOffset;
+        protected Vector2 offset;
         protected Texture2D laserTexture;
         protected Texture2D laserDot;
 
@@ -49,6 +50,8 @@ namespace PantheonPrototype
             TotalShield = 300;
             CurrentShield = 300;
             cursorLocation = Vector2.Zero;
+            totalOffset = Vector2.Zero;
+            offset = Vector2.Zero;
             laserTexture = new Texture2D(gameReference.GraphicsDevice, 1, 1);
 
             EquippedItems.Add("weapon", new Weapon());
@@ -257,40 +260,42 @@ namespace PantheonPrototype
             {
                 int offsetNum = 15;
                 gameReference.controlManager.disableMotion();
-                Vector2 offset = Vector2.Zero;
-                switch (facing)
+                if (offset.Length() == 0)
                 {
-                    case Direction.forward:
-                        offset.Y = offsetNum;
-                        break;
-                    case Direction.forwardLeft:
-                        offset.X = (int)(-offsetNum / Math.Sqrt(2));
-                        offset.Y = (int)(offsetNum / Math.Sqrt(2));
-                        break;
-                    case Direction.Left:
-                        offset.X = -offsetNum;
-                        break;
-                    case Direction.backLeft:
-                        offset.X = (int)(-offsetNum / Math.Sqrt(2));
-                        offset.Y = (int)(-offsetNum / Math.Sqrt(2));
-                        break;
-                    case Direction.back:
-                        offset.Y = -offsetNum;
-                        break;
-                    case Direction.backRight:
-                        offset.X = (int)(offsetNum / Math.Sqrt(2));
-                        offset.Y = (int)(-offsetNum / Math.Sqrt(2));
-                        break;
-                    case Direction.Right:
-                        offset.X = offsetNum;
-                        break;
-                    case Direction.forwardRight:
-                        offset.X = (int)(offsetNum / Math.Sqrt(2));
-                        offset.Y = (int)(offsetNum / Math.Sqrt(2));
-                        break;
-                    default:
-                        offset = Vector2.Zero;
-                        break;
+                    switch (facing)
+                    {
+                        case Direction.forward:
+                            offset.Y = offsetNum;
+                            break;
+                        case Direction.forwardLeft:
+                            offset.X = (int)(-offsetNum / Math.Sqrt(2));
+                            offset.Y = (int)(offsetNum / Math.Sqrt(2));
+                            break;
+                        case Direction.Left:
+                            offset.X = -offsetNum;
+                            break;
+                        case Direction.backLeft:
+                            offset.X = (int)(-offsetNum / Math.Sqrt(2));
+                            offset.Y = (int)(-offsetNum / Math.Sqrt(2));
+                            break;
+                        case Direction.back:
+                            offset.Y = -offsetNum;
+                            break;
+                        case Direction.backRight:
+                            offset.X = (int)(offsetNum / Math.Sqrt(2));
+                            offset.Y = (int)(-offsetNum / Math.Sqrt(2));
+                            break;
+                        case Direction.Right:
+                            offset.X = offsetNum;
+                            break;
+                        case Direction.forwardRight:
+                            offset.X = (int)(offsetNum / Math.Sqrt(2));
+                            offset.Y = (int)(offsetNum / Math.Sqrt(2));
+                            break;
+                        default:
+                            offset = Vector2.Zero;
+                            break;
+                    }
                 }
                 if (totalOffset.Length() < 300)
                 {
@@ -303,6 +308,7 @@ namespace PantheonPrototype
             {
                 gameReference.controlManager.enableMotion();
                 totalOffset = Vector2.Zero;
+                offset = Vector2.Zero;
             }
         }
 

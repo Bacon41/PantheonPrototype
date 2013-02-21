@@ -53,6 +53,8 @@ namespace PantheonPrototype
             set { totalAmmo = value; }
         }
 
+        protected int range;
+
         /// <summary>
         /// The amount of time since the last shot was fired
         /// </summary>
@@ -67,6 +69,7 @@ namespace PantheonPrototype
             fireRate = 5;
             totalAmmo = 10;
             currentAmmo = totalAmmo;
+            range = 500;
         }
 
         /// <summary>
@@ -110,14 +113,7 @@ namespace PantheonPrototype
         /// <param name="holder">A reference to the holder character.</param>
         private void shootABullet(Pantheon gameReference, CharacterEntity holder)
         {
-            double randomDeviation = new Random().NextDouble();
-            float randomAngle = (float)(holder.AngleFacing + (randomDeviation * .1) - .05);
-            // Max deviaion of 1 * .01
-            // -.05 to center the deviation around the laser
-
-            //Vector2 velocity = new Vector2(25 * (float)Math.Cos(randomAngle), 25 * (float)Math.Sin(randomAngle));
-            //Bullet bullet = new Bullet(holder.Location, velocity);
-            Bullet bullet = new Bullet(holder.Location, 25, holder.AngleFacing, gameReference);
+            Bullet bullet = new Bullet(holder.Location, 25, holder.AngleFacing, range, gameReference);
             bullet.Load(gameReference.Content);
 
             gameReference.currentLevel.addList.Add("bullet_" + Bullet.NextId, bullet);
