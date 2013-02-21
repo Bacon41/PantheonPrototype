@@ -310,13 +310,14 @@ namespace PantheonPrototype
                 this.EquippedItems["weapon"].activate(gameReference, this);
             }
 
-            //Ammo cheat
+            //Ammo and shield cheat
             if (gameReference.controlManager.actions.MoveBackward
                 && gameReference.controlManager.actions.MoveForward
                 && gameReference.controlManager.actions.MoveLeft
                 && gameReference.controlManager.actions.MoveRight)
             {
                 ((Weapon)this.EquippedItems["weapon"]).CurrentAmmo = ((Weapon)this.EquippedItems["weapon"]).TotalAmmo;
+                ((Shield)this.EquippedItems["shield"]).CurrentShield = ((Shield)this.EquippedItems["shield"]).TotalShield;
             }
 
             //Activate the shield
