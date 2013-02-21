@@ -34,6 +34,8 @@ namespace PantheonPrototype
             set { velocity = value; }
         }
 
+        protected int timeToLive;
+
         protected bool toDestroy;
 
         public bool ToDestroy
@@ -51,6 +53,7 @@ namespace PantheonPrototype
             : base(location, drawBox, boundingBox)
         {
             toDestroy = false;
+            timeToLive = 500;
         }
 
         /// <summary>
@@ -74,24 +77,8 @@ namespace PantheonPrototype
             //Update the location
             this.Location = Location + velocity;
 
-            checkBounds(gameReference);
-        }
-
-        private void checkBounds(Pantheon gameReference)
-        {
-            if (Location.X < gameReference.GetCamera().Pos.X - gameReference.GraphicsDevice.Viewport.Width / 2)
-            {
-                toDestroy = true;
-            }
-            if (Location.X > gameReference.GetCamera().Pos.X + gameReference.GraphicsDevice.Viewport.Width / 2)
-            {
-                toDestroy = true;
-            }
-            if (Location.Y < gameReference.GetCamera().Pos.Y - gameReference.GraphicsDevice.Viewport.Height / 2)
-            {
-                toDestroy = true;
-            }
-            if (Location.Y > gameReference.GetCamera().Pos.Y + gameReference.GraphicsDevice.Viewport.Height / 2)
+            timeToLive -= gameTime.ElapsedGameTime.Milliseconds;
+            if (timeToLive <= 0)
             {
                 toDestroy = true;
             }
