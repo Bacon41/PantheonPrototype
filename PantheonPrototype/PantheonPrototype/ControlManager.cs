@@ -32,6 +32,7 @@ namespace PantheonPrototype
         public bool Pause;
         public bool Zoom;
         public bool Interact;
+        public bool Reload;
 
         public bool MenuSelect;
 
@@ -57,6 +58,7 @@ namespace PantheonPrototype
         public Vector2 Movement;
         //whatever the right thumbstick would be
         public Vector2  ZoomControl;
+        
 
         //trigggers are floats
         public float Shoot;
@@ -80,6 +82,7 @@ namespace PantheonPrototype
         public Keys PauseKey;
         public Keys ShieldKey;
         public Keys InteractKey;
+        public Keys ReloadKey;
 
         public ButtonState AttackMouseButton;
         public Keys WeaponSwapButton;
@@ -171,6 +174,7 @@ namespace PantheonPrototype
                 { actions.Pause = !actions.Pause; }
                 if (keyboard.IsKeyDown(keyboardAndMouse.ShieldKey) && !oldKeyboard.IsKeyDown(keyboardAndMouse.ShieldKey))
                 { actions.Shield = !actions.Shield; }
+                if (keyboard.IsKeyDown(keyboardAndMouse.ReloadKey)) { actions.Reload = true; }
                 
                 if (keyboard.IsKeyDown(keyboardAndMouse.TakeDamage)) { actions.beingDamaged = true; }
 
@@ -207,6 +211,7 @@ namespace PantheonPrototype
             actions.MoveBackward = false;
             actions.MoveLeft = false;
             actions.MoveRight = false;
+            actions.Reload = false;
 
             actions.Shield = false;
             actions.Aim = false;
@@ -263,6 +268,7 @@ namespace PantheonPrototype
             keyboardAndMouse.PauseKey = Keys.Escape;
             keyboardAndMouse.ShieldKey = Keys.Space;
             keyboardAndMouse.InteractKey = Keys.E;
+            keyboardAndMouse.ReloadKey = Keys.R;
 
             keyboardAndMouse.AimKey = Keys.LeftShift;
 
