@@ -54,7 +54,9 @@ namespace PantheonPrototype
 
             menu = new Menu();
 
-            hud = new HUD(GraphicsDevice, Content, SCREEN_WIDTH, SCREEN_HEIGHT);
+            debugFont = Content.Load<SpriteFont>("DebugFont");
+
+            hud = new HUD(GraphicsDevice, Content, SCREEN_WIDTH, SCREEN_HEIGHT, debugFont);
 
             currentLevel = new Level(GraphicsDevice);
 
@@ -74,8 +76,7 @@ namespace PantheonPrototype
             menu.Load(this);
 
             currentLevel.Load("map1", "map0", this);
-
-            debugFont = Content.Load<SpriteFont>("DebugFont");
+            
         }
 
         /// <summary>

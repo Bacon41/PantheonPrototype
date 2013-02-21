@@ -56,6 +56,8 @@ namespace PantheonPrototype
 
             EquippedItems.Add("weapon", new Weapon());
             EquippedItems.Add("shield", new Shield(gameReference.Content));
+
+            ArmedItem = EquippedItems["weapon"];
         }
 
         /// <summary>

@@ -21,6 +21,7 @@ namespace PantheonPrototype
         protected Texture2D selcted;
         protected SpriteFont font;
         protected Boolean isSelected;
+        protected Vector2 textSize;
 
         /// <summary>
         /// The text to display on the menu item.
@@ -59,8 +60,6 @@ namespace PantheonPrototype
         {
             background = gameReference.Content.Load<Texture2D>("Button");
             selcted = gameReference.Content.Load<Texture2D>("ButtonSelect");
-            //background = new Texture2D(gameReference.GraphicsDevice, 1, 1);
-            //background.SetData(new[] { Color.Gray });
 
             font = gameReference.Content.Load<SpriteFont>("DebugFont");
         }
@@ -71,6 +70,7 @@ namespace PantheonPrototype
         /// <param name="gameReference">The reference to everything.</param>
         public void Update(GameTime gameTime, Pantheon gameReference)
         {
+            textSize = font.MeasureString(text);
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace PantheonPrototype
                 spriteBatch.Draw(selcted, drawBox, Color.White);
             }
 
-            spriteBatch.DrawString(font, text, new Vector2((drawBox.Width - text.Length * 15) / 2 + drawBox.X,
+            spriteBatch.DrawString(font, text, new Vector2((drawBox.Width - textSize.X) / 2 + drawBox.X,
                 (drawBox.Height - 25) / 2 + drawBox.Y), Color.White);
             
         }

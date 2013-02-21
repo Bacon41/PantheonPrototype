@@ -19,16 +19,35 @@ namespace PantheonPrototype
     class HUDItem
     {
         protected Texture2D image;
+        protected String textImage;
+        protected SpriteFont font;
+        protected Boolean isImage;
         protected Rectangle coordinates;
         protected Color opacity;
         protected int defaultWidth;
+        protected int rightJustifiedXCoord;
 
         public HUDItem(ContentManager Content, String img, int x, int y)
         {
+            isImage = true;
+
             image = Content.Load<Texture2D>(img);
             defaultWidth = image.Width;
             coordinates = new Rectangle(x, y, image.Width, image.Height);
             opacity = new Color(256,256,256,256);
+        }
+
+        // An override to the constructor so that we can make hud items dislaply text instead of an image
+        // x is given as the top RIGHT coordiante of the text
+        public HUDItem(SpriteFont font, String text, int x, int y)
+        {
+            isImage = false;
+            this.font = font;
+
+            textImage = text;
+            coordinates = new Rectangle(x, y, 1, 1);
+            rightJustifiedXCoord = x;
+            opacity = new Color(256, 256, 256, 256);
         }
 
         /// <summary>
@@ -37,6 +56,19 @@ namespace PantheonPrototype
         public Texture2D Image
         {
             get { return image; }
+        }
+
+        /// <summary>
+        /// Gets and sets the text to display if it's a text HUDItem
+        /// </summary>
+        public String Text
+        {
+            get { return textImage; }
+            set 
+            { 
+                textImage = value;
+                rightJustifiedXCoord = coordinates.X - (int)font.MeasureString(textImage).X;
+            }
         }
 
         /// <summary>
@@ -108,7 +140,14 @@ namespace PantheonPrototype
         /// <param name="spriteBatch">A shared SpriteBatch for the HUD.</param>
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Image, Coordinates, Opacity);
+            if (isImage)
+            {
+                spriteBatch.Draw(Image, Coordinates, Opacity);
+            }
+            else
+            {
+                spriteBatch.DrawString(font, textImage, new Vector2(rightJustifiedXCoord, coordinates.Y), Color.White);
+            }
         }
     }
 }

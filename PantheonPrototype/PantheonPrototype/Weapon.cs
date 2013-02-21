@@ -60,6 +60,11 @@ namespace PantheonPrototype
         /// </summary>
         private TimeSpan lastShot;
 
+        public float PercentToNextShot()
+        {
+            return lastShot.Milliseconds / (1000 / fireRate);
+        }
+
         /// <summary>
         /// Initializes key values of a weapon.
         /// </summary>

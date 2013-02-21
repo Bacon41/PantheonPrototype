@@ -24,19 +24,20 @@ namespace PantheonPrototype
         /// More or less can be registered.
         /// </summary>
         protected List<HUDItem> hudItems;
-        protected ContentManager content;
         protected GraphicsDevice graphicsDevice;
         protected Texture2D backing;
         protected Texture2D background;
+        protected SpriteFont font;
         protected Vector2 HUDcoords;
         protected int SCREEN_WIDTH;
         protected int SCREEN_HEIGHT;
         protected int danger;
 
-        public HUD(GraphicsDevice graphicsDevice, ContentManager Content, int WIDTH, int HEIGHT)
+        public HUD(GraphicsDevice graphicsDevice, ContentManager Content, int WIDTH, int HEIGHT, SpriteFont font)
         {
             this.graphicsDevice = graphicsDevice;
-            content = Content;
+            this.font = font;
+
             SCREEN_WIDTH = WIDTH;
             SCREEN_HEIGHT = HEIGHT;
 
@@ -47,22 +48,37 @@ namespace PantheonPrototype
 
             danger = 0;
 
-            AddItem("ArmorBar", 5, 46);
-            AddItem("IndicatorG", 230, 10);
-            AddItem("IndicatorY", 230, 10);
-            AddItem("IndicatorR", 230, 10);
-            AddItem("IndicatorD", 230, 10);
-            AddItem("IndicatorEmpty", 230, 10);
+            AddItem("ArmorBar", 5, 46, Content);
+            AddItem("IndicatorG", 230, 10, Content);
+            AddItem("IndicatorY", 230, 10, Content);
+            AddItem("IndicatorR", 230, 10, Content);
+            AddItem("IndicatorD", 230, 10, Content);
+            AddItem("IndicatorEmpty", 230, 10, Content);
+            AddItem("AmmoDisplay", 150, 5, font);
+            AddItem("ReloadTimer", 95, 35, Content);
         }
 
         /// <summary>
-        /// This is the method to add more items to the HUD. It will probably have
-        /// parameters later, but I'm not sure what yet.
-        /// Accepts a string that defines an image in the preloaded content.
+        /// This is the method to add more items to the HUD. 
+        /// Accepts a string that defines an image in the preloaded content,
+        /// X and Y HUD coordinates, and a content manager.
         /// </summary>
-        public void AddItem(String img, int x, int y)
+        public void AddItem(String img, int x, int y, ContentManager content)
         {
             hudItems.Add(new HUDItem(content, img, (int)HUDcoords.X + x, (int)HUDcoords.Y + y));
+        }
+
+        /// <summary>
+        /// An overload funtion to just draw a string instead of an image.
+        /// Accepts a string that defines an image in the preloaded content and
+        /// X and Y HUD coordinates.
+        /// </summary>
+        /// <param name="img"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        public void AddItem(String text, int x, int y, SpriteFont font)
+        {
+            hudItems.Add(new HUDItem(font, text, (int)HUDcoords.X + x, (int)HUDcoords.Y + y));
         }
 
         /// <summary>
@@ -75,7 +91,8 @@ namespace PantheonPrototype
             // Set the width of the Armor Bar with respect to the current percent of the player's armor.
             try
             {
-                hudItems[0].Coordinates = new Rectangle(hudItems[0].Coordinates.X, hudItems[0].Coordinates.Y, (int)(hudItems[0].DefaultWidth * ((float)player.CurrentArmor / player.TotalArmor)), hudItems[0].Coordinates.Height);
+                hudItems[0].Coordinates = new Rectangle(hudItems[0].Coordinates.X, hudItems[0].Coordinates.Y, 
+                    (int)(hudItems[0].DefaultWidth * ((float)player.CurrentArmor / player.TotalArmor)), hudItems[0].Coordinates.Height);
                 
                 // Get the Shield item
                 Shield shield = (Shield)player.EquippedItems["shield"];
@@ -121,7 +138,14 @@ namespace PantheonPrototype
                 {
                     hudItems[5].SetOpacity(0);
                 }
-                
+
+                // Update the Ammo Display
+                hudItems[6].Text = (((Weapon)player.ArmedItem).CurrentAmmo.ToString()) + 
+                    "/" + (((Weapon)player.ArmedItem).TotalAmmo.ToString());
+
+                // Update the Reload Timer Bar
+                hudItems[7].Coordinates = new Rectangle(hudItems[7].Coordinates.X, hudItems[7].Coordinates.Y,
+                    (int)(hudItems[7].DefaultWidth * (((Weapon)player.ArmedItem)).PercentToNextShot()), hudItems[7].Coordinates.Height);
 
             }
             catch (DivideByZeroException)
