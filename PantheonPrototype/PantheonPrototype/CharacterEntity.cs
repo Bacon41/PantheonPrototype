@@ -36,6 +36,7 @@ namespace PantheonPrototype
         /// Possibly consider adding a convention so that the item may be accessed outside the character.
         /// </summary>
         public Dictionary<string, Item> EquippedItems;
+        public Item ArmedItem;
 
         /// <summary>
         /// The total armor of the character.
@@ -98,6 +99,7 @@ namespace PantheonPrototype
             base(location, drawBox, boundingBox)
         {
             EquippedItems = new Dictionary<string, Item>();
+            ArmedItem = new Item();
             angleFacing = 0;
         }
 

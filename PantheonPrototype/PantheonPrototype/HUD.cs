@@ -140,8 +140,8 @@ namespace PantheonPrototype
                 }
 
                 // Update the Ammo Display
-                hudItems[6].Text = (((Weapon)player.EquippedItems["weapon"]).CurrentAmmo.ToString()) + 
-                    "/" + (((Weapon)player.EquippedItems["weapon"]).TotalAmmo.ToString());                
+                hudItems[6].Text = (((Weapon)player.ArmedItem).CurrentAmmo.ToString()) + 
+                    "/" + (((Weapon)player.ArmedItem).TotalAmmo.ToString());                
 
             }
             catch (DivideByZeroException)

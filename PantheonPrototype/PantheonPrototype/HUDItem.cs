@@ -38,6 +38,7 @@ namespace PantheonPrototype
         }
 
         // An override to the constructor so that we can make hud items dislaply text instead of an image
+        // x is given as the top RIGHT coordiante of the text
         public HUDItem(SpriteFont font, String text, int x, int y)
         {
             isImage = false;
