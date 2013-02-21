@@ -103,14 +103,11 @@ namespace PantheonPrototype
             {
                 this.IsMouseVisible = true;
                 menu.Update(gameTime, this);
-
-                if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-                {
-                    menu.MenuState = "main";
-                }
             }
             else
             {
+                menu.MenuState = "main";
+
                 this.IsMouseVisible = false;
 
                 if (currentLevel.LevelPlaying)

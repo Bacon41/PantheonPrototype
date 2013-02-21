@@ -124,8 +124,7 @@ namespace PantheonPrototype
                             this.items[itemName].IsSelected = false;
                         }
                     }
-
-                    if (gameReference.controlManager.actions.Attack)
+                    if (gameReference.controlManager.actions.MenuSelect)
                     {
                         if (items["resume"].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
                             (int)gameReference.controlManager.actions.CursorPosition.Y))
@@ -144,6 +143,7 @@ namespace PantheonPrototype
                         }
                     }
                     break;
+
                 case "inventory":
                     foreach (string itemName in this.inventoryButtons.Keys)
                     {
@@ -161,8 +161,7 @@ namespace PantheonPrototype
                             this.inventoryButtons[itemName].IsSelected = false;
                         }
                     }
-
-                    if (gameReference.controlManager.actions.Attack)
+                    if (gameReference.controlManager.actions.MenuSelect)
                     {
                         if (inventoryButtons["resumeInv"].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
                             (int)gameReference.controlManager.actions.CursorPosition.Y))
@@ -176,7 +175,9 @@ namespace PantheonPrototype
                         }
                         
                     }
+                    break;
 
+                default:
                     break;
             }
         }

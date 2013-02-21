@@ -33,6 +33,8 @@ namespace PantheonPrototype
         public bool Zoom;
         public bool Interact;
 
+        public bool MenuSelect;
+
         public bool CursorEnabled;
 
         public Vector2 CursorPosition;
@@ -86,8 +88,10 @@ namespace PantheonPrototype
         //public Keys AttackButton;
         public Keys AimKey;
 
-        public Keys TakeDamage;
+        public ButtonState MenuSelectKey;
+        public ButtonState PrevMenuSelectKey;
 
+        public Keys TakeDamage;
     }
 
     /// <summary>
@@ -107,6 +111,9 @@ namespace PantheonPrototype
         private KeyboardState keyboard;
         private KeyboardState oldKeyboard;
 
+        private MouseState mouse;
+        private MouseState oldMouse;
+
         public ControlManager()
         {
             actions.Shield = false;
@@ -115,6 +122,9 @@ namespace PantheonPrototype
 
             keyboard = Keyboard.GetState();
             oldKeyboard = keyboard;
+
+            mouse = Mouse.GetState();
+            oldMouse = mouse;
 
             setDefaultGamepadControlScheme();
             setDefaultMouseAndKeyboardControlScheme();            
@@ -130,8 +140,8 @@ namespace PantheonPrototype
             keyboard = Keyboard.GetState();           
             
             //Get the mouse state
-            MouseState mouse = Mouse.GetState();
-            //mouseTest(mouse);
+            mouse = Mouse.GetState();
+            updateMouse(mouse);
             
             //Get the gamepad state
             GamePadState gamepad = GamePad.GetState(PlayerIndex.One);
@@ -143,7 +153,6 @@ namespace PantheonPrototype
                     actions.CursorEnabled = false;
 
                     if (gamepadControls.Pause == ButtonState.Pressed) { actions.Pause = true; }
-
                 }
                 else
                 {
@@ -160,20 +169,32 @@ namespace PantheonPrototype
                 }
                 if (keyboard.IsKeyDown(keyboardAndMouse.PauseKey) && !oldKeyboard.IsKeyDown(keyboardAndMouse.PauseKey))
                 { actions.Pause = !actions.Pause; }
-                if (keyboard.IsKeyDown(keyboardAndMouse.ShieldKey) && !oldKeyboard.IsKeyDown(keyboardAndMouse.ShieldKey)) { actions.Shield = true; }
-                //else if (keyboard.IsKeyDown(keyboardAndMouse.ShieldKey) && !actions.Shield) { actions.Shield = true; }
-                if (keyboardAndMouse.AttackMouseButton == ButtonState.Pressed) { actions.Attack = true; }
-                if (keyboard.IsKeyDown(keyboardAndMouse.TakeDamage)) { actions.beingDamaged = true;}
+                if (keyboard.IsKeyDown(keyboardAndMouse.ShieldKey) && !oldKeyboard.IsKeyDown(keyboardAndMouse.ShieldKey))
+                { actions.Shield = !actions.Shield; }
+                
+                if (keyboard.IsKeyDown(keyboardAndMouse.TakeDamage)) { actions.beingDamaged = true; }
 
                 //
-                if (mouse.LeftButton == ButtonState.Pressed) { actions.Attack = true; }
+                //if (mouse.LeftButton == ButtonState.Pressed) { actions.Attack = true; }
                 if (keyboard.IsKeyDown(keyboardAndMouse.AimKey)) { actions.Aim = true; }
-                
+
+                if (actions.Pause)
+                {
+                    if (keyboardAndMouse.MenuSelectKey == ButtonState.Pressed && keyboardAndMouse.PrevMenuSelectKey != ButtonState.Pressed)
+                    { actions.MenuSelect = true; }
+                    else { actions.MenuSelect = false; }
+                }
+                else
+                {
+                    if (keyboardAndMouse.AttackMouseButton == ButtonState.Pressed) { actions.Attack = true; }
+                    else { actions.Attack = false; }
+                }
             }
 
             actions.CursorPosition = new Vector2(mouse.X, mouse.Y);
 
             oldKeyboard = keyboard;
+            oldMouse = mouse;
         }
 
         /// <summary>
@@ -187,7 +208,6 @@ namespace PantheonPrototype
             actions.MoveLeft = false;
             actions.MoveRight = false;
 
-            actions.Attack = false;
             actions.Shield = false;
             actions.Aim = false;
 
@@ -235,9 +255,6 @@ namespace PantheonPrototype
 
         private void setDefaultMouseAndKeyboardControlScheme()
         {
-            KeyboardState keyboardDefault = Keyboard.GetState();
-            MouseState mouseDefault = Mouse.GetState();
-
             keyboardAndMouse.MoveUpKey = Keys.S;
             keyboardAndMouse.MoveDownKey = Keys.W;
             keyboardAndMouse.MoveLeftKey = Keys.A;
@@ -246,12 +263,11 @@ namespace PantheonPrototype
             keyboardAndMouse.PauseKey = Keys.Escape;
             keyboardAndMouse.ShieldKey = Keys.Space;
             keyboardAndMouse.InteractKey = Keys.E;
-            keyboardAndMouse.AttackMouseButton = mouseDefault.LeftButton;
+
+            keyboardAndMouse.AimKey = Keys.LeftShift;
 
             //temporary: REMOVE THIS ONCE COMBAT WORKS
             keyboardAndMouse.TakeDamage = Keys.Tab;
-
-            keyboardAndMouse.AimKey = Keys.LeftShift;
         }
 
 
@@ -278,10 +294,11 @@ namespace PantheonPrototype
         /// rather than testing within the code.  
         /// </summary>
         /// <param name="mouse">MouseState from user's mouse</param>
-        public void mouseTest(MouseState mouse)
+        public void updateMouse(MouseState mouse)
         {
-            //test mouse location by outputing to console the location
-            
+            keyboardAndMouse.AttackMouseButton = mouse.LeftButton;
+            keyboardAndMouse.PrevMenuSelectKey = keyboardAndMouse.MenuSelectKey;
+            keyboardAndMouse.MenuSelectKey = mouse.LeftButton;
         }
    
     }

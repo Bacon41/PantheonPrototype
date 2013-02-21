@@ -130,7 +130,6 @@ namespace PantheonPrototype
             {
                 item.Update(gameTime, gameReference);
             }
-
         }
 
         /// <summary>
