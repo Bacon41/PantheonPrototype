@@ -150,6 +150,12 @@ namespace PantheonPrototype
             //Move the player by velocity
             Location = new Vector2(Location.X + Velocity.X, Location.Y + Velocity.Y);
 
+            //Update the equipped items
+            foreach (Item item in EquippedItems.Values)
+            {
+                item.Update(gameTime, gameReference);
+            }
+
             //If the shield is on, drain it
             if (shieldOn)
             {
