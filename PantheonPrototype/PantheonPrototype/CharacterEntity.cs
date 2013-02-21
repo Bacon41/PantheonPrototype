@@ -60,39 +60,6 @@ namespace PantheonPrototype
         }
 
         /// <summary>
-        /// The total amount of shield energy available when fully charged.
-        /// </summary>
-        protected int totalShield;
-
-        public int TotalShield
-        {
-            get { return totalShield; }
-            set { totalShield = value; }
-        }
-
-        /// <summary>
-        /// The current shield strength for the character.
-        /// </summary>
-        protected int currentShield;
-
-        public int CurrentShield
-        {
-            get { return currentShield; }
-            set { currentShield = value; }
-        }
-
-        /// <summary>
-        /// Flag indicating if the shield is currently on.
-        /// </summary>
-        protected bool shieldOn;
-
-        public bool ShieldOn
-        {
-            get { return shieldOn; }
-            set { shieldOn = value; }
-        }
-
-        /// <summary>
         /// The velocity of the character.
         /// </summary>
         protected Vector2 velocity;
@@ -156,23 +123,6 @@ namespace PantheonPrototype
                 item.Update(gameTime, gameReference);
             }
 
-            //If the shield is on, drain it
-            if (shieldOn)
-            {
-                if (currentShield > 0)
-                {
-                    currentShield--;
-                }
-                else
-                {
-                    shieldOn = false;
-                }
-            }
-            /*else if (currentShield < totalShield) //Otherwise, charge it
-            {
-                currentShield++;
-            }
-             * */
         }
 
         /// <summary>

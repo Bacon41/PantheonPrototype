@@ -77,8 +77,11 @@ namespace PantheonPrototype
             {
                 hudItems[0].Coordinates = new Rectangle(hudItems[0].Coordinates.X, hudItems[0].Coordinates.Y, (int)(hudItems[0].DefaultWidth * ((float)player.CurrentArmor / player.TotalArmor)), hudItems[0].Coordinates.Height);
                 
+                // Get the Shield item
+                Shield shield = (Shield)player.EquippedItems["shield"];
+
                 // Update the Shield indicator
-                int shieldPercent = (int)(100 * (float)player.CurrentShield / player.TotalShield);
+                int shieldPercent = (int)(100 * (float)shield.CurrentShield / shield.TotalShield);
                 hudItems[1].SetOpacity((int)((shieldPercent - 55) * 5.66)); // (% - min) * (255 / (max - min))
 
                 if (shieldPercent > 55)

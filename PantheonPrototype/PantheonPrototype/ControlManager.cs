@@ -160,7 +160,7 @@ namespace PantheonPrototype
                 }
                 if (keyboard.IsKeyDown(keyboardAndMouse.PauseKey) && !oldKeyboard.IsKeyDown(keyboardAndMouse.PauseKey))
                 { actions.Pause = !actions.Pause; }
-                if (keyboard.IsKeyDown(keyboardAndMouse.ShieldKey) && !oldKeyboard.IsKeyDown(keyboardAndMouse.ShieldKey)) { actions.Shield = !actions.Shield; }
+                if (keyboard.IsKeyDown(keyboardAndMouse.ShieldKey) && !oldKeyboard.IsKeyDown(keyboardAndMouse.ShieldKey)) { actions.Shield = true; }
                 //else if (keyboard.IsKeyDown(keyboardAndMouse.ShieldKey) && !actions.Shield) { actions.Shield = true; }
                 if (keyboardAndMouse.AttackMouseButton == ButtonState.Pressed) { actions.Attack = true; }
                 if (keyboard.IsKeyDown(keyboardAndMouse.TakeDamage)) { actions.beingDamaged = true;}
@@ -188,7 +188,7 @@ namespace PantheonPrototype
             actions.MoveRight = false;
 
             actions.Attack = false;
-            //actions.Shield = false;
+            actions.Shield = false;
             actions.Aim = false;
 
             actions.CursorPosition = Vector2.Zero;

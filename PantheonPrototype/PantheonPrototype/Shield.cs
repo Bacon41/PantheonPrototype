@@ -18,16 +18,61 @@ namespace PantheonPrototype
     /// </summary>
     class Shield : Item
     {
-        protected Texture2D shieldTexture;
+        /// <summary>
+        /// The manifestation of the shield when it is on.
+        /// </summary>
+        protected Entity energyField;
 
-        public Texture2D ShieldTexture
+        public Entity EnergyField
         {
-            get { return shieldTexture; }
+            get { return energyField; }
+        }
+        
+        /// <summary>
+        /// The current status of the shield relative to the total shield.
+        /// </summary>
+        protected int currentShield;
+
+        public int CurrentShield
+        {
+            get { return currentShield; }
+            set { currentShield = value; }
         }
 
-        public Shield(ContentManager Content) 
+        /// <summary>
+        /// The total capacity of the shield.
+        /// </summary>
+        protected int totalShield;
+
+        public int TotalShield
         {
-            shieldTexture = Content.Load<Texture2D>("Shield");
+            get { return totalShield; }
+            set { totalShield = value; }
+        }
+
+        /// <summary>
+        /// Flag indicating if the shield is currently on.
+        /// </summary>
+        protected bool shieldOn;
+
+        public bool ShieldOn
+        {
+            get { return shieldOn; }
+            set { shieldOn = value; }
+        }
+
+        private Texture2D shieldTexture;
+
+        public Shield(ContentManager contentManager) 
+        {
+            shieldTexture = contentManager.Load<Texture2D>("Shield");
+
+            energyField = new Entity(Vector2.Zero, new Rectangle(0, 0, 50, 50), new Rectangle(4, 10, 42, 42));
+            energyField.Load(contentManager);
+            energyField.Sprite = new Sprite(shieldTexture, 1, 1);
+
+            totalShield = 300;
+            currentShield = 300;
         }
         /// <summary>
         /// Turn the shield on.
@@ -41,10 +86,36 @@ namespace PantheonPrototype
         {
             base.activate(gameReference, holder);
 
-            //Draw(gameReference.spriteBatch, holder);
+            shieldOn = !shieldOn;
         }
 
-        
+        public override void Update(GameTime gameTime, Pantheon gameReference)
+        {
+            base.Update(gameTime, gameReference);
+
+            //Drain the shield when it's on.
+            if (shieldOn && currentShield > 0)
+            {
+                //If the shield is just being turned on, add it to the level
+                if (!gameReference.currentLevel.Entities.ContainsKey("character_shield"))
+                {
+                    gameReference.currentLevel.addList.Add("character_shield", energyField);
+                }
+
+                //Update the location of the energy field
+                energyField.Location = gameReference.currentLevel.Entities["character"].Location;
+
+                currentShield--;
+            }
+            else
+            {
+                //If the shield is just being turned off, then remove it from the level
+                if (gameReference.currentLevel.Entities.ContainsKey("character_shield"))
+                {
+                    gameReference.currentLevel.removeList.Add("character_shield");
+                }
+            }
+        }
         
     }
 }

@@ -41,8 +41,8 @@ namespace PantheonPrototype
 
             TotalArmor = 100;
             CurrentArmor = 100;
-            TotalShield = 300;
-            CurrentShield = 300;
+            //TotalShield = 300;
+            //CurrentShield = 300;
             cursorLocation = Vector2.Zero;
             laserTexture = new Texture2D(gameReference.GraphicsDevice, 1, 1);
 
@@ -120,15 +120,18 @@ namespace PantheonPrototype
         /// <param name="damage">The amount of damage that is being taken</param>
         public void Damage(int damage)
         {
+            //Get the shield object for quick reference
+            Shield shield = (Shield)EquippedItems["shield"];
+
             //Damage calculations being done here
-            if ((ShieldOn) && (CurrentShield >= damage))
+            if ((shield.ShieldOn) && (shield.CurrentShield >= damage))
             {
-                CurrentShield = CurrentShield - damage;
+                shield.CurrentShield = shield.CurrentShield - damage;
             }
-            else if ((ShieldOn) && (CurrentShield < damage))
+            else if ((shield.ShieldOn) && (shield.CurrentShield < damage))
             {
-                CurrentShield = 0;
-                int calculatedDamage = damage - CurrentShield;
+                shield.CurrentShield = 0;
+                int calculatedDamage = damage - shield.CurrentShield;
                 CurrentArmor = CurrentArmor - calculatedDamage;                
             }
             else 
@@ -151,26 +154,6 @@ namespace PantheonPrototype
             updateLaser(gameReference, Vector2.Zero);
             updateScope(gameReference);
             updateEquipped(gameReference);
-
-            /*if (gameReference.controlManager.actions.Attack)
-            {
-                float angle = (float)Math.Atan2(cursorLocation.Y - Location.Y, cursorLocation.X - Location.X);
-                
-
-                //Vector2 velocity = new Vector2(25 * (float)Math.Cos(randomAngle), 25 * (float)Math.Sin(randomAngle));
-                Bullet bullet = new Bullet(Location, 25, angle, gameReference);
-                bullet.Load(gameReference.Content);
-                bullets.Add(bullet);
-            }*/
-
-            if (gameReference.controlManager.actions.Shield == true && ShieldOn == false)
-            {
-                ShieldOn = true;
-            }
-            else if (gameReference.controlManager.actions.Shield == false && ShieldOn == true)
-            {
-                ShieldOn = false;
-            }
 
             if (gameReference.controlManager.actions.beingDamaged == true)
             {
@@ -321,9 +304,9 @@ namespace PantheonPrototype
         /// <param name="gameReference">A reference to the game so that the items can do their jobs.</param>
         private void updateEquipped(Pantheon gameReference)
         {
+            //Fire all (one of) the weapons!
             if (gameReference.controlManager.actions.Attack)
             {
-                //Fire all (one of) the weapons!
                 this.EquippedItems["weapon"].activate(gameReference, this);
             }
 
@@ -333,8 +316,13 @@ namespace PantheonPrototype
                 && gameReference.controlManager.actions.MoveLeft
                 && gameReference.controlManager.actions.MoveRight)
             {
-                Console.WriteLine("Adding 10");
-                ((Weapon)this.EquippedItems["weapon"]).CurrentAmmo = 10;
+                ((Weapon)this.EquippedItems["weapon"]).CurrentAmmo = ((Weapon)this.EquippedItems["weapon"]).TotalAmmo;
+            }
+
+            //Activate the shield
+            if (gameReference.controlManager.actions.Shield == true)
+            {
+                EquippedItems["shield"].activate(gameReference, this);
             }
         }
 
@@ -388,10 +376,10 @@ namespace PantheonPrototype
             spriteBatch.Draw(laserDot, new Rectangle((int)laserDotCoords.X, (int)laserDotCoords.Y, laserDot.Width, laserDot.Height),
                 null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .1f);
             
-            if (ShieldOn)
+            /*if (ShieldOn)
             {
                 spriteBatch.Draw(((Shield)this.EquippedItems["shield"]).ShieldTexture, new Rectangle((int)Location.X - 25, (int)Location.Y - 25, 50, 50), Color.White);
-            }
+            }*/
 
             
         }
