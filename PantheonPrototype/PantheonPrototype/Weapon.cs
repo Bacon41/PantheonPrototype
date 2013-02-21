@@ -32,6 +32,28 @@ namespace PantheonPrototype
         }
 
         /// <summary>
+        /// The current amount of ammunition available to the player.
+        /// </summary>
+        protected int currentAmmo;
+
+        public int CurrentAmmo
+        {
+            get { return currentAmmo; }
+            set { currentAmmo = value; }
+        }
+
+        /// <summary>
+        /// The total amount of ammunition available to the player.
+        /// </summary>
+        protected int totalAmmo;
+
+        public int TotalAmmo
+        {
+            get { return totalAmmo; }
+            set { totalAmmo = value; }
+        }
+
+        /// <summary>
         /// The amount of time since the last shot was fired
         /// </summary>
         private TimeSpan lastShot;
@@ -43,6 +65,8 @@ namespace PantheonPrototype
         {
             lastShot = TimeSpan.Zero;
             fireRate = 5;
+            totalAmmo = 10;
+            currentAmmo = totalAmmo;
         }
 
         /// <summary>
@@ -59,7 +83,7 @@ namespace PantheonPrototype
             base.activate(gameReference, holder);
 
             //Shoot when the cool down has lasted long enough.
-            if(lastShot.CompareTo(TimeSpan.Zero) <= 0)
+            if(lastShot.CompareTo(TimeSpan.Zero) <= 0 && currentAmmo > 0)
             {
                 shootABullet(gameReference, holder);
                 lastShot = TimeSpan.FromMilliseconds(1000/ fireRate);
@@ -102,6 +126,9 @@ namespace PantheonPrototype
             bullet.Load(gameReference.Content);
 
             gameReference.currentLevel.addList.Add("bullet_" + Bullet.NextId, bullet);
+
+            //Drain a bullet from the current ammo
+            currentAmmo--;
         }
     }
 }
