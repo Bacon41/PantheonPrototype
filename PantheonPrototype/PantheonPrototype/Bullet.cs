@@ -37,7 +37,7 @@ namespace PantheonPrototype
         /// </summary>
         /// <param name="location">The initial position for the bullet.</param>
         /// <param name="velocity">The initial velocity of the bullet.</param>
-        public Bullet(Vector2 location, int speed, float angle, Pantheon gameReference)
+        public Bullet(Vector2 location, int speed, float angle, int range, Pantheon gameReference)
             : base(location,
                 new Rectangle(0,0,20,20),
                 new Rectangle(1,1,18,18))
@@ -47,6 +47,7 @@ namespace PantheonPrototype
             if (gameReference.controlManager.actions.Aim)
             {
                 this.Velocity = new Vector2(speed * (float)Math.Cos(angle), speed * (float)Math.Sin(angle));
+                sprite.Rotation = angle;
             }
             else
             {
@@ -55,16 +56,17 @@ namespace PantheonPrototype
                 // Max deviaion of .01 radians
                 // -.05 to center the deviation around the laser
 
-                this.Velocity = new Vector2(speed * (float)Math.Cos(randomAngle), speed * (float)Math.Sin(randomAngle));     
+                this.Velocity = new Vector2(speed * (float)Math.Cos(randomAngle), speed * (float)Math.Sin(randomAngle));
+                sprite.Rotation = randomAngle;
             }
-
+            timeToLive = range;
         }
 
         /// <summary>
         /// Loads the bullet.
         /// </summary>
         /// <param name="contentManager">Using this content manager.</param>
-        public override void  Load(ContentManager contentManager)
+        public override void Load(ContentManager contentManager)
         {
             base.Load(contentManager);
 
@@ -72,18 +74,11 @@ namespace PantheonPrototype
 
             if (bulletimage != null)
             {
+                // Need to make it just one image, not many frames.
                 this.sprite.loadSprite(bulletimage, 2, 4, 0);
+                this.sprite.addState("Forward", 7, 7);
 
-                this.sprite.addState("Forward Right", 0, 0);
-                this.sprite.addState("Forward", 1, 1);
-                this.sprite.addState("Forward Left", 2, 2);
-                this.sprite.addState("Left", 3, 3);
-                this.sprite.addState("Back Left", 4, 4);
-                this.sprite.addState("Back", 5, 5);
-                this.sprite.addState("Back Right", 6, 6);
-                this.sprite.addState("Right", 7, 7);
-
-                setDirection();
+                //setDirection();
             }
         }
 
@@ -95,15 +90,6 @@ namespace PantheonPrototype
         public override void Update(GameTime gameTime, Pantheon gameReference)
         {
             base.Update(gameTime, gameReference);
-        }
-
-        /// <summary>
-        /// Draws the bullet... yes it does.
-        /// </summary>
-        /// <param name="canvas">The thingy onto which the bullet is drawn.</param>
-        public override void Draw(SpriteBatch canvas)
-        {
-            base.Draw(canvas);
         }
 
         /// <summary>
@@ -146,6 +132,15 @@ namespace PantheonPrototype
             {
                 this.CurrentState = "Back Right";
             }
+        }
+
+        /// <summary>
+        /// Draws the bullet... yes it does.
+        /// </summary>
+        /// <param name="canvas">The thingy onto which the bullet is drawn.</param>
+        public override void Draw(SpriteBatch canvas)
+        {
+            base.Draw(canvas);
         }
     }
 }
