@@ -55,7 +55,7 @@ namespace PantheonPrototype
             AddItem("IndicatorD", 230, 10, Content);
             AddItem("IndicatorEmpty", 230, 10, Content);
             AddItem("AmmoDisplay", 150, 5, font);
-            //AddItem("ReloadTimer", 100, 10, Content);
+            AddItem("ReloadTimer", 95, 35, Content);
         }
 
         /// <summary>
@@ -141,7 +141,11 @@ namespace PantheonPrototype
 
                 // Update the Ammo Display
                 hudItems[6].Text = (((Weapon)player.ArmedItem).CurrentAmmo.ToString()) + 
-                    "/" + (((Weapon)player.ArmedItem).TotalAmmo.ToString());                
+                    "/" + (((Weapon)player.ArmedItem).TotalAmmo.ToString());
+
+                // Update the Reload Timer Bar
+                hudItems[7].Coordinates = new Rectangle(hudItems[7].Coordinates.X, hudItems[7].Coordinates.Y,
+                    (int)(hudItems[7].DefaultWidth * (((Weapon)player.ArmedItem)).PercentToNextShot()), hudItems[7].Coordinates.Height);
 
             }
             catch (DivideByZeroException)
