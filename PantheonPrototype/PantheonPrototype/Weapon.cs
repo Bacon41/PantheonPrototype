@@ -21,6 +21,55 @@ namespace PantheonPrototype
     class Weapon : Item
     {
         /// <summary>
+        /// The rate of fire of the gun as the number of shots per second.
+        /// </summary>
+        protected float fireRate;
+
+        public float FireRate
+        {
+            get { return fireRate; }
+            set { fireRate = value; }
+        }
+
+        /// <summary>
+        /// The current amount of ammunition available to the player.
+        /// </summary>
+        protected int currentAmmo;
+
+        public int CurrentAmmo
+        {
+            get { return currentAmmo; }
+            set { currentAmmo = value; }
+        }
+
+        /// <summary>
+        /// The total amount of ammunition available to the player.
+        /// </summary>
+        protected int totalAmmo;
+
+        public int TotalAmmo
+        {
+            get { return totalAmmo; }
+            set { totalAmmo = value; }
+        }
+
+        /// <summary>
+        /// The amount of time since the last shot was fired
+        /// </summary>
+        private TimeSpan lastShot;
+
+        /// <summary>
+        /// Initializes key values of a weapon.
+        /// </summary>
+        public Weapon()
+        {
+            lastShot = TimeSpan.Zero;
+            fireRate = 5;
+            totalAmmo = 10;
+            currentAmmo = totalAmmo;
+        }
+
+        /// <summary>
         /// Shoot the weapon. That's what this game is really about, right?
         /// 
         /// Also, we need to rethink the way that shooting works right now. Eventually, I think that the
@@ -33,7 +82,25 @@ namespace PantheonPrototype
         {
             base.activate(gameReference, holder);
 
-            shootABullet(gameReference, holder);
+            //Shoot when the cool down has lasted long enough.
+            if(lastShot.CompareTo(TimeSpan.Zero) <= 0 && currentAmmo > 0)
+            {
+                shootABullet(gameReference, holder);
+                lastShot = TimeSpan.FromMilliseconds(1000/ fireRate);
+            }
+        }
+
+        /// <summary>
+        /// Updates the weapon, taking care for cooldown and other time sensitive functions.
+        /// </summary>
+        /// <param name="gameTime">The current game time.</param>
+        /// <param name="gameReference">A reference to the entire game.</param>
+        public override void Update(GameTime gameTime, Pantheon gameReference)
+        {
+            if (lastShot.CompareTo(TimeSpan.Zero) > 0)
+            {
+                lastShot = lastShot.Subtract(gameTime.ElapsedGameTime);
+            }
         }
 
         /// <summary>
@@ -54,6 +121,9 @@ namespace PantheonPrototype
             bullet.Load(gameReference.Content);
 
             gameReference.currentLevel.addList.Add("bullet_" + Bullet.NextId, bullet);
+
+            //Drain a bullet from the current ammo
+            currentAmmo--;
         }
     }
 }

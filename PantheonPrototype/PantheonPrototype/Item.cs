@@ -40,6 +40,16 @@ namespace PantheonPrototype
         }
 
         /// <summary>
+        /// An update function to be called only on equipped items. Takes care
+        /// of time sensitive functionality.
+        /// </summary>
+        /// <param name="gameTime">The elapsed game time for each update.</param>
+        /// <param name="gameReference">A reference to the entire game.</param>
+        public virtual void Update(GameTime gameTime, Pantheon gameReference)
+        {
+        }
+
+        /// <summary>
         /// The super ambiguous function designed to be super ambiguous.
         /// 
         /// Basically, call this function for some random object to do some

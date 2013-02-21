@@ -332,6 +332,16 @@ namespace PantheonPrototype
                 //Fire all (one of) the weapons!
                 this.EquippedItems["weapon"].activate(gameReference, this);
             }
+
+            //Ammo cheat
+            if (gameReference.controlManager.actions.MoveBackward
+                && gameReference.controlManager.actions.MoveForward
+                && gameReference.controlManager.actions.MoveLeft
+                && gameReference.controlManager.actions.MoveRight)
+            {
+                Console.WriteLine("Adding 10");
+                ((Weapon)this.EquippedItems["weapon"]).CurrentAmmo = 10;
+            }
         }
 
         /// <summary>
