@@ -28,6 +28,8 @@ namespace PantheonPrototype
 
         public Level currentLevel;
 
+        public CutsceneManager CutsceneManager;
+
         SpriteFont debugFont;
 
         public Pantheon()
@@ -59,6 +61,8 @@ namespace PantheonPrototype
             hud = new HUD(GraphicsDevice, Content, SCREEN_WIDTH, SCREEN_HEIGHT, debugFont);
 
             currentLevel = new Level(GraphicsDevice);
+
+            CutsceneManager = new CutsceneManager();
 
             base.Initialize();
         }
@@ -95,6 +99,8 @@ namespace PantheonPrototype
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            CutsceneManager.Update(gameTime);
+
             controlManager.Update();
 
             // REMOVE LATER
@@ -154,6 +160,7 @@ namespace PantheonPrototype
                 if (currentLevel.LevelPlaying)
                 {
                     currentLevel.Draw(spriteBatch);
+                    CutsceneManager.Draw(spriteBatch);
                 }
                 hud.Draw(spriteBatch, debugFont);
             }
