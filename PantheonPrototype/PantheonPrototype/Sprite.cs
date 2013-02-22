@@ -67,6 +67,21 @@ namespace PantheonPrototype
         /// </summary>
         private int currentFrame;
 
+        /// <summary>
+        /// The current opacity of the sprite.
+        /// </summary>
+        private int opacity;
+        
+        /// <summary>
+        /// Gets the current opacity or sets the opacity
+        /// Set takes an integer from 0 (transparent) to 100 (fully opaque)
+        /// </summary>
+        public int Opacity
+        {
+            get { return opacity; }
+            set { opacity = (int)(value * (2.55)); }
+        }
+
         public Sprite()
         {
             stateRange = new Dictionary<string, FrameRange>();
@@ -120,6 +135,9 @@ namespace PantheonPrototype
 
             //Set the current state to default
             this.currentState = "default";
+
+            //Set the default opacity to fully opaque
+            Opacity = 100;
         }
 
         /// <summary>
@@ -229,7 +247,7 @@ namespace PantheonPrototype
             Rectangle destinationRectangle = location;
 
             //Draw the correct frame of the image
-            canvas.Draw(image, destinationRectangle, sourceRectangle, Color.White, rotation, Vector2.Zero, SpriteEffects.None, .1f);
+            canvas.Draw(image, destinationRectangle, sourceRectangle, new Color(opacity, opacity, opacity, opacity), rotation, Vector2.Zero, SpriteEffects.None, .1f);
         }
     }
 }
