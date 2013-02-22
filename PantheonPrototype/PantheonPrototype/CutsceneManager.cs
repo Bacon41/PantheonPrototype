@@ -17,16 +17,72 @@ namespace PantheonPrototype
     /// </summary>
     public class CutsceneManager
     {
-        public CutsceneManager()
+        protected Texture2D hideTexture;
+        protected Rectangle hideRect;
+        protected int hideOffset;
+        protected bool cutcsenePlaying;
+
+        public bool CutscenePlaying
         {
+            get { return cutcsenePlaying; }
+        }
+
+        protected bool cutsceneEnded;
+
+        public bool CutsceneEnded
+        {
+            get { return cutsceneEnded; }
+        }
+
+        public CutsceneManager(GraphicsDevice graphicsDevice)
+        {
+            this.hideTexture = new Texture2D(graphicsDevice, 1, 1, false, SurfaceFormat.Color);
+            this.hideTexture.SetData(new[] { Color.Black });
+            this.hideRect = Rectangle.Empty;
+            this.hideOffset = -20;
+            this.cutcsenePlaying = false;
+            this.cutsceneEnded = false;
         }
         
         /// <summary>
         /// The method to make sure that the cutsecen actually moves.
         /// </summary>
         /// <param name="gameTime">Time since last update.</param>
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Pantheon gameReference)
         {
+            cutsceneEnded = false;
+            if (hideRect.Height < 0 || hideRect.Height > gameReference.GraphicsDevice.Viewport.Height)
+            {
+                if (hideRect.Height < 0)
+                {
+                    gameReference.controlManager.enableControls();
+                }
+                cutcsenePlaying = false;
+                cutsceneEnded = true;
+                hideRect = Rectangle.Empty;
+            }
+            else if (cutcsenePlaying)
+            {
+                hideRect.Height += hideOffset;
+            }
+        }
+
+        public void PlayLevelLoad(Pantheon gameReference)
+        {
+            cutcsenePlaying = true;
+            gameReference.controlManager.disableControls();
+            hideRect.Width = gameReference.GraphicsDevice.Viewport.Width;
+            hideRect.Height = gameReference.GraphicsDevice.Viewport.Height;
+            hideOffset = -20;
+        }
+
+        public void PlayLevelEnd(Pantheon gameReference)
+        {
+            cutcsenePlaying = true;
+            gameReference.controlManager.disableControls();
+            hideRect.Width = gameReference.GraphicsDevice.Viewport.Width;
+            hideRect.Height = 0;
+            hideOffset = 20;
         }
 
         /// <summary>
@@ -35,6 +91,9 @@ namespace PantheonPrototype
         /// <param name="spriteBatch">The object for drawing.</param>
         public void Draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.Begin();
+            spriteBatch.Draw(hideTexture, hideRect, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0);
+            spriteBatch.End();
         }
     }
 }

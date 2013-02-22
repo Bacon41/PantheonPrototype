@@ -191,7 +191,6 @@ namespace PantheonPrototype
                 else
                 {
                     if (keyboardAndMouse.AttackMouseButton == ButtonState.Pressed) { actions.Attack = true; }
-                    else { actions.Attack = false; }
                 }
             }
 
@@ -215,6 +214,7 @@ namespace PantheonPrototype
 
             actions.Shield = false;
             actions.Aim = false;
+            actions.Attack = false;
 
             actions.CursorPosition = Vector2.Zero;
         }

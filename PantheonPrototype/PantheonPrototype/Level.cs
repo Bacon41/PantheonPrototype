@@ -35,9 +35,7 @@ namespace PantheonPrototype
         protected Map levelMap;
         //protected Player player;
         protected Rectangle screenRect;
-        protected Texture2D hideTexture;
-        protected Rectangle hideRect;
-        protected int hideRectDimen;
+        
         protected bool levelStart;
         protected bool levelPlaying;
 
@@ -87,10 +85,6 @@ namespace PantheonPrototype
             this.removeList = new List<string>();
             this.Camera = new Camera(graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height);
             this.screenRect = Rectangle.Empty;
-            this.hideTexture = new Texture2D(graphicsDevice, 1, 1, false, SurfaceFormat.Color);
-            this.hideTexture.SetData(new[] { Color.Black });
-            this.hideRect = Rectangle.Empty;
-            this.hideRectDimen = graphicsDevice.Viewport.Height;
             this.levelStart = true;
             this.levelPlaying = true;
         }
@@ -122,11 +116,7 @@ namespace PantheonPrototype
             Camera.Pos = new Vector2(this.entities["character"].DrawingBox.X + entities["character"].DrawingBox.Width / 2,
                 this.entities["character"].DrawingBox.Y + entities["character"].DrawingBox.Height / 2);
 
-            // This is the level-load-in-from-black feature.
-            hideRect.X = (int)Camera.Pos.X - gameReference.GraphicsDevice.Viewport.Width / 2;
-            hideRect.Y = (int)Camera.Pos.Y - gameReference.GraphicsDevice.Viewport.Height / 2;
-            hideRect.Width = gameReference.GraphicsDevice.Viewport.Width;
-            hideRect.Height = hideRectDimen;
+            gameReference.CutsceneManager.PlayLevelLoad(gameReference);
         }
 
         /// <summary>
@@ -224,39 +214,17 @@ namespace PantheonPrototype
             screenRect.Width = (int)Camera.Pos.X + gameReference.GraphicsDevice.Viewport.Width / 2;
             screenRect.Height = (int)Camera.Pos.Y + gameReference.GraphicsDevice.Viewport.Height / 2;
 
-            // This part draws the rectangle that covers the screen completely black when the level is loading.
-            if (levelStart)
-            {
-                gameReference.controlManager.disableControls();
-                hideRect.X = (int)Camera.Pos.X - gameReference.GraphicsDevice.Viewport.Width / 2;
-                hideRect.Y = (int)Camera.Pos.Y - gameReference.GraphicsDevice.Viewport.Height / 2;
-                hideRect.Width = gameReference.GraphicsDevice.Viewport.Width;
-                hideRect.Height = hideRectDimen;
-
-                hideRectDimen -= 20;
-                if (hideRectDimen < 0)
-                {
-                    levelStart = false;
-                    gameReference.controlManager.enableControls();
-                }
-            }
-
             // This checks each spawn oblect for collision with the character, and tells it to end the level if necessary.
             foreach (MapObject obj in levelMap.ObjectLayers["Spawn"].MapObjects)
             {
                 if (obj.Name.Substring(0, 3) == "end" && obj.Bounds.Intersects(this.entities["character"].DrawingBox))
                 {
-                    gameReference.controlManager.disableControls();
-                    hideRect.X = (int)Camera.Pos.X - gameReference.GraphicsDevice.Viewport.Width / 2;
-                    hideRect.Y = (int)Camera.Pos.Y - gameReference.GraphicsDevice.Viewport.Height / 2;
-                    hideRect.Width = gameReference.GraphicsDevice.Viewport.Width;
-                    hideRect.Height = hideRectDimen;
-
-                    hideRectDimen += 20;
-                    if (hideRectDimen > gameReference.GraphicsDevice.Viewport.Height)
+                    levelPlaying = !gameReference.CutsceneManager.CutsceneEnded;
+                    nextLevel = obj.Name.Substring(3);
+                    if (!gameReference.CutsceneManager.CutscenePlaying)
                     {
-                        levelPlaying = false;
-                        nextLevel = obj.Name.Substring(3);
+                        if (!levelPlaying) break;
+                        gameReference.CutsceneManager.PlayLevelEnd(gameReference);
                     }
                 }
             }
@@ -278,8 +246,6 @@ namespace PantheonPrototype
             {
                 this.entities[entityName].Draw(spriteBatch);
             }
-            
-            spriteBatch.Draw(hideTexture, hideRect, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0);
 
             spriteBatch.End();
         }

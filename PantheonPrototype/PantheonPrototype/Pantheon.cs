@@ -62,7 +62,7 @@ namespace PantheonPrototype
 
             currentLevel = new Level(GraphicsDevice);
 
-            CutsceneManager = new CutsceneManager();
+            CutsceneManager = new CutsceneManager(GraphicsDevice);
 
             base.Initialize();
         }
@@ -80,7 +80,6 @@ namespace PantheonPrototype
             menu.Load(this);
 
             currentLevel.Load("map1", "map0", this);
-            
         }
 
         /// <summary>
@@ -99,7 +98,7 @@ namespace PantheonPrototype
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            CutsceneManager.Update(gameTime);
+            CutsceneManager.Update(gameTime, this);
 
             controlManager.Update();
 
