@@ -115,6 +115,9 @@ namespace PantheonPrototype
                     gameReference.currentLevel.removeList.Add("character_shield");
                 }
             }
+
+            // Make the shield fade with use
+            energyField.Sprite.Opacity = (int)(((float)currentShield/totalShield) * 100.0) + 41;
         }
         
     }
