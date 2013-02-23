@@ -14,6 +14,11 @@ namespace PantheonPrototype
 {
     class NPCCharacter : CharacterEntity
     {
+        /// <summary>
+        /// The time until the NPC needs to change directions for their random movement.
+        /// </summary>
+        protected TimeSpan changeDirection;
+
         public NPCCharacter(Vector2 location, Rectangle drawBox, Rectangle boundingBox): base(location, drawBox, boundingBox)
         {
         }

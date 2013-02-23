@@ -14,8 +14,6 @@ namespace PantheonPrototype
 {
     class OldManNPC : NPCCharacter
     {
-        String direction = "left";
-
         /// <summary>
         /// The constuctor for the OldMan NPC character. Takes care of setting up the NPCCharacter base class.
         /// </summary>
@@ -23,7 +21,8 @@ namespace PantheonPrototype
         public OldManNPC(Vector2 location)
             : base(location, new Rectangle(0, 0, 40, 40), new Rectangle(15, 25, 10, 10))
         {
-            
+            facing = Direction.Left;
+            changeDirection = TimeSpan.FromSeconds(3);
         }
 
         /// <summary>
@@ -47,7 +46,6 @@ namespace PantheonPrototype
             // ETC --
 
             velocity = Vector2.Zero;
-                       
         }
 
         /// <summary>
@@ -67,22 +65,50 @@ namespace PantheonPrototype
         {
             base.Update(gameTime, gameReference);
 
-            if (direction.Equals("left"))
+            if (facing == Direction.Left)
             {
                 velocity = new Vector2(-3, 0);
             }
-            else
+            else if (facing == Direction.Right)
             {
                 velocity = new Vector2(3, 0);
             }
-
-            if (Location.X < 912)
+            else if (facing == Direction.forward)
             {
-                direction = "right";
+                velocity = new Vector2(0, 3);
             }
-            else if (Location.X > 1140)
+            else if (facing == Direction.back)
             {
-                direction = "left";
+                velocity = new Vector2(0, -3);
+            }
+
+            changeDirection = changeDirection.Subtract(gameTime.ElapsedGameTime);
+            if (changeDirection.CompareTo(TimeSpan.Zero) <= 0)
+            {
+                switchDirection();
+                changeDirection = TimeSpan.FromSeconds(3);
+            }
+        }
+
+        private void switchDirection()
+        {
+            int dir = new Random().Next(4);
+            switch (dir)
+            {
+                case 0:
+                    facing = Direction.back;
+                    break;
+                case 1:
+                    facing = Direction.Left;
+                    break;
+                case 2:
+                    facing = Direction.forward;
+                    break;
+                case 3:
+                    facing = Direction.Right;
+                    break;
+                default:
+                    break;
             }
         }
 

@@ -100,16 +100,17 @@ namespace PantheonPrototype
             this.entities.Add("character", new PlayerCharacter(gameReference));
             this.entities["character"].Load(gameReference.Content);
 
-            this.entities.Add("theOldMan", new OldManNPC(this.entities["character"].Location));
-            this.entities["theOldMan"].Load(gameReference.Content);
-            this.entities["theOldMan"].Location = new Vector2(64 * 15, 64 * 3);
-
             // This spawns the character in the right place in the map.
             foreach (MapObject obj in levelMap.ObjectLayers["Spawn"].MapObjects)
             {
                 if (obj.Name.Substring(0, 5) == "start" && obj.Name.Substring(5) == oldLevel)
                 {
                     this.entities["character"].Location = new Vector2(obj.Bounds.X, obj.Bounds.Y);
+                }
+                if (obj.Name.Contains("NPC"))
+                {
+                    this.entities.Add("theOldMan", new OldManNPC(new Vector2(obj.Bounds.X, obj.Bounds.Y)));
+                    this.entities["theOldMan"].Load(gameReference.Content);
                 }
             }
 
@@ -167,7 +168,7 @@ namespace PantheonPrototype
                 from entity in this.entities
                 where entity.Key.Contains("bullet")
                 select entity.Key;
-
+            
             // Checking the character's bullets for collision with nonshootable tiles.
             foreach (String x in bulletQuery)
             {
@@ -196,6 +197,21 @@ namespace PantheonPrototype
                 else
                 {
                     this.removeList.Add(x);
+                }
+            }
+
+            var npcBoundsQuery = from obj in levelMap.ObjectLayers["Spawn"].MapObjects where obj.Name.Contains("NPC") select obj;
+            foreach (MapObject boundObj in npcBoundsQuery)
+            {
+                if (this.entities.ContainsKey("theOldMan"))
+                {
+                    if (boundObj.Name.Substring(3) == "theOldMan")
+                    {
+                        if (!this.entities["theOldMan"].BoundingBox.Intersects(boundObj.Bounds))
+                        {
+                            this.entities["theOldMan"].Location = this.entities["theOldMan"].PrevLocation;
+                        }
+                    }
                 }
             }
 
