@@ -105,11 +105,11 @@ namespace PantheonPrototype
             {
                 if (obj.Name.Substring(0, 5) == "start" && obj.Name.Substring(5) == oldLevel)
                 {
-                    this.entities["character"].Location = new Vector2(obj.Bounds.X, obj.Bounds.Y);
+                    this.entities["character"].Location = new Vector2(obj.Bounds.Center.X, obj.Bounds.Center.Y);
                 }
                 if (obj.Name.Contains("NPC"))
                 {
-                    this.entities.Add("theOldMan", new OldManNPC(new Vector2(obj.Bounds.X, obj.Bounds.Y)));
+                    this.entities.Add("theOldMan", new OldManNPC(new Vector2(obj.Bounds.Center.X, obj.Bounds.Center.Y)));
                     this.entities["theOldMan"].Load(gameReference.Content);
                 }
             }
@@ -207,7 +207,7 @@ namespace PantheonPrototype
                 {
                     if (boundObj.Name.Substring(3) == "theOldMan")
                     {
-                        if (!this.entities["theOldMan"].BoundingBox.Intersects(boundObj.Bounds))
+                        if (!boundObj.Bounds.Contains(this.entities["theOldMan"].BoundingBox))
                         {
                             this.entities["theOldMan"].Location = this.entities["theOldMan"].PrevLocation;
                         }
