@@ -12,7 +12,18 @@ using Microsoft.Xna.Framework.Media;
 
 namespace PantheonPrototype
 {
+    /// <summary>
+    /// A variation of an Objective. The big difference is that a timed objective
+    /// is updated every frame.
+    /// </summary>
     class TimedObjective : Objective
     {
+        /// <summary>
+        /// Updates time sensitive data in the timed objective.
+        /// </summary>
+        /// <param name="gameTime">Time since the last update cycle.</param>
+        public virtual void Update(GameTime gameTime)
+        {
+        }
     }
 }
