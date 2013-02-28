@@ -19,7 +19,7 @@ namespace PantheonPrototype
     /// </summary>
     class DialogueManager
     {
-        int currentTime = 0;
+        GameTime previousTime;
         DialogueNode currentNode; // NO
 
         /// <summary>
@@ -36,13 +36,13 @@ namespace PantheonPrototype
         /// </summary>
         public void Update(GameTime gameTime)
         {
-            this.currentTime = gameTime;
+            this.previousTime = gameTime;
         }
 
         /// <summary>
         /// Draws all the active text bubbles in their appropriate place.
         /// </summary>
-        public void Draw()
+        public void Draw(SpriteBatch context)
         {
         }
 
@@ -68,7 +68,7 @@ namespace PantheonPrototype
         /// </summary>
         /// <param name="position">The location of the speaking point of the text bubble.</param>
         /// <param name="text">The text the text bubble should say.</param>
-        /// <param name="duration">How long (in game time) the text bubble should last.</param>
+        /// <param name="duration">How long (in milliseconds) the text bubble should last.</param>
         public void CreateTextBubble(Vector2 position, String text, int duration)
         {
         }
