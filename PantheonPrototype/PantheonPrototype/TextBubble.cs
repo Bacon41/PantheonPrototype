@@ -46,9 +46,10 @@ namespace PantheonPrototype
         /// Draws the text bubble on the screen at its given position.
         /// </summary>
         /// <param name="context">The SpriteBatch the bubble should be drawn on.</param>
-        public void Draw(SpriteBatch context)
+        /// <param name="textFont">The font used to draw the text bubbles.</param>
+        public void Draw(SpriteBatch context, SpriteFont textFont)
         {
-            // context.DrawString();
+            context.DrawString(textFont, this.text, this.position, Color.WhiteSmoke);
         }
 
         /// <summary>
