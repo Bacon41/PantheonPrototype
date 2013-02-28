@@ -106,6 +106,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Pantheon.cs" />
     <Compile Include="Sprite.cs" />
+    <Compile Include="TextBubble.cs" />
     <Compile Include="TimedObjective.cs" />
     <Compile Include="Weapon.cs" />
   </ItemGroup>
