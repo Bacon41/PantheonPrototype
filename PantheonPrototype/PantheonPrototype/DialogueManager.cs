@@ -20,6 +20,7 @@ namespace PantheonPrototype
     class DialogueManager
     {
         GameTime previousTime;
+        LinkedList<TextBubble> activeTextBubbles;
         DialogueNode currentNode; // NO
 
         /// <summary>
@@ -36,7 +37,22 @@ namespace PantheonPrototype
         /// </summary>
         public void Update(GameTime gameTime)
         {
+            LinkedListNode<TextBubble> currentNode;
+
             this.previousTime = gameTime;
+
+            currentNode = this.activeTextBubbles.First;
+            while (currentNode != null)
+            {
+                LinkedListNode<TextBubble> next = currentNode.Next;
+
+                currentNode.Value.Update(gameTime);
+
+                if (currentNode.Value.ReadyForDeletion(gameTime))
+                    this.activeTextBubbles.Remove(currentNode);
+
+                currentNode = next;
+            }
         }
 
         /// <summary>
@@ -44,6 +60,10 @@ namespace PantheonPrototype
         /// </summary>
         public void Draw(SpriteBatch context)
         {
+            foreach (TextBubble bubble in this.activeTextBubbles)
+            {
+                bubble.Draw(context);
+            }
         }
 
         /// <summary>
@@ -69,8 +89,18 @@ namespace PantheonPrototype
         /// <param name="position">The location of the speaking point of the text bubble.</param>
         /// <param name="text">The text the text bubble should say.</param>
         /// <param name="duration">How long (in milliseconds) the text bubble should last.</param>
-        public void CreateTextBubble(Vector2 position, String text, int duration)
+        /// <returns>
+        /// Returns a handle to the created text bubble. If created through this function,
+        /// the bubble will be managed by the DialogueManager class and should be deleted through
+        /// the text bubbles "Delete" function.
+        /// </returns>
+        public TextBubble CreateTextBubble(Vector2 position, String text, int duration)
         {
+            TextBubble tempTextBubble = new TextBubble(position, text, duration);
+
+            this.activeTextBubbles.AddLast(tempTextBubble);
+
+            return tempTextBubble;
         }
     }
 }

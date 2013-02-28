@@ -14,5 +14,8 @@ namespace PantheonPrototype
 {
     class DialogueNode
     {
+        public DialogueNode()
+        {
+        }
     }
 }

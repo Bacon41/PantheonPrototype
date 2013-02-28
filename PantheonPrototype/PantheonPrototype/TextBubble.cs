@@ -51,7 +51,7 @@ namespace PantheonPrototype
         }
 
         /// <summary>
-        /// DeleteMe checks to see if this text bubble is ready to be deleted.
+        /// ReadyForDeletion checks to see if this text bubble is ready to be deleted.
         /// If the duration is set to zero, or less, the text bubble must be
         /// removed manually.
         /// </summary>
@@ -60,7 +60,7 @@ namespace PantheonPrototype
         /// If the text bubble should be deleted (true) or not (false).
         /// Will return false if duration was set to 0, or if the ending time has not be initialized.
         /// </returns>
-        public bool DeleteMe(GameTime currentGameTime)
+        public bool ReadyForDeletion(GameTime currentGameTime)
         {
             if (this.endingAnchor == null) return false;
 
@@ -68,6 +68,14 @@ namespace PantheonPrototype
                 return true;
             else
                 return false;
+        }
+
+        /// <summary>
+        /// Sets the text bubble to be deleted by any managers that are using it.
+        /// </summary>
+        public void Delete()
+        {
+            this.duration = -1;
         }
     }
 }
