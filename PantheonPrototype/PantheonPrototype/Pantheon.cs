@@ -37,12 +37,20 @@ namespace PantheonPrototype
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
+            // This sets the screen to full based on the device and removes the border.
             graphics.PreparingDeviceSettings += new EventHandler<PreparingDeviceSettingsEventArgs>(graphics_PreparingDeviceSettings);
+            var form = System.Windows.Forms.Control.FromHandle(this.Window.Handle).FindForm();
+            form.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 
             this.IsFixedTimeStep = true;
             this.TargetElapsedTime = TimeSpan.FromSeconds(1/30f);
         }
 
+        /// <summary>
+        /// This is the code to set the window size to the display size.
+        /// </summary>
+        /// <param name="sender">I'm not really sure.</param>
+        /// <param name="e">This stores the information about the actual screen hardware.</param>
         void graphics_PreparingDeviceSettings(object sender, PreparingDeviceSettingsEventArgs e)
         {
             DisplayMode displayMode = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode;
