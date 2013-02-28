@@ -48,6 +48,7 @@ namespace PantheonPrototype
         /// <param name="context">The SpriteBatch the bubble should be drawn on.</param>
         public void Draw(SpriteBatch context)
         {
+            // context.DrawString();
         }
 
         /// <summary>
