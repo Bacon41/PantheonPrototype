@@ -60,6 +60,10 @@ namespace PantheonPrototype
         /// </summary>
         public void Draw(SpriteBatch context)
         {
+            foreach (TextBubble bubble in this.activeTextBubbles)
+            {
+                bubble.Draw(context);
+            }
         }
 
         /// <summary>
