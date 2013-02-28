@@ -80,6 +80,8 @@
     <Compile Include="Camera.cs" />
     <Compile Include="CharacterEntity.cs" />
     <Compile Include="CutsceneManager.cs" />
+    <Compile Include="DialogueManager.cs" />
+    <Compile Include="DialogueNode.cs" />
     <Compile Include="Objective.cs" />
     <Compile Include="Quest.cs" />
     <Compile Include="QuestManager.cs" />
