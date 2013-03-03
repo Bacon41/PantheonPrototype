@@ -247,7 +247,8 @@ namespace PantheonPrototype
             Rectangle destinationRectangle = location;
 
             //Draw the correct frame of the image
-            canvas.Draw(image, destinationRectangle, sourceRectangle, new Color(opacity, opacity, opacity, opacity), rotation, Vector2.Zero, SpriteEffects.None, .1f);
+            canvas.Draw(image, destinationRectangle, sourceRectangle, new Color(opacity, opacity, opacity, opacity), rotation,
+                Vector2.Zero, SpriteEffects.None, (float)((Math.Atan(location.Bottom) / Math.PI + .5) * -0.1 + 0.1));
         }
     }
 }
