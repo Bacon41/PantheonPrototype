@@ -149,59 +149,63 @@ namespace PantheonPrototype
             }
 
             // Black magicks to select all the bullets (SQL in C# with XNA and LINQ!!! Look at all the acronyms! Also, I feel nerdy.)
-            var bulletQuery =
-                from entity in this.entities
-                where entity.Key.Contains("bullet")
-                select entity.Key;
+            var bulletQuery = from entity in this.entities where entity.Key.Contains("bullet") select entity.Key;
+            var npcBoundsQuery = from obj in levelMap.ObjectLayers["Spawn"].MapObjects where obj.Name.Contains("NPC") select obj;
+            var npcEntityQuery = from entity in this.entities where entity.Key.Contains("NPC") select entity.Key;
             
-            // Checking the character's bullets for collision with nonshootable tiles.
-            foreach (String x in bulletQuery)
+            // Checking the character's bullets for collision with nonshootable tiles and NPCs.
+            foreach (String bulletKey in bulletQuery)
             {
-                if (((Projectile)this.entities[x]).ToDestroy)
+                if (((Projectile)this.entities[bulletKey]).ToDestroy)
                 {
-                    this.removeList.Add(x);
+                    this.removeList.Add(bulletKey);
                 }
-                else if (this.entities[x].BoundingBox.X > 0 && this.entities[x].BoundingBox.Right < levelMap.Width * levelMap.TileWidth
-                    && this.entities[x].BoundingBox.Y > 0 && this.entities[x].BoundingBox.Bottom < levelMap.Height * levelMap.TileHeight)
+                else if (this.entities[bulletKey].BoundingBox.X > 0 && this.entities[bulletKey].BoundingBox.Right < levelMap.Width * levelMap.TileWidth
+                    && this.entities[bulletKey].BoundingBox.Y > 0 && this.entities[bulletKey].BoundingBox.Bottom < levelMap.Height * levelMap.TileHeight)
                 {
-                    foreach (TileData tile in levelMap.GetTilesInRegion(this.entities[x].BoundingBox))
+                    foreach (TileData tile in levelMap.GetTilesInRegion(this.entities[bulletKey].BoundingBox))
                     {
                         if (levelMap.SourceTiles[tile.SourceID].Properties["isShootable"].AsBoolean == false)
                         {
                             Rectangle test = new Rectangle(tile.Target.X - tile.Target.Width / 2, tile.Target.Y - tile.Target.Height / 2,
                                 tile.Target.Width, tile.Target.Height);
 
-                            if (test.Intersects(this.entities[x].BoundingBox))
+                            if (test.Intersects(this.entities[bulletKey].BoundingBox))
                             {
-                                this.removeList.Add(x);
+                                this.removeList.Add(bulletKey);
                                 break;
                             }
+                        }
+                    }
+                    foreach (String npcKey in npcEntityQuery)
+                    {
+                        if (this.entities[bulletKey].BoundingBox.Intersects(this.entities[npcKey].BoundingBox))
+                        {
+                            this.removeList.Add(bulletKey);
                         }
                     }
                 }
                 else
                 {
-                    this.removeList.Add(x);
+                    this.removeList.Add(bulletKey);
                 }
             }
 
             // Checking each npc for collisions with their bounds and with the player.
-            var npcBoundsQuery = from obj in levelMap.ObjectLayers["Spawn"].MapObjects where obj.Name.Contains("NPC") select obj;
-            var npcEntityQuery = from entity in this.entities where entity.Key.Contains("NPC") select entity;
             foreach (MapObject boundObj in npcBoundsQuery)
             {
-                foreach (KeyValuePair<String, Entity> npc in npcEntityQuery)
+                foreach (String npcKey in npcEntityQuery)
                 {
-                    if (boundObj.Name == npc.Key)
+                    if (boundObj.Name == npcKey)
                     {
-                        if (!boundObj.Bounds.Contains(npc.Value.BoundingBox))
+                        if (!boundObj.Bounds.Contains(this.entities[npcKey].BoundingBox))
                         {
-                            npc.Value.Location = npc.Value.PrevLocation;
+                            this.entities[npcKey].Location = this.entities[npcKey].PrevLocation;
                         }
                     }
-                    if (this.entities["character"].BoundingBox.Intersects(npc.Value.BoundingBox))
+                    if (this.entities["character"].BoundingBox.Intersects(this.entities[npcKey].BoundingBox))
                     {
-                        npc.Value.Location = npc.Value.PrevLocation;
+                        this.entities[npcKey].Location = this.entities[npcKey].PrevLocation;
                         this.entities["character"].Location = this.entities["character"].PrevLocation;
                     }
                 }

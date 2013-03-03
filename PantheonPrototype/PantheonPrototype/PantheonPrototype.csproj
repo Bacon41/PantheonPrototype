@@ -87,7 +87,7 @@
     <Compile Include="Quest.cs" />
     <Compile Include="QuestManager.cs" />
     <Compile Include="Items\Shield.cs" />
-    <Compile Include="Entities\Characters\FishEntity.cs" />
+    <Compile Include="Entities\Characters\FishCharacter.cs" />
     <Compile Include="ControlManager.cs" />
     <Compile Include="Entities\Characters\EnemyCharacter.cs" />
     <Compile Include="Entities\Entity.cs" />
