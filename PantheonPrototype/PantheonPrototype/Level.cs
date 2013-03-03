@@ -109,8 +109,8 @@ namespace PantheonPrototype
                 }
                 if (obj.Name.Contains("NPC"))
                 {
-                    this.entities.Add("theOldMan", new OldManNPC(new Vector2(obj.Bounds.Center.X, obj.Bounds.Center.Y)));
-                    this.entities["theOldMan"].Load(gameReference.Content);
+                    this.entities.Add(obj.Name, new OldManNPC(new Vector2(obj.Bounds.Center.X, obj.Bounds.Center.Y)));
+                    this.entities[obj.Name].Load(gameReference.Content);
                 }
             }
 
@@ -128,21 +128,6 @@ namespace PantheonPrototype
         /// </summary>
         public void Update(GameTime gameTime, Pantheon gameReference)
         {
-			// Update the entity list
-            foreach (string entityName in this.removeList)
-            {
-                this.entities.Remove(entityName);
-            }
-
-            this.removeList = new List<string>();
-
-            foreach (string entityName in this.addList.Keys)
-            {
-                this.entities.Add(entityName, addList[entityName]);
-            }
-			
-			this.addList = new Dictionary<string,Entity>();
-		
             // Updating all entities
             foreach (string entityName in this.entities.Keys)
             {
@@ -200,20 +185,40 @@ namespace PantheonPrototype
                 }
             }
 
+            // Checking each npc for collisions with their bounds and with the player.
             var npcBoundsQuery = from obj in levelMap.ObjectLayers["Spawn"].MapObjects where obj.Name.Contains("NPC") select obj;
+            var npcEntityQuery = from entity in this.entities where entity.Key.Contains("NPC") select entity;
             foreach (MapObject boundObj in npcBoundsQuery)
             {
-                if (this.entities.ContainsKey("theOldMan"))
+                foreach (KeyValuePair<String, Entity> npc in npcEntityQuery)
                 {
-                    if (boundObj.Name.Substring(3) == "theOldMan")
+                    if (boundObj.Name == npc.Key)
                     {
-                        if (!boundObj.Bounds.Contains(this.entities["theOldMan"].BoundingBox))
+                        if (!boundObj.Bounds.Contains(npc.Value.BoundingBox))
                         {
-                            this.entities["theOldMan"].Location = this.entities["theOldMan"].PrevLocation;
+                            npc.Value.Location = npc.Value.PrevLocation;
                         }
+                    }
+                    if (this.entities["character"].BoundingBox.Intersects(npc.Value.BoundingBox))
+                    {
+                        npc.Value.Location = npc.Value.PrevLocation;
+                        this.entities["character"].Location = this.entities["character"].PrevLocation;
                     }
                 }
             }
+
+            // Update the entity list
+            foreach (string entityName in this.removeList)
+            {
+                this.entities.Remove(entityName);
+            }
+            this.removeList.RemoveRange(0, this.removeList.Count);
+
+            foreach (string entityName in this.addList.Keys)
+            {
+                this.entities.Add(entityName, addList[entityName]);
+            }
+            this.addList = new Dictionary<string, Entity>();
 
             // Updating the camera when the character isn't scoping.
             if (!gameReference.controlManager.actions.Aim)

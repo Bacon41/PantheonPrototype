@@ -19,7 +19,7 @@ namespace PantheonPrototype
         /// </summary>
         /// <param name="location">The initial location of the Old Man!</param>
         public OldManNPC(Vector2 location)
-            : base(location, new Rectangle(0, 0, 40, 40), new Rectangle(15, 25, 10, 10))
+            : base(location, new Rectangle(0, 0, 40, 40), new Rectangle(0, 0, 40, 40))
         {
             facing = Direction.Left;
             changeDirection = TimeSpan.FromSeconds(3);
