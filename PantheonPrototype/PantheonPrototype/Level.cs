@@ -112,6 +112,11 @@ namespace PantheonPrototype
                     this.entities.Add(obj.Name, new OldManNPC(new Vector2(obj.Bounds.Center.X, obj.Bounds.Center.Y)));
                     this.entities[obj.Name].Load(gameReference.Content);
                 }
+                if (obj.Name.Contains("Enemy"))
+                {
+                    this.entities.Add(obj.Name, new ButterflyEnemy(new Vector2(obj.Bounds.Center.X, obj.Bounds.Center.Y)));
+                    this.entities[obj.Name].Load(gameReference.Content);
+                }
             }
 
             Camera.Pos = new Vector2(this.entities["character"].DrawingBox.X + entities["character"].DrawingBox.Width / 2,
@@ -152,6 +157,8 @@ namespace PantheonPrototype
             var bulletQuery = from entity in this.entities where entity.Key.Contains("bullet") select entity.Key;
             var npcBoundsQuery = from obj in levelMap.ObjectLayers["Spawn"].MapObjects where obj.Name.Contains("NPC") select obj;
             var npcEntityQuery = from entity in this.entities where entity.Key.Contains("NPC") select entity.Key;
+            var enemyBoundsQuery = from obj in levelMap.ObjectLayers["Spawn"].MapObjects where obj.Name.Contains("Enemy") select obj;
+            var enemyEntityQuery = from entity in this.entities where entity.Key.Contains("Enemy") select entity.Key;
             
             // Checking the character's bullets for collision with nonshootable tiles and NPCs.
             foreach (String bulletKey in bulletQuery)
@@ -184,6 +191,14 @@ namespace PantheonPrototype
                             this.removeList.Add(bulletKey);
                         }
                     }
+                    foreach (String enemyKey in enemyEntityQuery)
+                    {
+                        if (this.entities[bulletKey].BoundingBox.Intersects(this.entities[enemyKey].BoundingBox))
+                        {
+                            this.removeList.Add(bulletKey);
+                            this.removeList.Add(enemyKey);
+                        }
+                    }
                 }
                 else
                 {
@@ -206,6 +221,26 @@ namespace PantheonPrototype
                     if (this.entities["character"].BoundingBox.Intersects(this.entities[npcKey].BoundingBox))
                     {
                         this.entities[npcKey].Location = this.entities[npcKey].PrevLocation;
+                        this.entities["character"].Location = this.entities["character"].PrevLocation;
+                    }
+                }
+            }
+
+            // Checking each enemy for collisions with their bounds and with the player.
+            foreach (MapObject boundObj in enemyBoundsQuery)
+            {
+                foreach (String enemyKey in enemyEntityQuery)
+                {
+                    if (boundObj.Name == enemyKey)
+                    {
+                        if (!boundObj.Bounds.Contains(this.entities[enemyKey].BoundingBox))
+                        {
+                            this.entities[enemyKey].Location = this.entities[enemyKey].PrevLocation;
+                        }
+                    }
+                    if (this.entities["character"].BoundingBox.Intersects(this.entities[enemyKey].BoundingBox))
+                    {
+                        this.entities[enemyKey].Location = this.entities[enemyKey].PrevLocation;
                         this.entities["character"].Location = this.entities["character"].PrevLocation;
                     }
                 }

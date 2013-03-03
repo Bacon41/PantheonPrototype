@@ -21,6 +21,37 @@ namespace PantheonPrototype
         public ButterflyEnemy(Vector2 location)
             : base(location, new Rectangle(0, 0, 40, 40), new Rectangle(15, 25, 10, 10))
         {
+            facing = Direction.Left;
+            currentState = "Move";
+            changeDirection = TimeSpan.FromSeconds(3);
+        }
+
+        /// <summary>
+        /// Load the butterfly.
+        /// </summary>
+        /// <param name="contentManager">So you can load things with the pipeline.</param>
+        public override void Load(ContentManager contentManager)
+        {
+            base.Load(contentManager);
+
+            Texture2D spriteTex;
+
+            //Load the image
+            spriteTex = contentManager.Load<Texture2D>("butterfly");
+
+            this.Sprite.loadSprite(spriteTex, 4, 3, 30);
+
+            this.Sprite.addState("Move Forward", 0, 2);
+            this.Sprite.addState("Move Left", 3, 5);
+            this.Sprite.addState("Move Right", 6, 8);
+            this.Sprite.addState("Move Back", 9, 11);
+
+            //Load the interaction information
+            // DO IT --
+            // ADD IT --
+            // ETC --
+
+            velocity = Vector2.Zero;
         }
 
         /// <summary>
@@ -30,7 +61,59 @@ namespace PantheonPrototype
         /// <param name="gameReference">Game reference of doom</param>
         public override void Update(GameTime gameTime, Pantheon gameReference)
         {
+            base.Update(gameTime, gameReference);
 
+            switch (facing)
+            {
+                case Direction.Left:
+                    velocity = new Vector2(-3, 0);
+                    sprite.changeState(currentState + " Left");
+                    break;
+                case Direction.Right:
+                    velocity = new Vector2(3, 0);
+                    sprite.changeState(currentState + " Right");
+                    break;
+                case Direction.forward:
+                    velocity = new Vector2(0, 3);
+                    sprite.changeState(currentState + " Forward");
+                    break;
+                case Direction.back:
+                    velocity = new Vector2(0, -3);
+                    sprite.changeState(currentState + " Back");
+                    break;
+            }
+
+            changeDirection = changeDirection.Subtract(gameTime.ElapsedGameTime);
+            if (changeDirection.CompareTo(TimeSpan.Zero) <= 0)
+            {
+                switchDirection();
+                changeDirection = TimeSpan.FromSeconds(3);
+            }
+        }
+
+        /// <summary>
+        /// Randomly switch directions.
+        /// </summary>
+        private void switchDirection()
+        {
+            int dir = new Random().Next(4);
+            switch (dir)
+            {
+                case 0:
+                    facing = Direction.back;
+                    break;
+                case 1:
+                    facing = Direction.Left;
+                    break;
+                case 2:
+                    facing = Direction.forward;
+                    break;
+                case 3:
+                    facing = Direction.Right;
+                    break;
+                default:
+                    break;
+            }
         }
 
         /// <summary>
