@@ -44,10 +44,23 @@ namespace PantheonPrototype
             set { drawBox = value; }
         }
 
-        public MenuItem(string text, Rectangle drawBox)
+        /// <summary>
+        /// Creats a new menu item with the text "text" at the location of "percentDrawBox."
+        /// percentDrawBox is given as the "percent points" of the screen.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="percentDrawBox"></param>
+        /// <param name="screenCoordinates"></param>
+        public MenuItem(string text, Rectangle percentDrawBox, Vector2 screenCoordinates)
         {
             this.text = text;
-            this.drawBox = drawBox;
+            
+            int xCoord = (int)(percentDrawBox.X/100.0 * screenCoordinates.X);
+            int yCoord = (int)(percentDrawBox.Y/100.0 * screenCoordinates.Y);
+            int width = (int)(percentDrawBox.Width/100.0 * screenCoordinates.X);
+            int height = (int)(percentDrawBox.Height/100.0 * screenCoordinates.Y);
+
+            this.drawBox = new Rectangle(xCoord, yCoord, width, height);
             this.isSelected = false;
         }
 
