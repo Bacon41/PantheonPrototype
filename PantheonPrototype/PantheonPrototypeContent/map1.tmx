@@ -44,7 +44,7 @@
   <object name="startmap0" x="371" y="634" width="39" height="28"/>
   <object name="startmap2" x="990" y="206" width="33" height="32"/>
   <object name="endmap2" x="1039" y="135" width="78" height="48"/>
-  <object name="NPCtheOldMan" x="839" y="173" width="97" height="93"/>
+  <object name="FriendtheOldMan" x="839" y="173" width="97" height="93"/>
   <object name="Enemybutterfly" x="283" y="355" width="115" height="107"/>
  </objectgroup>
 </map>

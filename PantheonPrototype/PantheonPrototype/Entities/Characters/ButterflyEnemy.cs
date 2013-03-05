@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace PantheonPrototype
 {
-    class ButterflyEnemy : EnemyCharacter
+    class ButterflyEnemy : EnemyNPC
     {
         /// <summary>
         /// The constructor for the Butterfly enemy, currently just sets up the base class.
