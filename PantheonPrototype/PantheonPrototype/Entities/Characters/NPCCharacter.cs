@@ -23,6 +23,27 @@ namespace PantheonPrototype
         {
         }
 
+        public override void Update(GameTime gameTime, Pantheon gameReference)
+        {
+            base.Update(gameTime, gameReference);
+
+            switch (facing)
+            {
+                case Direction.Left:
+                    angleFacing = (float)Math.PI;
+                    break;
+                case Direction.Right:
+                    angleFacing = 0;
+                    break;
+                case Direction.forward:
+                    angleFacing = (float)Math.PI / 2;
+                    break;
+                case Direction.back:
+                    angleFacing = 3 * (float)Math.PI / 2;
+                    break;
+            }
+        }
+
         public virtual void Interact()
         {
         }

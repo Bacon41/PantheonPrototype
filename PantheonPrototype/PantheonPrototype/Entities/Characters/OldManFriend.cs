@@ -12,13 +12,13 @@ using Microsoft.Xna.Framework.Media;
 
 namespace PantheonPrototype
 {
-    class OldManNPC : NPCCharacter
+    class OldManFriend : FriendNPC
     {
         /// <summary>
         /// The constuctor for the OldMan NPC character. Takes care of setting up the NPCCharacter base class.
         /// </summary>
         /// <param name="location">The initial location of the Old Man!</param>
-        public OldManNPC(Vector2 location)
+        public OldManFriend(Vector2 location)
             : base(location, new Rectangle(0, 0, 40, 40), new Rectangle(0, 20, 40, 20))
         {
             facing = Direction.Left;
