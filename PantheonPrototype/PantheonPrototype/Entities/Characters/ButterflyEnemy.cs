@@ -24,6 +24,9 @@ namespace PantheonPrototype
             facing = Direction.Left;
             currentState = "Move";
             changeDirection = TimeSpan.FromSeconds(3);
+
+            EquippedItems.Add("weapon", new Weapon());
+            ArmedItem = EquippedItems["weapon"];
         }
 
         /// <summary>
@@ -89,6 +92,9 @@ namespace PantheonPrototype
                 switchDirection();
                 changeDirection = TimeSpan.FromSeconds(3);
             }
+
+            this.EquippedItems["weapon"].activate(gameReference, this);
+            ((Weapon)this.EquippedItems["weapon"]).CurrentAmmo = ((Weapon)this.EquippedItems["weapon"]).TotalAmmo;
         }
 
         /// <summary>

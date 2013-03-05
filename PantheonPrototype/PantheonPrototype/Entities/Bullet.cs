@@ -33,11 +33,22 @@ namespace PantheonPrototype
         }
 
         /// <summary>
+        /// How much the bullet hurts when it makes contact.
+        /// </summary>
+        private int damage;
+
+        public int Damage
+        {
+            get { return damage; }
+            set { damage = value; }
+        }
+
+        /// <summary>
         /// The constructor assumes that you are generating the bullet from a given location at a given velocity.
         /// </summary>
         /// <param name="location">The initial position for the bullet.</param>
         /// <param name="velocity">The initial velocity of the bullet.</param>
-        public Bullet(Vector2 location, int speed, float angle, int range, Pantheon gameReference)
+        public Bullet(Vector2 location, int speed, float angle, int range, int damage, Pantheon gameReference)
             : base(location,
                 new Rectangle(0,0,20,20),
                 new Rectangle(1,1,18,18))
@@ -60,6 +71,7 @@ namespace PantheonPrototype
                 sprite.Rotation = randomAngle;
             }
             timeToLive = range;
+            this.damage = damage;
         }
 
         /// <summary>

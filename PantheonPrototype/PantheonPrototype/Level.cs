@@ -160,7 +160,7 @@ namespace PantheonPrototype
             var enemyBoundsQuery = from obj in levelMap.ObjectLayers["Spawn"].MapObjects where obj.Name.Contains("Enemy") select obj;
             var enemyEntityQuery = from entity in this.entities where entity.Key.Contains("Enemy") select entity.Key;
             
-            // Checking the character's bullets for collision with nonshootable tiles and NPCs.
+            // Checking all bullets for collision with nonshootable tiles, NPCs, enemys, and the player.
             foreach (String bulletKey in bulletQuery)
             {
                 if (((Projectile)this.entities[bulletKey]).ToDestroy)
@@ -198,6 +198,11 @@ namespace PantheonPrototype
                             this.removeList.Add(bulletKey);
                             this.removeList.Add(enemyKey);
                         }
+                    }
+                    if (this.entities[bulletKey].BoundingBox.Intersects(this.entities["character"].BoundingBox))
+                    {
+                        this.removeList.Add(bulletKey);
+                        ((PlayerCharacter)this.entities["character"]).Damage(((Bullet)this.entities[bulletKey]).Damage);
                     }
                 }
                 else
