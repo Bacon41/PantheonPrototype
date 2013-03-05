@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,7 @@ namespace PantheonPrototype
         SpriteFont textFont;
         GameTime previousTime;
         LinkedList<TextBubble> activeTextBubbles;
+        Dictionary<string, ArrayList> conversations;
         // DialogueNode currentNode; // NO
 
         /// <summary>
@@ -32,6 +34,7 @@ namespace PantheonPrototype
         {
             this.textFont = textFont;
             this.activeTextBubbles = new LinkedList<TextBubble>();
+            this.conversations = new Dictionary<string, ArrayList>();
         }
 
         /// <summary>
