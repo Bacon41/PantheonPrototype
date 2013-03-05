@@ -34,11 +34,14 @@ namespace PantheonPrototype
             set { menuState = value; }
         }
 
-        public Menu()
+        public Menu(int SCREEN_WIDTH, int SCREEN_HEIGHT)
         {
             items = new Dictionary<string, MenuItem>();
             inventoryButtons = new Dictionary<string, MenuItem>();
             menuState = "main";
+
+            this.SCREEN_WIDTH = SCREEN_WIDTH;
+            this.SCREEN_HEIGHT = SCREEN_HEIGHT;
         }
 
         public void Load(Pantheon gameReference)
@@ -51,9 +54,6 @@ namespace PantheonPrototype
 
             inventoryBackground = gameReference.Content.Load<Texture2D>("InventoryBackground");
             inventoryBackgroundTex = gameReference.Content.Load<Texture2D>("InventoryBackgroundTexture");
-
-            SCREEN_WIDTH = gameReference.GraphicsDevice.Viewport.Width;
-            SCREEN_HEIGHT = gameReference.GraphicsDevice.Viewport.Height;
             
             loadDefaultMenu(gameReference);
         }
@@ -64,36 +64,36 @@ namespace PantheonPrototype
         /// <param name="gameReference">The whole game.</param>
         private void loadDefaultMenu(Pantheon gameReference)
         {
-            MenuItem resumeItem = new MenuItem("Resume", new Rectangle((mainBackgroundRect.Width - 250) / 2 + mainBackgroundRect.X,
-                mainBackgroundRect.Y + 25, 250, 50));
+            MenuItem resumeItem = new MenuItem("Resume", new Rectangle((int)(50 - (15 * SCREEN_WIDTH) / SCREEN_WIDTH),
+                ((mainBackgroundRect.Y * 100)/ SCREEN_HEIGHT) + 3, 30, 7), new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
+            //MenuItem resumeItem = new MenuItem("Resume", new Rectangle(20,20,30,5), new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
             resumeItem.Load(gameReference);
             items.Add("resume", resumeItem);
-
-            MenuItem exitItem = new MenuItem("Exit", new Rectangle((mainBackgroundRect.Width - 250) / 2 + mainBackgroundRect.X,
-                mainBackgroundRect.Y + 100, 250, 50));
+            MenuItem exitItem = new MenuItem("Exit", new Rectangle((int)(50 - (15 * SCREEN_WIDTH) / SCREEN_WIDTH),
+                ((mainBackgroundRect.Y * 100) / SCREEN_HEIGHT) + 13, 30, 7), new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
             exitItem.Load(gameReference);
             items.Add("exit", exitItem);
 
-            MenuItem inventoryItem = new MenuItem("Inventory", new Rectangle((mainBackgroundRect.Width - 250) / 2 + mainBackgroundRect.X,
-                mainBackgroundRect.Y + 175, 250, 50));
+            MenuItem inventoryItem = new MenuItem("Inventory", new Rectangle((int)(50 - (15 * SCREEN_WIDTH) / SCREEN_WIDTH),
+                ((mainBackgroundRect.Y * 100) / SCREEN_HEIGHT) + 23, 30, 7), new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
             inventoryItem.Load(gameReference);
             items.Add("inventory", inventoryItem);
 
-            // This is not the default menu, but I wasn't sure where else to put it.
+            // This following is not the default menu, but I wasn't sure where else to put it.
 
-            MenuItem equipInventory = new MenuItem("Equip/Use", new Rectangle(480, 230, 150, 50));
+            MenuItem equipInventory = new MenuItem("Equip/Use", new Rectangle(62, 48, 17, 6), new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
             equipInventory.Load(gameReference);
             inventoryButtons.Add("equip", equipInventory);
 
-            MenuItem trashInventory = new MenuItem("Trash", new Rectangle(640, 230, 150, 50));
+            MenuItem trashInventory = new MenuItem("Trash", new Rectangle(81, 48, 17, 6), new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
             trashInventory.Load(gameReference);
             inventoryButtons.Add("trash", trashInventory);
 
-            MenuItem resumeInventory = new MenuItem("Resume", new Rectangle(480, 305, 150, 50));
+            MenuItem resumeInventory = new MenuItem("Resume", new Rectangle(62, 57, 36, 6), new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
             resumeInventory.Load(gameReference);
             inventoryButtons.Add("resumeInv", resumeInventory);
 
-            MenuItem mainInventory = new MenuItem("Main Menu", new Rectangle(640, 305, 150, 50));
+            MenuItem mainInventory = new MenuItem("Main Menu", new Rectangle(62, 66, 36, 6), new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
             mainInventory.Load(gameReference);
             inventoryButtons.Add("mainMenu", mainInventory);
         }
