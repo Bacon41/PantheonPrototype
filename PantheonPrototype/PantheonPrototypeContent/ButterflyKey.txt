@@ -1,0 +1,8 @@
+Note first frame is indexed as 0 in this file.
+Also note, frame ranges are inclusive.
+(Neither of these are guaranteed in the code... Although I'll check in a bit)
+
+0	2	Move	Forward
+3	5	Move	Left
+6	8	Move	Right
+9	11	Move	Back

@@ -54,6 +54,7 @@ namespace PantheonPrototype
         }
 
         protected int range;
+        protected int damage;
 
         /// <summary>
         /// The amount of time since the last shot was fired
@@ -75,6 +76,7 @@ namespace PantheonPrototype
             totalAmmo = 10;
             currentAmmo = totalAmmo;
             range = 500;
+            damage = 5;
         }
 
         /// <summary>
@@ -118,7 +120,7 @@ namespace PantheonPrototype
         /// <param name="holder">A reference to the holder character.</param>
         private void shootABullet(Pantheon gameReference, CharacterEntity holder)
         {
-            Bullet bullet = new Bullet(holder.Location, 25, holder.AngleFacing, range, gameReference);
+            Bullet bullet = new Bullet(holder.Location, 25, holder.AngleFacing, range, damage, gameReference);
             bullet.Load(gameReference.Content);
 
             gameReference.currentLevel.addList.Add("bullet_" + Bullet.NextId, bullet);

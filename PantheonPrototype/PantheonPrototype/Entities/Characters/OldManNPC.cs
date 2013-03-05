@@ -19,7 +19,7 @@ namespace PantheonPrototype
         /// </summary>
         /// <param name="location">The initial location of the Old Man!</param>
         public OldManNPC(Vector2 location)
-            : base(location, new Rectangle(0, 0, 40, 40), new Rectangle(15, 25, 10, 10))
+            : base(location, new Rectangle(0, 0, 40, 40), new Rectangle(0, 20, 40, 20))
         {
             facing = Direction.Left;
             changeDirection = TimeSpan.FromSeconds(3);
@@ -33,12 +33,12 @@ namespace PantheonPrototype
         {
             base.Load(contentManager);
 
-            Texture2D sprite;
+            Texture2D spriteTex;
 
             //Load the image
-            sprite = contentManager.Load<Texture2D>("oldman");
+            spriteTex = contentManager.Load<Texture2D>("oldman");
 
-            this.Sprite.loadSprite(sprite, 1, 1, 30);
+            this.Sprite.loadSprite(spriteTex, 1, 1, 30);
 
             //Load the interaction information
             // DO IT --
@@ -90,6 +90,9 @@ namespace PantheonPrototype
             }
         }
 
+        /// <summary>
+        /// Randomly chooses a new direction to move in.
+        /// </summary>
         private void switchDirection()
         {
             int dir = new Random().Next(4);

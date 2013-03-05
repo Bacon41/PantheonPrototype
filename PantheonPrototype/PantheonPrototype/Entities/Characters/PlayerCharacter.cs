@@ -396,13 +396,6 @@ namespace PantheonPrototype
             Vector2 laserDotCoords = new Vector2((int)(cursorLocation.X - laserDot.Width/2), (int)(cursorLocation.Y - laserDot.Height/2));
             spriteBatch.Draw(laserDot, new Rectangle((int)laserDotCoords.X, (int)laserDotCoords.Y, laserDot.Width, laserDot.Height),
                 null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .1f);
-            
-            /*if (ShieldOn)
-            {
-                spriteBatch.Draw(((Shield)this.EquippedItems["shield"]).ShieldTexture, new Rectangle((int)Location.X - 25, (int)Location.Y - 25, 50, 50), Color.White);
-            }*/
-
-            
         }
     }
 }

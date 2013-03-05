@@ -109,8 +109,13 @@ namespace PantheonPrototype
                 }
                 if (obj.Name.Contains("NPC"))
                 {
-                    this.entities.Add("theOldMan", new OldManNPC(new Vector2(obj.Bounds.Center.X, obj.Bounds.Center.Y)));
-                    this.entities["theOldMan"].Load(gameReference.Content);
+                    this.entities.Add(obj.Name, new OldManNPC(new Vector2(obj.Bounds.Center.X, obj.Bounds.Center.Y)));
+                    this.entities[obj.Name].Load(gameReference.Content);
+                }
+                if (obj.Name.Contains("Enemy"))
+                {
+                    this.entities.Add(obj.Name, new ButterflyEnemy(new Vector2(obj.Bounds.Center.X, obj.Bounds.Center.Y)));
+                    this.entities[obj.Name].Load(gameReference.Content);
                 }
             }
 
@@ -128,21 +133,6 @@ namespace PantheonPrototype
         /// </summary>
         public void Update(GameTime gameTime, Pantheon gameReference)
         {
-			// Update the entity list
-            foreach (string entityName in this.removeList)
-            {
-                this.entities.Remove(entityName);
-            }
-
-            this.removeList = new List<string>();
-
-            foreach (string entityName in this.addList.Keys)
-            {
-                this.entities.Add(entityName, addList[entityName]);
-            }
-			
-			this.addList = new Dictionary<string,Entity>();
-		
             // Updating all entities
             foreach (string entityName in this.entities.Keys)
             {
@@ -164,56 +154,115 @@ namespace PantheonPrototype
             }
 
             // Black magicks to select all the bullets (SQL in C# with XNA and LINQ!!! Look at all the acronyms! Also, I feel nerdy.)
-            var bulletQuery =
-                from entity in this.entities
-                where entity.Key.Contains("bullet")
-                select entity.Key;
+            var bulletQuery = from entity in this.entities where entity.Key.Contains("bullet") select entity.Key;
+            var npcBoundsQuery = from obj in levelMap.ObjectLayers["Spawn"].MapObjects where obj.Name.Contains("NPC") select obj;
+            var npcEntityQuery = from entity in this.entities where entity.Key.Contains("NPC") select entity.Key;
+            var enemyBoundsQuery = from obj in levelMap.ObjectLayers["Spawn"].MapObjects where obj.Name.Contains("Enemy") select obj;
+            var enemyEntityQuery = from entity in this.entities where entity.Key.Contains("Enemy") select entity.Key;
             
-            // Checking the character's bullets for collision with nonshootable tiles.
-            foreach (String x in bulletQuery)
+            // Checking all bullets for collision with nonshootable tiles, NPCs, enemys, and the player.
+            foreach (String bulletKey in bulletQuery)
             {
-                if (((Projectile)this.entities[x]).ToDestroy)
+                if (((Projectile)this.entities[bulletKey]).ToDestroy)
                 {
-                    this.removeList.Add(x);
+                    this.removeList.Add(bulletKey);
                 }
-                else if (this.entities[x].BoundingBox.X > 0 && this.entities[x].BoundingBox.Right < levelMap.Width * levelMap.TileWidth
-                    && this.entities[x].BoundingBox.Y > 0 && this.entities[x].BoundingBox.Bottom < levelMap.Height * levelMap.TileHeight)
+                else if (this.entities[bulletKey].BoundingBox.X > 0 && this.entities[bulletKey].BoundingBox.Right < levelMap.Width * levelMap.TileWidth
+                    && this.entities[bulletKey].BoundingBox.Y > 0 && this.entities[bulletKey].BoundingBox.Bottom < levelMap.Height * levelMap.TileHeight)
                 {
-                    foreach (TileData tile in levelMap.GetTilesInRegion(this.entities[x].BoundingBox))
+                    foreach (TileData tile in levelMap.GetTilesInRegion(this.entities[bulletKey].BoundingBox))
                     {
                         if (levelMap.SourceTiles[tile.SourceID].Properties["isShootable"].AsBoolean == false)
                         {
                             Rectangle test = new Rectangle(tile.Target.X - tile.Target.Width / 2, tile.Target.Y - tile.Target.Height / 2,
                                 tile.Target.Width, tile.Target.Height);
 
-                            if (test.Intersects(this.entities[x].BoundingBox))
+                            if (test.Intersects(this.entities[bulletKey].BoundingBox))
                             {
-                                this.removeList.Add(x);
+                                this.removeList.Add(bulletKey);
                                 break;
                             }
                         }
                     }
+                    foreach (String npcKey in npcEntityQuery)
+                    {
+                        if (this.entities[bulletKey].BoundingBox.Intersects(this.entities[npcKey].BoundingBox))
+                        {
+                            this.removeList.Add(bulletKey);
+                        }
+                    }
+                    foreach (String enemyKey in enemyEntityQuery)
+                    {
+                        if (this.entities[bulletKey].BoundingBox.Intersects(this.entities[enemyKey].BoundingBox))
+                        {
+                            this.removeList.Add(bulletKey);
+                            this.removeList.Add(enemyKey);
+                        }
+                    }
+                    if (this.entities[bulletKey].BoundingBox.Intersects(this.entities["character"].BoundingBox))
+                    {
+                        this.removeList.Add(bulletKey);
+                        ((PlayerCharacter)this.entities["character"]).Damage(((Bullet)this.entities[bulletKey]).Damage);
+                    }
                 }
                 else
                 {
-                    this.removeList.Add(x);
+                    this.removeList.Add(bulletKey);
                 }
             }
 
-            var npcBoundsQuery = from obj in levelMap.ObjectLayers["Spawn"].MapObjects where obj.Name.Contains("NPC") select obj;
+            // Checking each npc for collisions with their bounds and with the player.
             foreach (MapObject boundObj in npcBoundsQuery)
             {
-                if (this.entities.ContainsKey("theOldMan"))
+                foreach (String npcKey in npcEntityQuery)
                 {
-                    if (boundObj.Name.Substring(3) == "theOldMan")
+                    if (boundObj.Name == npcKey)
                     {
-                        if (!boundObj.Bounds.Contains(this.entities["theOldMan"].BoundingBox))
+                        if (!boundObj.Bounds.Contains(this.entities[npcKey].BoundingBox))
                         {
-                            this.entities["theOldMan"].Location = this.entities["theOldMan"].PrevLocation;
+                            this.entities[npcKey].Location = this.entities[npcKey].PrevLocation;
                         }
+                    }
+                    if (this.entities["character"].BoundingBox.Intersects(this.entities[npcKey].BoundingBox))
+                    {
+                        this.entities[npcKey].Location = this.entities[npcKey].PrevLocation;
+                        this.entities["character"].Location = this.entities["character"].PrevLocation;
                     }
                 }
             }
+
+            // Checking each enemy for collisions with their bounds and with the player.
+            foreach (MapObject boundObj in enemyBoundsQuery)
+            {
+                foreach (String enemyKey in enemyEntityQuery)
+                {
+                    if (boundObj.Name == enemyKey)
+                    {
+                        if (!boundObj.Bounds.Contains(this.entities[enemyKey].BoundingBox))
+                        {
+                            this.entities[enemyKey].Location = this.entities[enemyKey].PrevLocation;
+                        }
+                    }
+                    if (this.entities["character"].BoundingBox.Intersects(this.entities[enemyKey].BoundingBox))
+                    {
+                        this.entities[enemyKey].Location = this.entities[enemyKey].PrevLocation;
+                        this.entities["character"].Location = this.entities["character"].PrevLocation;
+                    }
+                }
+            }
+
+            // Update the entity list
+            foreach (string entityName in this.removeList)
+            {
+                this.entities.Remove(entityName);
+            }
+            this.removeList.RemoveRange(0, this.removeList.Count);
+
+            foreach (string entityName in this.addList.Keys)
+            {
+                this.entities.Add(entityName, addList[entityName]);
+            }
+            this.addList = new Dictionary<string, Entity>();
 
             // Updating the camera when the character isn't scoping.
             if (!gameReference.controlManager.actions.Aim)
