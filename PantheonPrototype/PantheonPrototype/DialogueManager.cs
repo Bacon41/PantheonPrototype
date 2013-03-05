@@ -20,11 +20,11 @@ namespace PantheonPrototype
     /// </summary>
     class DialogueManager
     {
+        int currentConversationState;
         SpriteFont textFont;
-        GameTime previousTime;
         LinkedList<TextBubble> activeTextBubbles;
         Dictionary<string, ArrayList> conversations;
-        // DialogueNode currentNode; // NO
+        ArrayList currentConversation;
 
         /// <summary>
         /// Constructs the basics of the DialogueManager class and prepares it to handle
@@ -35,6 +35,8 @@ namespace PantheonPrototype
             this.textFont = textFont;
             this.activeTextBubbles = new LinkedList<TextBubble>();
             this.conversations = new Dictionary<string, ArrayList>();
+
+            this.currentConversationState = 0;
         }
 
         /// <summary>
@@ -44,8 +46,6 @@ namespace PantheonPrototype
         public void Update(GameTime gameTime)
         {
             LinkedListNode<TextBubble> currentNode;
-
-            this.previousTime = gameTime;
 
             currentNode = this.activeTextBubbles.First;
             while (currentNode != null)
@@ -76,8 +76,13 @@ namespace PantheonPrototype
         /// Starts a conversation with a given entity. This entity ID is used to identify which conversation to execute.
         /// </summary>
         /// <param name="entityName">The entity to begin conversing with. Used as a handle to pick the conversation "column."</param>
-        public void StarConversation(String entityName)
+        public bool StartConversation(String entityName)
         {
+            this.currentConversation = this.conversations[entityName];
+
+            if (this.currentConversation == null) return false;
+
+            return true;
         }
 
         /// <summary>
@@ -85,6 +90,8 @@ namespace PantheonPrototype
         /// </summary>
         public void EndConversation()
         {
+            this.currentConversation = null;
+            this.currentConversationState = 0;
         }
 
         /// <summary>
