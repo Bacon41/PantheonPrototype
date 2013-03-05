@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,16 +20,21 @@ namespace PantheonPrototype
     /// </summary>
     class DialogueManager
     {
+        SpriteFont textFont;
         GameTime previousTime;
         LinkedList<TextBubble> activeTextBubbles;
-        DialogueNode currentNode; // NO
+        Dictionary<string, ArrayList> conversations;
+        // DialogueNode currentNode; // NO
 
         /// <summary>
         /// Constructs the basics of the DialogueManager class and prepares it to handle
         /// dialogue and conversation.
         /// </summary>
-        public DialogueManager()
+        public DialogueManager(SpriteFont textFont)
         {
+            this.textFont = textFont;
+            this.activeTextBubbles = new LinkedList<TextBubble>();
+            this.conversations = new Dictionary<string, ArrayList>();
         }
 
         /// <summary>
@@ -62,7 +68,7 @@ namespace PantheonPrototype
         {
             foreach (TextBubble bubble in this.activeTextBubbles)
             {
-                bubble.Draw(context);
+                bubble.Draw(context, this.textFont);
             }
         }
 

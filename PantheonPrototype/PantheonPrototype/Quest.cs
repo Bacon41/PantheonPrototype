@@ -41,6 +41,7 @@ namespace PantheonPrototype
             timeSensitiveObjectives = new List<TimedObjective>();
 
             currentObjective = 0;
+            if (currentObjective + 2 > 5) Console.WriteLine("DRAGONS");
         }
 
         /// <summary>
