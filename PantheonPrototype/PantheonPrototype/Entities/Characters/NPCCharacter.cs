@@ -56,35 +56,27 @@ namespace PantheonPrototype
                 switch (facing)
                 {
                     case Direction.forward:
-                        velocity = new Vector2(0, 3);
                         sprite.changeState(currentState + " Forward");
                         break;
                     case Direction.forwardLeft:
-                        velocity = new Vector2(-3, 3);
                         sprite.changeState(currentState + " Forward Left");
                         break;
                     case Direction.Left:
-                        velocity = new Vector2(-3, 0);
                         sprite.changeState(currentState + " Left");
                         break;
                     case Direction.backLeft:
-                        velocity = new Vector2(-3, -3);
                         sprite.changeState(currentState + " Back Left");
                         break;
                     case Direction.back:
-                        velocity = new Vector2(0, -3);
                         sprite.changeState(currentState + " Back");
                         break;
                     case Direction.backRight:
-                        velocity = new Vector2(3, -3);
                         sprite.changeState(currentState + " Back Right");
                         break;
                     case Direction.Right:
-                        velocity = new Vector2(3, 0);
                         sprite.changeState(currentState + " Right");
                         break;
                     case Direction.forwardRight:
-                        velocity = new Vector2(3, 3);
                         sprite.changeState(currentState + " Forward Right");
                         break;
                     default:
