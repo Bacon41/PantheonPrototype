@@ -25,6 +25,7 @@ namespace PantheonPrototype
         LinkedList<TextBubble> activeTextBubbles;
         Dictionary<string, ArrayList> conversations;
         ArrayList currentConversation;
+        TextBubble currentConversationBubble;
 
         /// <summary>
         /// Constructs the basics of the DialogueManager class and prepares it to handle
@@ -91,6 +92,7 @@ namespace PantheonPrototype
         public void EndConversation()
         {
             this.currentConversation = null;
+            this.currentConversationBubble = null;
             this.currentConversationState = 0;
         }
 
