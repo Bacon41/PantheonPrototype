@@ -32,7 +32,11 @@ namespace PantheonPrototype
             get { return cursorLocation; }
         }
 
-        public List<Item> inventory;
+        public struct inventory
+        {
+            static public List<Item> unequipped;
+            static public List<Item> equipped;
+        }
 
         /// <summary>
         /// The constructor for the player entity class.
@@ -43,7 +47,8 @@ namespace PantheonPrototype
                 new Rectangle(0,0,40,40),
                 new Rectangle(15,25,10,10))
         {
-            inventory = new List<Item>();
+            inventory.unequipped = new List<Item>();
+            inventory.equipped = new List<Item>(7);
 
             TotalArmor = 100;
             CurrentArmor = 100;
@@ -55,7 +60,9 @@ namespace PantheonPrototype
             laserTexture = new Texture2D(gameReference.GraphicsDevice, 1, 1);
 
             EquippedItems.Add("weapon", new Weapon());
+            inventory.equipped.Add(EquippedItems["weapon"]);
             EquippedItems.Add("shield", new Shield(gameReference.Content));
+            inventory.equipped.Add(EquippedItems["shield"]);
 
             ArmedItem = EquippedItems["weapon"];
         }

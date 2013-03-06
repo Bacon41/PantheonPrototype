@@ -83,6 +83,7 @@
     <Compile Include="CutsceneManager.cs" />
     <Compile Include="DialogueManager.cs" />
     <Compile Include="DialogueNode.cs" />
+    <Compile Include="HUD\Inventory.cs" />
     <Compile Include="Objective.cs" />
     <Compile Include="Quest.cs" />
     <Compile Include="QuestManager.cs" />

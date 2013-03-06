@@ -67,6 +67,7 @@ namespace PantheonPrototype
         /// </summary>
         protected override void Initialize()
         {
+            
             controlManager = new ControlManager();
 
             int SCREEN_WIDTH = GraphicsDevice.Viewport.Width;
@@ -83,6 +84,7 @@ namespace PantheonPrototype
             CutsceneManager = new CutsceneManager(GraphicsDevice);
 
             base.Initialize();
+            
         }
 
         /// <summary>
