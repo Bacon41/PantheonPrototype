@@ -107,9 +107,9 @@ namespace PantheonPrototype
                 {
                     this.entities["character"].Location = new Vector2(obj.Bounds.Center.X, obj.Bounds.Center.Y);
                 }
-                if (obj.Name.Contains("NPC"))
+                if (obj.Name.Contains("Friend"))
                 {
-                    this.entities.Add(obj.Name, new OldManNPC(new Vector2(obj.Bounds.Center.X, obj.Bounds.Center.Y)));
+                    this.entities.Add(obj.Name, new OldManFriend(new Vector2(obj.Bounds.Center.X, obj.Bounds.Center.Y)));
                     this.entities[obj.Name].Load(gameReference.Content);
                 }
                 if (obj.Name.Contains("Enemy"))
@@ -155,8 +155,8 @@ namespace PantheonPrototype
 
             // Black magicks to select all the bullets (SQL in C# with XNA and LINQ!!! Look at all the acronyms! Also, I feel nerdy.)
             var bulletQuery = from entity in this.entities where entity.Key.Contains("bullet") select entity.Key;
-            var npcBoundsQuery = from obj in levelMap.ObjectLayers["Spawn"].MapObjects where obj.Name.Contains("NPC") select obj;
-            var npcEntityQuery = from entity in this.entities where entity.Key.Contains("NPC") select entity.Key;
+            var friendBoundsQuery = from obj in levelMap.ObjectLayers["Spawn"].MapObjects where obj.Name.Contains("Friend") select obj;
+            var friendEntityQuery = from entity in this.entities where entity.Key.Contains("Friend") select entity.Key;
             var enemyBoundsQuery = from obj in levelMap.ObjectLayers["Spawn"].MapObjects where obj.Name.Contains("Enemy") select obj;
             var enemyEntityQuery = from entity in this.entities where entity.Key.Contains("Enemy") select entity.Key;
             
@@ -184,9 +184,9 @@ namespace PantheonPrototype
                             }
                         }
                     }
-                    foreach (String npcKey in npcEntityQuery)
+                    foreach (String friendKey in friendEntityQuery)
                     {
-                        if (this.entities[bulletKey].BoundingBox.Intersects(this.entities[npcKey].BoundingBox))
+                        if (this.entities[bulletKey].BoundingBox.Intersects(this.entities[friendKey].BoundingBox))
                         {
                             this.removeList.Add(bulletKey);
                         }
@@ -212,21 +212,34 @@ namespace PantheonPrototype
             }
 
             // Checking each npc for collisions with their bounds and with the player.
-            foreach (MapObject boundObj in npcBoundsQuery)
+            foreach (MapObject boundObj in friendBoundsQuery)
             {
-                foreach (String npcKey in npcEntityQuery)
+                foreach (String friendKey in friendEntityQuery)
                 {
-                    if (boundObj.Name == npcKey)
+                    if (boundObj.Name == friendKey)
                     {
-                        if (!boundObj.Bounds.Contains(this.entities[npcKey].BoundingBox))
+                        if (!boundObj.Bounds.Contains(this.entities[friendKey].BoundingBox))
                         {
-                            this.entities[npcKey].Location = this.entities[npcKey].PrevLocation;
+                            this.entities[friendKey].Location = this.entities[friendKey].PrevLocation;
                         }
                     }
-                    if (this.entities["character"].BoundingBox.Intersects(this.entities[npcKey].BoundingBox))
+                    if (this.entities["character"].BoundingBox.Intersects(this.entities[friendKey].BoundingBox))
                     {
-                        this.entities[npcKey].Location = this.entities[npcKey].PrevLocation;
+                        this.entities[friendKey].Location = this.entities[friendKey].PrevLocation;
                         this.entities["character"].Location = this.entities["character"].PrevLocation;
+                    }
+                    if (this.entities["character"].BoundingBox.Intersects(((NPCCharacter)this.entities[friendKey]).ComfortZone))
+                    {
+                        ((NPCCharacter)this.entities[friendKey]).IsRoaming = false;
+                        float angle = (float)Math.Atan2(entities["character"].Location.Y - entities[friendKey].Location.Y,
+                            entities["character"].Location.X - entities[friendKey].Location.X);
+                        ((CharacterEntity)this.entities[friendKey]).AngleFacing = angle;
+                        ((CharacterEntity)this.entities[friendKey]).Facing =
+                            HamburgerHelper.reduceAngle(entities["character"].Location - entities[friendKey].Location);
+                    }
+                    else
+                    {
+                        ((NPCCharacter)this.entities[friendKey]).IsRoaming = true;
                     }
                 }
             }
@@ -247,6 +260,19 @@ namespace PantheonPrototype
                     {
                         this.entities[enemyKey].Location = this.entities[enemyKey].PrevLocation;
                         this.entities["character"].Location = this.entities["character"].PrevLocation;
+                    }
+                    if (this.entities["character"].BoundingBox.Intersects(((EnemyNPC)this.entities[enemyKey]).ComfortZone))
+                    {
+                        ((NPCCharacter)this.entities[enemyKey]).IsRoaming = false;
+                        float angle = (float)Math.Atan2(entities["character"].Location.Y - entities[enemyKey].Location.Y,
+                            entities["character"].Location.X - entities[enemyKey].Location.X);
+                        ((CharacterEntity)this.entities[enemyKey]).AngleFacing = angle;
+                        ((CharacterEntity)this.entities[enemyKey]).Facing =
+                            HamburgerHelper.reduceAngle(entities["character"].Location - entities[enemyKey].Location);
+                    }
+                    else
+                    {
+                        ((NPCCharacter)this.entities[enemyKey]).IsRoaming = true;
                     }
                 }
             }

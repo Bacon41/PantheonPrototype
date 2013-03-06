@@ -47,8 +47,8 @@ namespace PantheonPrototype
 
         public void Load(Pantheon gameReference)
         {
-            mainBackgroundRect = new Rectangle((gameReference.GraphicsDevice.Viewport.Width - 300) / 2,
-                (gameReference.GraphicsDevice.Viewport.Height - 400) / 2, 300, 400);
+            mainBackgroundRect = new Rectangle((int)(gameReference.GraphicsDevice.Viewport.Width - .35 * SCREEN_WIDTH) / 2,
+                (gameReference.GraphicsDevice.Viewport.Height - 400) / 2, (int)(.35 * SCREEN_WIDTH), 400);
             
             mainBackgroundTex = new Texture2D(gameReference.GraphicsDevice, 1, 1);
             mainBackgroundTex.SetData(new[] { Color.White });

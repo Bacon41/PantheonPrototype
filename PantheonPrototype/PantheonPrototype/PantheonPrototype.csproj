@@ -83,14 +83,18 @@
     <Compile Include="CutsceneManager.cs" />
     <Compile Include="DialogueManager.cs" />
     <Compile Include="DialogueNode.cs" />
+<<<<<<< HEAD
     <Compile Include="HUD\Inventory.cs" />
+=======
+    <Compile Include="Entities\Characters\FriendNPC.cs" />
+>>>>>>> 1358672e82c32e3a7b1d6754547683a2148ccb3a
     <Compile Include="Objective.cs" />
     <Compile Include="Quest.cs" />
     <Compile Include="QuestManager.cs" />
     <Compile Include="Items\Shield.cs" />
     <Compile Include="Entities\Characters\FishCharacter.cs" />
     <Compile Include="ControlManager.cs" />
-    <Compile Include="Entities\Characters\EnemyCharacter.cs" />
+    <Compile Include="Entities\Characters\EnemyNPC.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="HamburgerHelper.cs" />
     <Compile Include="HUD\HUD.cs" />
@@ -100,7 +104,7 @@
     <Compile Include="HUD\Menu.cs" />
     <Compile Include="HUD\MenuItem.cs" />
     <Compile Include="Entities\Characters\NPCCharacter.cs" />
-    <Compile Include="Entities\Characters\OldManNPC.cs" />
+    <Compile Include="Entities\Characters\OldManFriend.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Entities\Characters\PlayerCharacter.cs" />
     <Compile Include="Entities\Projectile.cs" />
