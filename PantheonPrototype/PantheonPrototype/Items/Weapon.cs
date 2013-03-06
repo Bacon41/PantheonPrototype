@@ -68,11 +68,6 @@ namespace PantheonPrototype
         /// </summary>
         private TimeSpan lastShot;
 
-        public float PercentToNextShot()
-        {
-            return lastShot.Milliseconds / (1000 / fireRate);
-        }
-
         /// <summary>
         /// Initializes key values of a weapon.
         /// </summary>
@@ -155,6 +150,23 @@ namespace PantheonPrototype
                 reloadDelay = TimeSpan.FromSeconds(2);
                 currentAmmo = totalAmmo;
                 reloading = false;
+            }
+        }
+
+        public TimeSpan ReloadDelay
+        {
+            get { return reloadDelay; }
+        }
+
+        public float PercentToEndReload()
+        {
+            if (reloadDelay.Seconds == 2)
+            {
+                return 0;
+            }
+            else
+            {
+                return (float)((reloadDelay.Seconds * 1000 + reloadDelay.Milliseconds) / (2000.0));
             }
         }
     }
