@@ -148,6 +148,8 @@ namespace PantheonPrototype
                     break;
 
                 case "inventory":
+
+                    int count = 0;
                     foreach (string itemName in this.inventoryButtons.Keys)
                     {
                         // Update every Button
@@ -176,9 +178,20 @@ namespace PantheonPrototype
                         {
                             menuState = "main";
                         }
-                        
+                        count = 0;
+                        foreach (Rectangle box in (inventory.locationBoxes.Union(inventory.equippedBoxes)))
+                        {
+                            if (box.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
+                                (int)gameReference.controlManager.actions.CursorPosition.Y))
+                            {
+                                inventory.Selected = count;
+                                break;
+                            }
+                            inventory.Selected = -1;
+                            count++;
+                        }                        
                     }
-                    int count = 0;
+                    count = 0;
                     foreach (Rectangle box in (inventory.locationBoxes.Union(inventory.equippedBoxes)))
                     {
                         if (box.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
