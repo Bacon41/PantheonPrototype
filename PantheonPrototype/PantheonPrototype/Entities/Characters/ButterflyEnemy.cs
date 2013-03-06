@@ -66,8 +66,14 @@ namespace PantheonPrototype
         {
             base.Update(gameTime, gameReference);
 
-            this.EquippedItems["weapon"].activate(gameReference, this);
-            ((Weapon)this.EquippedItems["weapon"]).CurrentAmmo = ((Weapon)this.EquippedItems["weapon"]).TotalAmmo;
+            if (!isRoaming)
+            {
+                this.EquippedItems["weapon"].activate(gameReference, this);
+                if (((Weapon)this.EquippedItems["weapon"]).CurrentAmmo == 0 && !((Weapon)this.EquippedItems["weapon"]).Reloading)
+                {
+                    ((Weapon)this.EquippedItems["weapon"]).Reload(gameTime);
+                }
+            }
         }
 
         /// <summary>

@@ -55,6 +55,13 @@ namespace PantheonPrototype
 
         protected int range;
         protected int damage;
+        protected TimeSpan reloadDelay;
+        protected bool reloading;
+
+        public bool Reloading
+        {
+            get { return reloading; }
+        }
 
         /// <summary>
         /// The amount of time since the last shot was fired
@@ -77,6 +84,8 @@ namespace PantheonPrototype
             currentAmmo = totalAmmo;
             range = 500;
             damage = 5;
+            reloadDelay = TimeSpan.FromSeconds(2);
+            reloading = false;
         }
 
         /// <summary>
@@ -111,6 +120,10 @@ namespace PantheonPrototype
             {
                 lastShot = lastShot.Subtract(gameTime.ElapsedGameTime);
             }
+            if (reloading)
+            {
+                Reload(gameTime);
+            }
         }
 
         /// <summary>
@@ -127,6 +140,22 @@ namespace PantheonPrototype
 
             //Drain a bullet from the current ammo
             currentAmmo--;
+        }
+
+        /// <summary>
+        /// The method to start the reloading procudure.
+        /// </summary>
+        /// <param name="gameTime">Time since last call.</param>
+        public void Reload(GameTime gameTime)
+        {
+            reloading = true;
+            reloadDelay = reloadDelay.Subtract(gameTime.ElapsedGameTime);
+            if (reloadDelay.CompareTo(TimeSpan.Zero) <= 0)
+            {
+                reloadDelay = TimeSpan.FromSeconds(2);
+                currentAmmo = totalAmmo;
+                reloading = false;
+            }
         }
     }
 }

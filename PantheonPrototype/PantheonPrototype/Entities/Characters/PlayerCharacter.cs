@@ -170,7 +170,7 @@ namespace PantheonPrototype
             updateLocation(gameReference);
             updateLaser(gameReference, Vector2.Zero);
             updateScope(gameReference);
-            updateEquipped(gameReference);
+            updateEquipped(gameReference, gameTime);
 
             if (gameReference.controlManager.actions.beingDamaged == true)
             {
@@ -323,7 +323,7 @@ namespace PantheonPrototype
         /// Updates the equipped items according to user input.
         /// </summary>
         /// <param name="gameReference">A reference to the game so that the items can do their jobs.</param>
-        private void updateEquipped(Pantheon gameReference)
+        private void updateEquipped(Pantheon gameReference, GameTime gameTime)
         {
             //Fire all (one of) the weapons!
             if (gameReference.controlManager.actions.Attack)
@@ -332,10 +332,9 @@ namespace PantheonPrototype
             }
 
             //reload button
-
-            if (gameReference.controlManager.actions.Reload)
+            if (gameReference.controlManager.actions.Reload && !((Weapon)this.EquippedItems["weapon"]).Reloading)
             {
-                ((Weapon)this.EquippedItems["weapon"]).CurrentAmmo = ((Weapon)this.EquippedItems["weapon"]).TotalAmmo;
+                ((Weapon)this.EquippedItems["weapon"]).Reload(gameTime);
             }
             //Ammo and shield cheat
             if (gameReference.controlManager.actions.MoveBackward

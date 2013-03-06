@@ -92,7 +92,7 @@ namespace PantheonPrototype
                 {
                     switchDirection(gameReference);
                 }
-                changeDirection = TimeSpan.FromSeconds(3);
+                changeDirection = TimeSpan.FromSeconds(gameReference.rand.Next(3) + 1);
             }
 
             ComfortZone = new Rectangle(BoundingBox.X - ComfortZone.Width / 2, BoundingBox.Y - ComfortZone.Height / 2,
