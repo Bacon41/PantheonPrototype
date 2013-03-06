@@ -66,60 +66,8 @@ namespace PantheonPrototype
         {
             base.Update(gameTime, gameReference);
 
-            switch (facing)
-            {
-                case Direction.Left:
-                    velocity = new Vector2(-3, 0);
-                    sprite.changeState(currentState + " Left");
-                    break;
-                case Direction.Right:
-                    velocity = new Vector2(3, 0);
-                    sprite.changeState(currentState + " Right");
-                    break;
-                case Direction.forward:
-                    velocity = new Vector2(0, 3);
-                    sprite.changeState(currentState + " Forward");
-                    break;
-                case Direction.back:
-                    velocity = new Vector2(0, -3);
-                    sprite.changeState(currentState + " Back");
-                    break;
-            }
-
-            changeDirection = changeDirection.Subtract(gameTime.ElapsedGameTime);
-            if (changeDirection.CompareTo(TimeSpan.Zero) <= 0)
-            {
-                switchDirection();
-                changeDirection = TimeSpan.FromSeconds(3);
-            }
-
             this.EquippedItems["weapon"].activate(gameReference, this);
             ((Weapon)this.EquippedItems["weapon"]).CurrentAmmo = ((Weapon)this.EquippedItems["weapon"]).TotalAmmo;
-        }
-
-        /// <summary>
-        /// Randomly switch directions.
-        /// </summary>
-        private void switchDirection()
-        {
-            int dir = new Random().Next(4);
-            switch (dir)
-            {
-                case 0:
-                    facing = Direction.back;
-                    break;
-                case 1:
-                    facing = Direction.Left;
-                    break;
-                case 2:
-                    facing = Direction.forward;
-                    break;
-                case 3:
-                    facing = Direction.Right;
-                    break;
-                default:
-                    break;
-            }
         }
 
         /// <summary>

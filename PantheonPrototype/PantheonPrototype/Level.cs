@@ -248,6 +248,19 @@ namespace PantheonPrototype
                         this.entities[enemyKey].Location = this.entities[enemyKey].PrevLocation;
                         this.entities["character"].Location = this.entities["character"].PrevLocation;
                     }
+                    if (this.entities["character"].BoundingBox.Intersects(((EnemyNPC)this.entities[enemyKey]).ComfortZone))
+                    {
+                        ((NPCCharacter)this.entities[enemyKey]).IsRoaming = false;
+                        float angle = (float)Math.Atan2(entities["character"].Location.Y - entities[enemyKey].Location.Y,
+                            entities["character"].Location.X - entities[enemyKey].Location.X);
+                        ((CharacterEntity)this.entities[enemyKey]).AngleFacing = angle;
+                        ((CharacterEntity)this.entities[enemyKey]).Facing =
+                            HamburgerHelper.reduceAngle(entities["character"].Location - entities[enemyKey].Location);
+                    }
+                    else
+                    {
+                        ((NPCCharacter)this.entities[enemyKey]).IsRoaming = true;
+                    }
                 }
             }
 

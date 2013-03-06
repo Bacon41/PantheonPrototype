@@ -64,55 +64,6 @@ namespace PantheonPrototype
         public override void Update(GameTime gameTime, Pantheon gameReference)
         {
             base.Update(gameTime, gameReference);
-
-            if (facing == Direction.Left)
-            {
-                velocity = new Vector2(-3, 0);
-            }
-            else if (facing == Direction.Right)
-            {
-                velocity = new Vector2(3, 0);
-            }
-            else if (facing == Direction.forward)
-            {
-                velocity = new Vector2(0, 3);
-            }
-            else if (facing == Direction.back)
-            {
-                velocity = new Vector2(0, -3);
-            }
-
-            changeDirection = changeDirection.Subtract(gameTime.ElapsedGameTime);
-            if (changeDirection.CompareTo(TimeSpan.Zero) <= 0)
-            {
-                switchDirection();
-                changeDirection = TimeSpan.FromSeconds(3);
-            }
-        }
-
-        /// <summary>
-        /// Randomly chooses a new direction to move in.
-        /// </summary>
-        private void switchDirection()
-        {
-            int dir = new Random().Next(4);
-            switch (dir)
-            {
-                case 0:
-                    facing = Direction.back;
-                    break;
-                case 1:
-                    facing = Direction.Left;
-                    break;
-                case 2:
-                    facing = Direction.forward;
-                    break;
-                case 3:
-                    facing = Direction.Right;
-                    break;
-                default:
-                    break;
-            }
         }
 
         /// <summary>
