@@ -186,8 +186,6 @@ namespace PantheonPrototype
                 hudItems[i].Draw(spriteBatch);
             }
 
-            spriteBatch.DrawString(font, debugString, new Vector2(41,41), Color.White);
-
             spriteBatch.End();
         }
     }
