@@ -75,7 +75,7 @@ namespace PantheonPrototype
             fireRate = 5;
             totalAmmo = 10;
             currentAmmo = totalAmmo;
-            range = 500;
+            range = 10000;
             damage = 5;
         }
 
@@ -120,7 +120,7 @@ namespace PantheonPrototype
         /// <param name="holder">A reference to the holder character.</param>
         private void shootABullet(Pantheon gameReference, CharacterEntity holder)
         {
-            Bullet bullet = new Bullet(holder.Location, 25, holder.AngleFacing, range, damage, gameReference);
+            Bullet bullet = new Bullet(holder.Location, 1, holder.AngleFacing, range, damage, gameReference);
             bullet.Load(gameReference.Content);
 
             gameReference.currentLevel.addList.Add("bullet_" + Bullet.NextId, bullet);

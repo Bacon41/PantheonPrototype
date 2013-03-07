@@ -127,6 +127,8 @@ namespace PantheonPrototype
             set { sprite = value; }
         }
 
+        private Sprite centerPoint;
+
         /// <summary>
         /// A no parameter entity for conveniences sake.
         /// </summary>
@@ -184,6 +186,12 @@ namespace PantheonPrototype
         /// </summary>
         public virtual void Load(ContentManager contentManager)
         {
+            sprite.ThisIsAHack(contentManager);
+
+            Texture2D temp = contentManager.Load<Texture2D>("laserDot");
+            this.centerPoint = new Sprite(temp, 1,1);
+
+            centerPoint.ThisIsAHack(contentManager);
         }
 
         /// <summary>
@@ -214,7 +222,8 @@ namespace PantheonPrototype
         /// <param name="canvas">An initialized sprite batch to draw the sprite upon.</param>
         public virtual void Draw(SpriteBatch canvas)
         {
-            this.sprite.Draw(canvas, DrawingBox);
+            this.sprite.Draw(canvas, DrawingBox, Vector2.Zero);
+            this.centerPoint.Draw(canvas, new Rectangle((int)(actionPoint.X - 5), (int)(actionPoint.Y-5), 10,10), Vector2.Zero);
         }
     }
 }

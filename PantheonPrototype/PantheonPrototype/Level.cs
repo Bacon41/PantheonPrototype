@@ -184,7 +184,7 @@ namespace PantheonPrototype
                             }
                         }
                     }
-                    foreach (String friendKey in friendEntityQuery)
+                    /*foreach (String friendKey in friendEntityQuery)
                     {
                         if (this.entities[bulletKey].BoundingBox.Intersects(this.entities[friendKey].BoundingBox))
                         {
@@ -203,7 +203,7 @@ namespace PantheonPrototype
                     {
                         this.removeList.Add(bulletKey);
                         ((PlayerCharacter)this.entities["character"]).Damage(((Bullet)this.entities[bulletKey]).Damage);
-                    }
+                    }*/
                 }
                 else
                 {

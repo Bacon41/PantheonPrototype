@@ -20,6 +20,8 @@ namespace PantheonPrototype
         /// </summary>
         private Texture2D image;
 
+        private Texture2D box;
+
         /// <summary>
         /// The number of frame rows in the sprite.
         /// </summary>
@@ -140,6 +142,11 @@ namespace PantheonPrototype
             Opacity = 100;
         }
 
+        public void ThisIsAHack(ContentManager contentManager)
+        {
+            box = contentManager.Load<Texture2D>("InvSelect");
+        }
+
         /// <summary>
         /// Creates a new state and adds it to the sprite.
         /// 
@@ -232,7 +239,8 @@ namespace PantheonPrototype
         /// </summary>
         /// <param name="canvas">An initialized SpriteBatch to which the sprite will be drawn.</param>
         /// <param name="location">The location as a vector to which the sprite should be drawn.</param>
-        public void Draw(SpriteBatch canvas, Rectangle location)
+        /// <param name="origin">The origin around which the sprite should rotate</param>
+        public void Draw(SpriteBatch canvas, Rectangle location, Vector2 origin)
         {
             if (image == null) return;
 
@@ -248,7 +256,11 @@ namespace PantheonPrototype
 
             //Draw the correct frame of the image
             canvas.Draw(image, destinationRectangle, sourceRectangle, new Color(opacity, opacity, opacity, opacity), rotation,
-                Vector2.Zero, SpriteEffects.None, (float)((Math.Atan(location.Bottom) / Math.PI + .5) * -0.1 + 0.1));
+                new Vector2(destinationRectangle.Width/2, destinationRectangle.Height/2), SpriteEffects.None, (float)((Math.Atan(location.Bottom) / Math.PI + .5) * -0.1 + 0.1));
+
+            //Draw the image box
+            canvas.Draw(box, destinationRectangle, new Rectangle(0, 0, box.Width, box.Height), Color.White, rotation,
+                new Vector2(destinationRectangle.Width/2, destinationRectangle.Height/2), SpriteEffects.None, (float)((Math.Atan(location.Bottom) / Math.PI + .5) * -0.1 + 0.1));
         }
     }
 }
