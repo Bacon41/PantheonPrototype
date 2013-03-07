@@ -43,11 +43,15 @@ namespace PantheonPrototype
         /// </summary>
         protected int totalArmor;
 
+        /// <summary>
+        /// This is the angle (in radians) that the character should be looking at.
+        /// </summary>
         protected float angleFacing;
 
         public float AngleFacing
         {
             get { return angleFacing; }
+            set { angleFacing = value; }
         }
 
         public int TotalArmor

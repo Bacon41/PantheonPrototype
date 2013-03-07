@@ -60,7 +60,7 @@
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject />
+    <StartupObject>PantheonPrototype.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
@@ -83,6 +83,7 @@
     <Compile Include="CutsceneManager.cs" />
     <Compile Include="DialogueManager.cs" />
     <Compile Include="DialogueNode.cs" />
+    <Compile Include="HUD\Inventory.cs" />
     <Compile Include="Entities\Characters\FriendNPC.cs" />
     <Compile Include="Objective.cs" />
     <Compile Include="Quest.cs" />

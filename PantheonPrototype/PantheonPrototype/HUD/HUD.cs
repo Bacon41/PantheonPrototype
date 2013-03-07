@@ -33,6 +33,8 @@ namespace PantheonPrototype
         protected int SCREEN_HEIGHT;
         protected int danger;
 
+        private String debugString;
+
         public HUD(GraphicsDevice graphicsDevice, ContentManager Content, int WIDTH, int HEIGHT, SpriteFont font)
         {
             this.graphicsDevice = graphicsDevice;
@@ -145,7 +147,9 @@ namespace PantheonPrototype
 
                 // Update the Reload Timer Bar
                 hudItems[7].Coordinates = new Rectangle(hudItems[7].Coordinates.X, hudItems[7].Coordinates.Y,
-                    (int)(hudItems[7].DefaultWidth * (((Weapon)player.ArmedItem)).PercentToNextShot()), hudItems[7].Coordinates.Height);
+                    (int)(hudItems[7].DefaultWidth * (((Weapon)player.ArmedItem)).PercentToEndReload()), hudItems[7].Coordinates.Height);
+
+                debugString = (((Weapon)player.ArmedItem).ReloadDelay.Seconds * 1000 + ((Weapon)player.ArmedItem).ReloadDelay.Milliseconds).ToString();
 
             }
             catch (DivideByZeroException)
@@ -162,7 +166,7 @@ namespace PantheonPrototype
         {
             spriteBatch.Begin();
 
-            string title = "Pantheon DRAGON SPLEAN";
+            string title = "Pantheon GIRAFFE SPLEAN";
 
             spriteBatch.DrawString(font, title, new Vector2(1, 1), Color.DarkGray);
             spriteBatch.DrawString(font, title, new Vector2(0, 0), Color.LightGray);
@@ -181,7 +185,7 @@ namespace PantheonPrototype
             {
                 hudItems[i].Draw(spriteBatch);
             }
-            
+
             spriteBatch.End();
         }
     }

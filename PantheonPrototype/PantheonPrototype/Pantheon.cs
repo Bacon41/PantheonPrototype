@@ -20,6 +20,8 @@ namespace PantheonPrototype
         GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch;
 
+        public Random rand;
+
         public ControlManager controlManager;
 
         Menu menu;
@@ -67,6 +69,7 @@ namespace PantheonPrototype
         /// </summary>
         protected override void Initialize()
         {
+            rand = new Random();
             controlManager = new ControlManager();
 
             int SCREEN_WIDTH = GraphicsDevice.Viewport.Width;
@@ -83,6 +86,7 @@ namespace PantheonPrototype
             CutsceneManager = new CutsceneManager(GraphicsDevice);
 
             base.Initialize();
+            
         }
 
         /// <summary>
