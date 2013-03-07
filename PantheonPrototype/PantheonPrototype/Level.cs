@@ -107,7 +107,7 @@ namespace PantheonPrototype
                 {
                     this.entities["character"].Location = new Vector2(obj.Bounds.Center.X, obj.Bounds.Center.Y);
                 }
-                if (obj.Name.Contains("Friend"))
+                /*if (obj.Name.Contains("Friend"))
                 {
                     this.entities.Add(obj.Name, new OldManFriend(new Vector2(obj.Bounds.Center.X, obj.Bounds.Center.Y)));
                     this.entities[obj.Name].Load(gameReference.Content);
@@ -116,7 +116,7 @@ namespace PantheonPrototype
                 {
                     this.entities.Add(obj.Name, new ButterflyEnemy(new Vector2(obj.Bounds.Center.X, obj.Bounds.Center.Y)));
                     this.entities[obj.Name].Load(gameReference.Content);
-                }
+                }//*/
             }
 
             Camera.Pos = new Vector2(this.entities["character"].DrawingBox.X + entities["character"].DrawingBox.Width / 2,

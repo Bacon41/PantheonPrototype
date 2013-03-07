@@ -20,7 +20,7 @@ namespace PantheonPrototype
         /// </summary>
         private Texture2D image;
 
-        private Texture2D box;
+        static public Texture2D box;
 
         /// <summary>
         /// The number of frame rows in the sprite.
@@ -91,11 +91,14 @@ namespace PantheonPrototype
 
         public Sprite(Texture2D image, int rows, int columns)
         {
+            //Set the rotation of the sprite
+            this.rotation = 0;
             loadSprite(image, rows, columns, 30);
         }
 
         public Sprite(Texture2D image, int rows, int columns, int frameRate)
         {
+            //Set the rotation of the sprite
             this.rotation = 0;
             loadSprite(image, rows, columns, frameRate);
         }
@@ -142,9 +145,9 @@ namespace PantheonPrototype
             Opacity = 100;
         }
 
-        public void ThisIsAHack(ContentManager contentManager)
+        public static void ThisIsAHack(Pantheon gameReference)
         {
-            box = contentManager.Load<Texture2D>("InvSelect");
+            box = gameReference.Content.Load<Texture2D>("InvSelect");
         }
 
         /// <summary>
@@ -256,11 +259,15 @@ namespace PantheonPrototype
 
             //Draw the correct frame of the image
             canvas.Draw(image, destinationRectangle, sourceRectangle, new Color(opacity, opacity, opacity, opacity), rotation,
-                new Vector2(destinationRectangle.Width/2, destinationRectangle.Height/2), SpriteEffects.None, (float)((Math.Atan(location.Bottom) / Math.PI + .5) * -0.1 + 0.1));
+                origin, SpriteEffects.None, (float)((Math.Atan(location.Bottom) / Math.PI + .5) * -0.1 + 0.1));
+
+            Console.WriteLine("Destination rectangle is (" + destinationRectangle.X + ", " + destinationRectangle.Y + ", " + destinationRectangle.Width + ", " + destinationRectangle.Height);
+            Console.WriteLine("Origin is (" + origin.X + ", " + origin.Y + ")");
+            //Console.WriteLine("Current rotation is " + this.Rotation);
 
             //Draw the image box
             canvas.Draw(box, destinationRectangle, new Rectangle(0, 0, box.Width, box.Height), Color.White, rotation,
-                new Vector2(destinationRectangle.Width/2, destinationRectangle.Height/2), SpriteEffects.None, (float)((Math.Atan(location.Bottom) / Math.PI + .5) * -0.1 + 0.1));
+                origin, SpriteEffects.None, (float)((Math.Atan(location.Bottom) / Math.PI + .5) * -0.1 + 0.1));
         }
     }
 }

@@ -57,8 +57,8 @@ namespace PantheonPrototype
         {
             DisplayMode displayMode = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode;
             e.GraphicsDeviceInformation.PresentationParameters.BackBufferFormat = displayMode.Format;
-            e.GraphicsDeviceInformation.PresentationParameters.BackBufferWidth = displayMode.Width;
-            e.GraphicsDeviceInformation.PresentationParameters.BackBufferHeight = displayMode.Height;
+            e.GraphicsDeviceInformation.PresentationParameters.BackBufferWidth = 800;//displayMode.Width;
+            e.GraphicsDeviceInformation.PresentationParameters.BackBufferHeight = 600;//displayMode.Height;
         }
 
         /// <summary>
@@ -84,6 +84,8 @@ namespace PantheonPrototype
             currentLevel = new Level(GraphicsDevice);
 
             CutsceneManager = new CutsceneManager(GraphicsDevice);
+
+            Sprite.ThisIsAHack(this);
 
             base.Initialize();
             

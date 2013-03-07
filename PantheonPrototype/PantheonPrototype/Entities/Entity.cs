@@ -128,6 +128,8 @@ namespace PantheonPrototype
         }
 
         private Sprite centerPoint;
+        private Sprite boundingRect;
+        private Sprite drawingRect;
 
         /// <summary>
         /// A no parameter entity for conveniences sake.
@@ -186,12 +188,15 @@ namespace PantheonPrototype
         /// </summary>
         public virtual void Load(ContentManager contentManager)
         {
-            sprite.ThisIsAHack(contentManager);
-
             Texture2D temp = contentManager.Load<Texture2D>("laserDot");
             this.centerPoint = new Sprite(temp, 1,1);
 
-            centerPoint.ThisIsAHack(contentManager);
+            temp = contentManager.Load<Texture2D>("InvSelect");
+            this.boundingRect = new Sprite(temp, 1, 1);
+
+            temp = contentManager.Load<Texture2D>("InvSelect - Copy");
+
+            this.drawingRect = new Sprite(temp, 1, 1);
         }
 
         /// <summary>
@@ -222,8 +227,21 @@ namespace PantheonPrototype
         /// <param name="canvas">An initialized sprite batch to draw the sprite upon.</param>
         public virtual void Draw(SpriteBatch canvas)
         {
+            Console.WriteLine("");
+            Console.WriteLine("Action point is (" + actionPoint.X + ", " + actionPoint.Y + ")");
+            Console.WriteLine("Bounding box is (" + BoundingBox.X + ", " + BoundingBox.Y + ", " + BoundingBox.Width + ", " + BoundingBox.Height + ")");
+            Console.WriteLine("             or (" + boundingBox.X + ", " + boundingBox.Y + ", " + boundingBox.Width + ", " + boundingBox.Height + ")");
+            Console.WriteLine("Drawing box is (" + DrawingBox.X + ", " + DrawingBox.Y + ", " + DrawingBox.Width + ", " + DrawingBox.Height + ")");
+            Console.WriteLine("            or (" + drawingBox.X + ", " + drawingBox.Y + ", " + drawingBox.Width + ", " + drawingBox.Height + ")");
+
+            Console.WriteLine("Drawing actual");
             this.sprite.Draw(canvas, DrawingBox, Vector2.Zero);
-            this.centerPoint.Draw(canvas, new Rectangle((int)(actionPoint.X - 5), (int)(actionPoint.Y-5), 10,10), Vector2.Zero);
+            Console.WriteLine("Drawing center point");
+            this.centerPoint.Draw(canvas, new Rectangle((int)(actionPoint.X) - 5, (int)(actionPoint.Y) - 5, 10, 10), Vector2.Zero);
+            Console.WriteLine("Drawing bounding rect");
+            this.boundingRect.Draw(canvas, BoundingBox, new Vector2(boundingBox.Width/2, boundingBox.Height/2));
+            Console.WriteLine("Drawing drawing rect");
+            this.drawingRect.Draw(canvas, DrawingBox, new Vector2(-drawingBox.X, -drawingBox.Y));
         }
     }
 }
