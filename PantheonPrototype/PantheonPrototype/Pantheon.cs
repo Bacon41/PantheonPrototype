@@ -57,8 +57,8 @@ namespace PantheonPrototype
         {
             DisplayMode displayMode = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode;
             e.GraphicsDeviceInformation.PresentationParameters.BackBufferFormat = displayMode.Format;
-            e.GraphicsDeviceInformation.PresentationParameters.BackBufferWidth = 800;//displayMode.Width;
-            e.GraphicsDeviceInformation.PresentationParameters.BackBufferHeight = 600;//displayMode.Height;
+            e.GraphicsDeviceInformation.PresentationParameters.BackBufferWidth = displayMode.Width;
+            e.GraphicsDeviceInformation.PresentationParameters.BackBufferHeight = displayMode.Height;
         }
 
         /// <summary>

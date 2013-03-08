@@ -257,12 +257,15 @@ namespace PantheonPrototype
             Rectangle sourceRectangle = new Rectangle(column * width, row * height, width, height);
             Rectangle destinationRectangle = location;
 
+            //Calculate the origin relative to the scale of the destination rectangle
+            Vector2 realOrigin = new Vector2(origin.X * sourceRectangle.Width / destinationRectangle.Width, origin.Y * sourceRectangle.Height / destinationRectangle.Height);
+
             //Draw the correct frame of the image
             canvas.Draw(image, destinationRectangle, sourceRectangle, new Color(opacity, opacity, opacity, opacity), rotation,
-                origin, SpriteEffects.None, (float)((Math.Atan(location.Bottom) / Math.PI + .5) * -0.1 + 0.1));
+                realOrigin, SpriteEffects.None, (float)((Math.Atan(location.Bottom) / Math.PI + .5) * -0.1 + 0.1));
 
             Console.WriteLine("Destination rectangle is (" + destinationRectangle.X + ", " + destinationRectangle.Y + ", " + destinationRectangle.Width + ", " + destinationRectangle.Height);
-            Console.WriteLine("Origin is (" + origin.X + ", " + origin.Y + ")");
+            Console.WriteLine("Origin is (" + origin.X + ", " + origin.Y + ") -> (" + realOrigin.X + ", " + realOrigin.Y + ")");
             //Console.WriteLine("Current rotation is " + this.Rotation);
 
             //Draw the image box
