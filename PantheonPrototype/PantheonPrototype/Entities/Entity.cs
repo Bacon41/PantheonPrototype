@@ -131,6 +131,9 @@ namespace PantheonPrototype
         private Sprite boundingRect;
         private Sprite drawingRect;
 
+        private Sprite boundingRectOrigin;
+        private Sprite drawingRectOrigin;
+
         /// <summary>
         /// A no parameter entity for conveniences sake.
         /// </summary>
@@ -193,10 +196,12 @@ namespace PantheonPrototype
 
             temp = contentManager.Load<Texture2D>("InvSelect");
             this.boundingRect = new Sprite(temp, 1, 1);
+            this.drawingRect = new Sprite(temp, 1, 1);
 
             temp = contentManager.Load<Texture2D>("InvSelect - Copy");
 
-            this.drawingRect = new Sprite(temp, 1, 1);
+            this.drawingRectOrigin = new Sprite(temp, 1, 1);
+            this.boundingRectOrigin = new Sprite(temp, 1, 1);
         }
 
         /// <summary>
@@ -239,9 +244,11 @@ namespace PantheonPrototype
             Console.WriteLine("Drawing center point");
             this.centerPoint.Draw(canvas, new Rectangle((int)(actionPoint.X) - 5, (int)(actionPoint.Y) - 5, 10, 10), Vector2.Zero);
             Console.WriteLine("Drawing bounding rect");
-            this.boundingRect.Draw(canvas, BoundingBox, new Vector2(boundingBox.Width/2, boundingBox.Height/2));
+            this.boundingRect.Draw(canvas, BoundingBox, Vector2.Zero);
+            this.boundingRectOrigin.Draw(canvas, BoundingBox, new Vector2(boundingBox.Width / 2, boundingBox.Height / 2));
             Console.WriteLine("Drawing drawing rect");
-            this.drawingRect.Draw(canvas, DrawingBox, new Vector2(-drawingBox.X, -drawingBox.Y));
+            this.drawingRect.Draw(canvas, DrawingBox, Vector2.Zero);
+            this.boundingRectOrigin.Draw(canvas, DrawingBox, new Vector2(0,0));
         }
     }
 }

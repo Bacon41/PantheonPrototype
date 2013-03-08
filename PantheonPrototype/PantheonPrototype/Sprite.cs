@@ -266,8 +266,8 @@ namespace PantheonPrototype
             //Console.WriteLine("Current rotation is " + this.Rotation);
 
             //Draw the image box
-            canvas.Draw(box, destinationRectangle, new Rectangle(0, 0, box.Width, box.Height), Color.White, rotation,
-                origin, SpriteEffects.None, (float)((Math.Atan(location.Bottom) / Math.PI + .5) * -0.1 + 0.1));
+            //canvas.Draw(box, destinationRectangle, new Rectangle(0, 0, box.Width, box.Height), Color.White, rotation,
+            //    origin, SpriteEffects.None, (float)((Math.Atan(location.Bottom) / Math.PI + .5) * -0.1 + 0.1));
         }
     }
 }

@@ -191,7 +191,7 @@ namespace PantheonPrototype
                             this.removeList.Add(bulletKey);
                         }
                     }
-                    foreach (String enemyKey in enemyEntityQuery)
+                    /*foreach (String enemyKey in enemyEntityQuery)
                     {
                         if (this.entities[bulletKey].BoundingBox.Intersects(this.entities[enemyKey].BoundingBox))
                         {
