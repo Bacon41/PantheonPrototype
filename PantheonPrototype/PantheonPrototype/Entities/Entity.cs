@@ -232,23 +232,7 @@ namespace PantheonPrototype
         /// <param name="canvas">An initialized sprite batch to draw the sprite upon.</param>
         public virtual void Draw(SpriteBatch canvas)
         {
-            Console.WriteLine("");
-            Console.WriteLine("Action point is (" + actionPoint.X + ", " + actionPoint.Y + ")");
-            Console.WriteLine("Bounding box is (" + BoundingBox.X + ", " + BoundingBox.Y + ", " + BoundingBox.Width + ", " + BoundingBox.Height + ")");
-            Console.WriteLine("             or (" + boundingBox.X + ", " + boundingBox.Y + ", " + boundingBox.Width + ", " + boundingBox.Height + ")");
-            Console.WriteLine("Drawing box is (" + DrawingBox.X + ", " + DrawingBox.Y + ", " + DrawingBox.Width + ", " + DrawingBox.Height + ")");
-            Console.WriteLine("            or (" + drawingBox.X + ", " + drawingBox.Y + ", " + drawingBox.Width + ", " + drawingBox.Height + ")");
-
-            Console.WriteLine("Drawing actual");
             this.sprite.Draw(canvas, new Rectangle((int)actionPoint.X, (int)actionPoint.Y, drawingBox.Width, drawingBox.Height), new Vector2(-drawingBox.X, -drawingBox.Y));
-            Console.WriteLine("Drawing center point");
-            this.centerPoint.Draw(canvas, new Rectangle((int)(actionPoint.X) - 5, (int)(actionPoint.Y) - 5, 10, 10), Vector2.Zero);
-            Console.WriteLine("Drawing bounding rect");
-            this.boundingRect.Draw(canvas, BoundingBox, Vector2.Zero);
-            this.boundingRectOrigin.Draw(canvas, new Rectangle((int)actionPoint.X, (int)actionPoint.Y, boundingBox.Width, boundingBox.Height), new Vector2(boundingBox.Width / 2, boundingBox.Height / 2));
-            Console.WriteLine("Drawing drawing rect");
-            this.drawingRect.Draw(canvas, DrawingBox, Vector2.Zero);
-            this.boundingRectOrigin.Draw(canvas, new Rectangle((int)actionPoint.X, (int)actionPoint.Y, drawingBox.Width, drawingBox.Height), new Vector2(-drawingBox.X, -drawingBox.Y));
         }
     }
 }

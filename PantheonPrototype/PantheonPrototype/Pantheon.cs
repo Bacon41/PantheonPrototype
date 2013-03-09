@@ -85,10 +85,7 @@ namespace PantheonPrototype
 
             CutsceneManager = new CutsceneManager(GraphicsDevice);
 
-            Sprite.ThisIsAHack(this);
-
             base.Initialize();
-            
         }
 
         /// <summary>

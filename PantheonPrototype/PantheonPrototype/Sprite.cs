@@ -20,8 +20,6 @@ namespace PantheonPrototype
         /// </summary>
         private Texture2D image;
 
-        static public Texture2D box;
-
         /// <summary>
         /// The number of frame rows in the sprite.
         /// </summary>
@@ -145,11 +143,6 @@ namespace PantheonPrototype
             Opacity = 100;
         }
 
-        public static void ThisIsAHack(Pantheon gameReference)
-        {
-            box = gameReference.Content.Load<Texture2D>("InvSelect");
-        }
-
         /// <summary>
         /// Creates a new state and adds it to the sprite.
         /// 
@@ -258,19 +251,13 @@ namespace PantheonPrototype
             Rectangle destinationRectangle = location;
 
             //Calculate the origin relative to the scale of the destination rectangle
-            Vector2 realOrigin = new Vector2(origin.X * sourceRectangle.Width / destinationRectangle.Width, origin.Y * sourceRectangle.Height / destinationRectangle.Height);
+            Vector2 realOrigin = new Vector2(
+                origin.X * sourceRectangle.Width / destinationRectangle.Width,
+                origin.Y * sourceRectangle.Height / destinationRectangle.Height);
 
             //Draw the correct frame of the image
             canvas.Draw(image, destinationRectangle, sourceRectangle, new Color(opacity, opacity, opacity, opacity), rotation,
                 realOrigin, SpriteEffects.None, (float)((Math.Atan(location.Bottom) / Math.PI + .5) * -0.1 + 0.1));
-
-            Console.WriteLine("Destination rectangle is (" + destinationRectangle.X + ", " + destinationRectangle.Y + ", " + destinationRectangle.Width + ", " + destinationRectangle.Height);
-            Console.WriteLine("Origin is (" + origin.X + ", " + origin.Y + ") -> (" + realOrigin.X + ", " + realOrigin.Y + ")");
-            //Console.WriteLine("Current rotation is " + this.Rotation);
-
-            //Draw the image box
-            //canvas.Draw(box, destinationRectangle, new Rectangle(0, 0, box.Width, box.Height), Color.White, rotation,
-            //    origin, SpriteEffects.None, (float)((Math.Atan(location.Bottom) / Math.PI + .5) * -0.1 + 0.1));
         }
     }
 }

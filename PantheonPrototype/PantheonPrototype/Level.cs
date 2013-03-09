@@ -116,11 +116,9 @@ namespace PantheonPrototype
                 {
                     this.entities.Add(obj.Name, new ButterflyEnemy(new Vector2(obj.Bounds.Center.X, obj.Bounds.Center.Y)));
                     this.entities[obj.Name].Load(gameReference.Content);
-                }//*/
+                }
             }
-
-            Camera.Pos = new Vector2(this.entities["character"].DrawingBox.X + entities["character"].DrawingBox.Width / 2,
-                this.entities["character"].DrawingBox.Y + entities["character"].DrawingBox.Height / 2);
+            Camera.Pos = new Vector2(this.entities["character"].Location.X, this.entities["character"].Location.Y);
 
             gameReference.CutsceneManager.PlayLevelLoad(gameReference);
         }
@@ -184,14 +182,14 @@ namespace PantheonPrototype
                             }
                         }
                     }
-                    /*foreach (String friendKey in friendEntityQuery)
+                    foreach (String friendKey in friendEntityQuery)
                     {
                         if (this.entities[bulletKey].BoundingBox.Intersects(this.entities[friendKey].BoundingBox))
                         {
                             this.removeList.Add(bulletKey);
                         }
                     }
-                    /*foreach (String enemyKey in enemyEntityQuery)
+                    foreach (String enemyKey in enemyEntityQuery)
                     {
                         if (this.entities[bulletKey].BoundingBox.Intersects(this.entities[enemyKey].BoundingBox))
                         {
@@ -203,7 +201,7 @@ namespace PantheonPrototype
                     {
                         this.removeList.Add(bulletKey);
                         ((PlayerCharacter)this.entities["character"]).Damage(((Bullet)this.entities[bulletKey]).Damage);
-                    }*/
+                    }
                 }
                 else
                 {
@@ -293,8 +291,7 @@ namespace PantheonPrototype
             // Updating the camera when the character isn't scoping.
             if (!gameReference.controlManager.actions.Aim)
             {
-                Camera.Pos = new Vector2(this.entities["character"].DrawingBox.X + entities["character"].DrawingBox.Width / 2,
-                    this.entities["character"].DrawingBox.Y + entities["character"].DrawingBox.Height / 2);
+                Camera.Pos = new Vector2(this.entities["character"].Location.X, this.entities["character"].Location.Y);
             }
 
             // This is a fairly ugly way of making the tiles draw in the right locations.
