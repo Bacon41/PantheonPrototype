@@ -137,20 +137,6 @@ namespace PantheonPrototype
                 this.entities[entityName].Update(gameTime, gameReference);
             }
 
-            // Checking the character entity for collision with nonwalkable tiles.
-            foreach (TileData tile in levelMap.GetTilesInRegion(this.entities["character"].BoundingBox))
-            {
-                if (levelMap.SourceTiles[tile.SourceID].Properties["isWalkable"].AsBoolean == false)
-                {
-                    Rectangle test = new Rectangle(tile.Target.X - tile.Target.Width / 2, tile.Target.Y - tile.Target.Height / 2,
-                        tile.Target.Width, tile.Target.Height);
-                    if (test.Intersects(this.entities["character"].BoundingBox))
-                    {
-                        this.entities["character"].Location = this.entities["character"].PrevLocation;
-                    }
-                }
-            }
-
             detectCollisions(gameReference);
 
             // Update the entity list
@@ -199,6 +185,20 @@ namespace PantheonPrototype
 
         private void detectCollisions(Pantheon gameReference)
         {
+            // Checking the character entity for collision with nonwalkable tiles.
+            foreach (TileData tile in levelMap.GetTilesInRegion(this.entities["character"].BoundingBox))
+            {
+                if (levelMap.SourceTiles[tile.SourceID].Properties["isWalkable"].AsBoolean == false)
+                {
+                    Rectangle test = new Rectangle(tile.Target.X - tile.Target.Width / 2, tile.Target.Y - tile.Target.Height / 2,
+                        tile.Target.Width, tile.Target.Height);
+                    if (test.Intersects(this.entities["character"].BoundingBox))
+                    {
+                        this.entities["character"].Location = this.entities["character"].PrevLocation;
+                    }
+                }
+            }
+
             // Black magicks to select all the bullets (SQL in C# with XNA and LINQ!!! Look at all the acronyms! Also, I feel nerdy.)
             var bulletQuery = from entity in this.entities where entity.Key.Contains("bullet") select entity.Key;
             var friendBoundsQuery = from obj in levelMap.ObjectLayers["Spawn"].MapObjects where obj.Name.Contains("Friend") select obj;
@@ -363,6 +363,25 @@ namespace PantheonPrototype
                         gameReference.CutsceneManager.PlayLevelEnd(gameReference);
                     }
                 }
+            } //*/
+
+            // Go through all the entities
+            foreach (string entityName in this.entities.Keys)
+            {
+                // Go through the bounds
+                if (this.entities[entityName].BoundingBox.X < 0 && this.entities[entityName].BoundingBox.Right > levelMap.Width * levelMap.TileWidth
+                    && this.entities[entityName].BoundingBox.Y < 0 && this.entities[entityName].BoundingBox.Bottom > levelMap.Height * levelMap.TileHeight)
+                {
+                    // The entity is outside the bounds, so delete it
+                    this.removeList.Add(entityName);
+
+                    // Done updating the entity
+                    continue;
+                }
+
+                // Go through all the tiles
+                // Go through all the map objects
+                // Go through all the entities
             }
         }
 

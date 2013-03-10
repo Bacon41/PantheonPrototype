@@ -205,7 +205,7 @@ namespace PantheonPrototype
         /// <returns>True if the bounding rectangles overlap.</returns>
         public bool collidesWith(Entity other)
         {
-            return this.drawingBox.Intersects(other.DrawingBox);
+            return this.boundingBox.Intersects(other.boundingBox);
         }
 
         /// <summary>
