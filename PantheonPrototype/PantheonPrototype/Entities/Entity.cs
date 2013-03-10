@@ -117,6 +117,18 @@ namespace PantheonPrototype
         }
 
         /// <summary>
+        /// A list of characteristics which determine what an entity does on collision.
+        /// 
+        /// Basically, this is a list that determines which collision types to check.
+        /// </summary>
+        protected List<string> characteristics;
+
+        public List<string> Characteristics
+        {
+            get { return characteristics; }
+        }
+
+        /// <summary>
         /// The visual representation of the entity.
         /// </summary>
         protected Sprite sprite;

@@ -380,8 +380,35 @@ namespace PantheonPrototype
                 }
 
                 // Go through all the tiles
+                foreach(TileData tile in levelMap.GetTilesInRegion(this.Entities[entityName].BoundingBox))
+                {
+                    checkTiles(this.entities[entityName], tile);
+                }
+
                 // Go through all the map objects
                 // Go through all the entities
+            }
+        }
+
+        /// <summary>
+        /// Checks the appropriate characteristics for the given collision.
+        /// </summary>
+        /// <param name="entity">The entity that collides with the </param>
+        /// <param name="tile"></param>
+        private void checkTiles(Entity entity, TileData tile)
+        {
+            if (entity.Characteristics.Contains("Shootable"))
+            {
+                if (levelMap.SourceTiles[tile.SourceID].Properties["isShootable"].AsBoolean == false)
+                {
+                }
+            }
+
+            if (entity.Characteristics.Contains("Walkable"))
+            {
+                if (levelMap.SourceTiles[tile.SourceID].Properties["isWalkable"].AsBoolean == false)
+                {
+                }
             }
         }
 
