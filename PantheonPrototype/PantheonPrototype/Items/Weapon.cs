@@ -54,16 +54,19 @@ namespace PantheonPrototype
         }
 
         protected int range;
+        protected int damage;
+        protected TimeSpan reloadDelay;
+        protected bool reloading;
+
+        public bool Reloading
+        {
+            get { return reloading; }
+        }
 
         /// <summary>
         /// The amount of time since the last shot was fired
         /// </summary>
         private TimeSpan lastShot;
-
-        public float PercentToNextShot()
-        {
-            return lastShot.Milliseconds / (1000 / fireRate);
-        }
 
         /// <summary>
         /// Initializes key values of a weapon.
@@ -75,6 +78,9 @@ namespace PantheonPrototype
             totalAmmo = 10;
             currentAmmo = totalAmmo;
             range = 500;
+            damage = 5;
+            reloadDelay = TimeSpan.FromSeconds(2);
+            reloading = false;
         }
 
         /// <summary>
@@ -109,6 +115,10 @@ namespace PantheonPrototype
             {
                 lastShot = lastShot.Subtract(gameTime.ElapsedGameTime);
             }
+            if (reloading)
+            {
+                Reload(gameTime);
+            }
         }
 
         /// <summary>
@@ -118,13 +128,46 @@ namespace PantheonPrototype
         /// <param name="holder">A reference to the holder character.</param>
         private void shootABullet(Pantheon gameReference, CharacterEntity holder)
         {
-            Bullet bullet = new Bullet(holder.Location, 25, holder.AngleFacing, range, gameReference);
+            Bullet bullet = new Bullet(holder.Location, 25, holder.AngleFacing, range, damage, gameReference);
             bullet.Load(gameReference.Content);
 
             gameReference.currentLevel.addList.Add("bullet_" + Bullet.NextId, bullet);
 
             //Drain a bullet from the current ammo
             currentAmmo--;
+        }
+
+        /// <summary>
+        /// The method to start the reloading procudure.
+        /// </summary>
+        /// <param name="gameTime">Time since last call.</param>
+        public void Reload(GameTime gameTime)
+        {
+            reloading = true;
+            reloadDelay = reloadDelay.Subtract(gameTime.ElapsedGameTime);
+            if (reloadDelay.CompareTo(TimeSpan.Zero) <= 0)
+            {
+                reloadDelay = TimeSpan.FromSeconds(2);
+                currentAmmo = totalAmmo;
+                reloading = false;
+            }
+        }
+
+        public TimeSpan ReloadDelay
+        {
+            get { return reloadDelay; }
+        }
+
+        public float PercentToEndReload()
+        {
+            if (reloadDelay.Seconds == 2)
+            {
+                return 0;
+            }
+            else
+            {
+                return (float)((reloadDelay.Seconds * 1000 + reloadDelay.Milliseconds) / (2000.0));
+            }
         }
     }
 }

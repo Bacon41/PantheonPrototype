@@ -24,6 +24,7 @@ namespace PantheonPrototype
         protected Texture2D inventoryBackground;
         protected Texture2D inventoryBackgroundTex;
         protected String menuState;
+        protected Inventory inventory;
 
         protected int SCREEN_WIDTH;
         protected int SCREEN_HEIGHT;
@@ -34,17 +35,20 @@ namespace PantheonPrototype
             set { menuState = value; }
         }
 
-        public Menu()
+        public Menu(int SCREEN_WIDTH, int SCREEN_HEIGHT)
         {
             items = new Dictionary<string, MenuItem>();
             inventoryButtons = new Dictionary<string, MenuItem>();
             menuState = "main";
+
+            this.SCREEN_WIDTH = SCREEN_WIDTH;
+            this.SCREEN_HEIGHT = SCREEN_HEIGHT;
         }
 
         public void Load(Pantheon gameReference)
         {
-            mainBackgroundRect = new Rectangle((gameReference.GraphicsDevice.Viewport.Width - 300) / 2,
-                (gameReference.GraphicsDevice.Viewport.Height - 400) / 2, 300, 400);
+            mainBackgroundRect = new Rectangle((int)(gameReference.GraphicsDevice.Viewport.Width - .35 * SCREEN_WIDTH) / 2,
+                (gameReference.GraphicsDevice.Viewport.Height - 400) / 2, (int)(.35 * SCREEN_WIDTH), 400);
             
             mainBackgroundTex = new Texture2D(gameReference.GraphicsDevice, 1, 1);
             mainBackgroundTex.SetData(new[] { Color.White });
@@ -52,8 +56,7 @@ namespace PantheonPrototype
             inventoryBackground = gameReference.Content.Load<Texture2D>("InventoryBackground");
             inventoryBackgroundTex = gameReference.Content.Load<Texture2D>("InventoryBackgroundTexture");
 
-            SCREEN_WIDTH = gameReference.GraphicsDevice.Viewport.Width;
-            SCREEN_HEIGHT = gameReference.GraphicsDevice.Viewport.Height;
+            inventory = new Inventory(SCREEN_WIDTH, SCREEN_HEIGHT, gameReference.Content);
             
             loadDefaultMenu(gameReference);
         }
@@ -64,36 +67,36 @@ namespace PantheonPrototype
         /// <param name="gameReference">The whole game.</param>
         private void loadDefaultMenu(Pantheon gameReference)
         {
-            MenuItem resumeItem = new MenuItem("Resume", new Rectangle((mainBackgroundRect.Width - 250) / 2 + mainBackgroundRect.X,
-                mainBackgroundRect.Y + 25, 250, 50));
+            MenuItem resumeItem = new MenuItem("Resume", new Rectangle((int)(50 - (15 * SCREEN_WIDTH) / SCREEN_WIDTH),
+                ((mainBackgroundRect.Y * 100)/ SCREEN_HEIGHT) + 3, 30, 7), new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
+            //MenuItem resumeItem = new MenuItem("Resume", new Rectangle(20,20,30,5), new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
             resumeItem.Load(gameReference);
             items.Add("resume", resumeItem);
-
-            MenuItem exitItem = new MenuItem("Exit", new Rectangle((mainBackgroundRect.Width - 250) / 2 + mainBackgroundRect.X,
-                mainBackgroundRect.Y + 100, 250, 50));
+            MenuItem exitItem = new MenuItem("Exit", new Rectangle((int)(50 - (15 * SCREEN_WIDTH) / SCREEN_WIDTH),
+                ((mainBackgroundRect.Y * 100) / SCREEN_HEIGHT) + 13, 30, 7), new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
             exitItem.Load(gameReference);
             items.Add("exit", exitItem);
 
-            MenuItem inventoryItem = new MenuItem("Inventory", new Rectangle((mainBackgroundRect.Width - 250) / 2 + mainBackgroundRect.X,
-                mainBackgroundRect.Y + 175, 250, 50));
+            MenuItem inventoryItem = new MenuItem("Inventory", new Rectangle((int)(50 - (15 * SCREEN_WIDTH) / SCREEN_WIDTH),
+                ((mainBackgroundRect.Y * 100) / SCREEN_HEIGHT) + 23, 30, 7), new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
             inventoryItem.Load(gameReference);
             items.Add("inventory", inventoryItem);
 
-            // This is not the default menu, but I wasn't sure where else to put it.
+            // This following is not the default menu, but I wasn't sure where else to put it.
 
-            MenuItem equipInventory = new MenuItem("Equip/Use", new Rectangle(480, 230, 150, 50));
+            MenuItem equipInventory = new MenuItem("Equip/Use", new Rectangle(67, 48, 15, 6), new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
             equipInventory.Load(gameReference);
             inventoryButtons.Add("equip", equipInventory);
 
-            MenuItem trashInventory = new MenuItem("Trash", new Rectangle(640, 230, 150, 50));
+            MenuItem trashInventory = new MenuItem("Trash", new Rectangle(83, 48, 15, 6), new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
             trashInventory.Load(gameReference);
             inventoryButtons.Add("trash", trashInventory);
 
-            MenuItem resumeInventory = new MenuItem("Resume", new Rectangle(480, 305, 150, 50));
+            MenuItem resumeInventory = new MenuItem("Resume", new Rectangle(67, 57, 31, 6), new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
             resumeInventory.Load(gameReference);
             inventoryButtons.Add("resumeInv", resumeInventory);
 
-            MenuItem mainInventory = new MenuItem("Main Menu", new Rectangle(640, 305, 150, 50));
+            MenuItem mainInventory = new MenuItem("Main Menu", new Rectangle(67, 66, 31, 6), new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
             mainInventory.Load(gameReference);
             inventoryButtons.Add("mainMenu", mainInventory);
         }
@@ -145,6 +148,8 @@ namespace PantheonPrototype
                     break;
 
                 case "inventory":
+
+                    int count = 0;
                     foreach (string itemName in this.inventoryButtons.Keys)
                     {
                         // Update every Button
@@ -173,10 +178,33 @@ namespace PantheonPrototype
                         {
                             menuState = "main";
                         }
-                        
+                        count = 0;
+                        foreach (Rectangle box in (inventory.locationBoxes.Union(inventory.equippedBoxes)))
+                        {
+                            if (box.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
+                                (int)gameReference.controlManager.actions.CursorPosition.Y))
+                            {
+                                inventory.Selected = count;
+                                break;
+                            }
+                            inventory.Selected = -1;
+                            count++;
+                        }                        
                     }
-                    break;
+                    count = 0;
+                    foreach (Rectangle box in (inventory.locationBoxes.Union(inventory.equippedBoxes)))
+                    {
+                        if (box.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
+                            (int)gameReference.controlManager.actions.CursorPosition.Y))
+                        {
+                            inventory.HoveredOver = count;
+                            break;
+                        }
+                        inventory.HoveredOver = -1;
+                        count++;
+                    }
 
+                    break;
                 default:
                     break;
             }
@@ -201,7 +229,19 @@ namespace PantheonPrototype
                     break;
                 case "inventory": 
                     spriteBatch.Draw(inventoryBackgroundTex, new Rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT), Color.White);
-                    spriteBatch.Draw(inventoryBackground, new Rectangle( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) , Color.White);
+
+                    inventory.Draw(spriteBatch);
+                    //for (int i = 0; i < inventory.locationBoxes.Count; i++)
+                    //{ 
+                    //    spriteBatch.Draw(inventory.InventorySelector, inventory.locationBoxes[i], Color.White);
+                    //}
+
+                    //for (int i = 0; i < inventory.equippedBoxes.Count; i++)
+                    //{
+                    //    spriteBatch.Draw(inventory.InventorySelector, inventory.equippedBoxes[i], Color.White);
+                    //}
+
+                    spriteBatch.Draw(inventoryBackground, new Rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT), Color.White);
 
                     foreach (string itemName in this.inventoryButtons.Keys)
                     {

@@ -60,7 +60,7 @@
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject />
+    <StartupObject>PantheonPrototype.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
@@ -83,13 +83,15 @@
     <Compile Include="CutsceneManager.cs" />
     <Compile Include="DialogueManager.cs" />
     <Compile Include="DialogueNode.cs" />
+    <Compile Include="HUD\Inventory.cs" />
+    <Compile Include="Entities\Characters\FriendNPC.cs" />
     <Compile Include="Objective.cs" />
     <Compile Include="Quest.cs" />
     <Compile Include="QuestManager.cs" />
     <Compile Include="Items\Shield.cs" />
     <Compile Include="Entities\Characters\FishCharacter.cs" />
     <Compile Include="ControlManager.cs" />
-    <Compile Include="Entities\Characters\EnemyCharacter.cs" />
+    <Compile Include="Entities\Characters\EnemyNPC.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="HamburgerHelper.cs" />
     <Compile Include="HUD\HUD.cs" />
@@ -99,7 +101,7 @@
     <Compile Include="HUD\Menu.cs" />
     <Compile Include="HUD\MenuItem.cs" />
     <Compile Include="Entities\Characters\NPCCharacter.cs" />
-    <Compile Include="Entities\Characters\OldManNPC.cs" />
+    <Compile Include="Entities\Characters\OldManFriend.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Entities\Characters\PlayerCharacter.cs" />
     <Compile Include="Entities\Projectile.cs" />

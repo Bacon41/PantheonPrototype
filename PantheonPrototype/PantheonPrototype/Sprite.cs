@@ -89,11 +89,14 @@ namespace PantheonPrototype
 
         public Sprite(Texture2D image, int rows, int columns)
         {
+            //Set the rotation of the sprite
+            this.rotation = 0;
             loadSprite(image, rows, columns, 30);
         }
 
         public Sprite(Texture2D image, int rows, int columns, int frameRate)
         {
+            //Set the rotation of the sprite
             this.rotation = 0;
             loadSprite(image, rows, columns, frameRate);
         }
@@ -232,7 +235,8 @@ namespace PantheonPrototype
         /// </summary>
         /// <param name="canvas">An initialized SpriteBatch to which the sprite will be drawn.</param>
         /// <param name="location">The location as a vector to which the sprite should be drawn.</param>
-        public void Draw(SpriteBatch canvas, Rectangle location)
+        /// <param name="origin">The origin around which the sprite should rotate</param>
+        public void Draw(SpriteBatch canvas, Rectangle location, Vector2 origin)
         {
             if (image == null) return;
 
@@ -246,9 +250,14 @@ namespace PantheonPrototype
             Rectangle sourceRectangle = new Rectangle(column * width, row * height, width, height);
             Rectangle destinationRectangle = location;
 
+            //Calculate the origin relative to the scale of the destination rectangle
+            Vector2 realOrigin = new Vector2(
+                origin.X * sourceRectangle.Width / destinationRectangle.Width,
+                origin.Y * sourceRectangle.Height / destinationRectangle.Height);
+
             //Draw the correct frame of the image
             canvas.Draw(image, destinationRectangle, sourceRectangle, new Color(opacity, opacity, opacity, opacity), rotation,
-                Vector2.Zero, SpriteEffects.None, (float)((Math.Atan(location.Bottom) / Math.PI + .5) * -0.1 + 0.1));
+                realOrigin, SpriteEffects.None, (float)((Math.Atan(location.Bottom) / Math.PI + .5) * -0.1 + 0.1));
         }
     }
 }

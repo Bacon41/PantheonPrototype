@@ -12,15 +12,12 @@ using Microsoft.Xna.Framework.Media;
 
 namespace PantheonPrototype
 {
-    class EnemyCharacter : CharacterEntity
+    class EnemyNPC : NPCCharacter
     {
-        /// <summary>
-        /// The time until the NPC needs to change directions for their random movement.
-        /// </summary>
-        protected TimeSpan changeDirection;
-
-        public EnemyCharacter(Vector2 location, Rectangle drawBox, Rectangle boundingBox): base(location, drawBox, boundingBox)
+        public EnemyNPC(Vector2 location, Rectangle drawBox, Rectangle boundingBox)
+            : base(location, drawBox, boundingBox)
         {
+            comfortZone = new Rectangle((int)location.X + drawBox.X - 200, (int)location.Y + drawBox.Y - 200, 400, 400);
         }
     }
 }

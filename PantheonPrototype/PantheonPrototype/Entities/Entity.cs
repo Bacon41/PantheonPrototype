@@ -197,15 +197,6 @@ namespace PantheonPrototype
         }
 
         /// <summary>
-        /// Draws the entity to its current location.
-        /// </summary>
-        /// <param name="canvas">An initialized sprite batch to draw the sprite upon.</param>
-        public virtual void Draw(SpriteBatch canvas)
-        {
-            this.sprite.Draw(canvas, DrawingBox);
-        }
-
-        /// <summary>
         /// Detects collisions between another entity.
         /// 
         /// Uses the rectangle defining sprite to detect collisions.
@@ -215,6 +206,15 @@ namespace PantheonPrototype
         public bool collidesWith(Entity other)
         {
             return this.drawingBox.Intersects(other.DrawingBox);
+        }
+
+        /// <summary>
+        /// Draws the entity to its current location.
+        /// </summary>
+        /// <param name="canvas">An initialized sprite batch to draw the sprite upon.</param>
+        public virtual void Draw(SpriteBatch canvas)
+        {
+            this.sprite.Draw(canvas, new Rectangle((int)actionPoint.X, (int)actionPoint.Y, drawingBox.Width, drawingBox.Height), new Vector2(-drawingBox.X, -drawingBox.Y));
         }
     }
 }

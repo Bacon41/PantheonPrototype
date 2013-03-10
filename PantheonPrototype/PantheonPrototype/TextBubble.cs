@@ -19,6 +19,12 @@ namespace PantheonPrototype
         Vector2 position;
         System.TimeSpan endingAnchor;
 
+        public Vector2 Position
+        {
+            get { return this.position; }
+            set { this.position = value; }
+        }
+
         /// <summary>
         /// IT CREATES A TEXT BUBBLE. WOAH.
         /// </summary>
@@ -46,9 +52,16 @@ namespace PantheonPrototype
         /// Draws the text bubble on the screen at its given position.
         /// </summary>
         /// <param name="context">The SpriteBatch the bubble should be drawn on.</param>
-        public void Draw(SpriteBatch context)
+        /// <param name="textFont">The font used to draw the text bubbles.</param>
+        public void Draw(SpriteBatch context, SpriteFont textFont)
         {
-            // context.DrawString();
+            Vector2 newPosition = Vector2.Zero;
+            Vector2 measurement = textFont.MeasureString(this.text);
+
+            newPosition.X = this.position.X - measurement.X/2;
+            newPosition.Y = this.position.Y - measurement.Y + 5;
+
+            context.DrawString(textFont, this.text, newPosition, Color.WhiteSmoke);
         }
 
         /// <summary>

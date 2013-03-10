@@ -20,6 +20,8 @@ namespace PantheonPrototype
         GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch;
 
+        public Random rand;
+
         public ControlManager controlManager;
 
         Menu menu;
@@ -67,12 +69,13 @@ namespace PantheonPrototype
         /// </summary>
         protected override void Initialize()
         {
+            rand = new Random();
             controlManager = new ControlManager();
 
             int SCREEN_WIDTH = GraphicsDevice.Viewport.Width;
             int SCREEN_HEIGHT = GraphicsDevice.Viewport.Height;
 
-            menu = new Menu();
+            menu = new Menu(SCREEN_WIDTH, SCREEN_HEIGHT);
 
             debugFont = Content.Load<SpriteFont>("DebugFont");
 

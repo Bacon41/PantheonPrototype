@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace PantheonPrototype
 {
-    class ButterflyEnemy : EnemyCharacter
+    class ButterflyEnemy : EnemyNPC
     {
         /// <summary>
         /// The constructor for the Butterfly enemy, currently just sets up the base class.
@@ -24,6 +24,9 @@ namespace PantheonPrototype
             facing = Direction.Left;
             currentState = "Move";
             changeDirection = TimeSpan.FromSeconds(3);
+
+            EquippedItems.Add("weapon", new Weapon());
+            ArmedItem = EquippedItems["weapon"];
         }
 
         /// <summary>
@@ -63,56 +66,13 @@ namespace PantheonPrototype
         {
             base.Update(gameTime, gameReference);
 
-            switch (facing)
+            if (!isRoaming)
             {
-                case Direction.Left:
-                    velocity = new Vector2(-3, 0);
-                    sprite.changeState(currentState + " Left");
-                    break;
-                case Direction.Right:
-                    velocity = new Vector2(3, 0);
-                    sprite.changeState(currentState + " Right");
-                    break;
-                case Direction.forward:
-                    velocity = new Vector2(0, 3);
-                    sprite.changeState(currentState + " Forward");
-                    break;
-                case Direction.back:
-                    velocity = new Vector2(0, -3);
-                    sprite.changeState(currentState + " Back");
-                    break;
-            }
-
-            changeDirection = changeDirection.Subtract(gameTime.ElapsedGameTime);
-            if (changeDirection.CompareTo(TimeSpan.Zero) <= 0)
-            {
-                switchDirection();
-                changeDirection = TimeSpan.FromSeconds(3);
-            }
-        }
-
-        /// <summary>
-        /// Randomly switch directions.
-        /// </summary>
-        private void switchDirection()
-        {
-            int dir = new Random().Next(4);
-            switch (dir)
-            {
-                case 0:
-                    facing = Direction.back;
-                    break;
-                case 1:
-                    facing = Direction.Left;
-                    break;
-                case 2:
-                    facing = Direction.forward;
-                    break;
-                case 3:
-                    facing = Direction.Right;
-                    break;
-                default:
-                    break;
+                this.EquippedItems["weapon"].activate(gameReference, this);
+                if (((Weapon)this.EquippedItems["weapon"]).CurrentAmmo == 0 && !((Weapon)this.EquippedItems["weapon"]).Reloading)
+                {
+                    ((Weapon)this.EquippedItems["weapon"]).Reload(gameTime);
+                }
             }
         }
 
