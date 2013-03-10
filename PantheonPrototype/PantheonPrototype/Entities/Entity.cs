@@ -127,13 +127,6 @@ namespace PantheonPrototype
             set { sprite = value; }
         }
 
-        private Sprite centerPoint;
-        private Sprite boundingRect;
-        private Sprite drawingRect;
-
-        private Sprite boundingRectOrigin;
-        private Sprite drawingRectOrigin;
-
         /// <summary>
         /// A no parameter entity for conveniences sake.
         /// </summary>
@@ -191,17 +184,6 @@ namespace PantheonPrototype
         /// </summary>
         public virtual void Load(ContentManager contentManager)
         {
-            Texture2D temp = contentManager.Load<Texture2D>("laserDot");
-            this.centerPoint = new Sprite(temp, 1,1);
-
-            temp = contentManager.Load<Texture2D>("InvSelect");
-            this.boundingRect = new Sprite(temp, 1, 1);
-            this.drawingRect = new Sprite(temp, 1, 1);
-
-            temp = contentManager.Load<Texture2D>("InvSelect - Copy");
-
-            this.drawingRectOrigin = new Sprite(temp, 1, 1);
-            this.boundingRectOrigin = new Sprite(temp, 1, 1);
         }
 
         /// <summary>
