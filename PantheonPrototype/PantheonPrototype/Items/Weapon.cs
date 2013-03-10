@@ -55,16 +55,18 @@ namespace PantheonPrototype
 
         protected int range;
         protected int damage;
+        protected TimeSpan reloadDelay;
+        protected bool reloading;
+
+        public bool Reloading
+        {
+            get { return reloading; }
+        }
 
         /// <summary>
         /// The amount of time since the last shot was fired
         /// </summary>
         private TimeSpan lastShot;
-
-        public float PercentToNextShot()
-        {
-            return lastShot.Milliseconds / (1000 / fireRate);
-        }
 
         /// <summary>
         /// Initializes key values of a weapon.
@@ -77,6 +79,8 @@ namespace PantheonPrototype
             currentAmmo = totalAmmo;
             range = 500;
             damage = 5;
+            reloadDelay = TimeSpan.FromSeconds(2);
+            reloading = false;
         }
 
         /// <summary>
@@ -111,6 +115,10 @@ namespace PantheonPrototype
             {
                 lastShot = lastShot.Subtract(gameTime.ElapsedGameTime);
             }
+            if (reloading)
+            {
+                Reload(gameTime);
+            }
         }
 
         /// <summary>
@@ -127,6 +135,39 @@ namespace PantheonPrototype
 
             //Drain a bullet from the current ammo
             currentAmmo--;
+        }
+
+        /// <summary>
+        /// The method to start the reloading procudure.
+        /// </summary>
+        /// <param name="gameTime">Time since last call.</param>
+        public void Reload(GameTime gameTime)
+        {
+            reloading = true;
+            reloadDelay = reloadDelay.Subtract(gameTime.ElapsedGameTime);
+            if (reloadDelay.CompareTo(TimeSpan.Zero) <= 0)
+            {
+                reloadDelay = TimeSpan.FromSeconds(2);
+                currentAmmo = totalAmmo;
+                reloading = false;
+            }
+        }
+
+        public TimeSpan ReloadDelay
+        {
+            get { return reloadDelay; }
+        }
+
+        public float PercentToEndReload()
+        {
+            if (reloadDelay.Seconds == 2)
+            {
+                return 0;
+            }
+            else
+            {
+                return (float)((reloadDelay.Seconds * 1000 + reloadDelay.Milliseconds) / (2000.0));
+            }
         }
     }
 }

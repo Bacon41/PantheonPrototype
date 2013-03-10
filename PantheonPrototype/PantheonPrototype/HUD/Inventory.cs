@@ -103,14 +103,24 @@ namespace PantheonPrototype
             {
                 if (hoveredOver < 24)
                 {
-                    spriteBatch.Draw(inventorySelector, locationBoxes[hoveredOver], Color.White);
+                    spriteBatch.Draw(inventorySelector, locationBoxes[hoveredOver], new Color(34, 167, 222, 50));
                 }
                 else
                 {
-                    spriteBatch.Draw(inventorySelector, equippedBoxes[hoveredOver - 24], Color.White);
+                    spriteBatch.Draw(inventorySelector, equippedBoxes[hoveredOver - 24], new Color(34, 167, 222, 50));
                 }
             }
-
+            if (selected != -1)
+            {
+                if (selected < 24)
+                {
+                    spriteBatch.Draw(inventorySelector, locationBoxes[selected], Color.White);
+                }
+                else
+                {
+                    spriteBatch.Draw(inventorySelector, equippedBoxes[selected - 24], Color.White);
+                }
+            }
         }
     }
 }
