@@ -216,7 +216,7 @@ namespace PantheonPrototype
                 else if (this.entities[bulletKey].BoundingBox.X > 0 && this.entities[bulletKey].BoundingBox.Right < levelMap.Width * levelMap.TileWidth
                     && this.entities[bulletKey].BoundingBox.Y > 0 && this.entities[bulletKey].BoundingBox.Bottom < levelMap.Height * levelMap.TileHeight)
                 {
-                    foreach (TileData tile in levelMap.GetTilesInRegion(this.entities[bulletKey].BoundingBox))
+                    /*foreach (TileData tile in levelMap.GetTilesInRegion(this.entities[bulletKey].BoundingBox))
                     {
                         if (levelMap.SourceTiles[tile.SourceID].Properties["isShootable"].AsBoolean == false)
                         {
@@ -229,7 +229,7 @@ namespace PantheonPrototype
                                 break;
                             }
                         }
-                    }
+                    }//*/
                     foreach (String friendKey in friendEntityQuery)
                     {
                         if (this.entities[bulletKey].BoundingBox.Intersects(this.entities[friendKey].BoundingBox))
@@ -382,7 +382,7 @@ namespace PantheonPrototype
                 // Go through all the tiles
                 foreach(TileData tile in levelMap.GetTilesInRegion(this.Entities[entityName].BoundingBox))
                 {
-                    checkTiles(this.entities[entityName], tile);
+                    checkTiles(entityName, this.entities[entityName], tile);
                 }
 
                 // Go through all the map objects
@@ -393,14 +393,25 @@ namespace PantheonPrototype
         /// <summary>
         /// Checks the appropriate characteristics for the given collision.
         /// </summary>
-        /// <param name="entity">The entity that collides with the </param>
-        /// <param name="tile"></param>
-        private void checkTiles(Entity entity, TileData tile)
+        /// <param name="entityName">The name of the entity colliding with the tile.</param>
+        /// <param name="entity">The entity that collides with the tile.</param>
+        /// <param name="tile">The tile to be checked.</param>
+        private void checkTiles(string entityName, Entity entity, TileData tile)
         {
+            Rectangle tileRect = new Rectangle(
+                tile.Target.X - tile.Target.Width /2,
+                tile.Target.Y - tile.Target.Height/2,
+                tile.Target.Width,
+                tile.Target.Height);
+
             if (entity.Characteristics.Contains("Shootable"))
             {
                 if (levelMap.SourceTiles[tile.SourceID].Properties["isShootable"].AsBoolean == false)
                 {
+                    if (tileRect.Intersects(entity.BoundingBox))
+                    {
+                        this.removeList.Add(entityName);
+                    }
                 }
             }
 

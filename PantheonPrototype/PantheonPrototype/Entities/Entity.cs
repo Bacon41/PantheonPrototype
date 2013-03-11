@@ -165,6 +165,8 @@ namespace PantheonPrototype
             this.prevLocation = actionPoint;
 
             currentState ="Default";
+
+            this.characteristics = new List<string>();
         }
 
         /// <summary>
