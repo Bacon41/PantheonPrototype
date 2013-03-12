@@ -166,27 +166,12 @@ namespace PantheonPrototype
             if (screenRect.Y < 0) screenRect.Y = 0;
             screenRect.Width = (int)Camera.Pos.X + gameReference.GraphicsDevice.Viewport.Width / 2;
             screenRect.Height = (int)Camera.Pos.Y + gameReference.GraphicsDevice.Viewport.Height / 2;
-
-            // This checks each spawn oblect for collision with the character, and tells it to end the level if necessary.
-            foreach (MapObject obj in levelMap.ObjectLayers["Spawn"].MapObjects)
-            {
-                if (obj.Name.Substring(0, 3) == "end" && obj.Bounds.Intersects(this.entities["character"].DrawingBox))
-                {
-                    levelPlaying = !gameReference.CutsceneManager.CutsceneEnded;
-                    nextLevel = obj.Name.Substring(3);
-                    if (!gameReference.CutsceneManager.CutscenePlaying)
-                    {
-                        if (!levelPlaying) break;
-                        gameReference.CutsceneManager.PlayLevelEnd(gameReference);
-                    }
-                }
-            }
         }
 
         private void detectCollisions(Pantheon gameReference)
         {
             // Checking the character entity for collision with nonwalkable tiles.
-            foreach (TileData tile in levelMap.GetTilesInRegion(this.entities["character"].BoundingBox))
+            /*foreach (TileData tile in levelMap.GetTilesInRegion(this.entities["character"].BoundingBox))
             {
                 if (levelMap.SourceTiles[tile.SourceID].Properties["isWalkable"].AsBoolean == false)
                 {
@@ -197,7 +182,7 @@ namespace PantheonPrototype
                         this.entities["character"].Location = this.entities["character"].PrevLocation;
                     }
                 }
-            }
+            }//*/
 
             // Black magicks to select all the bullets (SQL in C# with XNA and LINQ!!! Look at all the acronyms! Also, I feel nerdy.)
             var bulletQuery = from entity in this.entities where entity.Key.Contains("bullet") select entity.Key;
@@ -262,13 +247,13 @@ namespace PantheonPrototype
             {
                 foreach (String friendKey in friendEntityQuery)
                 {
-                    if (boundObj.Name == friendKey)
+                    /*if (boundObj.Name == friendKey)
                     {
                         if (!boundObj.Bounds.Contains(this.entities[friendKey].BoundingBox))
                         {
                             this.entities[friendKey].Location = this.entities[friendKey].PrevLocation;
                         }
-                    }
+                    }//*/
                     if (this.entities["character"].BoundingBox.Intersects(this.entities[friendKey].BoundingBox))
                     {
                         this.entities[friendKey].Location = this.entities[friendKey].PrevLocation;
@@ -295,13 +280,13 @@ namespace PantheonPrototype
             {
                 foreach (String enemyKey in enemyEntityQuery)
                 {
-                    if (boundObj.Name == enemyKey)
+                    /*if (boundObj.Name == enemyKey)
                     {
                         if (!boundObj.Bounds.Contains(this.entities[enemyKey].BoundingBox))
                         {
                             this.entities[enemyKey].Location = this.entities[enemyKey].PrevLocation;
                         }
-                    }
+                    }//*/
                     if (this.entities["character"].BoundingBox.Intersects(this.entities[enemyKey].BoundingBox))
                     {
                         this.entities[enemyKey].Location = this.entities[enemyKey].PrevLocation;
@@ -343,15 +328,15 @@ namespace PantheonPrototype
             }
 
             // This is a fairly ugly way of making the tiles draw in the right locations.
-            screenRect.X = (int)Camera.Pos.X - gameReference.GraphicsDevice.Viewport.Width / 2;
+            /*screenRect.X = (int)Camera.Pos.X - gameReference.GraphicsDevice.Viewport.Width / 2;
             if (screenRect.X < 0) screenRect.X = 0;
             screenRect.Y = (int)Camera.Pos.Y - gameReference.GraphicsDevice.Viewport.Height / 2;
             if (screenRect.Y < 0) screenRect.Y = 0;
             screenRect.Width = (int)Camera.Pos.X + gameReference.GraphicsDevice.Viewport.Width / 2;
-            screenRect.Height = (int)Camera.Pos.Y + gameReference.GraphicsDevice.Viewport.Height / 2;
+            screenRect.Height = (int)Camera.Pos.Y + gameReference.GraphicsDevice.Viewport.Height / 2;//*/
 
             // This checks each spawn oblect for collision with the character, and tells it to end the level if necessary.
-            foreach (MapObject obj in levelMap.ObjectLayers["Spawn"].MapObjects)
+            /*foreach (MapObject obj in levelMap.ObjectLayers["Spawn"].MapObjects)
             {
                 if (obj.Name.Substring(0, 3) == "end" && obj.Bounds.Intersects(this.entities["character"].DrawingBox))
                 {
@@ -386,24 +371,31 @@ namespace PantheonPrototype
                 }
 
                 // Go through all the map objects
+                foreach(MapObject obj in levelMap.GetObjectsInRegion(this.Entities[entityName].BoundingBox))
+                {
+                    checkObjects(entityName, this.entities[entityName], obj, gameReference);
+                }
+
                 // Go through all the entities
             }
         }
 
         /// <summary>
-        /// Checks the appropriate characteristics for the given collision.
+        /// Checks the appropriate characteristics for the given tile collision.
         /// </summary>
         /// <param name="entityName">The name of the entity colliding with the tile.</param>
         /// <param name="entity">The entity that collides with the tile.</param>
         /// <param name="tile">The tile to be checked.</param>
         private void checkTiles(string entityName, Entity entity, TileData tile)
         {
+            // The actual location and dimensions of the tile in map coordinates
             Rectangle tileRect = new Rectangle(
                 tile.Target.X - tile.Target.Width /2,
                 tile.Target.Y - tile.Target.Height/2,
                 tile.Target.Width,
                 tile.Target.Height);
 
+            // Check against shootable tiles if appropriate
             if (entity.Characteristics.Contains("Shootable"))
             {
                 if (levelMap.SourceTiles[tile.SourceID].Properties["isShootable"].AsBoolean == false)
@@ -415,10 +407,62 @@ namespace PantheonPrototype
                 }
             }
 
+            // Check against walkable tiles if appropriate
             if (entity.Characteristics.Contains("Walkable"))
             {
                 if (levelMap.SourceTiles[tile.SourceID].Properties["isWalkable"].AsBoolean == false)
                 {
+                    if (tileRect.Intersects(entity.BoundingBox))
+                    {
+                        entity.Location = entity.PrevLocation;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Checks the appropriate characteristics for the given object collision.
+        /// </summary>
+        /// <param name="entityName">The name of the entity that has collided with an object.</param>
+        /// <param name="entity">The entity that has colided with an object.</param>
+        /// <param name="obj">The object which the entity has collided with.</param>
+        /// <param name="gameReference">An inconvenience, necessary for level loading etc...</param>
+        private void checkObjects(string entityName, Entity entity, MapObject obj, Pantheon gameReference)
+        {
+            if (entity.Characteristics.Contains("Friend"))
+            {
+                if (obj.Name == entityName)
+                {
+                    if (!obj.Bounds.Contains(entity.BoundingBox))
+                    {
+                        entity.Location = entity.PrevLocation;
+                    }
+                }
+            }
+
+            if (entity.Characteristics.Contains("Enemy"))
+            {
+                if (obj.Name == entityName)
+                {
+                    if (!obj.Bounds.Contains(entity.BoundingBox))
+                    {
+                        entity.Location = entity.PrevLocation;
+                    }
+                }
+            }
+
+            // Check for level markers if appropriate
+            if (entity.Characteristics.Contains("Player"))
+            {
+                if (obj.Name.Contains("end") && obj.Bounds.Intersects(entity.BoundingBox))
+                {
+                    levelPlaying = !gameReference.CutsceneManager.CutsceneEnded;
+                    nextLevel = obj.Name.Substring(3);
+                    if (!gameReference.CutsceneManager.CutscenePlaying)
+                    {
+                        //if (!levelPlaying) { break; }
+                        gameReference.CutsceneManager.PlayLevelEnd(gameReference);
+                    }
                 }
             }
         }

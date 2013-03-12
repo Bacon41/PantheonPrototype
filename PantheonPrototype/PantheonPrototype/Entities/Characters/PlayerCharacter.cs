@@ -65,6 +65,8 @@ namespace PantheonPrototype
             inventory.equipped.Add(EquippedItems["shield"]);
 
             ArmedItem = EquippedItems["weapon"];
+
+            characteristics.Add("Player");
         }
 
         /// <summary>
