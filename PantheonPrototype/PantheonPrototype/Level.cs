@@ -376,7 +376,20 @@ namespace PantheonPrototype
                     checkObjects(entityName, this.entities[entityName], obj, gameReference);
                 }
 
+                //Create a list of entities
+                List<Entity> entityList = Entities.Values.ToList<Entity>();
+
                 // Go through all the entities
+                for (int i = 0; i < entityList.Count; i++)
+                {
+                    for (int j = i+1; j < entityList.Count; j++)
+                    {
+                        if(entityList[i].collidesWith(entityList[j]))
+                        {
+
+                        }
+                    }
+                }
             }
         }
 
@@ -465,6 +478,17 @@ namespace PantheonPrototype
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Checks the appropriate characteristics for the given entity collision.
+        /// </summary>
+        /// <param name="entityOneName">The name of the first entity in the collision.</param>
+        /// <param name="entityOne">The first entity in the collision.</param>
+        /// <param name="entityTwoName">The name of the second entity in the collision.</param>
+        /// <param name="entityTwo">The second entity in the collision.</param>
+        private void checkEntities(string entityOneName, Entity entityOne, string entityTwoName, Entity entityTwo)
+        {
         }
 
         /// <summary>
