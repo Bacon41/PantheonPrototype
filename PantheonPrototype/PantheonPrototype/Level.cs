@@ -168,6 +168,10 @@ namespace PantheonPrototype
             screenRect.Height = (int)Camera.Pos.Y + gameReference.GraphicsDevice.Viewport.Height / 2;
         }
 
+        /// <summary>
+        /// A central function for handling all collisions.
+        /// </summary>
+        /// <param name="gameReference"></param>
         private void detectCollisions(Pantheon gameReference)
         {
             // Checking the character entity for collision with nonwalkable tiles.
@@ -215,7 +219,7 @@ namespace PantheonPrototype
                             }
                         }
                     }//*/
-                    foreach (String friendKey in friendEntityQuery)
+                    /*foreach (String friendKey in friendEntityQuery)
                     {
                         if (this.entities[bulletKey].BoundingBox.Intersects(this.entities[friendKey].BoundingBox))
                         {
@@ -234,7 +238,7 @@ namespace PantheonPrototype
                     {
                         this.removeList.Add(bulletKey);
                         ((PlayerCharacter)this.entities["character"]).Damage(((Bullet)this.entities[bulletKey]).Damage);
-                    }
+                    }//*/
                 }
                 else
                 {
@@ -253,12 +257,12 @@ namespace PantheonPrototype
                         {
                             this.entities[friendKey].Location = this.entities[friendKey].PrevLocation;
                         }
-                    }//*/
+                    }
                     if (this.entities["character"].BoundingBox.Intersects(this.entities[friendKey].BoundingBox))
                     {
                         this.entities[friendKey].Location = this.entities[friendKey].PrevLocation;
                         this.entities["character"].Location = this.entities["character"].PrevLocation;
-                    }
+                    }//*/
                     if (this.entities["character"].BoundingBox.Intersects(((NPCCharacter)this.entities[friendKey]).ComfortZone))
                     {
                         ((NPCCharacter)this.entities[friendKey]).IsRoaming = false;
@@ -286,12 +290,12 @@ namespace PantheonPrototype
                         {
                             this.entities[enemyKey].Location = this.entities[enemyKey].PrevLocation;
                         }
-                    }//*/
+                    }
                     if (this.entities["character"].BoundingBox.Intersects(this.entities[enemyKey].BoundingBox))
                     {
                         this.entities[enemyKey].Location = this.entities[enemyKey].PrevLocation;
                         this.entities["character"].Location = this.entities["character"].PrevLocation;
-                    }
+                    }//*/
                     if (this.entities["character"].BoundingBox.Intersects(((EnemyNPC)this.entities[enemyKey]).ComfortZone))
                     {
                         ((NPCCharacter)this.entities[enemyKey]).IsRoaming = false;
@@ -307,19 +311,6 @@ namespace PantheonPrototype
                     }
                 }
             }
-			
-            // Update the entity list
-            foreach (string entityName in this.removeList)
-            {
-                this.entities.Remove(entityName);
-            }
-            this.removeList.RemoveRange(0, this.removeList.Count);
-
-            foreach (string entityName in this.addList.Keys)
-            {
-                this.entities.Add(entityName, addList[entityName]);
-            }
-            this.addList = new Dictionary<string, Entity>();
 
             // Updating the camera when the character isn't scoping.
             if (!gameReference.controlManager.actions.Aim)
@@ -377,6 +368,7 @@ namespace PantheonPrototype
                 }
 
                 //Create a list of entities
+                List<string> entityNameList = Entities.Keys.ToList<string>();
                 List<Entity> entityList = Entities.Values.ToList<Entity>();
 
                 // Go through all the entities
@@ -384,13 +376,28 @@ namespace PantheonPrototype
                 {
                     for (int j = i+1; j < entityList.Count; j++)
                     {
-                        if(entityList[i].collidesWith(entityList[j]))
+                        
+                        if(entityList[i].BoundingBox.Intersects(entityList[j].BoundingBox))
                         {
-
+                            Console.WriteLine("Checking " + entityNameList[i] + " (" + i + ") with " + entityNameList[j] + " (" + j + ")");
+                            checkEntities(entityNameList[i], entityList[i], entityNameList[j], entityList[j]);
                         }
                     }
                 }
             }
+
+            // Update the entity list
+            foreach (string entityName in this.removeList)
+            {
+                this.entities.Remove(entityName);
+            }
+            this.removeList.RemoveRange(0, this.removeList.Count);
+
+            foreach (string entityName in this.addList.Keys)
+            {
+                this.entities.Add(entityName, addList[entityName]);
+            }
+            this.addList = new Dictionary<string, Entity>();
         }
 
         /// <summary>
@@ -409,7 +416,7 @@ namespace PantheonPrototype
                 tile.Target.Height);
 
             // Check against shootable tiles if appropriate
-            if (entity.Characteristics.Contains("Shootable"))
+            if (entity.Characteristics.Contains("Projectile"))
             {
                 if (levelMap.SourceTiles[tile.SourceID].Properties["isShootable"].AsBoolean == false)
                 {
@@ -421,7 +428,7 @@ namespace PantheonPrototype
             }
 
             // Check against walkable tiles if appropriate
-            if (entity.Characteristics.Contains("Walkable"))
+            if (entity.Characteristics.Contains("Walking"))
             {
                 if (levelMap.SourceTiles[tile.SourceID].Properties["isWalkable"].AsBoolean == false)
                 {
@@ -442,7 +449,7 @@ namespace PantheonPrototype
         /// <param name="gameReference">An inconvenience, necessary for level loading etc...</param>
         private void checkObjects(string entityName, Entity entity, MapObject obj, Pantheon gameReference)
         {
-            if (entity.Characteristics.Contains("Friend"))
+            if (entity.Characteristics.Contains("Friendly"))
             {
                 if (obj.Name == entityName)
                 {
@@ -467,7 +474,7 @@ namespace PantheonPrototype
             // Check for level markers if appropriate
             if (entity.Characteristics.Contains("Player"))
             {
-                if (obj.Name.Contains("end") && obj.Bounds.Intersects(entity.BoundingBox))
+                if (obj.Name.Substring(0, 3).Equals("end") && obj.Bounds.Intersects(entity.BoundingBox))
                 {
                     levelPlaying = !gameReference.CutsceneManager.CutsceneEnded;
                     nextLevel = obj.Name.Substring(3);
@@ -489,6 +496,50 @@ namespace PantheonPrototype
         /// <param name="entityTwo">The second entity in the collision.</param>
         private void checkEntities(string entityOneName, Entity entityOne, string entityTwoName, Entity entityTwo)
         {
+            // Projectile collision checking
+            if (entityOne.Characteristics.Contains("Projectile"))
+            {
+                if (entityTwo.Characteristics.Contains("Friend"))
+                {
+                    this.removeList.Add(entityOneName);
+                }
+                else if (entityTwo.Characteristics.Contains("Enemy"))
+                {
+                    this.removeList.Add(entityOneName);
+                    this.removeList.Add(entityTwoName);
+                }
+                else if (entityTwo.Characteristics.Contains("Player"))
+                {
+                    this.removeList.Add(entityOneName);
+                    ((PlayerCharacter)entityTwo).Damage(((Bullet)entityOne).Damage);
+                }
+            }
+
+            // Always check the reverse pairing
+            if (entityTwo.Characteristics.Contains("Projectile"))
+            {
+                if (entityOne.Characteristics.Contains("Friend"))
+                {
+                    this.removeList.Add(entityTwoName);
+                }
+                else if (entityOne.Characteristics.Contains("Enemy"))
+                {
+                    this.removeList.Add(entityTwoName);
+                    this.removeList.Add(entityOneName);
+                }
+                else if (entityOne.Characteristics.Contains("Player"))
+                {
+                    this.removeList.Add(entityTwoName);
+                    ((PlayerCharacter)entityOne).Damage(((Bullet)entityTwo).Damage);
+                }
+            }
+
+            // Inter-walker collisions.
+            if (entityOne.Characteristics.Contains("Walking") && entityTwo.Characteristics.Contains("Walking"))
+            {
+                entityOne.Location = entityOne.PrevLocation;
+                entityTwo.Location = entityTwo.PrevLocation;
+            }
         }
 
         /// <summary>

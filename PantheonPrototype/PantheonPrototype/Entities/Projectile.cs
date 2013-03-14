@@ -56,7 +56,7 @@ namespace PantheonPrototype
             timeToLive = 250;
 
             // Define characteristics to check
-            characteristics.Add("Shootable");
+            characteristics.Add("Projectile");
         }
 
         /// <summary>

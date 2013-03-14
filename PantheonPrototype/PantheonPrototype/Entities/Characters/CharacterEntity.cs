@@ -107,7 +107,7 @@ namespace PantheonPrototype
             angleFacing = 0;
 
             // Define characteristics to check
-            characteristics.Add("Walkable");
+            characteristics.Add("Walking");
         }
 
         /// <summary>

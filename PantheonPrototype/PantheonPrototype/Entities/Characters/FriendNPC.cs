@@ -19,7 +19,7 @@ namespace PantheonPrototype
         {
             comfortZone = new Rectangle((int)location.X + drawBox.X - 100, (int)location.Y + drawBox.Y - 100, 200, 200);
 
-            characteristics.Add("Friend");
+            characteristics.Add("Friendly");
         }
     }
 }
