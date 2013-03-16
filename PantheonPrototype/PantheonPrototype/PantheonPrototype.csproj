@@ -86,8 +86,9 @@
     <Compile Include="HUD\Inventory.cs" />
     <Compile Include="Entities\Characters\FriendNPC.cs" />
     <Compile Include="Objective.cs" />
-    <Compile Include="Quest.cs" />
-    <Compile Include="QuestManager.cs" />
+    <Compile Include="Quests\NotificationTypeNode.cs" />
+    <Compile Include="Quests\Quest.cs" />
+    <Compile Include="Quests\QuestManager.cs" />
     <Compile Include="Items\Shield.cs" />
     <Compile Include="Entities\Characters\FishCharacter.cs" />
     <Compile Include="ControlManager.cs" />
