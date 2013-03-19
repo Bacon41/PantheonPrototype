@@ -118,9 +118,7 @@ namespace PantheonPrototype
                     this.entities[obj.Name].Load(gameReference.Content);
                 }
             }
-
-            Camera.Pos = new Vector2(this.entities["character"].DrawingBox.X + entities["character"].DrawingBox.Width / 2,
-                this.entities["character"].DrawingBox.Y + entities["character"].DrawingBox.Height / 2);
+            Camera.Pos = new Vector2(this.entities["character"].Location.X, this.entities["character"].Location.Y);
 
             gameReference.CutsceneManager.PlayLevelLoad(gameReference);
         }
@@ -293,8 +291,7 @@ namespace PantheonPrototype
             // Updating the camera when the character isn't scoping.
             if (!gameReference.controlManager.actions.Aim)
             {
-                Camera.Pos = new Vector2(this.entities["character"].DrawingBox.X + entities["character"].DrawingBox.Width / 2,
-                    this.entities["character"].DrawingBox.Y + entities["character"].DrawingBox.Height / 2);
+                Camera.Pos = new Vector2(this.entities["character"].Location.X, this.entities["character"].Location.Y);
             }
 
             // This is a fairly ugly way of making the tiles draw in the right locations.

@@ -214,7 +214,7 @@ namespace PantheonPrototype
         /// <param name="canvas">An initialized sprite batch to draw the sprite upon.</param>
         public virtual void Draw(SpriteBatch canvas)
         {
-            this.sprite.Draw(canvas, DrawingBox);
+            this.sprite.Draw(canvas, new Rectangle((int)actionPoint.X, (int)actionPoint.Y, drawingBox.Width, drawingBox.Height), new Vector2(-drawingBox.X, -drawingBox.Y));
         }
     }
 }
