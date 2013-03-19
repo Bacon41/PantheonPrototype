@@ -261,7 +261,6 @@ namespace PantheonPrototype
                     {
                         if(entityList[i].BoundingBox.Intersects(entityList[j].BoundingBox))
                         {
-                            Console.WriteLine("Checking " + entityNameList[i] + " (" + i + ") with " + entityNameList[j] + " (" + j + ")");
                             checkEntities(entityNameList[i], entityList[i], entityNameList[j], entityList[j]);
                         }
                     }

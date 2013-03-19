@@ -18,7 +18,7 @@ namespace PantheonPrototype
     /// itself according to the current objective and the incoming
     /// event.
     /// </summary>
-    class Quest
+    public class Quest
     {
         /// <summary>
         /// The objectives for this quest.
@@ -49,9 +49,8 @@ namespace PantheonPrototype
         /// 
         /// which handles the event and translates it as necessary to modify the current objective.
         /// </summary>
-        /// <param name="entity"></param>
-        /// <param name="state"></param>
-        public void Notify(Entity entity, string state)
+        /// <param name="eventType">A list of keys that identify the type of event that has occurred.</param>
+        public void Notify(List<string> eventType)
         {
         }
 

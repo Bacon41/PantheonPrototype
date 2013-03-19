@@ -16,7 +16,7 @@ namespace PantheonPrototype
     /// Contains the individual logic for deciding if a condition has been met
     /// based on game events.
     /// </summary>
-    class Objective
+    public class Objective
     {
         /// <summary>
         /// Interprets an event in terms of this specific objective.

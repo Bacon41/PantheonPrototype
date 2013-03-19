@@ -16,7 +16,7 @@ namespace PantheonPrototype
     /// A variation of an Objective. The big difference is that a timed objective
     /// is updated every frame.
     /// </summary>
-    class TimedObjective : Objective
+    public class TimedObjective : Objective
     {
         /// <summary>
         /// Updates time sensitive data in the timed objective.

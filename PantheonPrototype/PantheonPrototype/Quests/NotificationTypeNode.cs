@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-namespace PantheonPrototype.Quests
+namespace PantheonPrototype
 {
     /// <summary>
     /// A rather ambiguous class designed for the inner workings of the Quest Manager.
@@ -33,13 +33,49 @@ namespace PantheonPrototype.Quests
         }
 
         /// <summary>
-        /// A list of this node's children.
+        /// This node's children with matching keys.
         /// </summary>
-        public List<string> Children;
+        public Dictionary<string, NotificationTypeNode> Children;
 
         /// <summary>
         /// A list specifying the Quests which should be notified if this type of notification is received.
         /// </summary>
         public List<Quest> Quests;
+
+        /// <summary>
+        /// Defines a new NotificationTypeNode with a given key.
+        /// </summary>
+        /// <param name="key">The key for the new node.</param>
+        public NotificationTypeNode(string key)
+        {
+            this.key = key;
+
+            Children = new Dictionary<string, NotificationTypeNode>();
+            Quests = new List<Quest>();
+        }
+
+        public override string ToString()
+        {
+            string output = this.key;
+
+            foreach(NotificationTypeNode child in Children.Values)
+            {
+                output += "\n" + child.ToString("\t");
+            }
+
+            return output;
+        }
+
+        private string ToString(string tab)
+        {
+            string output = this.key;
+
+            foreach (NotificationTypeNode child in Children.Values)
+            {
+                output += "\n" + tab + child.ToString(tab + "\t");
+            }
+
+            return output;
+        }
     }
 }
