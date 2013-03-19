@@ -40,7 +40,7 @@ namespace PantheonPrototype
         /// <summary>
         /// A list specifying the Quests which should be notified if this type of notification is received.
         /// </summary>
-        public List<Quest> Quests;
+        public List<Objective> Objectives;
 
         /// <summary>
         /// Defines a new NotificationTypeNode with a given key.
@@ -51,7 +51,7 @@ namespace PantheonPrototype
             this.key = key;
 
             Children = new Dictionary<string, NotificationTypeNode>();
-            Quests = new List<Quest>();
+            Objectives = new List<Objective>();
         }
 
         public override string ToString()

@@ -21,9 +21,8 @@ namespace PantheonPrototype
         /// <summary>
         /// Interprets an event in terms of this specific objective.
         /// </summary>
-        /// <param name="entity">The entity triggering the event.</param>
-        /// <param name="state">The new state of the entity.</param>
-        public virtual void handleNotification(Entity entity, string state)
+        /// <param name="eventType">A list of strings representing the type of event.</param>
+        public virtual void handleNotification(List<string> eventType, List<string> names)
         {
         }
 
