@@ -29,7 +29,7 @@ namespace PantheonPrototype
             this.text = text;
         }
 
-        public override bool ShouldContinueRunning()
+        public virtual bool ShouldContinueRunning()
         {
             if (textBubble != null || textBubble.isReadyForDeletion) return false;
             else return true;
@@ -38,7 +38,7 @@ namespace PantheonPrototype
         /// <summary>
         /// Executes whatever processing the dialogue node needs.
         /// </summary>
-        public override void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime)
         {
         }
 
@@ -47,7 +47,7 @@ namespace PantheonPrototype
         /// </summary>
         /// <param name="position"></param>
         /// <returns></returns>
-        public override TextBubble GetTextBubble(Vector2 position)
+        public virtual TextBubble GetTextBubble(Vector2 position)
         {
             this.textBubble = new TextBubble(position, text);
 
