@@ -28,6 +28,8 @@ namespace PantheonPrototype
 
         HUD hud;
 
+        public Entity player;
+
         public Level currentLevel;
 
         public CutsceneManager CutsceneManager;
@@ -76,6 +78,8 @@ namespace PantheonPrototype
             int SCREEN_HEIGHT = GraphicsDevice.Viewport.Height;
 
             menu = new Menu(SCREEN_WIDTH, SCREEN_HEIGHT);
+
+            player = new PlayerCharacter(this);
 
             debugFont = Content.Load<SpriteFont>("DebugFont");
 
