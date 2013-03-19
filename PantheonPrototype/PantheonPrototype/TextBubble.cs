@@ -14,15 +14,20 @@ namespace PantheonPrototype
 {
     class TextBubble
     {
-        int duration;
-        String text;
-        Vector2 position;
-        System.TimeSpan endingAnchor;
+        protected bool readyForDeletion;
+        protected String text;
+        protected Vector2 position;
 
         public Vector2 Position
         {
             get { return this.position; }
             set { this.position = value; }
+        }
+
+        public bool isReadyForDeletion
+        {
+            get { return this.readyForDeletion; }
+            set { this.readyForDeletion = value; }
         }
 
         /// <summary>
@@ -31,11 +36,10 @@ namespace PantheonPrototype
         /// <param name="position">The location of the text bubble anchor.</param>
         /// <param name="text">This text to say.</param>
         /// <param name="duration">How long (in milliseconds) the text bubble should last.</param>
-        public TextBubble(Vector2 position, String text, int duration)
+        public TextBubble(Vector2 position, String text)
         {
             this.position = position;
             this.text = text;
-            this.duration = duration;
         }
 
         /// <summary>
@@ -44,8 +48,6 @@ namespace PantheonPrototype
         /// <param name="gameTime"></param>
         public void Update(GameTime gameTime)
         {
-            if (this.endingAnchor == null)
-                this.endingAnchor = gameTime.TotalGameTime.Add(System.TimeSpan.FromMilliseconds(this.duration));
         }
 
         /// <summary>
@@ -62,34 +64,6 @@ namespace PantheonPrototype
             newPosition.Y = this.position.Y - measurement.Y + 5;
 
             context.DrawString(textFont, this.text, newPosition, Color.WhiteSmoke);
-        }
-
-        /// <summary>
-        /// ReadyForDeletion checks to see if this text bubble is ready to be deleted.
-        /// If the duration is set to zero, or less, the text bubble must be
-        /// removed manually.
-        /// </summary>
-        /// <param name="currentGameTime">The current in-game time.</param>
-        /// <returns>
-        /// If the text bubble should be deleted (true) or not (false).
-        /// Will return false if duration was set to 0, or if the ending time has not be initialized.
-        /// </returns>
-        public bool ReadyForDeletion(GameTime currentGameTime)
-        {
-            if (this.endingAnchor == null) return false;
-
-            if (currentGameTime.TotalGameTime >= this.endingAnchor && this.duration > 0)
-                return true;
-            else
-                return false;
-        }
-
-        /// <summary>
-        /// Sets the text bubble to be deleted by any managers that are using it.
-        /// </summary>
-        public void Delete()
-        {
-            this.duration = -1;
         }
     }
 }
