@@ -182,7 +182,7 @@ namespace PantheonPrototype
             if (currentArmor <= 0)
             {
                 currentState = "Die";
-                gameReference.controlManager.disableControls();
+                gameReference.controlManager.disableControls(false);
             }
             if (!gameReference.controlManager.actions.isControlEnabled)
             {

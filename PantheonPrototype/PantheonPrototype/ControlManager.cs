@@ -18,6 +18,7 @@ namespace PantheonPrototype
     public struct ControlActions
     {
         public bool isControlEnabled;
+        public bool isMouseClickEnabled;
         public bool isMotionEnabled;
         public bool MoveForward;
         public bool MoveBackward;
@@ -193,7 +194,12 @@ namespace PantheonPrototype
                     if (keyboardAndMouse.AttackMouseButton == ButtonState.Pressed) { actions.Attack = true; }
                 }
             }
-
+            if (actions.isMouseClickEnabled)
+            {
+                if (keyboardAndMouse.MenuSelectKey == ButtonState.Pressed)
+                { actions.MenuSelect = true; }
+                else { actions.MenuSelect = false; }
+            }
             actions.CursorPosition = new Vector2(mouse.X, mouse.Y);
 
             oldKeyboard = keyboard;
@@ -219,14 +225,27 @@ namespace PantheonPrototype
             actions.CursorPosition = Vector2.Zero;
         }
 
-        public void disableControls()
+        /// <summary>
+        /// Allows you to disable the controlls including or exluding the mouse click. True will allow the mouse click, false will disable the mouse click.
+        /// </summary>
+        /// <param name="mouse">Whether or not the mouse click will be allowed</param>
+        public void disableControls(bool mouse)
         {
+            if (!mouse)
+            {
+                actions.isMouseClickEnabled = false;
+            }
+            else
+            {
+                actions.isMouseClickEnabled = true;
+            }
             actions.isControlEnabled = false;
         }
 
         public void enableControls()
         {
             actions.isControlEnabled = true;
+            actions.isMouseClickEnabled = true;
         }
 
         public void disableMotion()
