@@ -130,6 +130,7 @@ namespace PantheonPrototype
             FrameRange temp;
             temp.first = 0;
             temp.last = totalFrames;
+            temp.looping = true;
 
             //Clear the stateRange with a blank dictionary
             stateRange = new Dictionary<string, FrameRange>();
@@ -154,13 +155,13 @@ namespace PantheonPrototype
         /// </summary>
         /// <param name="state">The name for the new state.</param>
         /// <param name="range">The frame range for the new state.</param>
-        public void addState(string state, int first, int last)
+        public void addState(string state, int first, int last, bool looping)
         {
             //Initialize a range object
             FrameRange range;
             range.first = first;
             range.last = last;
-            range.looping = false;
+            range.looping = looping;
 
             if (stateRange.ContainsKey("default"))
             {
@@ -225,9 +226,9 @@ namespace PantheonPrototype
             //Increment the current frame
             currentFrame++;
 
-            if (stateRange[currentState].looping && currentFrame = stateRange[])
+            if (!stateRange[currentState].looping && currentFrame == stateRange[currentState].last)
             {
-                currentFrame = stateRange[currentState].last;
+                currentFrame = stateRange[currentState].last - 1;
             }
 
             //Loop around if the frame range for the current state has been exhausted.

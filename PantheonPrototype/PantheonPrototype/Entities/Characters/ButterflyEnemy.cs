@@ -44,10 +44,10 @@ namespace PantheonPrototype
 
             this.Sprite.loadSprite(spriteTex, 4, 3, 30);
 
-            this.Sprite.addState("Move Forward", 0, 2);
-            this.Sprite.addState("Move Left", 3, 5);
-            this.Sprite.addState("Move Right", 6, 8);
-            this.Sprite.addState("Move Back", 9, 11);
+            this.Sprite.addState("Move Forward", 0, 2, true);
+            this.Sprite.addState("Move Left", 3, 5, true);
+            this.Sprite.addState("Move Right", 6, 8, true);
+            this.Sprite.addState("Move Back", 9, 11, true);
 
             //Load the interaction information
             // DO IT --

@@ -88,7 +88,7 @@ namespace PantheonPrototype
             {
                 // Need to make it just one image, not many frames.
                 this.sprite.loadSprite(bulletimage, 2, 4, 0);
-                this.sprite.addState("Forward", 7, 7);
+                this.sprite.addState("Forward", 7, 7, true);
 
                 //setDirection();
             }
