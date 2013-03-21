@@ -85,8 +85,8 @@
     <Compile Include="DialogueNode.cs" />
     <Compile Include="HUD\Inventory.cs" />
     <Compile Include="Entities\Characters\FriendNPC.cs" />
-    <Compile Include="Objective.cs" />
     <Compile Include="Quests\NotificationTypeNode.cs" />
+    <Compile Include="Quests\Objective.cs" />
     <Compile Include="Quests\Quest.cs" />
     <Compile Include="Quests\QuestManager.cs" />
     <Compile Include="Items\Shield.cs" />
@@ -109,9 +109,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Pantheon.cs" />
+    <Compile Include="Quests\TimedObjective.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="TextBubble.cs" />
-    <Compile Include="TimedObjective.cs" />
     <Compile Include="Items\Weapon.cs" />
   </ItemGroup>
   <ItemGroup>
