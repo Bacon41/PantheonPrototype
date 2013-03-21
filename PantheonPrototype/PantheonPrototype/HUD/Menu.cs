@@ -321,7 +321,7 @@ namespace PantheonPrototype
                 case "start":
                     spriteBatch.Draw(splashScreen, splashScreenRect, Color.White);
                     spriteBatch.Draw(splashShine, new Rectangle (splashScreenRect.X + offset - 4000, splashScreenRect.Y, splashScreenRect.Width, splashScreenRect.Height), Color.White);
-                    spriteBatch.Draw(splashScreenMask, splashScreenRect /*new Rectangle(0, splashScreenRect.Y, SCREEN_WIDTH, splashScreenRect.Height)*/, Color.White);
+                    spriteBatch.Draw(splashScreenMask, new Rectangle(0, splashScreenRect.Y, SCREEN_WIDTH, splashScreenRect.Height), Color.White);
                     foreach (string itemName in this.splashScreenButtons.Keys)
                     {
                         this.splashScreenButtons[itemName].Draw(spriteBatch);
