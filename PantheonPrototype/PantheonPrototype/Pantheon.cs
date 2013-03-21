@@ -28,6 +28,8 @@ namespace PantheonPrototype
 
         HUD hud;
 
+        public Entity player;
+
         public Level currentLevel;
 
         public CutsceneManager CutsceneManager;
@@ -77,6 +79,8 @@ namespace PantheonPrototype
 
             menu = new Menu(SCREEN_WIDTH, SCREEN_HEIGHT);
 
+            player = new PlayerCharacter(this);
+
             debugFont = Content.Load<SpriteFont>("DebugFont");
 
             hud = new HUD(GraphicsDevice, Content, SCREEN_WIDTH, SCREEN_HEIGHT, debugFont);
@@ -100,6 +104,14 @@ namespace PantheonPrototype
 
             menu.Load(this);
 
+            //currentLevel.Load("map1", "map0", this);
+
+            //
+            controlManager.actions.Pause = true;
+        }
+
+        internal void StartGame()
+        {
             currentLevel.Load("map1", "map0", this);
         }
 

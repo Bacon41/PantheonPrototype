@@ -19,7 +19,12 @@ namespace PantheonPrototype
     {
         protected Dictionary<string, MenuItem> items;
         protected Dictionary<string, MenuItem> inventoryButtons;
+        protected Dictionary<string, MenuItem> splashScreenButtons;
         protected Rectangle mainBackgroundRect;
+        protected Rectangle splashScreenRect;
+        protected Texture2D splashScreen;
+        protected Texture2D splashScreenMask;
+        protected Texture2D splashShine;
         protected Texture2D mainBackgroundTex;
         protected Texture2D inventoryBackground;
         protected Texture2D inventoryBackgroundTex;
@@ -28,6 +33,7 @@ namespace PantheonPrototype
 
         protected int SCREEN_WIDTH;
         protected int SCREEN_HEIGHT;
+        protected int offset;
 
         public String MenuState
         {
@@ -39,10 +45,12 @@ namespace PantheonPrototype
         {
             items = new Dictionary<string, MenuItem>();
             inventoryButtons = new Dictionary<string, MenuItem>();
-            menuState = "main";
+            splashScreenButtons = new Dictionary<string, MenuItem>();
+            menuState = "start";
 
             this.SCREEN_WIDTH = SCREEN_WIDTH;
             this.SCREEN_HEIGHT = SCREEN_HEIGHT;
+            offset = 0;
         }
 
         public void Load(Pantheon gameReference)
@@ -53,6 +61,12 @@ namespace PantheonPrototype
             mainBackgroundTex = new Texture2D(gameReference.GraphicsDevice, 1, 1);
             mainBackgroundTex.SetData(new[] { Color.White });
 
+            splashScreen = gameReference.Content.Load<Texture2D>("Giraffesplean");
+            splashScreenMask = gameReference.Content.Load<Texture2D>("GiraffespleanMask");
+            splashShine = gameReference.Content.Load<Texture2D>("Shine");
+            splashScreenRect = new Rectangle((int)(SCREEN_WIDTH/2 - (SCREEN_WIDTH * .75)/2),
+                200, (int)(SCREEN_WIDTH * .75), (int)(SCREEN_HEIGHT * .33));
+            
             inventoryBackground = gameReference.Content.Load<Texture2D>("InventoryBackground");
             inventoryBackgroundTex = gameReference.Content.Load<Texture2D>("InventoryBackgroundTexture");
 
@@ -69,7 +83,6 @@ namespace PantheonPrototype
         {
             MenuItem resumeItem = new MenuItem("Resume", new Rectangle((int)(50 - (15 * SCREEN_WIDTH) / SCREEN_WIDTH),
                 ((mainBackgroundRect.Y * 100)/ SCREEN_HEIGHT) + 3, 30, 7), new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
-            //MenuItem resumeItem = new MenuItem("Resume", new Rectangle(20,20,30,5), new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
             resumeItem.Load(gameReference);
             items.Add("resume", resumeItem);
             MenuItem exitItem = new MenuItem("Exit", new Rectangle((int)(50 - (15 * SCREEN_WIDTH) / SCREEN_WIDTH),
@@ -83,6 +96,7 @@ namespace PantheonPrototype
             items.Add("inventory", inventoryItem);
 
             // This following is not the default menu, but I wasn't sure where else to put it.
+            // Inventory screen:
 
             MenuItem equipInventory = new MenuItem("Equip/Use", new Rectangle(67, 48, 15, 6), new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
             equipInventory.Load(gameReference);
@@ -99,6 +113,24 @@ namespace PantheonPrototype
             MenuItem mainInventory = new MenuItem("Main Menu", new Rectangle(67, 66, 31, 6), new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
             mainInventory.Load(gameReference);
             inventoryButtons.Add("mainMenu", mainInventory);
+
+            // Start screen:
+
+            MenuItem startGame = new MenuItem("Start New Game", new Rectangle((int)(50 - (15 * SCREEN_WIDTH) / SCREEN_WIDTH),
+                (int)(((splashScreenRect.Y + splashScreen.Height) / (SCREEN_HEIGHT + 0.0)) * 100) + 25, 30, 7), new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
+            startGame.Load(gameReference);
+            splashScreenButtons.Add("start", startGame);
+
+            MenuItem loadGame = new MenuItem("Load a saved game (lol)", new Rectangle((int)(50 - (15 * SCREEN_WIDTH) / SCREEN_WIDTH),
+                (int)(((splashScreenRect.Y + splashScreen.Height) / (SCREEN_HEIGHT + 0.0)) * 100) + 35, 30, 7), new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
+            loadGame.Load(gameReference);
+            splashScreenButtons.Add("load", loadGame);
+
+            MenuItem quitGame = new MenuItem("Quit", new Rectangle((int)(50 - (15 * SCREEN_WIDTH) / SCREEN_WIDTH),
+                (int)(((splashScreenRect.Y + splashScreen.Height) / (SCREEN_HEIGHT + 0.0)) * 100) + 45, 30, 7), new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
+            quitGame.Load(gameReference);
+            splashScreenButtons.Add("quit", quitGame);
+
         }
 
         /// <summary>
@@ -205,6 +237,53 @@ namespace PantheonPrototype
                     }
 
                     break;
+                case "start":
+                    gameReference.controlManager.disableControls(true);
+                    foreach (string itemName in this.splashScreenButtons.Keys)
+                    {
+                        // Update every Button
+                        this.splashScreenButtons[itemName].Update(gameTime, gameReference);
+
+                        // If mouse is on a button, Update the isSelected variable
+                        if (this.splashScreenButtons[itemName].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
+                            (int)gameReference.controlManager.actions.CursorPosition.Y))
+                        {
+                            this.splashScreenButtons[itemName].IsSelected = true;
+                        }
+                        else
+                        {
+                            this.splashScreenButtons[itemName].IsSelected = false;
+                        }
+                    }
+                    if (gameReference.controlManager.actions.MenuSelect)
+                    {
+                        if (splashScreenButtons["start"].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
+                            (int)gameReference.controlManager.actions.CursorPosition.Y))
+                        {
+                            gameReference.controlManager.actions.Pause = false;
+                            gameReference.controlManager.enableControls();
+                            gameReference.StartGame();
+                        }
+                        if (splashScreenButtons["quit"].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
+                            (int)gameReference.controlManager.actions.CursorPosition.Y))
+                        {
+                            gameReference.Exit();
+                        }
+                        count = 0;
+                        foreach (Rectangle box in (inventory.locationBoxes.Union(inventory.equippedBoxes)))
+                        {
+                            if (box.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
+                                (int)gameReference.controlManager.actions.CursorPosition.Y))
+                            {
+                                inventory.Selected = count;
+                                break;
+                            }
+                            inventory.Selected = -1;
+                            count++;
+                        }
+                    }
+                    offset = (offset + 50) % 12000;
+                    break;
                 default:
                     break;
             }
@@ -231,21 +310,21 @@ namespace PantheonPrototype
                     spriteBatch.Draw(inventoryBackgroundTex, new Rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT), Color.White);
 
                     inventory.Draw(spriteBatch);
-                    //for (int i = 0; i < inventory.locationBoxes.Count; i++)
-                    //{ 
-                    //    spriteBatch.Draw(inventory.InventorySelector, inventory.locationBoxes[i], Color.White);
-                    //}
-
-                    //for (int i = 0; i < inventory.equippedBoxes.Count; i++)
-                    //{
-                    //    spriteBatch.Draw(inventory.InventorySelector, inventory.equippedBoxes[i], Color.White);
-                    //}
 
                     spriteBatch.Draw(inventoryBackground, new Rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT), Color.White);
 
                     foreach (string itemName in this.inventoryButtons.Keys)
                     {
                         this.inventoryButtons[itemName].Draw(spriteBatch);
+                    }
+                    break;
+                case "start":
+                    spriteBatch.Draw(splashScreen, splashScreenRect, Color.White);
+                    spriteBatch.Draw(splashShine, new Rectangle (splashScreenRect.X + offset - 4000, splashScreenRect.Y, splashScreenRect.Width, splashScreenRect.Height), Color.White);
+                    spriteBatch.Draw(splashScreenMask, new Rectangle(0, splashScreenRect.Y, SCREEN_WIDTH, splashScreenRect.Height), Color.White);
+                    foreach (string itemName in this.splashScreenButtons.Keys)
+                    {
+                        this.splashScreenButtons[itemName].Draw(spriteBatch);
                     }
                     break;
             }

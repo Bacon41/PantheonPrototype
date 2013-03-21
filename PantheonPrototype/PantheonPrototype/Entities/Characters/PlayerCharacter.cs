@@ -26,6 +26,7 @@ namespace PantheonPrototype
         protected Vector2 offset;
         protected Texture2D laserTexture;
         protected Texture2D laserDot;
+        protected bool drawLasar;
 
         public Vector2 CursorLocation
         {
@@ -65,8 +66,8 @@ namespace PantheonPrototype
             inventory.equipped.Add(EquippedItems["shield"]);
 
             ArmedItem = EquippedItems["weapon"];
-
             characteristics.Add("Player");
+            drawLasar = true;
         }
 
         /// <summary>
@@ -179,6 +180,20 @@ namespace PantheonPrototype
                 Damage(10);
                 gameReference.controlManager.actions.beingDamaged = false;
             }
+            if (currentArmor <= 0)
+            {
+                currentState = "Die";
+                gameReference.controlManager.disableControls(false);
+            }
+            if (!gameReference.controlManager.actions.isControlEnabled)
+            {
+                drawLasar = false;
+            }
+            else
+            {
+                drawLasar = true;
+            }
+
             //Update the sprite appropriately
             updateSprite();
 
@@ -318,7 +333,10 @@ namespace PantheonPrototype
             angleFacing = (float)Math.Atan2(cursorLocation.Y - Location.Y, cursorLocation.X - Location.X);
 
             //Modify the direction in which the character faces
-            facing = HamburgerHelper.reduceAngle(cursorLocation - Location);
+            if (gameReference.controlManager.actions.isControlEnabled)
+            {
+                facing = HamburgerHelper.reduceAngle(cursorLocation - Location);
+            }
         }
 
         /// <summary>
@@ -398,7 +416,10 @@ namespace PantheonPrototype
         /// <param name="canvas">The sprite batch to which the player will be drawn.</param>
         public override void Draw(SpriteBatch spriteBatch)
         {
-            HamburgerHelper.DrawLine(spriteBatch, laserTexture, 1.25f, Color.Red, Location, this.cursorLocation);
+            if (drawLasar)
+            {
+                HamburgerHelper.DrawLine(spriteBatch, laserTexture, 1.25f, Color.Red, Location, this.cursorLocation);
+            }
             base.Draw(spriteBatch);
 
             Vector2 laserDotCoords = new Vector2((int)(cursorLocation.X - laserDot.Width/2), (int)(cursorLocation.Y - laserDot.Height/2));

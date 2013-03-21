@@ -25,6 +25,7 @@ namespace PantheonPrototype
         LinkedList<TextBubble> activeTextBubbles;
         Dictionary<string, ArrayList> conversations;
         ArrayList currentConversation;
+        TextBubble currentConversationBubble;
 
         /// <summary>
         /// Constructs the basics of the DialogueManager class and prepares it to handle
@@ -47,6 +48,22 @@ namespace PantheonPrototype
         {
             LinkedListNode<TextBubble> currentNode;
 
+            // Update current conversation...
+            if (this.currentConversation != null)
+            {
+                DialogueNode currentDiagNode = (DialogueNode)this.currentConversation[this.currentConversationState];
+
+                if (currentDiagNode.ShouldContinueRunning())
+                {
+                    currentDiagNode.Update(gameTime);
+                }
+                else
+                {
+                    this.currentConversationState = currentDiagNode.NextState;
+                }
+            }
+
+            // Update each of the text bubbles...
             currentNode = this.activeTextBubbles.First;
             while (currentNode != null)
             {
@@ -54,7 +71,7 @@ namespace PantheonPrototype
 
                 currentNode.Value.Update(gameTime);
 
-                if (currentNode.Value.ReadyForDeletion(gameTime))
+                if (currentNode.Value.isReadyForDeletion)
                     this.activeTextBubbles.Remove(currentNode);
 
                 currentNode = next;
@@ -91,6 +108,7 @@ namespace PantheonPrototype
         public void EndConversation()
         {
             this.currentConversation = null;
+            this.currentConversationBubble = null;
             this.currentConversationState = 0;
         }
 
@@ -107,9 +125,9 @@ namespace PantheonPrototype
         /// the bubble will be managed by the DialogueManager class and should be deleted through
         /// the text bubbles "Delete" function.
         /// </returns>
-        public TextBubble CreateTextBubble(Vector2 position, String text, int duration)
+        public TextBubble CreateTextBubble(Vector2 position, String text)
         {
-            TextBubble tempTextBubble = new TextBubble(position, text, duration);
+            TextBubble tempTextBubble = new TextBubble(position, text);
 
             this.activeTextBubbles.AddLast(tempTextBubble);
 
