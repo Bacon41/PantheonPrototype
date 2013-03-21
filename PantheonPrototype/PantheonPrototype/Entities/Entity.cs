@@ -129,6 +129,16 @@ namespace PantheonPrototype
         }
 
         /// <summary>
+        /// This tells the level that it is dead, and needs to be removed.
+        /// </summary>
+        protected bool toDestroy;
+
+        public bool ToDestroy
+        {
+            get { return toDestroy; }
+        }
+
+        /// <summary>
         /// The visual representation of the entity.
         /// </summary>
         protected Sprite sprite;
@@ -163,6 +173,7 @@ namespace PantheonPrototype
             this.boundingBox = boundingBox;
             this.actionPoint = new Vector2(x, y);
             this.prevLocation = actionPoint;
+            this.toDestroy = false;
 
             currentState ="Default";
 

@@ -21,5 +21,15 @@ namespace PantheonPrototype
 
             characteristics.Add("Enemy");
         }
+
+        public override void Update(GameTime gameTime, Pantheon gameReference)
+        {
+            base.Update(gameTime, gameReference);
+            if (currentArmor <= 0)
+            {
+                currentState = "Die";
+                toDestroy = true;
+            }
+        }
     }
 }

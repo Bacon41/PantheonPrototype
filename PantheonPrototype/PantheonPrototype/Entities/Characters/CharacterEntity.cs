@@ -142,6 +142,39 @@ namespace PantheonPrototype
         }
 
         /// <summary>
+        /// The damage calculation will be in this function.
+        /// </summary>
+        /// <param name="damage">The amount of damage that is being taken</param>
+        public void Damage(int damage)
+        {
+            if (EquippedItems.ContainsKey("shield"))
+            {
+                //Get the shield object for quick reference
+                Shield shield = (Shield)EquippedItems["shield"];
+
+                //Damage calculations being done here
+                if ((shield.ShieldOn) && (shield.CurrentShield >= damage))
+                {
+                    shield.CurrentShield = shield.CurrentShield - damage;
+                }
+                else if ((shield.ShieldOn) && (shield.CurrentShield < damage))
+                {
+                    shield.CurrentShield = 0;
+                    int calculatedDamage = damage - shield.CurrentShield;
+                    CurrentArmor = CurrentArmor - calculatedDamage;
+                }
+                else
+                {
+                    CurrentArmor -= damage;
+                }
+            }
+            else
+            {
+                CurrentArmor -= damage;
+            }
+        }
+
+        /// <summary>
         /// Draw the character class... and override the default behavior...
         /// take over the entity. Let none of it survive... except all of it.
         /// </summary>

@@ -36,13 +36,6 @@ namespace PantheonPrototype
 
         protected int timeToLive;
 
-        protected bool toDestroy;
-
-        public bool ToDestroy
-        {
-            get { return toDestroy; }
-        }
-
         /// <summary>
         /// A pass through constructor for the Entity class
         /// </summary>
@@ -52,7 +45,6 @@ namespace PantheonPrototype
         public Projectile(Vector2 location, Rectangle drawBox, Rectangle boundingBox)
             : base(location, drawBox, boundingBox)
         {
-            toDestroy = false;
             timeToLive = 250;
 
             // Define characteristics to check

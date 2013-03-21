@@ -136,32 +136,6 @@ namespace PantheonPrototype
         }
 
         /// <summary>
-        /// The damage calculation will be in this function.
-        /// </summary>
-        /// <param name="damage">The amount of damage that is being taken</param>
-        public void Damage(int damage)
-        {
-            //Get the shield object for quick reference
-            Shield shield = (Shield)EquippedItems["shield"];
-
-            //Damage calculations being done here
-            if ((shield.ShieldOn) && (shield.CurrentShield >= damage))
-            {
-                shield.CurrentShield = shield.CurrentShield - damage;
-            }
-            else if ((shield.ShieldOn) && (shield.CurrentShield < damage))
-            {
-                shield.CurrentShield = 0;
-                int calculatedDamage = damage - shield.CurrentShield;
-                CurrentArmor = CurrentArmor - calculatedDamage;                
-            }
-            else 
-            {                
-                CurrentArmor -= damage;
-            }
-        }
-
-        /// <summary>
         /// Updates the player entity.
         /// 
         /// Unlike the name suggests... (What did you think it did?)
