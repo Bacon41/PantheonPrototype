@@ -171,8 +171,6 @@ namespace PantheonPrototype
                     if (keyboard.IsKeyDown(keyboardAndMouse.MoveLeftKey) || keyboard.IsKeyDown(Keys.Left)) { actions.MoveLeft = true; }
                     if (keyboard.IsKeyDown(keyboardAndMouse.MoveRightKey) || keyboard.IsKeyDown(Keys.Right)) { actions.MoveRight = true; }
                 }
-                if (keyboard.IsKeyDown(keyboardAndMouse.PauseKey) && !oldKeyboard.IsKeyDown(keyboardAndMouse.PauseKey))
-                { actions.Pause = !actions.Pause; }
                 if (keyboard.IsKeyDown(keyboardAndMouse.ShieldKey) && !oldKeyboard.IsKeyDown(keyboardAndMouse.ShieldKey))
                 { actions.Shield = !actions.Shield; }
                 if (keyboard.IsKeyDown(keyboardAndMouse.ReloadKey)) { actions.Reload = true; }
@@ -183,23 +181,21 @@ namespace PantheonPrototype
                 //if (mouse.LeftButton == ButtonState.Pressed) { actions.Attack = true; }
                 if (keyboard.IsKeyDown(keyboardAndMouse.AimKey)) { actions.Aim = true; }
 
-                if (actions.Pause)
-                {
-                    if (keyboardAndMouse.MenuSelectKey == ButtonState.Pressed && keyboardAndMouse.PrevMenuSelectKey != ButtonState.Pressed)
-                    { actions.MenuSelect = true; }
-                    else { actions.MenuSelect = false; }
-                }
-                else
+                if (!actions.Pause)
                 {
                     if (keyboardAndMouse.AttackMouseButton == ButtonState.Pressed) { actions.Attack = true; }
                 }
             }
-            if (actions.isMouseClickEnabled)
+            if (keyboard.IsKeyDown(keyboardAndMouse.PauseKey) && !oldKeyboard.IsKeyDown(keyboardAndMouse.PauseKey))
+            { actions.Pause = !actions.Pause; }
+
+            if (actions.Pause && actions.isMouseClickEnabled)
             {
-                if (keyboardAndMouse.MenuSelectKey == ButtonState.Pressed)
+                if (keyboardAndMouse.MenuSelectKey == ButtonState.Pressed && keyboardAndMouse.PrevMenuSelectKey != ButtonState.Pressed)
                 { actions.MenuSelect = true; }
                 else { actions.MenuSelect = false; }
             }
+
             actions.CursorPosition = new Vector2(mouse.X, mouse.Y);
 
             oldKeyboard = keyboard;
