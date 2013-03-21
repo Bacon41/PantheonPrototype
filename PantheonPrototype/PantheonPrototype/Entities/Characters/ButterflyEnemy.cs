@@ -24,6 +24,8 @@ namespace PantheonPrototype
             facing = Direction.Left;
             currentState = "Move";
             changeDirection = TimeSpan.FromSeconds(3);
+            TotalArmor = 20;
+            CurrentArmor = 20;
 
             EquippedItems.Add("weapon", new Weapon());
             ArmedItem = EquippedItems["weapon"];
