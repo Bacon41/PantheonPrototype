@@ -18,6 +18,8 @@ namespace PantheonPrototype
             : base(location, drawBox, boundingBox)
         {
             comfortZone = new Rectangle((int)location.X + drawBox.X - 100, (int)location.Y + drawBox.Y - 100, 200, 200);
+
+            characteristics.Add("Friendly");
         }
     }
 }

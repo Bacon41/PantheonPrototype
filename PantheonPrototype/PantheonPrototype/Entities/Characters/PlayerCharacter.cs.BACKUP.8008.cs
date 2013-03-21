@@ -66,9 +66,12 @@ namespace PantheonPrototype
             inventory.equipped.Add(EquippedItems["shield"]);
 
             ArmedItem = EquippedItems["weapon"];
+<<<<<<< HEAD
             drawLasar = true;
+=======
 
             characteristics.Add("Player");
+>>>>>>> GeneralizeCollisions
         }
 
         /// <summary>

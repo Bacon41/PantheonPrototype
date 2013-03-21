@@ -117,6 +117,18 @@ namespace PantheonPrototype
         }
 
         /// <summary>
+        /// A list of characteristics which determine what an entity does on collision.
+        /// 
+        /// Basically, this is a list that determines which collision types to check.
+        /// </summary>
+        protected List<string> characteristics;
+
+        public List<string> Characteristics
+        {
+            get { return characteristics; }
+        }
+
+        /// <summary>
         /// The visual representation of the entity.
         /// </summary>
         protected Sprite sprite;
@@ -153,6 +165,8 @@ namespace PantheonPrototype
             this.prevLocation = actionPoint;
 
             currentState ="Default";
+
+            this.characteristics = new List<string>();
         }
 
         /// <summary>
@@ -205,7 +219,7 @@ namespace PantheonPrototype
         /// <returns>True if the bounding rectangles overlap.</returns>
         public bool collidesWith(Entity other)
         {
-            return this.drawingBox.Intersects(other.DrawingBox);
+            return this.boundingBox.Intersects(other.boundingBox);
         }
 
         /// <summary>

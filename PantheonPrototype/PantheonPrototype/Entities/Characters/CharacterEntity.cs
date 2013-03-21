@@ -105,6 +105,9 @@ namespace PantheonPrototype
             EquippedItems = new Dictionary<string, Item>();
             ArmedItem = new Item();
             angleFacing = 0;
+
+            // Define characteristics to check
+            characteristics.Add("Walking");
         }
 
         /// <summary>

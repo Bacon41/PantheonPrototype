@@ -54,6 +54,9 @@ namespace PantheonPrototype
         {
             toDestroy = false;
             timeToLive = 250;
+
+            // Define characteristics to check
+            characteristics.Add("Projectile");
         }
 
         /// <summary>

@@ -137,143 +137,57 @@ namespace PantheonPrototype
                 this.entities[entityName].Update(gameTime, gameReference);
             }
 
-            // Checking the character entity for collision with nonwalkable tiles.
-            foreach (TileData tile in levelMap.GetTilesInRegion(this.entities["character"].BoundingBox))
-            {
-                if (levelMap.SourceTiles[tile.SourceID].Properties["isWalkable"].AsBoolean == false)
-                {
-                    Rectangle test = new Rectangle(tile.Target.X - tile.Target.Width / 2, tile.Target.Y - tile.Target.Height / 2,
-                        tile.Target.Width, tile.Target.Height);
-                    if (test.Intersects(this.entities["character"].BoundingBox))
-                    {
-                        this.entities["character"].Location = this.entities["character"].PrevLocation;
-                    }
-                }
-            }
-
             // Black magicks to select all the bullets (SQL in C# with XNA and LINQ!!! Look at all the acronyms! Also, I feel nerdy.)
             var bulletQuery = from entity in this.entities where entity.Key.Contains("bullet") select entity.Key;
-            var friendBoundsQuery = from obj in levelMap.ObjectLayers["Spawn"].MapObjects where obj.Name.Contains("Friend") select obj;
             var friendEntityQuery = from entity in this.entities where entity.Key.Contains("Friend") select entity.Key;
-            var enemyBoundsQuery = from obj in levelMap.ObjectLayers["Spawn"].MapObjects where obj.Name.Contains("Enemy") select obj;
             var enemyEntityQuery = from entity in this.entities where entity.Key.Contains("Enemy") select entity.Key;
-            
-            // Checking all bullets for collision with nonshootable tiles, NPCs, enemys, and the player.
+
+            // Checking all bullets for end of life.
             foreach (String bulletKey in bulletQuery)
             {
                 if (((Projectile)this.entities[bulletKey]).ToDestroy)
                 {
                     this.removeList.Add(bulletKey);
                 }
-                else if (this.entities[bulletKey].BoundingBox.X > 0 && this.entities[bulletKey].BoundingBox.Right < levelMap.Width * levelMap.TileWidth
-                    && this.entities[bulletKey].BoundingBox.Y > 0 && this.entities[bulletKey].BoundingBox.Bottom < levelMap.Height * levelMap.TileHeight)
-                {
-                    foreach (TileData tile in levelMap.GetTilesInRegion(this.entities[bulletKey].BoundingBox))
-                    {
-                        if (levelMap.SourceTiles[tile.SourceID].Properties["isShootable"].AsBoolean == false)
-                        {
-                            Rectangle test = new Rectangle(tile.Target.X - tile.Target.Width / 2, tile.Target.Y - tile.Target.Height / 2,
-                                tile.Target.Width, tile.Target.Height);
+            }
 
-                            if (test.Intersects(this.entities[bulletKey].BoundingBox))
-                            {
-                                this.removeList.Add(bulletKey);
-                                break;
-                            }
-                        }
-                    }
-                    foreach (String friendKey in friendEntityQuery)
-                    {
-                        if (this.entities[bulletKey].BoundingBox.Intersects(this.entities[friendKey].BoundingBox))
-                        {
-                            this.removeList.Add(bulletKey);
-                        }
-                    }
-                    foreach (String enemyKey in enemyEntityQuery)
-                    {
-                        if (this.entities[bulletKey].BoundingBox.Intersects(this.entities[enemyKey].BoundingBox))
-                        {
-                            this.removeList.Add(bulletKey);
-                            this.removeList.Add(enemyKey);
-                        }
-                    }
-                    if (this.entities[bulletKey].BoundingBox.Intersects(this.entities["character"].BoundingBox))
-                    {
-                        this.removeList.Add(bulletKey);
-                        ((PlayerCharacter)this.entities["character"]).Damage(((Bullet)this.entities[bulletKey]).Damage);
-                    }
+            // Update AI roaming (might consider putting this in an AI manager class)
+            foreach (String friendKey in friendEntityQuery)
+            {
+                if (this.entities["character"].BoundingBox.Intersects(((NPCCharacter)this.entities[friendKey]).ComfortZone))
+                {
+                    ((NPCCharacter)this.entities[friendKey]).IsRoaming = false;
+                    float angle = (float)Math.Atan2(entities["character"].Location.Y - entities[friendKey].Location.Y,
+                        entities["character"].Location.X - entities[friendKey].Location.X);
+                    ((CharacterEntity)this.entities[friendKey]).AngleFacing = angle;
+                    ((CharacterEntity)this.entities[friendKey]).Facing =
+                        HamburgerHelper.reduceAngle(entities["character"].Location - entities[friendKey].Location);
                 }
                 else
                 {
-                    this.removeList.Add(bulletKey);
+                    ((NPCCharacter)this.entities[friendKey]).IsRoaming = true;
                 }
             }
 
-            // Checking each npc for collisions with their bounds and with the player.
-            foreach (MapObject boundObj in friendBoundsQuery)
+            foreach (String enemyKey in enemyEntityQuery)
             {
-                foreach (String friendKey in friendEntityQuery)
+                if (this.entities["character"].BoundingBox.Intersects(((EnemyNPC)this.entities[enemyKey]).ComfortZone))
                 {
-                    if (boundObj.Name == friendKey)
-                    {
-                        if (!boundObj.Bounds.Contains(this.entities[friendKey].BoundingBox))
-                        {
-                            this.entities[friendKey].Location = this.entities[friendKey].PrevLocation;
-                        }
-                    }
-                    if (this.entities["character"].BoundingBox.Intersects(this.entities[friendKey].BoundingBox))
-                    {
-                        this.entities[friendKey].Location = this.entities[friendKey].PrevLocation;
-                        this.entities["character"].Location = this.entities["character"].PrevLocation;
-                    }
-                    if (this.entities["character"].BoundingBox.Intersects(((NPCCharacter)this.entities[friendKey]).ComfortZone))
-                    {
-                        ((NPCCharacter)this.entities[friendKey]).IsRoaming = false;
-                        float angle = (float)Math.Atan2(entities["character"].Location.Y - entities[friendKey].Location.Y,
-                            entities["character"].Location.X - entities[friendKey].Location.X);
-                        ((CharacterEntity)this.entities[friendKey]).AngleFacing = angle;
-                        ((CharacterEntity)this.entities[friendKey]).Facing =
-                            HamburgerHelper.reduceAngle(entities["character"].Location - entities[friendKey].Location);
-                    }
-                    else
-                    {
-                        ((NPCCharacter)this.entities[friendKey]).IsRoaming = true;
-                    }
+                    ((NPCCharacter)this.entities[enemyKey]).IsRoaming = false;
+                    float angle = (float)Math.Atan2(entities["character"].Location.Y - entities[enemyKey].Location.Y,
+                        entities["character"].Location.X - entities[enemyKey].Location.X);
+                    ((CharacterEntity)this.entities[enemyKey]).AngleFacing = angle;
+                    ((CharacterEntity)this.entities[enemyKey]).Facing =
+                        HamburgerHelper.reduceAngle(entities["character"].Location - entities[enemyKey].Location);
+                }
+                else
+                {
+                    ((NPCCharacter)this.entities[enemyKey]).IsRoaming = true;
                 }
             }
 
-            // Checking each enemy for collisions with their bounds and with the player.
-            foreach (MapObject boundObj in enemyBoundsQuery)
-            {
-                foreach (String enemyKey in enemyEntityQuery)
-                {
-                    if (boundObj.Name == enemyKey)
-                    {
-                        if (!boundObj.Bounds.Contains(this.entities[enemyKey].BoundingBox))
-                        {
-                            this.entities[enemyKey].Location = this.entities[enemyKey].PrevLocation;
-                        }
-                    }
-                    if (this.entities["character"].BoundingBox.Intersects(this.entities[enemyKey].BoundingBox))
-                    {
-                        this.entities[enemyKey].Location = this.entities[enemyKey].PrevLocation;
-                        this.entities["character"].Location = this.entities["character"].PrevLocation;
-                    }
-                    if (this.entities["character"].BoundingBox.Intersects(((EnemyNPC)this.entities[enemyKey]).ComfortZone))
-                    {
-                        ((NPCCharacter)this.entities[enemyKey]).IsRoaming = false;
-                        float angle = (float)Math.Atan2(entities["character"].Location.Y - entities[enemyKey].Location.Y,
-                            entities["character"].Location.X - entities[enemyKey].Location.X);
-                        ((CharacterEntity)this.entities[enemyKey]).AngleFacing = angle;
-                        ((CharacterEntity)this.entities[enemyKey]).Facing =
-                            HamburgerHelper.reduceAngle(entities["character"].Location - entities[enemyKey].Location);
-                    }
-                    else
-                    {
-                        ((NPCCharacter)this.entities[enemyKey]).IsRoaming = true;
-                    }
-                }
-            }
+            // Take care of all collisions
+            detectCollisions(gameReference);
 
             // Update the entity list
             foreach (string entityName in this.removeList)
@@ -291,7 +205,8 @@ namespace PantheonPrototype
             // Updating the camera when the character isn't scoping.
             if (!gameReference.controlManager.actions.Aim)
             {
-                Camera.Pos = new Vector2(this.entities["character"].Location.X, this.entities["character"].Location.Y);
+                Camera.Pos = new Vector2(this.entities["character"].DrawingBox.X + entities["character"].DrawingBox.Width / 2,
+                    this.entities["character"].DrawingBox.Y + entities["character"].DrawingBox.Height / 2);
             }
 
             // This is a fairly ugly way of making the tiles draw in the right locations.
@@ -301,20 +216,198 @@ namespace PantheonPrototype
             if (screenRect.Y < 0) screenRect.Y = 0;
             screenRect.Width = (int)Camera.Pos.X + gameReference.GraphicsDevice.Viewport.Width / 2;
             screenRect.Height = (int)Camera.Pos.Y + gameReference.GraphicsDevice.Viewport.Height / 2;
+        }
 
-            // This checks each spawn oblect for collision with the character, and tells it to end the level if necessary.
-            foreach (MapObject obj in levelMap.ObjectLayers["Spawn"].MapObjects)
+        /// <summary>
+        /// A central function for handling all collisions.
+        /// </summary>
+        /// <param name="gameReference">One of those universal reference thingies.</param>
+        private void detectCollisions(Pantheon gameReference)
+        {
+            // Go through all the entities
+            foreach (string entityName in this.entities.Keys)
             {
-                if (obj.Name.Substring(0, 3) == "end" && obj.Bounds.Intersects(this.entities["character"].DrawingBox))
+                // Go through the bounds
+                if (this.entities[entityName].BoundingBox.X < 0 && this.entities[entityName].BoundingBox.Right > levelMap.Width * levelMap.TileWidth
+                    && this.entities[entityName].BoundingBox.Y < 0 && this.entities[entityName].BoundingBox.Bottom > levelMap.Height * levelMap.TileHeight)
+                {
+                    // The entity is outside the bounds, so delete it
+                    this.removeList.Add(entityName);
+
+                    // Done updating the entity
+                    continue;
+                }
+
+                // Go through all the tiles
+                foreach(TileData tile in levelMap.GetTilesInRegion(this.Entities[entityName].BoundingBox))
+                {
+                    checkTiles(entityName, this.entities[entityName], tile);
+                }
+
+                // Go through all the map objects
+                foreach(MapObject obj in levelMap.GetObjectsInRegion(this.Entities[entityName].BoundingBox))
+                {
+                    checkObjects(entityName, this.entities[entityName], obj, gameReference);
+                }
+
+                //Create a list of entities
+                List<string> entityNameList = Entities.Keys.ToList<string>();
+                List<Entity> entityList = Entities.Values.ToList<Entity>();
+
+                // Go through all the entities
+                for (int i = 0; i < entityList.Count; i++)
+                {
+                    for (int j = i+1; j < entityList.Count; j++)
+                    {
+                        if(entityList[i].BoundingBox.Intersects(entityList[j].BoundingBox))
+                        {
+                            Console.WriteLine("Checking " + entityNameList[i] + " (" + i + ") with " + entityNameList[j] + " (" + j + ")");
+                            checkEntities(entityNameList[i], entityList[i], entityNameList[j], entityList[j]);
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Checks the appropriate characteristics for the given tile collision.
+        /// </summary>
+        /// <param name="entityName">The name of the entity colliding with the tile.</param>
+        /// <param name="entity">The entity that collides with the tile.</param>
+        /// <param name="tile">The tile to be checked.</param>
+        private void checkTiles(string entityName, Entity entity, TileData tile)
+        {
+            // The actual location and dimensions of the tile in map coordinates
+            Rectangle tileRect = new Rectangle(
+                tile.Target.X - tile.Target.Width /2,
+                tile.Target.Y - tile.Target.Height/2,
+                tile.Target.Width,
+                tile.Target.Height);
+
+            // Check against shootable tiles if appropriate
+            if (entity.Characteristics.Contains("Projectile"))
+            {
+                if (levelMap.SourceTiles[tile.SourceID].Properties["isShootable"].AsBoolean == false)
+                {
+                    if (tileRect.Intersects(entity.BoundingBox))
+                    {
+                        this.removeList.Add(entityName);
+                    }
+                }
+            }
+
+            // Check against walkable tiles if appropriate
+            if (entity.Characteristics.Contains("Walking"))
+            {
+                if (levelMap.SourceTiles[tile.SourceID].Properties["isWalkable"].AsBoolean == false)
+                {
+                    if (tileRect.Intersects(entity.BoundingBox))
+                    {
+                        entity.Location = entity.PrevLocation;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Checks the appropriate characteristics for the given object collision.
+        /// </summary>
+        /// <param name="entityName">The name of the entity that has collided with an object.</param>
+        /// <param name="entity">The entity that has colided with an object.</param>
+        /// <param name="obj">The object which the entity has collided with.</param>
+        /// <param name="gameReference">An inconvenience, necessary for level loading etc...</param>
+        private void checkObjects(string entityName, Entity entity, MapObject obj, Pantheon gameReference)
+        {
+            if (entity.Characteristics.Contains("Friendly"))
+            {
+                if (obj.Name == entityName)
+                {
+                    if (!obj.Bounds.Contains(entity.BoundingBox))
+                    {
+                        entity.Location = entity.PrevLocation;
+                    }
+                }
+            }
+
+            if (entity.Characteristics.Contains("Enemy"))
+            {
+                if (obj.Name == entityName)
+                {
+                    if (!obj.Bounds.Contains(entity.BoundingBox))
+                    {
+                        entity.Location = entity.PrevLocation;
+                    }
+                }
+            }
+
+            // Check for level markers if appropriate
+            if (entity.Characteristics.Contains("Player"))
+            {
+                if (obj.Name.Substring(0, 3).Equals("end") && obj.Bounds.Intersects(entity.BoundingBox))
                 {
                     levelPlaying = !gameReference.CutsceneManager.CutsceneEnded;
                     nextLevel = obj.Name.Substring(3);
                     if (!gameReference.CutsceneManager.CutscenePlaying)
                     {
-                        if (!levelPlaying) break;
+                        //if (!levelPlaying) { break; }
                         gameReference.CutsceneManager.PlayLevelEnd(gameReference);
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Checks the appropriate characteristics for the given entity collision.
+        /// </summary>
+        /// <param name="entityOneName">The name of the first entity in the collision.</param>
+        /// <param name="entityOne">The first entity in the collision.</param>
+        /// <param name="entityTwoName">The name of the second entity in the collision.</param>
+        /// <param name="entityTwo">The second entity in the collision.</param>
+        private void checkEntities(string entityOneName, Entity entityOne, string entityTwoName, Entity entityTwo)
+        {
+            // Projectile collision checking
+            if (entityOne.Characteristics.Contains("Projectile"))
+            {
+                if (entityTwo.Characteristics.Contains("Friendly"))
+                {
+                    this.removeList.Add(entityOneName);
+                }
+                else if (entityTwo.Characteristics.Contains("Enemy"))
+                {
+                    this.removeList.Add(entityOneName);
+                    this.removeList.Add(entityTwoName);
+                }
+                else if (entityTwo.Characteristics.Contains("Player"))
+                {
+                    this.removeList.Add(entityOneName);
+                    ((PlayerCharacter)entityTwo).Damage(((Bullet)entityOne).Damage);
+                }
+            }
+
+            // Always check the reverse pairing
+            if (entityTwo.Characteristics.Contains("Projectile"))
+            {
+                if (entityOne.Characteristics.Contains("Friendly"))
+                {
+                    this.removeList.Add(entityTwoName);
+                }
+                else if (entityOne.Characteristics.Contains("Enemy"))
+                {
+                    this.removeList.Add(entityTwoName);
+                    this.removeList.Add(entityOneName);
+                }
+                else if (entityOne.Characteristics.Contains("Player"))
+                {
+                    this.removeList.Add(entityTwoName);
+                    ((PlayerCharacter)entityOne).Damage(((Bullet)entityTwo).Damage);
+                }
+            }
+
+            // Inter-walker collisions.
+            if (entityOne.Characteristics.Contains("Walking") && entityTwo.Characteristics.Contains("Walking"))
+            {
+                entityOne.Location = entityOne.PrevLocation;
+                entityTwo.Location = entityTwo.PrevLocation;
             }
         }
 

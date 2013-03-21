@@ -67,8 +67,6 @@ namespace PantheonPrototype
 
             ArmedItem = EquippedItems["weapon"];
             drawLasar = true;
-
-            characteristics.Add("Player");
         }
 
         /// <summary>
