@@ -166,7 +166,7 @@ namespace PantheonPrototype
         {
             spriteBatch.Begin();
 
-            string title = "Pantheon GIRAFFE SPLEAN";
+            string title = "Pantheon DRAGON SPLEAN";
 
             spriteBatch.DrawString(font, title, new Vector2(1, 1), Color.DarkGray);
             spriteBatch.DrawString(font, title, new Vector2(0, 0), Color.LightGray);
