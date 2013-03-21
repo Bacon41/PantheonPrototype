@@ -149,8 +149,8 @@ namespace PantheonPrototype
                         this.items[itemName].Update(gameTime, gameReference);
 
                         // If mouse is on a button, Update the isSelected variable
-                        if (this.items[itemName].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
-                            (int)gameReference.controlManager.actions.CursorPosition.Y))
+                        if (this.items[itemName].DrawBox.Contains((int)gameReference.ControlManager.actions.CursorPosition.X,
+                            (int)gameReference.ControlManager.actions.CursorPosition.Y))
                         {
                             this.items[itemName].IsSelected = true;
                         }
@@ -159,20 +159,20 @@ namespace PantheonPrototype
                             this.items[itemName].IsSelected = false;
                         }
                     }
-                    if (gameReference.controlManager.actions.MenuSelect)
+                    if (gameReference.ControlManager.actions.MenuSelect)
                     {
-                        if (items["resume"].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
-                            (int)gameReference.controlManager.actions.CursorPosition.Y))
+                        if (items["resume"].DrawBox.Contains((int)gameReference.ControlManager.actions.CursorPosition.X,
+                            (int)gameReference.ControlManager.actions.CursorPosition.Y))
                         {
-                            gameReference.controlManager.actions.Pause = false;
+                            gameReference.ControlManager.actions.Pause = false;
                         }
-                        if (items["exit"].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
-                            (int)gameReference.controlManager.actions.CursorPosition.Y))
+                        if (items["exit"].DrawBox.Contains((int)gameReference.ControlManager.actions.CursorPosition.X,
+                            (int)gameReference.ControlManager.actions.CursorPosition.Y))
                         {
                             gameReference.Exit();
                         }
-                        if (items["inventory"].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
-                            (int)gameReference.controlManager.actions.CursorPosition.Y))
+                        if (items["inventory"].DrawBox.Contains((int)gameReference.ControlManager.actions.CursorPosition.X,
+                            (int)gameReference.ControlManager.actions.CursorPosition.Y))
                         {
                             menuState = "inventory";
                         }
@@ -188,8 +188,8 @@ namespace PantheonPrototype
                         this.inventoryButtons[itemName].Update(gameTime, gameReference);
 
                         // If mouse is on a button, Update the isSelected variable
-                        if (this.inventoryButtons[itemName].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
-                            (int)gameReference.controlManager.actions.CursorPosition.Y))
+                        if (this.inventoryButtons[itemName].DrawBox.Contains((int)gameReference.ControlManager.actions.CursorPosition.X,
+                            (int)gameReference.ControlManager.actions.CursorPosition.Y))
                         {
                             this.inventoryButtons[itemName].IsSelected = true;
                         }
@@ -198,23 +198,23 @@ namespace PantheonPrototype
                             this.inventoryButtons[itemName].IsSelected = false;
                         }
                     }
-                    if (gameReference.controlManager.actions.MenuSelect)
+                    if (gameReference.ControlManager.actions.MenuSelect)
                     {
-                        if (inventoryButtons["resumeInv"].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
-                            (int)gameReference.controlManager.actions.CursorPosition.Y))
+                        if (inventoryButtons["resumeInv"].DrawBox.Contains((int)gameReference.ControlManager.actions.CursorPosition.X,
+                            (int)gameReference.ControlManager.actions.CursorPosition.Y))
                         {
-                            gameReference.controlManager.actions.Pause = false;
+                            gameReference.ControlManager.actions.Pause = false;
                         }
-                        if (inventoryButtons["mainMenu"].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
-                            (int)gameReference.controlManager.actions.CursorPosition.Y))
+                        if (inventoryButtons["mainMenu"].DrawBox.Contains((int)gameReference.ControlManager.actions.CursorPosition.X,
+                            (int)gameReference.ControlManager.actions.CursorPosition.Y))
                         {
                             menuState = "main";
                         }
                         count = 0;
                         foreach (Rectangle box in (inventory.locationBoxes.Union(inventory.equippedBoxes)))
                         {
-                            if (box.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
-                                (int)gameReference.controlManager.actions.CursorPosition.Y))
+                            if (box.Contains((int)gameReference.ControlManager.actions.CursorPosition.X,
+                                (int)gameReference.ControlManager.actions.CursorPosition.Y))
                             {
                                 inventory.Selected = count;
                                 break;
@@ -226,8 +226,8 @@ namespace PantheonPrototype
                     count = 0;
                     foreach (Rectangle box in (inventory.locationBoxes.Union(inventory.equippedBoxes)))
                     {
-                        if (box.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
-                            (int)gameReference.controlManager.actions.CursorPosition.Y))
+                        if (box.Contains((int)gameReference.ControlManager.actions.CursorPosition.X,
+                            (int)gameReference.ControlManager.actions.CursorPosition.Y))
                         {
                             inventory.HoveredOver = count;
                             break;
@@ -238,15 +238,15 @@ namespace PantheonPrototype
 
                     break;
                 case "start":
-                    gameReference.controlManager.disableControls(true);
+                    gameReference.ControlManager.disableControls(true);
                     foreach (string itemName in this.splashScreenButtons.Keys)
                     {
                         // Update every Button
                         this.splashScreenButtons[itemName].Update(gameTime, gameReference);
 
                         // If mouse is on a button, Update the isSelected variable
-                        if (this.splashScreenButtons[itemName].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
-                            (int)gameReference.controlManager.actions.CursorPosition.Y))
+                        if (this.splashScreenButtons[itemName].DrawBox.Contains((int)gameReference.ControlManager.actions.CursorPosition.X,
+                            (int)gameReference.ControlManager.actions.CursorPosition.Y))
                         {
                             this.splashScreenButtons[itemName].IsSelected = true;
                         }
@@ -255,25 +255,25 @@ namespace PantheonPrototype
                             this.splashScreenButtons[itemName].IsSelected = false;
                         }
                     }
-                    if (gameReference.controlManager.actions.MenuSelect)
+                    if (gameReference.ControlManager.actions.MenuSelect)
                     {
-                        if (splashScreenButtons["start"].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
-                            (int)gameReference.controlManager.actions.CursorPosition.Y))
+                        if (splashScreenButtons["start"].DrawBox.Contains((int)gameReference.ControlManager.actions.CursorPosition.X,
+                            (int)gameReference.ControlManager.actions.CursorPosition.Y))
                         {
-                            gameReference.controlManager.actions.Pause = false;
-                            gameReference.controlManager.enableControls();
+                            gameReference.ControlManager.actions.Pause = false;
+                            gameReference.ControlManager.enableControls();
                             gameReference.StartGame();
                         }
-                        if (splashScreenButtons["quit"].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
-                            (int)gameReference.controlManager.actions.CursorPosition.Y))
+                        if (splashScreenButtons["quit"].DrawBox.Contains((int)gameReference.ControlManager.actions.CursorPosition.X,
+                            (int)gameReference.ControlManager.actions.CursorPosition.Y))
                         {
                             gameReference.Exit();
                         }
                         count = 0;
                         foreach (Rectangle box in (inventory.locationBoxes.Union(inventory.equippedBoxes)))
                         {
-                            if (box.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
-                                (int)gameReference.controlManager.actions.CursorPosition.Y))
+                            if (box.Contains((int)gameReference.ControlManager.actions.CursorPosition.X,
+                                (int)gameReference.ControlManager.actions.CursorPosition.Y))
                             {
                                 inventory.Selected = count;
                                 break;

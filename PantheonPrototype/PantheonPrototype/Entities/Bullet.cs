@@ -55,7 +55,7 @@ namespace PantheonPrototype
         {
             // If scoping, then use perfect accuracy.
             // otherwies use a random deviation.
-            if (gameReference.controlManager.actions.Aim)
+            if (gameReference.ControlManager.actions.Aim)
             {
                 this.Velocity = new Vector2(speed * (float)Math.Cos(angle), speed * (float)Math.Sin(angle));
                 sprite.Rotation = angle;

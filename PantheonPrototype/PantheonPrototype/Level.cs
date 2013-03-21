@@ -203,7 +203,7 @@ namespace PantheonPrototype
             this.addList = new Dictionary<string, Entity>();
 
             // Updating the camera when the character isn't scoping.
-            if (!gameReference.controlManager.actions.Aim)
+            if (!gameReference.ControlManager.actions.Aim)
             {
                 Camera.Pos = new Vector2(this.entities["character"].DrawingBox.X + entities["character"].DrawingBox.Width / 2,
                     this.entities["character"].DrawingBox.Y + entities["character"].DrawingBox.Height / 2);
@@ -216,6 +216,9 @@ namespace PantheonPrototype
             if (screenRect.Y < 0) screenRect.Y = 0;
             screenRect.Width = (int)Camera.Pos.X + gameReference.GraphicsDevice.Viewport.Width / 2;
             screenRect.Height = (int)Camera.Pos.Y + gameReference.GraphicsDevice.Viewport.Height / 2;
+
+            // Update the Quest Manager
+            gameReference.QuestManager.Update(gameTime);
         }
 
         /// <summary>

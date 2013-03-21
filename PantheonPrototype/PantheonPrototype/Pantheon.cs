@@ -22,17 +22,19 @@ namespace PantheonPrototype
 
         public Random rand;
 
-        public ControlManager controlManager;
+        public ControlManager ControlManager;
+
+        public CutsceneManager CutsceneManager;
+
+        public QuestManager QuestManager;
+
+        public Level currentLevel;
+
+        public Entity player;
 
         Menu menu;
 
         HUD hud;
-
-        public Entity player;
-
-        public Level currentLevel;
-
-        public CutsceneManager CutsceneManager;
 
         SpriteFont debugFont;
 
@@ -72,7 +74,7 @@ namespace PantheonPrototype
         protected override void Initialize()
         {
             rand = new Random();
-            controlManager = new ControlManager();
+            ControlManager = new ControlManager();
 
             int SCREEN_WIDTH = GraphicsDevice.Viewport.Width;
             int SCREEN_HEIGHT = GraphicsDevice.Viewport.Height;
@@ -88,6 +90,8 @@ namespace PantheonPrototype
             currentLevel = new Level(GraphicsDevice);
 
             CutsceneManager = new CutsceneManager(GraphicsDevice);
+
+            QuestManager = new QuestManager();
 
             base.Initialize();
         }
@@ -107,7 +111,7 @@ namespace PantheonPrototype
             //currentLevel.Load("map1", "map0", this);
 
             //
-            controlManager.actions.Pause = true;
+            ControlManager.actions.Pause = true;
         }
 
         internal void StartGame()
@@ -133,12 +137,12 @@ namespace PantheonPrototype
         {
             CutsceneManager.Update(gameTime, this);
 
-            controlManager.Update();
+            ControlManager.Update();
 
             // REMOVE LATER
             if (Keyboard.GetState().IsKeyDown(Keys.Back)) { this.Exit(); }
 
-            if (controlManager.actions.Pause)
+            if (ControlManager.actions.Pause)
             {
                 this.IsMouseVisible = true;
                 menu.Update(gameTime, this);
@@ -183,7 +187,7 @@ namespace PantheonPrototype
         {
             GraphicsDevice.Clear(Color.Black);
 
-            if (controlManager.actions.Pause)
+            if (ControlManager.actions.Pause)
             {
                 menu.Draw(spriteBatch);
             }
