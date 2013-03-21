@@ -47,7 +47,7 @@ namespace PantheonPrototype
         {
             foreach(Quest quest in quests)
             {
-                quest.Notify(eventType);
+                quest.Notify(eventType, names);
             }
         }
 

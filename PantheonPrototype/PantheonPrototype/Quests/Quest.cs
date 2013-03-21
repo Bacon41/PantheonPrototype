@@ -93,7 +93,7 @@ namespace PantheonPrototype
             // Notify the quests
             foreach (Objective objective in objectives)
             {
-                objective.handleNotification(eventType);
+                objective.handleNotification(eventType, names);
             }
         }
 
