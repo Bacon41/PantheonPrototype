@@ -50,6 +50,7 @@ namespace PantheonPrototype
         {
             public int first;
             public int last;
+            public bool looping;
         }
 
         /// <summary>
@@ -159,6 +160,7 @@ namespace PantheonPrototype
             FrameRange range;
             range.first = first;
             range.last = last;
+            range.looping = false;
 
             if (stateRange.ContainsKey("default"))
             {
@@ -222,6 +224,11 @@ namespace PantheonPrototype
         {
             //Increment the current frame
             currentFrame++;
+
+            if (stateRange[currentState].looping && currentFrame = stateRange[])
+            {
+                currentFrame = stateRange[currentState].last;
+            }
 
             //Loop around if the frame range for the current state has been exhausted.
             if (currentFrame >= stateRange[currentState].last || currentFrame < stateRange[currentState].first)
