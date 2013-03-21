@@ -282,7 +282,7 @@ namespace PantheonPrototype
                             count++;
                         }
                     }
-                    offset = (offset + 50) % 8000;
+                    offset = (offset + 50) % 12000;
                     break;
                 default:
                     break;
@@ -320,7 +320,7 @@ namespace PantheonPrototype
                     break;
                 case "start":
                     spriteBatch.Draw(splashScreen, splashScreenRect, Color.White);
-                    spriteBatch.Draw(splashShine, new Rectangle (splashScreenRect.X + offset - 200, splashScreenRect.Y, splashScreenRect.Width, splashScreenRect.Height), Color.White);
+                    spriteBatch.Draw(splashShine, new Rectangle (splashScreenRect.X + offset - 4000, splashScreenRect.Y, splashScreenRect.Width, splashScreenRect.Height), Color.White);
                     spriteBatch.Draw(splashScreenMask, new Rectangle(0, splashScreenRect.Y, SCREEN_WIDTH, splashScreenRect.Height), Color.White);
                     foreach (string itemName in this.splashScreenButtons.Keys)
                     {
