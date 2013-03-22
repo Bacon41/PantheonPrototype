@@ -23,5 +23,41 @@ namespace PantheonPrototype
     /// </summary>
     class Event
     {
+        /// <summary>
+        /// The type of the event.
+        /// </summary>
+        private string type;
+
+        public string Type
+        {
+            get { return type; }
+            set { this.type = value; }
+        }
+
+        /// <summary>
+        /// A list of all the event specific information given in the event.
+        /// 
+        /// Takes the form of a Dictionary with a string mapping to a string.
+        /// </summary>
+        public Dictionary<string, string> payload;
+
+        /// <summary>
+        /// Empty constructor that makes an empty event.
+        /// </summary>
+        public Event()
+        {
+            payload = new Dictionary<string, string>();
+        }
+
+        /// <summary>
+        /// Takes parameters and fully initializes an event.
+        /// </summary>
+        /// <param name="type">The type of the event.</param>
+        /// <param name="payload">The payload of the event as a Dictionary collection object.</param>
+        public Event(string type, Dictionary<string, string> payload)
+        {
+            this.type = type;
+            this.payload = payload;
+        }
     }
 }
