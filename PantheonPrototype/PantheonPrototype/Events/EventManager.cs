@@ -21,5 +21,34 @@ namespace PantheonPrototype
     /// </summary>
     class EventManager
     {
+        /// <summary>
+        /// The delegate definition for a function that handles events.
+        /// </summary>
+        /// <param name="eventInfo">All the information about the event.</param>
+        public delegate void HandleEvent (Event eventInfo);
+
+        /// <summary>
+        /// A dictionary that maps each type of event to a list of delegate functions to call when
+        /// that specific type of event occurs.
+        /// </summary>
+        private Dictionary<string, List<HandleEvent>> eventHandlers;
+
+        /// <summary>
+        /// Registers an event handling function with the EventManager class. When the EventManager
+        /// receives an event of the given type, the given handler will be called.
+        /// </summary>
+        /// <param name="type">A string denoting the event type to trigger the handler.</param>
+        /// <param name="handler">The handler function declared in the form: void EventHandler (Event eventInfo);</param>
+        public void register(string type, HandleEvent handler)
+        {
+        }
+
+        /// <summary>
+        /// Notifies the appropriate handlers of an Event.
+        /// </summary>
+        /// <param name="eventInfo">Information about the event.</param>
+        public void notify(Event eventInfo)
+        {
+        }
     }
 }
