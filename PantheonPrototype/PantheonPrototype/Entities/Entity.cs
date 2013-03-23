@@ -77,7 +77,7 @@ namespace PantheonPrototype
         }
 
         /// <summary>
-        /// Puppies!!!
+        /// Puppies!!! No puppies, actually fruit.
         /// 
         /// Also, this is the bounding box.
         /// </summary>

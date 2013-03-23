@@ -15,8 +15,9 @@ namespace PantheonPrototype
     class TextBubble
     {
         protected bool readyForDeletion;
-        protected String text;
+        protected string text;
         protected Vector2 position;
+        protected Entity entity;
 
         public Vector2 Position
         {
@@ -35,19 +36,42 @@ namespace PantheonPrototype
         /// </summary>
         /// <param name="position">The location of the text bubble anchor.</param>
         /// <param name="text">This text to say.</param>
-        /// <param name="duration">How long (in milliseconds) the text bubble should last.</param>
-        public TextBubble(Vector2 position, String text)
+        public TextBubble(Vector2 position, string text)
         {
+            this.entity = null;
             this.position = position;
             this.text = text;
+        }
+
+        /// <summary>
+        /// IT CREATES A TEXT BUBBLE. WOAH. Also anchors it to a character.
+        /// NOTE: At the moment this will just hook it to the character at that current point,
+        /// it will not follow, while that could be possible in the future.
+        /// </summary>
+        /// <param name="entityName">The entity to tie the text bubble to.</param>
+        /// <param name="text">This text to say.</param>
+        public TextBubble(Entity entity, string text)
+        {
+            this.entity = entity;
+            this.text = text;
+
+            // Set the position of the text bubble based on the position of the character.
+            this.position = this.entity.ActionPoint;
+            this.position.Y = (float)(this.entity.BoundingBox.Height * 1.1);
         }
 
         /// <summary>
         /// This updates the bubble which mostly is sure to set up the structure defining the ending time.
         /// </summary>
         /// <param name="gameTime"></param>
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Pantheon gameReference)
         {
+            // If the bubble is attached to a character, move it with the character.
+            if (this.entity != null)
+            {
+                this.position = this.entity.ActionPoint;
+                this.position.Y = (float)(this.entity.BoundingBox.Height * 1.1);
+            }
         }
 
         /// <summary>

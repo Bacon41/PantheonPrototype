@@ -38,30 +38,17 @@ namespace PantheonPrototype
             this.conversations = new Dictionary<string, ArrayList>();
 
             this.currentConversationState = 0;
+
+            // Test conversation for testing.
         }
 
         /// <summary>
         /// Keeps DialogueManager up-to-date. Makes sure no conversations are still on going.
         /// Manages the checking of exit conditions for text bubbles.
         /// </summary>
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Pantheon gameReference)
         {
             LinkedListNode<TextBubble> currentNode;
-
-            // Update current conversation...
-            if (this.currentConversation != null)
-            {
-                DialogueNode currentDiagNode = (DialogueNode)this.currentConversation[this.currentConversationState];
-
-                if (currentDiagNode.ShouldContinueRunning())
-                {
-                    currentDiagNode.Update(gameTime);
-                }
-                else
-                {
-                    this.currentConversationState = currentDiagNode.NextState;
-                }
-            }
 
             // Update each of the text bubbles...
             currentNode = this.activeTextBubbles.First;
@@ -69,7 +56,7 @@ namespace PantheonPrototype
             {
                 LinkedListNode<TextBubble> next = currentNode.Next;
 
-                currentNode.Value.Update(gameTime);
+                currentNode.Value.Update(gameTime, gameReference);
 
                 if (currentNode.Value.isReadyForDeletion)
                     this.activeTextBubbles.Remove(currentNode);
@@ -103,13 +90,48 @@ namespace PantheonPrototype
         }
 
         /// <summary>
+        /// Is used to interact with NPCs. If there is no conversation going, it will initialize one.
+        /// If the end of a conversation has been reached, it will end the conversation.
+        /// </summary>
+        /// <param name="entityName">The entity to interact with.</param>
+        /// <param name="entity">The entity that the dialogue is happening with.</param>
+        public void Interact(string entityName, Entity entity)
+        {
+            if (this.currentConversation == null)
+            {
+                this.StartConversation(entityName);
+            }
+            else if (((DialogueNode)this.currentConversation[this.currentConversationState]).NextState == 0)
+            {
+                EndConversation();
+            }
+            else
+            {
+                DialogueNode currentDiagNode = (DialogueNode)this.currentConversation[this.currentConversationState];
+
+                this.currentConversationBubble.isReadyForDeletion = true;
+                this.currentConversationState = currentDiagNode.NextState;
+
+                currentDiagNode = (DialogueNode)this.currentConversation[this.currentConversationState];
+
+                this.currentConversationBubble = new TextBubble(entity, currentDiagNode.Text);
+            }
+        }
+
+        /// <summary>
         /// Ends all current conversations and resets the conversation handles and anchors.
         /// </summary>
         public void EndConversation()
         {
             this.currentConversation = null;
-            this.currentConversationBubble = null;
             this.currentConversationState = 0;
+
+            // If there is an active text bubble, remember to kill it before nulling.
+            if (this.currentConversationBubble != null)
+            {
+                this.currentConversationBubble.isReadyForDeletion = true;
+                this.currentConversationBubble = null;
+            }
         }
 
         /// <summary>
