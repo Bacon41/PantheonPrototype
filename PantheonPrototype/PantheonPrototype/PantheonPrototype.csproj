@@ -83,6 +83,8 @@
     <Compile Include="CutsceneManager.cs" />
     <Compile Include="DialogueManager.cs" />
     <Compile Include="DialogueNode.cs" />
+    <Compile Include="Events\Event.cs" />
+    <Compile Include="Events\EventManager.cs" />
     <Compile Include="HUD\Inventory.cs" />
     <Compile Include="Entities\Characters\FriendNPC.cs" />
     <Compile Include="Objective.cs" />

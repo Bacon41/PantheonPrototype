@@ -41,6 +41,12 @@ namespace PantheonPrototype
         /// <param name="handler">The handler function declared in the form: void EventHandler (Event eventInfo);</param>
         public void register(string type, HandleEvent handler)
         {
+            if (!eventHandlers.Keys.Contains(type))
+            {
+                eventHandlers.Add(type, new List<HandleEvent>());
+            }
+
+            eventHandlers[type].Add(handler);
         }
 
         /// <summary>
@@ -49,6 +55,10 @@ namespace PantheonPrototype
         /// <param name="eventInfo">Information about the event.</param>
         public void notify(Event eventInfo)
         {
+            foreach (HandleEvent handler in eventHandlers[eventInfo.Type])
+            {
+                handler(eventInfo);
+            }
         }
     }
 }
