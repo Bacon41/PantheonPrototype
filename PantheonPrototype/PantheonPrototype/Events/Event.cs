@@ -21,7 +21,7 @@ namespace PantheonPrototype
     /// Essentially, the type is an identifier of what type of event this is, and thus an
     /// identification of the receivers. The list of strings is essentially a payload for the event.
     /// </summary>
-    class Event
+    public class Event
     {
         /// <summary>
         /// The type of the event.

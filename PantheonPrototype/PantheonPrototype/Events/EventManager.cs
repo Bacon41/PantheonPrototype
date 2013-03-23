@@ -13,20 +13,20 @@ using Microsoft.Xna.Framework.Media;
 namespace PantheonPrototype
 {
     /// <summary>
+    /// The delegate definition for a function that handles events.
+    /// </summary>
+    /// <param name="eventInfo">All the information about the event.</param>
+    public delegate void HandleEvent(Event eventInfo);
+
+    /// <summary>
     /// Distributes events to the correct locations in Pantheon.
     /// 
     /// Classes should register functions with the EventManager to handle specific types of events.
     /// When an event occurs, the type is identified, and all registered functions are called. They
     /// are passed the event, whose payload gives any other relevant information to the recipient.
     /// </summary>
-    class EventManager
+    public class EventManager
     {
-        /// <summary>
-        /// The delegate definition for a function that handles events.
-        /// </summary>
-        /// <param name="eventInfo">All the information about the event.</param>
-        public delegate void HandleEvent (Event eventInfo);
-
         /// <summary>
         /// A dictionary that maps each type of event to a list of delegate functions to call when
         /// that specific type of event occurs.
