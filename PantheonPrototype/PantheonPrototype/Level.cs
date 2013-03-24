@@ -136,6 +136,10 @@ namespace PantheonPrototype
         /// </summary>
         public void Update(GameTime gameTime, Pantheon gameReference)
         {
+            // Little hack to test the dialogue manager out. 0=)
+            if (gameReference.controlManager.actions.Interact || gameReference.controlManager.actions.Reload)
+                this.dialogueManager.Interact("FriendtheOldMan", this.entities["FriendtheOldMan"]);
+
             // Updating all entities
             foreach (string entityName in this.entities.Keys)
             {
@@ -143,6 +147,7 @@ namespace PantheonPrototype
             }
 
             // Black magicks to select all the bullets (SQL in C# with XNA and LINQ!!! Look at all the acronyms! Also, I feel nerdy.)
+            // +1 this --^
             var bulletQuery = from entity in this.entities where entity.Key.Contains("bullet") select entity.Key;
             var friendEntityQuery = from entity in this.entities where entity.Key.Contains("Friend") select entity.Key;
             var enemyEntityQuery = from entity in this.entities where entity.Key.Contains("Enemy") select entity.Key;
@@ -206,6 +211,9 @@ namespace PantheonPrototype
                 this.entities.Add(entityName, addList[entityName]);
             }
             this.addList = new Dictionary<string, Entity>();
+
+            // Update the DialogueManager.
+            this.dialogueManager.Update(gameTime, gameReference);
 
             // Updating the camera when the character isn't scoping.
             if (!gameReference.controlManager.actions.Aim)
@@ -425,6 +433,7 @@ namespace PantheonPrototype
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, this.Camera.getTransformation());
             
             levelMap.Draw(spriteBatch, screenRect);
+            this.dialogueManager.Draw(spriteBatch);
 
             foreach (string entityName in this.entities.Keys)
             {

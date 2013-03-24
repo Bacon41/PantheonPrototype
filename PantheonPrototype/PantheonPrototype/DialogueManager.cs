@@ -105,6 +105,7 @@ namespace PantheonPrototype
         /// <param name="entity">The entity that the dialogue is happening with.</param>
         public void Interact(string entityName, Entity entity)
         {
+            System.Console.WriteLine("INTERACTING! " + entityName + ": [" + entity + "]");
             if (this.currentConversation == null)
             {
                 this.StartConversation(entityName);
