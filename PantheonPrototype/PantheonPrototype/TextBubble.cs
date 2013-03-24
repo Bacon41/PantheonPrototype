@@ -14,6 +14,7 @@ namespace PantheonPrototype
 {
     class TextBubble
     {
+        // VARIABLE DECLARATION --
         protected bool readyForDeletion;
         protected string text;
         protected Vector2 position;
@@ -25,12 +26,14 @@ namespace PantheonPrototype
             set { this.position = value; }
         }
 
+        // ACCESSORS --
         public bool isReadyForDeletion
         {
             get { return this.readyForDeletion; }
             set { this.readyForDeletion = value; }
         }
-
+        
+        // METHOD AND FUNCTION DEFINITION --
         /// <summary>
         /// IT CREATES A TEXT BUBBLE. WOAH.
         /// </summary>

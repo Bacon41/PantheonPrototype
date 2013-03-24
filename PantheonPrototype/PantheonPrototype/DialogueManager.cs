@@ -20,6 +20,7 @@ namespace PantheonPrototype
     /// </summary>
     class DialogueManager
     {
+        // VARIABLE DECLARATION --
         int currentConversationState;
         SpriteFont textFont;
         LinkedList<TextBubble> activeTextBubbles;
@@ -27,6 +28,7 @@ namespace PantheonPrototype
         ArrayList currentConversation;
         TextBubble currentConversationBubble;
 
+        // METHOD AND FUNCTION DEFINITION --
         /// <summary>
         /// Constructs the basics of the DialogueManager class and prepares it to handle
         /// dialogue and conversation.
@@ -40,6 +42,12 @@ namespace PantheonPrototype
             this.currentConversationState = 0;
 
             // Test conversation for testing.
+            ArrayList oldManConversation = new ArrayList();
+            oldManConversation.Add(new DialogueNode(1, "Hello."));
+            oldManConversation.Add(new DialogueNode(2, "It's dangerous to go alone."));
+            oldManConversation.Add(new DialogueNode(0, "Here.\nTakes this."));
+
+            this.conversations.Add("FriendtheOldMan", oldManConversation);
         }
 
         /// <summary>
