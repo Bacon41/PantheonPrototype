@@ -34,6 +34,8 @@ namespace PantheonPrototype
 
         public CutsceneManager CutsceneManager;
 
+        public EventManager EventManager;
+
         SpriteFont debugFont;
 
         public Pantheon()
