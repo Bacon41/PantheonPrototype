@@ -18,7 +18,7 @@ namespace PantheonPrototype
     /// This includes drawing the appropriate bubbles and text, as well as possibly
     /// handling some basic dialogue pathing and such.
     /// </summary>
-    class DialogueManager
+    public class DialogueManager
     {
         // VARIABLE DECLARATION --
         int currentConversationState;
@@ -140,28 +140,6 @@ namespace PantheonPrototype
                 this.currentConversationBubble.isReadyForDeletion = true;
                 this.currentConversationBubble = null;
             }
-        }
-
-        /// <summary>
-        /// Creates a custom text bubble with a duration with the specified parameteres.
-        /// Is not necessary for creating conversation and will be invoked automatically
-        /// via the DialogueManager.
-        /// </summary>
-        /// <param name="position">The location of the speaking point of the text bubble.</param>
-        /// <param name="text">The text the text bubble should say.</param>
-        /// <param name="duration">How long (in milliseconds) the text bubble should last.</param>
-        /// <returns>
-        /// Returns a handle to the created text bubble. If created through this function,
-        /// the bubble will be managed by the DialogueManager class and should be deleted through
-        /// the text bubbles "Delete" function.
-        /// </returns>
-        public TextBubble CreateTextBubble(Vector2 position, String text)
-        {
-            TextBubble tempTextBubble = new TextBubble(position, text);
-
-            this.activeTextBubbles.AddLast(tempTextBubble);
-
-            return tempTextBubble;
         }
     }
 }

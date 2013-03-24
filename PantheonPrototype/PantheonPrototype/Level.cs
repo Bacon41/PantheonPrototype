@@ -33,6 +33,7 @@ namespace PantheonPrototype
         public Camera Camera;
         protected Dictionary<string, Entity> entities;
         protected Map levelMap;
+        protected DialogueManager dialogueManager;
         //protected Player player;
         protected Rectangle screenRect;
         
@@ -87,6 +88,7 @@ namespace PantheonPrototype
             this.screenRect = Rectangle.Empty;
             this.levelStart = true;
             this.levelPlaying = true;
+            this.dialogueManager = null;
         }
 
         /// <summary>
@@ -121,6 +123,9 @@ namespace PantheonPrototype
             Camera.Pos = new Vector2(this.entities["character"].Location.X, this.entities["character"].Location.Y);
 
             gameReference.CutsceneManager.PlayLevelLoad(gameReference);
+
+            // Load the dialogue manager...
+            this.dialogueManager = new DialogueManager(gameReference.Content.Load<SpriteFont>("DialogueFont"));
         }
         
         /// <summary>
