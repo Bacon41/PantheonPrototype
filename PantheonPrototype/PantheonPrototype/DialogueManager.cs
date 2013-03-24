@@ -45,7 +45,7 @@ namespace PantheonPrototype
             ArrayList oldManConversation = new ArrayList();
             oldManConversation.Add(new DialogueNode(1, "Hello."));
             oldManConversation.Add(new DialogueNode(2, "It's dangerous to go alone."));
-            oldManConversation.Add(new DialogueNode(0, "Here.\nTakes this."));
+            oldManConversation.Add(new DialogueNode(0, "   Here.\nTake this."));
 
             this.conversations.Add("FriendtheOldMan", oldManConversation);
         }
@@ -88,9 +88,12 @@ namespace PantheonPrototype
         /// Starts a conversation with a given entity. This entity ID is used to identify which conversation to execute.
         /// </summary>
         /// <param name="entityName">The entity to begin conversing with. Used as a handle to pick the conversation "column."</param>
-        public bool StartConversation(String entityName)
+        public bool StartConversation(String entityName, Entity entity)
         {
             this.currentConversation = this.conversations[entityName];
+            this.currentConversationState = 0;
+            this.currentConversationBubble = new TextBubble(entity, ((DialogueNode)this.currentConversation[this.currentConversationState]).Text);
+            this.activeTextBubbles.AddLast(this.currentConversationBubble);
 
             if (this.currentConversation == null) return false;
 
@@ -105,10 +108,9 @@ namespace PantheonPrototype
         /// <param name="entity">The entity that the dialogue is happening with.</param>
         public void Interact(string entityName, Entity entity)
         {
-            System.Console.WriteLine("INTERACTING! " + entityName + ": [" + entity + "]");
             if (this.currentConversation == null)
             {
-                this.StartConversation(entityName);
+                this.StartConversation(entityName, entity);
             }
             else if (((DialogueNode)this.currentConversation[this.currentConversationState]).NextState == 0)
             {
@@ -124,6 +126,7 @@ namespace PantheonPrototype
                 currentDiagNode = (DialogueNode)this.currentConversation[this.currentConversationState];
 
                 this.currentConversationBubble = new TextBubble(entity, currentDiagNode.Text);
+                this.activeTextBubbles.AddLast(this.currentConversationBubble);
             }
         }
 

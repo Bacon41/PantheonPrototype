@@ -172,12 +172,12 @@ namespace PantheonPrototype
                     if (keyboard.IsKeyDown(keyboardAndMouse.MoveRightKey) || keyboard.IsKeyDown(Keys.Right)) { actions.MoveRight = true; }
                 }
 
-                if (keyboard.IsKeyDown(keyboardAndMouse.InteractKey) && !oldKeyboard.IsKeyDown(keyboardAndMouse.InteractKey)) { actions.Interact = true; }
                 if (keyboard.IsKeyDown(keyboardAndMouse.ShieldKey) && !oldKeyboard.IsKeyDown(keyboardAndMouse.ShieldKey)) { actions.Shield = !actions.Shield; }
                 if (keyboard.IsKeyDown(keyboardAndMouse.ReloadKey)) { actions.Reload = true; }
                 if (keyboard.IsKeyDown(keyboardAndMouse.TakeDamage)) { actions.beingDamaged = true; }
                 //if (mouse.LeftButton == ButtonState.Pressed) { actions.Attack = true; }
                 if (keyboard.IsKeyDown(keyboardAndMouse.AimKey)) { actions.Aim = true; }
+                if (keyboard.IsKeyDown(keyboardAndMouse.InteractKey)) { actions.Interact = true; }
 
                 if (!actions.Pause)
                 {
@@ -215,6 +215,7 @@ namespace PantheonPrototype
             actions.Shield = false;
             actions.Aim = false;
             actions.Attack = false;
+            actions.Interact = false;
 
             actions.CursorPosition = Vector2.Zero;
         }

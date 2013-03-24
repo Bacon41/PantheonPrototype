@@ -59,8 +59,8 @@ namespace PantheonPrototype
             this.text = text;
 
             // Set the position of the text bubble based on the position of the character.
-            this.position = this.entity.ActionPoint;
-            this.position.Y = (float)(this.entity.BoundingBox.Height * 1.1);
+            this.position = this.entity.Location;
+            this.position.Y = this.position.Y - (float)(this.entity.BoundingBox.Height * 1.1);
         }
 
         /// <summary>
@@ -72,8 +72,8 @@ namespace PantheonPrototype
             // If the bubble is attached to a character, move it with the character.
             if (this.entity != null)
             {
-                this.position = this.entity.ActionPoint;
-                this.position.Y = (float)(this.entity.BoundingBox.Height * 1.1);
+                this.position = this.entity.Location;
+                this.position.Y = this.position.Y - (float)(this.entity.BoundingBox.Height * 1.1);
             }
         }
 
