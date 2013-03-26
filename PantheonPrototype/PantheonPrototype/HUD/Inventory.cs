@@ -154,7 +154,7 @@ namespace PantheonPrototype
                 count++;
             }
 
-            spriteBatch.Draw(inventorySelector, infoBox, Color.White);
+            //spriteBatch.Draw(inventorySelector, infoBox, Color.White);
         }
     }
 }
