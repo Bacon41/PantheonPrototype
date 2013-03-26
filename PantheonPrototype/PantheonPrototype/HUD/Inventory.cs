@@ -100,10 +100,10 @@ namespace PantheonPrototype
 
             // Add info screen
 
-            infoBox = new Rectangle((int)(.672 * SCREEN_WIDTH), (int)(.042 * SCREEN_HEIGHT), (int)(.305 * SCREEN_WIDTH), (int)(.417 * SCREEN_HEIGHT));
+            infoBox = new Rectangle((int)(.695 * SCREEN_WIDTH), (int)(.053 * SCREEN_HEIGHT), (int)(.305 * SCREEN_WIDTH), (int)(.417 * SCREEN_HEIGHT));
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, SpriteFont Font)
         {
             if (hoveredOver != -1)
             {
@@ -145,6 +145,7 @@ namespace PantheonPrototype
                 count++;
             }
 
+            count = 0;
             foreach (Item item in PlayerCharacter.inventory.equipped)
             {
                 if (!item.isNull)
@@ -154,7 +155,17 @@ namespace PantheonPrototype
                 count++;
             }
 
-            //spriteBatch.Draw(inventorySelector, infoBox, Color.White);
+            if (selected != -1)
+            {
+                if (selected < 24)
+                {
+                    spriteBatch.DrawString(Font, PlayerCharacter.inventory.unequipped.ElementAt(selected).Info, new Vector2(infoBox.X, infoBox.Y), Color.White);
+                }
+                else
+                {
+                    spriteBatch.DrawString(Font, PlayerCharacter.inventory.equipped.ElementAt(selected - 24).Info, new Vector2(infoBox.X, infoBox.Y), Color.White);
+                }
+            }
         }
     }
 }

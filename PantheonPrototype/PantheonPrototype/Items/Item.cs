@@ -22,6 +22,16 @@ namespace PantheonPrototype
     class Item
     {
         public bool isNull;
+        protected String info;
+
+        /// <summary>
+        /// The text that shows in the inventory when selected
+        /// </summary>
+        public String Info
+        {
+            get { return info; }
+            set { info = value; }
+        }
 
         /// <summary>
         /// The representation of the item on the HUD.
@@ -45,6 +55,7 @@ namespace PantheonPrototype
         {
             HUDRepresentation = null;
             isNull = true;
+            info = "";
         }
 
         /// <summary>

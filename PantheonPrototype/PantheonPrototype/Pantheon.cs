@@ -187,7 +187,7 @@ namespace PantheonPrototype
 
             if (controlManager.actions.Pause)
             {
-                menu.Draw(spriteBatch);
+                menu.Draw(spriteBatch, debugFont);
             }
             else
             {

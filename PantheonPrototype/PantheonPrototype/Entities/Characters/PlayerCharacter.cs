@@ -48,15 +48,7 @@ namespace PantheonPrototype
                 new Rectangle(0,0,40,40),
                 new Rectangle(15,25,10,10))
         {
-            inventory.unequipped = new List<Item>();
-            inventory.equipped = new List<Item>(7);
-            inventory.equipped.Insert(0, new Item());
-            inventory.equipped.Insert(1, new Item());
-            inventory.equipped.Insert(2, new Item());
-            inventory.equipped.Insert(3, new Item());
-            inventory.equipped.Insert(4, new Item());
-            inventory.equipped.Insert(5, new Item());
-            inventory.equipped.Insert(6, new Item());
+            initializeInventory();
 
             TotalArmor = 100;
             CurrentArmor = 100;
@@ -78,6 +70,21 @@ namespace PantheonPrototype
             drawLasar = true;
 
             characteristics.Add("Player");
+        }
+
+
+        void initializeInventory()
+        {
+            inventory.unequipped = new List<Item>(24);
+            for (int i = 0; i < 24; i++)
+            {
+                inventory.unequipped.Insert(i, new Item());
+            }
+            inventory.equipped = new List<Item>(7);
+            for (int i = 0; i < 7; i++)
+            {
+                inventory.equipped.Insert(i, new Item());
+            }
         }
 
         /// <summary>

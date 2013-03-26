@@ -293,7 +293,7 @@ namespace PantheonPrototype
         /// The method for drawing the whole menu.
         /// </summary>
         /// <param name="spriteBatch">What is used to draw.</param>
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, SpriteFont Font)
         {
             spriteBatch.Begin();
 
@@ -309,7 +309,7 @@ namespace PantheonPrototype
                 case "inventory": 
                     spriteBatch.Draw(inventoryBackgroundTex, new Rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT), Color.White);
 
-                    inventory.Draw(spriteBatch);
+                    inventory.Draw(spriteBatch, Font);
 
                     spriteBatch.Draw(inventoryBackground, new Rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT), Color.White);
 

@@ -82,6 +82,11 @@ namespace PantheonPrototype
             damage = 5;
             reloadDelay = TimeSpan.FromSeconds(2);
             reloading = false;
+            Info = "This is the basic weapon\n" +
+                   "   It has so/so range and\n" +
+                   "   reload time. Also, watch\n" +
+                   "   out for Butterflies carring\n" +
+                   "   this weapon!";
         }
 
         /// <summary>
