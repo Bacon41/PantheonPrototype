@@ -46,7 +46,7 @@ namespace PantheonPrototype
             items = new Dictionary<string, MenuItem>();
             inventoryButtons = new Dictionary<string, MenuItem>();
             splashScreenButtons = new Dictionary<string, MenuItem>();
-            menuState = "inventory";
+            menuState = "start";
 
             this.SCREEN_WIDTH = SCREEN_WIDTH;
             this.SCREEN_HEIGHT = SCREEN_HEIGHT;
