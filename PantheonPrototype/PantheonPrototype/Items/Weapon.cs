@@ -71,7 +71,8 @@ namespace PantheonPrototype
         /// <summary>
         /// Initializes key values of a weapon.
         /// </summary>
-        public Weapon()
+        public Weapon(ContentManager Content)
+            : base(Content.Load<Texture2D>("Rifle"))
         {
             lastShot = TimeSpan.Zero;
             fireRate = 5;

@@ -50,6 +50,13 @@ namespace PantheonPrototype
         {
             inventory.unequipped = new List<Item>();
             inventory.equipped = new List<Item>(7);
+            inventory.equipped.Insert(0, new Item());
+            inventory.equipped.Insert(1, new Item());
+            inventory.equipped.Insert(2, new Item());
+            inventory.equipped.Insert(3, new Item());
+            inventory.equipped.Insert(4, new Item());
+            inventory.equipped.Insert(5, new Item());
+            inventory.equipped.Insert(6, new Item());
 
             TotalArmor = 100;
             CurrentArmor = 100;
@@ -60,10 +67,12 @@ namespace PantheonPrototype
             offset = Vector2.Zero;
             laserTexture = new Texture2D(gameReference.GraphicsDevice, 1, 1);
 
-            EquippedItems.Add("weapon", new Weapon());
-            inventory.equipped.Add(EquippedItems["weapon"]);
+            EquippedItems.Add("weapon", new Weapon(gameReference.Content));
+            inventory.equipped.RemoveAt(0);
+            inventory.equipped.Insert(0, EquippedItems["weapon"]);
             EquippedItems.Add("shield", new Shield(gameReference.Content));
-            inventory.equipped.Add(EquippedItems["shield"]);
+            inventory.equipped.RemoveAt(6);
+            inventory.equipped.Insert(6, EquippedItems["shield"]);
 
             ArmedItem = EquippedItems["weapon"];
             drawLasar = true;

@@ -63,7 +63,8 @@ namespace PantheonPrototype
 
         private Texture2D shieldTexture;
 
-        public Shield(ContentManager contentManager) 
+        public Shield(ContentManager contentManager)
+            : base(contentManager.Load<Texture2D>("Shield"))
         {
             shieldTexture = contentManager.Load<Texture2D>("Shield");
 

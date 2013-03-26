@@ -116,7 +116,7 @@ namespace PantheonPrototype
                 }
                 if (obj.Name.Contains("Enemy"))
                 {
-                    this.entities.Add(obj.Name, new ButterflyEnemy(new Vector2(obj.Bounds.Center.X, obj.Bounds.Center.Y)));
+                    this.entities.Add(obj.Name, new ButterflyEnemy(new Vector2(obj.Bounds.Center.X, obj.Bounds.Center.Y), gameReference.Content));
                     this.entities[obj.Name].Load(gameReference.Content);
                 }
             }

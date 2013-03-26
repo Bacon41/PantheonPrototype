@@ -21,22 +21,30 @@ namespace PantheonPrototype
     /// </summary>
     class Item
     {
+        public bool isNull;
+
         /// <summary>
         /// The representation of the item on the HUD.
         /// 
         /// For the moment, this is the same as the representation in the inventory.
         /// That could change.
         /// </summary>
-        public Sprite HUDRepresentation;
+        public Texture2D HUDRepresentation;
 
         /// <summary>
         /// One of those constructor thingies. Defined so that you can initialize
         /// all the thingies in the item class
         /// </summary>
+        public Item(Texture2D HUDrep)
+        {
+            HUDRepresentation = HUDrep;
+            isNull = false;
+        }
+
         public Item()
         {
-            //Right now just an empty declaration
-            HUDRepresentation = new Sprite();
+            HUDRepresentation = null;
+            isNull = true;
         }
 
         /// <summary>
