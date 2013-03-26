@@ -177,7 +177,7 @@ namespace PantheonPrototype
                 if (keyboard.IsKeyDown(keyboardAndMouse.TakeDamage)) { actions.beingDamaged = true; }
                 //if (mouse.LeftButton == ButtonState.Pressed) { actions.Attack = true; }
                 if (keyboard.IsKeyDown(keyboardAndMouse.AimKey)) { actions.Aim = true; }
-                if (keyboard.IsKeyDown(keyboardAndMouse.InteractKey)) { actions.Interact = true; }
+                if (keyboard.IsKeyDown(keyboardAndMouse.InteractKey) && oldKeyboard.IsKeyUp(keyboardAndMouse.InteractKey)) { actions.Interact = true; }
 
                 if (!actions.Pause)
                 {
