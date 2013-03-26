@@ -163,9 +163,9 @@ namespace PantheonPrototype
             if (currentArmor <= 0)
             {
                 currentState = "Die";
-                gameReference.controlManager.disableControls(false);
+                gameReference.ControlManager.disableControls(false);
             }
-            if (!gameReference.controlManager.actions.isControlEnabled)
+            if (!gameReference.ControlManager.actions.isControlEnabled)
             {
                 drawLasar = false;
             }
@@ -314,7 +314,7 @@ namespace PantheonPrototype
 
             //Modify the direction in which the character faces
 
-            if (gameReference.controlManager.actions.isControlEnabled)
+            if (gameReference.ControlManager.actions.isControlEnabled)
             {
                 facing = HamburgerHelper.reduceAngle(cursorLocation - Location);
             }

@@ -137,7 +137,7 @@ namespace PantheonPrototype
         public void Update(GameTime gameTime, Pantheon gameReference)
         {
             // Little hack to test the dialogue manager out. 0=)
-            if (gameReference.controlManager.actions.Interact || gameReference.controlManager.actions.Reload)
+            if (gameReference.ControlManager.actions.Interact || gameReference.ControlManager.actions.Reload)
                 this.dialogueManager.Interact("FriendtheOldMan", this.entities["FriendtheOldMan"]);
 
             // Updating all entities

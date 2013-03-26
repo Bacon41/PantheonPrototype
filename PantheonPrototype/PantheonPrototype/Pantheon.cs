@@ -32,8 +32,6 @@ namespace PantheonPrototype
 
         public Level currentLevel;
 
-        public Entity player;
-
         Menu menu;
 
         HUD hud;
@@ -114,7 +112,7 @@ namespace PantheonPrototype
 
             //currentLevel.Load("map1", "map0", this);
 
-            //controlManager.actions.Pause = true;
+            ControlManager.actions.Pause = true;
         }
 
         internal void StartGame()
