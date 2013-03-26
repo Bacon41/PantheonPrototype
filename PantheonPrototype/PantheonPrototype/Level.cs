@@ -33,6 +33,7 @@ namespace PantheonPrototype
         public Camera Camera;
         protected Dictionary<string, Entity> entities;
         protected Map levelMap;
+        protected DialogueManager dialogueManager;
         //protected Player player;
         protected Rectangle screenRect;
         
@@ -87,6 +88,7 @@ namespace PantheonPrototype
             this.screenRect = Rectangle.Empty;
             this.levelStart = true;
             this.levelPlaying = true;
+            this.dialogueManager = null;
         }
 
         /// <summary>
@@ -121,8 +123,11 @@ namespace PantheonPrototype
             Camera.Pos = new Vector2(this.entities["character"].Location.X, this.entities["character"].Location.Y);
 
             gameReference.CutsceneManager.PlayLevelLoad(gameReference);
-        }
 
+            // Load the dialogue manager...
+            this.dialogueManager = new DialogueManager(gameReference.Content.Load<SpriteFont>("DialogueFont"));
+        }
+        
         /// <summary>
         /// The Update function will run through the level and perform any
         /// necessary operations for processing the frame. This includes
@@ -131,6 +136,10 @@ namespace PantheonPrototype
         /// </summary>
         public void Update(GameTime gameTime, Pantheon gameReference)
         {
+            // Little hack to test the dialogue manager out. 0=)
+            if (gameReference.controlManager.actions.Interact || gameReference.controlManager.actions.Reload)
+                this.dialogueManager.Interact("FriendtheOldMan", this.entities["FriendtheOldMan"]);
+
             // Updating all entities
             foreach (string entityName in this.entities.Keys)
             {
@@ -138,16 +147,17 @@ namespace PantheonPrototype
             }
 
             // Black magicks to select all the bullets (SQL in C# with XNA and LINQ!!! Look at all the acronyms! Also, I feel nerdy.)
+            // +1 this --^
             var bulletQuery = from entity in this.entities where entity.Key.Contains("bullet") select entity.Key;
             var friendEntityQuery = from entity in this.entities where entity.Key.Contains("Friend") select entity.Key;
             var enemyEntityQuery = from entity in this.entities where entity.Key.Contains("Enemy") select entity.Key;
 
             // Checking all bullets for end of life.
-            foreach (String bulletKey in bulletQuery)
+            foreach (String entityKey in entities.Keys)
             {
-                if (((Projectile)this.entities[bulletKey]).ToDestroy)
+                if ((this.entities[entityKey]).ToDestroy)
                 {
-                    this.removeList.Add(bulletKey);
+                    this.removeList.Add(entityKey);
                 }
             }
 
@@ -202,6 +212,9 @@ namespace PantheonPrototype
             }
             this.addList = new Dictionary<string, Entity>();
 
+            // Update the DialogueManager.
+            this.dialogueManager.Update(gameTime, gameReference);
+
             // Updating the camera when the character isn't scoping.
             if (!gameReference.ControlManager.actions.Aim)
             {
@@ -227,45 +240,44 @@ namespace PantheonPrototype
         /// <param name="gameReference">One of those universal reference thingies.</param>
         private void detectCollisions(Pantheon gameReference)
         {
+            //Create a list of entities
+            List<string> entityNameList = Entities.Keys.ToList<string>();
+            List<Entity> entityList = Entities.Values.ToList<Entity>();
+
             // Go through all the entities
-            foreach (string entityName in this.entities.Keys)
+            for (int i = 0; i < entityList.Count; i++)
             {
                 // Go through the bounds
-                if (this.entities[entityName].BoundingBox.X < 0 && this.entities[entityName].BoundingBox.Right > levelMap.Width * levelMap.TileWidth
-                    && this.entities[entityName].BoundingBox.Y < 0 && this.entities[entityName].BoundingBox.Bottom > levelMap.Height * levelMap.TileHeight)
+                if (entityList[i].BoundingBox.X < 0
+                    && entityList[i].BoundingBox.Right > levelMap.Width * levelMap.TileWidth
+                    && entityList[i].BoundingBox.Y < 0
+                    && entityList[i].BoundingBox.Bottom > levelMap.Height * levelMap.TileHeight)
                 {
                     // The entity is outside the bounds, so delete it
-                    this.removeList.Add(entityName);
+                    this.removeList.Add(entityNameList[i]);
 
                     // Done updating the entity
                     continue;
                 }
 
                 // Go through all the tiles
-                foreach(TileData tile in levelMap.GetTilesInRegion(this.Entities[entityName].BoundingBox))
+                foreach (TileData tile in levelMap.GetTilesInRegion(entityList[i].BoundingBox))
                 {
-                    checkTiles(entityName, this.entities[entityName], tile);
+                    checkTiles(entityNameList[i], entityList[i], tile);
                 }
 
                 // Go through all the map objects
-                foreach(MapObject obj in levelMap.GetObjectsInRegion(this.Entities[entityName].BoundingBox))
+                foreach (MapObject obj in levelMap.GetObjectsInRegion(entityList[i].BoundingBox))
                 {
-                    checkObjects(entityName, this.entities[entityName], obj, gameReference);
+                    checkObjects(entityNameList[i], entityList[i], obj, gameReference);
                 }
 
-                //Create a list of entities
-                List<string> entityNameList = Entities.Keys.ToList<string>();
-                List<Entity> entityList = Entities.Values.ToList<Entity>();
-
-                // Go through all the entities
-                for (int i = 0; i < entityList.Count; i++)
+                // Check against all other entities
+                for (int j = i + 1; j < entityList.Count; j++)
                 {
-                    for (int j = i+1; j < entityList.Count; j++)
+                    if (entityList[i].BoundingBox.Intersects(entityList[j].BoundingBox))
                     {
-                        if(entityList[i].BoundingBox.Intersects(entityList[j].BoundingBox))
-                        {
-                            checkEntities(entityNameList[i], entityList[i], entityNameList[j], entityList[j]);
-                        }
+                        checkEntities(entityNameList[i], entityList[i], entityNameList[j], entityList[j]);
                     }
                 }
             }
@@ -377,7 +389,7 @@ namespace PantheonPrototype
                 else if (entityTwo.Characteristics.Contains("Enemy"))
                 {
                     this.removeList.Add(entityOneName);
-                    this.removeList.Add(entityTwoName);
+                    ((EnemyNPC)entityTwo).Damage(((Bullet)entityOne).Damage);
                 }
                 else if (entityTwo.Characteristics.Contains("Player"))
                 {
@@ -396,7 +408,7 @@ namespace PantheonPrototype
                 else if (entityOne.Characteristics.Contains("Enemy"))
                 {
                     this.removeList.Add(entityTwoName);
-                    this.removeList.Add(entityOneName);
+                    ((EnemyNPC)entityOne).Damage(((Bullet)entityTwo).Damage);
                 }
                 else if (entityOne.Characteristics.Contains("Player"))
                 {
@@ -424,6 +436,7 @@ namespace PantheonPrototype
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, this.Camera.getTransformation());
             
             levelMap.Draw(spriteBatch, screenRect);
+            this.dialogueManager.Draw(spriteBatch);
 
             foreach (string entityName in this.entities.Keys)
             {

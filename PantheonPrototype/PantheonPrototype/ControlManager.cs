@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -171,25 +171,15 @@ namespace PantheonPrototype
                     if (keyboard.IsKeyDown(keyboardAndMouse.MoveLeftKey) || keyboard.IsKeyDown(Keys.Left)) { actions.MoveLeft = true; }
                     if (keyboard.IsKeyDown(keyboardAndMouse.MoveRightKey) || keyboard.IsKeyDown(Keys.Right)) { actions.MoveRight = true; }
                 }
-                if (keyboard.IsKeyDown(keyboardAndMouse.PauseKey) && !oldKeyboard.IsKeyDown(keyboardAndMouse.PauseKey))
-                { actions.Pause = !actions.Pause; }
-                if (keyboard.IsKeyDown(keyboardAndMouse.ShieldKey) && !oldKeyboard.IsKeyDown(keyboardAndMouse.ShieldKey))
-                { actions.Shield = !actions.Shield; }
-                if (keyboard.IsKeyDown(keyboardAndMouse.ReloadKey)) { actions.Reload = true; }
-                
-                if (keyboard.IsKeyDown(keyboardAndMouse.TakeDamage)) { actions.beingDamaged = true; }
 
-                //
+                if (keyboard.IsKeyDown(keyboardAndMouse.ShieldKey) && !oldKeyboard.IsKeyDown(keyboardAndMouse.ShieldKey)) { actions.Shield = !actions.Shield; }
+                if (keyboard.IsKeyDown(keyboardAndMouse.ReloadKey)) { actions.Reload = true; }
+                if (keyboard.IsKeyDown(keyboardAndMouse.TakeDamage)) { actions.beingDamaged = true; }
                 //if (mouse.LeftButton == ButtonState.Pressed) { actions.Attack = true; }
                 if (keyboard.IsKeyDown(keyboardAndMouse.AimKey)) { actions.Aim = true; }
+                if (keyboard.IsKeyDown(keyboardAndMouse.InteractKey) && oldKeyboard.IsKeyUp(keyboardAndMouse.InteractKey)) { actions.Interact = true; }
 
-                if (actions.Pause)
-                {
-                    if (keyboardAndMouse.MenuSelectKey == ButtonState.Pressed && keyboardAndMouse.PrevMenuSelectKey != ButtonState.Pressed)
-                    { actions.MenuSelect = true; }
-                    else { actions.MenuSelect = false; }
-                }
-                else
+                if (!actions.Pause)
                 {
                     if (keyboardAndMouse.AttackMouseButton == ButtonState.Pressed) { actions.Attack = true; }
                 }
@@ -197,6 +187,15 @@ namespace PantheonPrototype
             if (actions.isMouseClickEnabled)
             {
                 if (keyboardAndMouse.MenuSelectKey == ButtonState.Pressed)
+                { actions.MenuSelect = true; }
+                else { actions.MenuSelect = false; }
+            }
+            if (keyboard.IsKeyDown(keyboardAndMouse.PauseKey) && !oldKeyboard.IsKeyDown(keyboardAndMouse.PauseKey))
+            { actions.Pause = !actions.Pause; }
+
+            if (actions.Pause && actions.isMouseClickEnabled)
+            {
+                if (keyboardAndMouse.MenuSelectKey == ButtonState.Pressed && keyboardAndMouse.PrevMenuSelectKey != ButtonState.Pressed)
                 { actions.MenuSelect = true; }
                 else { actions.MenuSelect = false; }
             }
@@ -221,6 +220,7 @@ namespace PantheonPrototype
             actions.Shield = false;
             actions.Aim = false;
             actions.Attack = false;
+            actions.Interact = false;
 
             actions.CursorPosition = Vector2.Zero;
         }

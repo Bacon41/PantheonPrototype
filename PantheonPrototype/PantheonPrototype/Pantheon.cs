@@ -28,6 +28,8 @@ namespace PantheonPrototype
 
         public QuestManager QuestManager;
 
+        public Entity player;
+
         public Level currentLevel;
 
         public Entity player;
@@ -35,6 +37,8 @@ namespace PantheonPrototype
         Menu menu;
 
         HUD hud;
+
+        public EventManager EventManager;
 
         SpriteFont debugFont;
 
@@ -110,8 +114,7 @@ namespace PantheonPrototype
 
             //currentLevel.Load("map1", "map0", this);
 
-            //
-            ControlManager.actions.Pause = true;
+            //controlManager.actions.Pause = true;
         }
 
         internal void StartGame()

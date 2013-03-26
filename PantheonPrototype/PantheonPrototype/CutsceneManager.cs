@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -70,7 +70,7 @@ namespace PantheonPrototype
         public void PlayLevelLoad(Pantheon gameReference)
         {
             cutcsenePlaying = true;
-            gameReference.ControlManager.disableControls(false);
+            gameReference.controlManager.disableControls(false);
             hideRect.Width = gameReference.GraphicsDevice.Viewport.Width;
             hideRect.Height = gameReference.GraphicsDevice.Viewport.Height;
             hideOffset = -20;
@@ -79,7 +79,7 @@ namespace PantheonPrototype
         public void PlayLevelEnd(Pantheon gameReference)
         {
             cutcsenePlaying = true;
-            gameReference.ControlManager.disableControls(false);
+            gameReference.controlManager.disableControls(false);
             hideRect.Width = gameReference.GraphicsDevice.Viewport.Width;
             hideRect.Height = 0;
             hideOffset = 20;

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,8 +18,9 @@ namespace PantheonPrototype
     /// This includes drawing the appropriate bubbles and text, as well as possibly
     /// handling some basic dialogue pathing and such.
     /// </summary>
-    class DialogueManager
+    public class DialogueManager
     {
+        // VARIABLE DECLARATION --
         int currentConversationState;
         SpriteFont textFont;
         LinkedList<TextBubble> activeTextBubbles;
@@ -27,6 +28,7 @@ namespace PantheonPrototype
         ArrayList currentConversation;
         TextBubble currentConversationBubble;
 
+        // METHOD AND FUNCTION DEFINITION --
         /// <summary>
         /// Constructs the basics of the DialogueManager class and prepares it to handle
         /// dialogue and conversation.
@@ -38,30 +40,23 @@ namespace PantheonPrototype
             this.conversations = new Dictionary<string, ArrayList>();
 
             this.currentConversationState = 0;
+
+            // Test conversation for testing.
+            ArrayList oldManConversation = new ArrayList();
+            oldManConversation.Add(new DialogueNode(1, "Hello."));
+            oldManConversation.Add(new DialogueNode(2, "It's dangerous to go alone."));
+            oldManConversation.Add(new DialogueNode(0, "   Here.\nTake this."));
+
+            this.conversations.Add("FriendtheOldMan", oldManConversation);
         }
 
         /// <summary>
         /// Keeps DialogueManager up-to-date. Makes sure no conversations are still on going.
         /// Manages the checking of exit conditions for text bubbles.
         /// </summary>
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Pantheon gameReference)
         {
             LinkedListNode<TextBubble> currentNode;
-
-            // Update current conversation...
-            if (this.currentConversation != null)
-            {
-                DialogueNode currentDiagNode = (DialogueNode)this.currentConversation[this.currentConversationState];
-
-                if (currentDiagNode.ShouldContinueRunning())
-                {
-                    currentDiagNode.Update(gameTime);
-                }
-                else
-                {
-                    this.currentConversationState = currentDiagNode.NextState;
-                }
-            }
 
             // Update each of the text bubbles...
             currentNode = this.activeTextBubbles.First;
@@ -69,7 +64,7 @@ namespace PantheonPrototype
             {
                 LinkedListNode<TextBubble> next = currentNode.Next;
 
-                currentNode.Value.Update(gameTime);
+                currentNode.Value.Update(gameTime, gameReference);
 
                 if (currentNode.Value.isReadyForDeletion)
                     this.activeTextBubbles.Remove(currentNode);
@@ -93,13 +88,46 @@ namespace PantheonPrototype
         /// Starts a conversation with a given entity. This entity ID is used to identify which conversation to execute.
         /// </summary>
         /// <param name="entityName">The entity to begin conversing with. Used as a handle to pick the conversation "column."</param>
-        public bool StartConversation(String entityName)
+        public bool StartConversation(String entityName, Entity entity)
         {
             this.currentConversation = this.conversations[entityName];
+            this.currentConversationState = 0;
+            this.currentConversationBubble = new TextBubble(entity, ((DialogueNode)this.currentConversation[this.currentConversationState]).Text);
+            this.activeTextBubbles.AddLast(this.currentConversationBubble);
 
             if (this.currentConversation == null) return false;
 
             return true;
+        }
+
+        /// <summary>
+        /// Is used to interact with NPCs. If there is no conversation going, it will initialize one.
+        /// If the end of a conversation has been reached, it will end the conversation.
+        /// </summary>
+        /// <param name="entityName">The entity to interact with.</param>
+        /// <param name="entity">The entity that the dialogue is happening with.</param>
+        public void Interact(string entityName, Entity entity)
+        {
+            if (this.currentConversation == null)
+            {
+                this.StartConversation(entityName, entity);
+            }
+            else if (((DialogueNode)this.currentConversation[this.currentConversationState]).NextState == 0)
+            {
+                EndConversation();
+            }
+            else
+            {
+                DialogueNode currentDiagNode = (DialogueNode)this.currentConversation[this.currentConversationState];
+
+                this.currentConversationBubble.isReadyForDeletion = true;
+                this.currentConversationState = currentDiagNode.NextState;
+
+                currentDiagNode = (DialogueNode)this.currentConversation[this.currentConversationState];
+
+                this.currentConversationBubble = new TextBubble(entity, currentDiagNode.Text);
+                this.activeTextBubbles.AddLast(this.currentConversationBubble);
+            }
         }
 
         /// <summary>
@@ -108,30 +136,14 @@ namespace PantheonPrototype
         public void EndConversation()
         {
             this.currentConversation = null;
-            this.currentConversationBubble = null;
             this.currentConversationState = 0;
-        }
 
-        /// <summary>
-        /// Creates a custom text bubble with a duration with the specified parameteres.
-        /// Is not necessary for creating conversation and will be invoked automatically
-        /// via the DialogueManager.
-        /// </summary>
-        /// <param name="position">The location of the speaking point of the text bubble.</param>
-        /// <param name="text">The text the text bubble should say.</param>
-        /// <param name="duration">How long (in milliseconds) the text bubble should last.</param>
-        /// <returns>
-        /// Returns a handle to the created text bubble. If created through this function,
-        /// the bubble will be managed by the DialogueManager class and should be deleted through
-        /// the text bubbles "Delete" function.
-        /// </returns>
-        public TextBubble CreateTextBubble(Vector2 position, String text)
-        {
-            TextBubble tempTextBubble = new TextBubble(position, text);
-
-            this.activeTextBubbles.AddLast(tempTextBubble);
-
-            return tempTextBubble;
+            // If there is an active text bubble, remember to kill it before nulling.
+            if (this.currentConversationBubble != null)
+            {
+                this.currentConversationBubble.isReadyForDeletion = true;
+                this.currentConversationBubble = null;
+            }
         }
     }
 }
