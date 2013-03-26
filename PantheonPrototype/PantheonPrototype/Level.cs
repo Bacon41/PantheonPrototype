@@ -277,7 +277,15 @@ namespace PantheonPrototype
                 {
                     if (entityList[i].BoundingBox.Intersects(entityList[j].BoundingBox))
                     {
-                        checkEntities(entityNameList[i], entityList[i], entityNameList[j], entityList[j]);
+                        List<string> collidedNames = new List<string>();
+                        List<Entity> collidedEntities = new List<Entity>();
+
+                        collidedNames.Add(entityNameList[i]);
+                        collidedEntities.Add(entityList[i]);
+                        collidedNames.Add(entityNameList[j]);
+                        collidedEntities.Add(entityList[j]);
+
+                        checkEntities(collidedNames, collidedEntities);
                     }
                 }
             }
@@ -377,51 +385,39 @@ namespace PantheonPrototype
         /// <param name="entityOne">The first entity in the collision.</param>
         /// <param name="entityTwoName">The name of the second entity in the collision.</param>
         /// <param name="entityTwo">The second entity in the collision.</param>
-        private void checkEntities(string entityOneName, Entity entityOne, string entityTwoName, Entity entityTwo)
+        private void checkEntities(List<string> entityNames, List<Entity> entityList)
         {
-            // Projectile collision checking
-            if (entityOne.Characteristics.Contains("Projectile"))
+            // Check for collisions from the first entity to the second and from the second to the first
+            for (int i = 0; i < entityList.Count; i++)
             {
-                if (entityTwo.Characteristics.Contains("Friendly"))
-                {
-                    this.removeList.Add(entityOneName);
-                }
-                else if (entityTwo.Characteristics.Contains("Enemy"))
-                {
-                    this.removeList.Add(entityOneName);
-                    ((EnemyNPC)entityTwo).Damage(((Bullet)entityOne).Damage);
-                }
-                else if (entityTwo.Characteristics.Contains("Player"))
-                {
-                    this.removeList.Add(entityOneName);
-                    ((PlayerCharacter)entityTwo).Damage(((Bullet)entityOne).Damage);
-                }
-            }
+                // Hackses to select the other entity
+                int j = (i + 1) % 2;
 
-            // Always check the reverse pairing
-            if (entityTwo.Characteristics.Contains("Projectile"))
-            {
-                if (entityOne.Characteristics.Contains("Friendly"))
+                // Projectile collisions
+                if (entityList[i].Characteristics.Contains("Projectile"))
                 {
-                    this.removeList.Add(entityTwoName);
+                    if (entityList[j].Characteristics.Contains("Friendly"))
+                    {
+                        this.removeList.Add(entityNames[i]);
+                    }
+                    else if (entityList[j].Characteristics.Contains("Enemy"))
+                    {
+                        this.removeList.Add(entityNames[i]);
+                        ((EnemyNPC)entityList[j]).Damage(((Bullet)entityList[i]).Damage);
+                    }
+                    else if (entityList[j].Characteristics.Contains("Player"))
+                    {
+                        this.removeList.Add(entityNames[i]);
+                        ((PlayerCharacter)entityList[j]).Damage(((Bullet)entityList[i]).Damage);
+                    }
                 }
-                else if (entityOne.Characteristics.Contains("Enemy"))
-                {
-                    this.removeList.Add(entityTwoName);
-                    ((EnemyNPC)entityOne).Damage(((Bullet)entityTwo).Damage);
-                }
-                else if (entityOne.Characteristics.Contains("Player"))
-                {
-                    this.removeList.Add(entityTwoName);
-                    ((PlayerCharacter)entityOne).Damage(((Bullet)entityTwo).Damage);
-                }
-            }
 
-            // Inter-walker collisions.
-            if (entityOne.Characteristics.Contains("Walking") && entityTwo.Characteristics.Contains("Walking"))
-            {
-                entityOne.Location = entityOne.PrevLocation;
-                entityTwo.Location = entityTwo.PrevLocation;
+                // Inter-walker collisions
+                if (entityList[i].Characteristics.Contains("Walking") && entityList[j].Characteristics.Contains("Walking"))
+                {
+                    entityList[i].Location = entityList[i].PrevLocation;
+                    entityList[j].Location = entityList[j].PrevLocation;
+                }
             }
         }
 
