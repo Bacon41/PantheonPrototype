@@ -33,6 +33,11 @@ namespace PantheonPrototype
         /// </summary>
         private Dictionary<string, List<HandleEvent>> eventHandlers;
 
+        public EventManager()
+        {
+            eventHandlers = new Dictionary<string, List<HandleEvent>>();
+        }
+
         /// <summary>
         /// Registers an event handling function with the EventManager class. When the EventManager
         /// receives an event of the given type, the given handler will be called.

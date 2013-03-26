@@ -126,6 +126,9 @@ namespace PantheonPrototype
 
             // Load the dialogue manager...
             this.dialogueManager = new DialogueManager(gameReference.Content.Load<SpriteFont>("DialogueFont"));
+
+            this.entities.Add("BunnyTrigger", new Trigger(new Rectangle(500, 500, 1000, 1000), gameReference));
+            this.entities["BunnyTrigger"].Load(gameReference.Content);
         }
         
         /// <summary>
@@ -285,7 +288,7 @@ namespace PantheonPrototype
                         collidedNames.Add(entityNameList[j]);
                         collidedEntities.Add(entityList[j]);
 
-                        checkEntities(collidedNames, collidedEntities);
+                        checkEntities(collidedNames, collidedEntities, gameReference);
                     }
                 }
             }
@@ -385,7 +388,7 @@ namespace PantheonPrototype
         /// <param name="entityOne">The first entity in the collision.</param>
         /// <param name="entityTwoName">The name of the second entity in the collision.</param>
         /// <param name="entityTwo">The second entity in the collision.</param>
-        private void checkEntities(List<string> entityNames, List<Entity> entityList)
+        private void checkEntities(List<string> entityNames, List<Entity> entityList, Pantheon gameReference)
         {
             // Check for collisions from the first entity to the second and from the second to the first
             for (int i = 0; i < entityList.Count; i++)
@@ -417,6 +420,18 @@ namespace PantheonPrototype
                 {
                     entityList[i].Location = entityList[i].PrevLocation;
                     entityList[j].Location = entityList[j].PrevLocation;
+                }
+
+                // Trigger collisions
+                if (entityList[i].Characteristics.Contains("Triggerable"))
+                {
+                    if(entityList[j].Characteristics.Contains("Player"))
+                    {
+                        Dictionary<string, string> bunnyList = new Dictionary<string,string>();
+                        bunnyList.Add("Trigger",entityNames[j]);
+                        bunnyList.Add("Payload", "Bunnies");
+                        gameReference.EventManager.notify(new Event("TriggerEventWithBunnies!!!", bunnyList));
+                    }
                 }
             }
         }

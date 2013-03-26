@@ -99,6 +99,7 @@ namespace PantheonPrototype
         {
             //Set the rotation of the sprite
             this.rotation = 0;
+
             loadSprite(image, rows, columns, frameRate);
         }
 
