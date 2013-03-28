@@ -18,16 +18,26 @@ namespace PantheonPrototype
     class Trigger : Entity
     {
         /// <summary>
+        /// Indicates if the trigger is active.
+        /// </summary>
+        public bool Active
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// The constructor for a Trigger entity. Note that the bounding box and drawing box are the same since the Trigger will not be drawn. The location 
         /// is also specified by the location box. The action point is defaultly located in the center of the trigger.
         /// </summary>
         /// <param name="locationBox"></param>
         public Trigger(Rectangle locationBox, Pantheon gameReference)
             : base(
-                new Vector2(locationBox.X, locationBox.Y),
+                new Vector2(locationBox.X + locationBox.Width/2, locationBox.Y + locationBox.Height/2),
                 locationBox,
-                new Rectangle(locationBox.X + locationBox.Width/2, locationBox.Y + locationBox.Height/2, locationBox.Width, locationBox.Height))
+                new Rectangle(0, 0, locationBox.Width, locationBox.Height))
         {
+            Console.WriteLine("Trigger created drawn at (" + this.DrawingBox.X + ", " + this.DrawingBox.Y + ")");
             characteristics.Add("Triggerable");
 
             HandleEvent bunnyHandler = bunnies;
@@ -39,6 +49,11 @@ namespace PantheonPrototype
             base.Load(contentManager);
 
             this.sprite = new Sprite();
+        }
+
+        public override void Update(GameTime gameTime, Pantheon gameReference)
+        {
+            base.Update(gameTime, gameReference);
         }
 
         public static void bunnies(Event eventInfo)

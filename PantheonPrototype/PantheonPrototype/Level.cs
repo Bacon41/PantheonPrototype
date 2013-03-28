@@ -119,6 +119,12 @@ namespace PantheonPrototype
                     this.entities.Add(obj.Name, new ButterflyEnemy(new Vector2(obj.Bounds.Center.X, obj.Bounds.Center.Y)));
                     this.entities[obj.Name].Load(gameReference.Content);
                 }
+                if (obj.Name.Contains("Trigger"))
+                {
+                    this.entities.Add(obj.Name, new Trigger(new Rectangle(obj.Bounds.Left, obj.Bounds.Top, obj.Bounds.Width, obj.Bounds.Height), gameReference));
+                    Console.WriteLine("Trigger created drawn at (" + obj.Bounds.Left+ ", " + obj.Bounds.Top+ ")");
+                    this.entities[obj.Name].Load(gameReference.Content);
+                }
             }
             Camera.Pos = new Vector2(this.entities["character"].Location.X, this.entities["character"].Location.Y);
 
@@ -127,8 +133,8 @@ namespace PantheonPrototype
             // Load the dialogue manager...
             this.dialogueManager = new DialogueManager(gameReference.Content.Load<SpriteFont>("DialogueFont"));
 
-            this.entities.Add("BunnyTrigger", new Trigger(new Rectangle(500, 500, 1000, 1000), gameReference));
-            this.entities["BunnyTrigger"].Load(gameReference.Content);
+            //this.entities.Add("BunnyTrigger", new Trigger(new Rectangle(500, 500, 1000, 1000), gameReference));
+            //this.entities["BunnyTrigger"].Load(gameReference.Content);
         }
         
         /// <summary>
