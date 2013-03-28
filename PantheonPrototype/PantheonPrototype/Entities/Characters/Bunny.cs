@@ -15,7 +15,7 @@ namespace PantheonPrototype
     /// <summary>
     /// Super important bunny rabbit for testing porpoises.
     /// </summary>
-    class BunnyNPC : NPCCharacter
+    class BunnyNPC : EnemyNPC
     {
         public static int counter = 0;
 
@@ -25,6 +25,11 @@ namespace PantheonPrototype
             facing = Direction.Right;
             currentState = "Move";
             changeDirection = TimeSpan.FromSeconds(1);
+
+            currentArmor = 10;
+            totalArmor = 10;
+
+            characteristics.Add("Enemy");
         }
 
         public override void Load(ContentManager contentManager)
@@ -53,6 +58,12 @@ namespace PantheonPrototype
         public override void Update(GameTime gameTime, Pantheon gameReference)
         {
             base.Update(gameTime, gameReference);
+
+            if (currentArmor <= 0)
+            {
+                currentState = "Die";
+                toDestroy = true;
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)

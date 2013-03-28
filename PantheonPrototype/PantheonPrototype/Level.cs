@@ -420,6 +420,11 @@ namespace PantheonPrototype
                         this.removeList.Add(entityNames[i]);
                         ((PlayerCharacter)entityList[j]).Damage(((Bullet)entityList[i]).Damage);
                     }
+
+                    if (entityNames[j].Contains("Bunny"))
+                    {
+                        Console.WriteLine(entityNames[j] + " collided with " + entityNames[i]);
+                    }
                 }
 
                 // Inter-walker collisions
