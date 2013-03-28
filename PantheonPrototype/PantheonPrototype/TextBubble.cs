@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace PantheonPrototype
 {
-    class TextBubble
+    public class TextBubble
     {
         // VARIABLE DECLARATION --
         protected bool readyForDeletion;

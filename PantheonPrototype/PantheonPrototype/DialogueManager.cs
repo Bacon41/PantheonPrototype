@@ -27,6 +27,7 @@ namespace PantheonPrototype
         protected Dictionary<string, ArrayList> conversations;
         protected ArrayList currentConversation;
         protected TextBubble currentConversationBubble;
+        protected HandleEvent eventHandler;
 
         // METHOD AND FUNCTION DEFINITION --
         /// <summary>
@@ -48,6 +49,8 @@ namespace PantheonPrototype
             oldManConversation.Add(new DialogueNode(0, "   Here.\nTake this."));
 
             this.conversations.Add("FriendtheOldMan", oldManConversation);
+
+            this.eventHandler = this.Interact;
         }
 
         /// <summary>
@@ -106,8 +109,11 @@ namespace PantheonPrototype
         /// </summary>
         /// <param name="entityName">The entity to interact with.</param>
         /// <param name="entity">The entity that the dialogue is happening with.</param>
-        public void Interact(string entityName, Entity entity)
+        public void Interact(Event firedEvent)
         {
+            string entityName = firedEvent.payload["EntityKey"];
+            Entity entity = firedEvent.gameReference.currentLevel.Entities[entityName];
+
             if (this.currentConversation == null)
             {
                 this.StartConversation(entityName, entity);

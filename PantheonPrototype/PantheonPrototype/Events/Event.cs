@@ -24,6 +24,11 @@ namespace PantheonPrototype
     public class Event
     {
         /// <summary>
+        /// Added temporary reference to game for the lolz.
+        /// </summary>
+        public Pantheon gameReference;
+
+        /// <summary>
         /// The type of the event.
         /// </summary>
         private string type;
