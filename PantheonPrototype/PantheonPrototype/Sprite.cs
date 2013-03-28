@@ -86,6 +86,21 @@ namespace PantheonPrototype
         public Sprite()
         {
             stateRange = new Dictionary<string, FrameRange>();
+
+            //Set the current state to default
+            this.currentState = "default";
+
+            //Create a temporary frame range for the default state
+            FrameRange temp;
+            temp.first = 0;
+            temp.last = 0;
+            temp.looping = true;
+
+            //Clear the stateRange with a blank dictionary
+            stateRange = new Dictionary<string, FrameRange>();
+
+            //Create the default state in case the user doesn't specify one
+            this.stateRange.Add("default", temp);
         }
 
         public Sprite(Texture2D image, int rows, int columns)

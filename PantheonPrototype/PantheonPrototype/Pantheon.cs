@@ -96,6 +96,7 @@ namespace PantheonPrototype
             QuestManager = new QuestManager();
 
             EventManager = new EventManager();
+            EventManager.GameReference = this;
 
             base.Initialize();
         }

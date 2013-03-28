@@ -122,8 +122,8 @@ namespace PantheonPrototype
                 if (obj.Name.Contains("Trigger"))
                 {
                     this.entities.Add(obj.Name, new Trigger(new Rectangle(obj.Bounds.Left, obj.Bounds.Top, obj.Bounds.Width, obj.Bounds.Height), gameReference));
-                    Console.WriteLine("Trigger created drawn at (" + obj.Bounds.Left+ ", " + obj.Bounds.Top+ ")");
                     this.entities[obj.Name].Load(gameReference.Content);
+                    ((Trigger)this.entities[obj.Name]).ReactivateTime = (int)obj.Properties["ReactivateTime"].AsInt32;
                 }
             }
             Camera.Pos = new Vector2(this.entities["character"].Location.X, this.entities["character"].Location.Y);

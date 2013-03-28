@@ -18,13 +18,32 @@ namespace PantheonPrototype
     class Trigger : Entity
     {
         /// <summary>
-        /// Indicates if the trigger is active.
+        /// Flag indicating if the trigger is active or not.
         /// </summary>
+        private bool active;
+
         public bool Active
         {
-            get;
-            set;
+            get { return active; }
+            set { active = value; }
         }
+
+        private int reactivateTime;
+
+        /// <summary>
+        /// Sets the number of frames it takes the trigger to reactivate after it has been triggered.
+        /// 
+        /// A value of 0 means the trigger is never deactivated and a value less than 0 means the trigger will permanently deactivate. 
+        /// </summary>
+        public int ReactivateTime
+        {
+            set { reactivateTime = value; }
+        }
+
+        /// <summary>
+        /// The actual counter for the number of frames since activated.
+        /// </summary>
+        private int timeSinceActivated = 0;
 
         /// <summary>
         /// The constructor for a Trigger entity. Note that the bounding box and drawing box are the same since the Trigger will not be drawn. The location 
@@ -37,7 +56,6 @@ namespace PantheonPrototype
                 locationBox,
                 new Rectangle(0, 0, locationBox.Width, locationBox.Height))
         {
-            Console.WriteLine("Trigger created drawn at (" + this.DrawingBox.X + ", " + this.DrawingBox.Y + ")");
             characteristics.Add("Triggerable");
 
             HandleEvent bunnyHandler = bunnies;
@@ -49,16 +67,40 @@ namespace PantheonPrototype
             base.Load(contentManager);
 
             this.sprite = new Sprite();
+
+            active = true;
         }
 
         public override void Update(GameTime gameTime, Pantheon gameReference)
         {
             base.Update(gameTime, gameReference);
+
+            // If deactivated and waiting for reactivation
+            if (!active && reactivateTime >= 0)
+            {
+                // Count the time until reactivation
+                timeSinceActivated++;
+
+                // If it is time for reactivation
+                if (timeSinceActivated >= reactivateTime)
+                {
+                    // Reactivate
+                    active = true;
+
+                    // And reset the activation counter
+                    timeSinceActivated = 0;
+                }
+            }
         }
 
-        public static void bunnies(Event eventInfo)
+        public void bunnies(Event eventInfo)
         {
-            Console.WriteLine("BUNNIES!!!!!!!!!!");
+            // Only execute if active
+            if (active)
+            {
+                Console.WriteLine("BUNNIES!!!!!!!!!!");
+                active = false;
+            }
         }
     }
 }

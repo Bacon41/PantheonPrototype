@@ -28,6 +28,13 @@ namespace PantheonPrototype
     public class EventManager
     {
         /// <summary>
+        /// Event manager passes the game reference into events as they pass through it.
+        /// That way, we can inject Pantheon references where ever we want... somewhat
+        /// like the Ebola virus... except a lot less like a living organism.
+        /// </summary>
+        public Pantheon GameReference;
+
+        /// <summary>
         /// A dictionary that maps each type of event to a list of delegate functions to call when
         /// that specific type of event occurs.
         /// </summary>
