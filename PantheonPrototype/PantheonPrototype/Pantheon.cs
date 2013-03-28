@@ -32,11 +32,15 @@ namespace PantheonPrototype
 
         public Entity player;
 
+        public Entity player;
+
         public Level currentLevel;
 
         Menu menu;
 
         HUD hud;
+
+        public EventManager EventManager;
 
         SpriteFont debugFont;
 
@@ -113,9 +117,13 @@ namespace PantheonPrototype
 
             menu.Load(this);
 
+<<<<<<< HEAD
             //currentLevel.Load("map1", "map0", this);
 
             ControlManager.actions.Pause = true;
+=======
+            controlManager.actions.Pause = true;
+>>>>>>> origin
         }
 
         internal void StartGame()
@@ -193,7 +201,7 @@ namespace PantheonPrototype
 
             if (ControlManager.actions.Pause)
             {
-                menu.Draw(spriteBatch);
+                menu.Draw(spriteBatch, debugFont);
             }
             else
             {
@@ -207,5 +215,6 @@ namespace PantheonPrototype
 
             base.Draw(gameTime);
         }
+
     }
 }

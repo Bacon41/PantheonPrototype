@@ -63,7 +63,8 @@ namespace PantheonPrototype
 
         private Texture2D shieldTexture;
 
-        public Shield(ContentManager contentManager) 
+        public Shield(ContentManager contentManager)
+            : base(contentManager.Load<Texture2D>("Shield"))
         {
             shieldTexture = contentManager.Load<Texture2D>("Shield");
 
@@ -73,6 +74,9 @@ namespace PantheonPrototype
 
             totalShield = 300;
             currentShield = 300;
+
+            Info = "This is just your basic Shield\n" +
+                   "   Use it wisely...\n";
         }
         /// <summary>
         /// Turn the shield on.

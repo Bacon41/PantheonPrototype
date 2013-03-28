@@ -36,6 +36,7 @@ namespace PantheonPrototype
         public bool Reload;
 
         public bool MenuSelect;
+        public bool Deselect;
 
         public bool CursorEnabled;
 
@@ -91,6 +92,7 @@ namespace PantheonPrototype
         //public Keys ZoomButton;
         //public Keys AttackButton;
         public Keys AimKey;
+        public ButtonState Deselect;
 
         public ButtonState MenuSelectKey;
         public ButtonState PrevMenuSelectKey;
@@ -172,7 +174,7 @@ namespace PantheonPrototype
                     if (keyboard.IsKeyDown(keyboardAndMouse.MoveRightKey) || keyboard.IsKeyDown(Keys.Right)) { actions.MoveRight = true; }
                 }
 
-                if (keyboard.IsKeyDown(keyboardAndMouse.ShieldKey) && !oldKeyboard.IsKeyDown(keyboardAndMouse.ShieldKey)) { actions.Shield = !actions.Shield; }
+                if (keyboard.IsKeyDown(keyboardAndMouse.ShieldKey) && oldKeyboard.IsKeyUp(keyboardAndMouse.ShieldKey)) { actions.Shield = !actions.Shield; }
                 if (keyboard.IsKeyDown(keyboardAndMouse.ReloadKey)) { actions.Reload = true; }
                 if (keyboard.IsKeyDown(keyboardAndMouse.TakeDamage)) { actions.beingDamaged = true; }
                 //if (mouse.LeftButton == ButtonState.Pressed) { actions.Attack = true; }
@@ -184,14 +186,24 @@ namespace PantheonPrototype
                     if (keyboardAndMouse.AttackMouseButton == ButtonState.Pressed) { actions.Attack = true; }
                 }
             }
-            if (actions.isMouseClickEnabled)
+            if (keyboard.IsKeyDown(keyboardAndMouse.PauseKey) && !oldKeyboard.IsKeyDown(keyboardAndMouse.PauseKey))
+            { actions.Pause = !actions.Pause; }
+
+            if (actions.Pause && actions.isMouseClickEnabled)
             {
-                if (keyboardAndMouse.MenuSelectKey == ButtonState.Pressed)
+                if (keyboardAndMouse.MenuSelectKey == ButtonState.Pressed && keyboardAndMouse.PrevMenuSelectKey != ButtonState.Pressed)
                 { actions.MenuSelect = true; }
                 else { actions.MenuSelect = false; }
             }
-            if (keyboard.IsKeyDown(keyboardAndMouse.PauseKey) && !oldKeyboard.IsKeyDown(keyboardAndMouse.PauseKey))
-            { actions.Pause = !actions.Pause; }
+
+            if (keyboardAndMouse.Deselect == ButtonState.Pressed)
+            {
+                actions.Deselect = true;
+            }
+            else
+            {
+                actions.Deselect = false;
+            }
 
             if (actions.Pause && actions.isMouseClickEnabled)
             {
@@ -220,6 +232,7 @@ namespace PantheonPrototype
             actions.Shield = false;
             actions.Aim = false;
             actions.Attack = false;
+			
             actions.Interact = false;
 
             actions.CursorPosition = Vector2.Zero;
@@ -289,6 +302,8 @@ namespace PantheonPrototype
             keyboardAndMouse.InteractKey = Keys.E;
             keyboardAndMouse.ReloadKey = Keys.R;
 
+            keyboardAndMouse.Deselect = mouse.RightButton;
+
             keyboardAndMouse.AimKey = Keys.LeftShift;
 
             //temporary: REMOVE THIS ONCE COMBAT WORKS
@@ -324,6 +339,7 @@ namespace PantheonPrototype
             keyboardAndMouse.AttackMouseButton = mouse.LeftButton;
             keyboardAndMouse.PrevMenuSelectKey = keyboardAndMouse.MenuSelectKey;
             keyboardAndMouse.MenuSelectKey = mouse.LeftButton;
+            keyboardAndMouse.Deselect = mouse.RightButton;
         }
    
     }

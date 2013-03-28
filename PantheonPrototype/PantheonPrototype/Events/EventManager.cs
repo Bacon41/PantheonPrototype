@@ -28,6 +28,7 @@ namespace PantheonPrototype
     public class EventManager
     {
         /// <summary>
+<<<<<<< HEAD
         /// Event manager passes the game reference into events as they pass through it.
         /// That way, we can inject Pantheon references where ever we want... somewhat
         /// like the Bunyaviridae virus... except a lot less like a living organism.
@@ -35,16 +36,21 @@ namespace PantheonPrototype
         public Pantheon GameReference;
 
         /// <summary>
+=======
+>>>>>>> origin
         /// A dictionary that maps each type of event to a list of delegate functions to call when
         /// that specific type of event occurs.
         /// </summary>
         private Dictionary<string, List<HandleEvent>> eventHandlers;
 
+<<<<<<< HEAD
         public EventManager()
         {
             eventHandlers = new Dictionary<string, List<HandleEvent>>();
         }
 
+=======
+>>>>>>> origin
         /// <summary>
         /// Registers an event handling function with the EventManager class. When the EventManager
         /// receives an event of the given type, the given handler will be called.
@@ -62,6 +68,7 @@ namespace PantheonPrototype
         }
 
         /// <summary>
+<<<<<<< HEAD
         /// Unregisters the given event handler with the given type of event notification.
         /// </summary>
         /// <param name="type">The type of event from which to remove the handler.</param>
@@ -74,14 +81,19 @@ namespace PantheonPrototype
         }
 
         /// <summary>
+=======
+>>>>>>> origin
         /// Notifies the appropriate handlers of an Event.
         /// </summary>
         /// <param name="eventInfo">Information about the event.</param>
         public void notify(Event eventInfo)
         {
+<<<<<<< HEAD
             // Inject that global reference non-Bunyaviridae-like thingy
             eventInfo.GameReference = this.GameReference;
 
+=======
+>>>>>>> origin
             foreach (HandleEvent handler in eventHandlers[eventInfo.Type])
             {
                 handler(eventInfo);

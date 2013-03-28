@@ -71,7 +71,8 @@ namespace PantheonPrototype
         /// <summary>
         /// Initializes key values of a weapon.
         /// </summary>
-        public Weapon()
+        public Weapon(ContentManager Content)
+            : base(Content.Load<Texture2D>("Rifle"))
         {
             lastShot = TimeSpan.Zero;
             fireRate = 5;
@@ -81,6 +82,11 @@ namespace PantheonPrototype
             damage = 5;
             reloadDelay = TimeSpan.FromSeconds(2);
             reloading = false;
+            Info = "This is the basic weapon\n" +
+                   "   It has so/so range and\n" +
+                   "   reload time. Also, watch\n" +
+                   "   out for Butterflies carring\n" +
+                   "   this weapon!";
         }
 
         /// <summary>

@@ -18,7 +18,7 @@ namespace PantheonPrototype
         /// The constructor for the Butterfly enemy, currently just sets up the base class.
         /// </summary>
         /// <param name="location">The initial position of the Butterfly.</param>
-        public ButterflyEnemy(Vector2 location)
+        public ButterflyEnemy(Vector2 location, ContentManager Content)
             : base(location, new Rectangle(0, 0, 40, 40), new Rectangle(15, 25, 10, 10))
         {
             facing = Direction.Left;
@@ -27,7 +27,7 @@ namespace PantheonPrototype
             TotalArmor = 20;
             CurrentArmor = 20;
 
-            EquippedItems.Add("weapon", new Weapon());
+            EquippedItems.Add("weapon", new Weapon(Content));
             ArmedItem = EquippedItems["weapon"];
         }
 

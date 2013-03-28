@@ -84,7 +84,10 @@
     <Compile Include="CutsceneManager.cs" />
     <Compile Include="DialogueManager.cs" />
     <Compile Include="DialogueNode.cs" />
+<<<<<<< HEAD
     <Compile Include="Entities\Trigger.cs" />
+=======
+>>>>>>> origin
     <Compile Include="Events\Event.cs" />
     <Compile Include="Events\EventManager.cs" />
     <Compile Include="HUD\Inventory.cs" />

@@ -48,8 +48,7 @@ namespace PantheonPrototype
                 new Rectangle(0,0,40,40),
                 new Rectangle(15,25,10,10))
         {
-            inventory.unequipped = new List<Item>();
-            inventory.equipped = new List<Item>(7);
+            initializeInventory();
 
             TotalArmor = 100;
             CurrentArmor = 100;
@@ -60,15 +59,33 @@ namespace PantheonPrototype
             offset = Vector2.Zero;
             laserTexture = new Texture2D(gameReference.GraphicsDevice, 1, 1);
 
-            EquippedItems.Add("weapon", new Weapon());
-            inventory.equipped.Add(EquippedItems["weapon"]);
+            EquippedItems.Add("weapon", new Weapon(gameReference.Content));
+            inventory.equipped.RemoveAt(0);
+            inventory.equipped.Insert(0, EquippedItems["weapon"]);
             EquippedItems.Add("shield", new Shield(gameReference.Content));
-            inventory.equipped.Add(EquippedItems["shield"]);
+            inventory.equipped.RemoveAt(6);
+            inventory.equipped.Insert(6, EquippedItems["shield"]);
 
             ArmedItem = EquippedItems["weapon"];
+            drawLasar = true;
 
             characteristics.Add("Player");
             drawLasar = true;
+        }
+
+
+        void initializeInventory()
+        {
+            inventory.unequipped = new List<Item>(24);
+            for (int i = 0; i < 24; i++)
+            {
+                inventory.unequipped.Insert(i, new Item());
+            }
+            inventory.equipped = new List<Item>(7);
+            for (int i = 0; i < 7; i++)
+            {
+                inventory.equipped.Insert(i, new Item());
+            }
         }
 
         /// <summary>
@@ -163,9 +180,15 @@ namespace PantheonPrototype
             if (currentArmor <= 0)
             {
                 currentState = "Die";
+<<<<<<< HEAD
                 gameReference.ControlManager.disableControls(false);
             }
             if (!gameReference.ControlManager.actions.isControlEnabled)
+=======
+                gameReference.controlManager.disableControls(false);
+            }
+            if (!gameReference.controlManager.actions.isControlEnabled)
+>>>>>>> origin
             {
                 drawLasar = false;
             }
@@ -313,8 +336,12 @@ namespace PantheonPrototype
             angleFacing = (float)Math.Atan2(cursorLocation.Y - Location.Y, cursorLocation.X - Location.X);
 
             //Modify the direction in which the character faces
+<<<<<<< HEAD
 
             if (gameReference.ControlManager.actions.isControlEnabled)
+=======
+            if (gameReference.controlManager.actions.isControlEnabled)
+>>>>>>> origin
             {
                 facing = HamburgerHelper.reduceAngle(cursorLocation - Location);
             }

@@ -70,7 +70,11 @@ namespace PantheonPrototype
         public void PlayLevelLoad(Pantheon gameReference)
         {
             cutcsenePlaying = true;
+<<<<<<< HEAD
             gameReference.ControlManager.disableControls(false);
+=======
+            gameReference.controlManager.disableControls(false);
+>>>>>>> origin
             hideRect.Width = gameReference.GraphicsDevice.Viewport.Width;
             hideRect.Height = gameReference.GraphicsDevice.Viewport.Height;
             hideOffset = -20;
@@ -79,7 +83,11 @@ namespace PantheonPrototype
         public void PlayLevelEnd(Pantheon gameReference)
         {
             cutcsenePlaying = true;
+<<<<<<< HEAD
             gameReference.ControlManager.disableControls(false);
+=======
+            gameReference.controlManager.disableControls(false);
+>>>>>>> origin
             hideRect.Width = gameReference.GraphicsDevice.Viewport.Width;
             hideRect.Height = 0;
             hideOffset = 20;

@@ -35,6 +35,7 @@ namespace PantheonPrototype
         }
 
         /// <summary>
+<<<<<<< HEAD
         /// One of those joyous global reference thingies protected by a healthy degree of encapsulation...
         /// 
         /// Truthfully, this should have bitten us by now... but it hasn't. So much for a bad coding practice.
@@ -44,6 +45,8 @@ namespace PantheonPrototype
         public Pantheon GameReference;
 
         /// <summary>
+=======
+>>>>>>> origin
         /// A list of all the event specific information given in the event.
         /// 
         /// Takes the form of a Dictionary with a string mapping to a string.
