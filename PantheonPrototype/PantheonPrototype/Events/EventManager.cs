@@ -30,7 +30,7 @@ namespace PantheonPrototype
         /// <summary>
         /// Event manager passes the game reference into events as they pass through it.
         /// That way, we can inject Pantheon references where ever we want... somewhat
-        /// like the Ebola virus... except a lot less like a living organism.
+        /// like the Bunyaviridae virus... except a lot less like a living organism.
         /// </summary>
         public Pantheon GameReference;
 
@@ -62,11 +62,26 @@ namespace PantheonPrototype
         }
 
         /// <summary>
+        /// Unregisters the given event handler with the given type of event notification.
+        /// </summary>
+        /// <param name="type">The type of event from which to remove the handler.</param>
+        /// <param name="handler">The handler to remove from the notification list.</param>
+        public void unregister(string type, HandleEvent handler)
+        {
+            List<HandleEvent> handlerList = eventHandlers[type];
+
+            handlerList.Remove(handler);
+        }
+
+        /// <summary>
         /// Notifies the appropriate handlers of an Event.
         /// </summary>
         /// <param name="eventInfo">Information about the event.</param>
         public void notify(Event eventInfo)
         {
+            // Inject that global reference non-Bunyaviridae-like thingy
+            eventInfo.GameReference = this.GameReference;
+
             foreach (HandleEvent handler in eventHandlers[eventInfo.Type])
             {
                 handler(eventInfo);
