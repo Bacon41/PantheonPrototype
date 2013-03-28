@@ -21,12 +21,12 @@ namespace PantheonPrototype
     public class DialogueManager
     {
         // VARIABLE DECLARATION --
-        int currentConversationState;
-        SpriteFont textFont;
-        LinkedList<TextBubble> activeTextBubbles;
-        Dictionary<string, ArrayList> conversations;
-        ArrayList currentConversation;
-        TextBubble currentConversationBubble;
+        protected int currentConversationState;
+        protected SpriteFont textFont;
+        protected LinkedList<TextBubble> activeTextBubbles;
+        protected Dictionary<string, ArrayList> conversations;
+        protected ArrayList currentConversation;
+        protected TextBubble currentConversationBubble;
 
         // METHOD AND FUNCTION DEFINITION --
         /// <summary>
@@ -114,7 +114,7 @@ namespace PantheonPrototype
             }
             else if (((DialogueNode)this.currentConversation[this.currentConversationState]).NextState == 0)
             {
-                EndConversation();
+                this.EndConversation();
             }
             else
             {
