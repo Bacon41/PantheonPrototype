@@ -244,10 +244,10 @@ namespace PantheonPrototype
             for (int i = 0; i < entityList.Count; i++)
             {
                 // Go through the bounds
-                if (entityList[i].BoundingBox.X < 0
-                    && entityList[i].BoundingBox.Right > levelMap.Width * levelMap.TileWidth
-                    && entityList[i].BoundingBox.Y < 0
-                    && entityList[i].BoundingBox.Bottom > levelMap.Height * levelMap.TileHeight)
+                if (entityList[i].BoundingBox.X <= 0
+                    || entityList[i].BoundingBox.Right >= levelMap.Width * levelMap.TileWidth
+                    || entityList[i].BoundingBox.Y <= 0
+                    || entityList[i].BoundingBox.Bottom >= levelMap.Height * levelMap.TileHeight)
                 {
                     // The entity is outside the bounds, so delete it
                     this.removeList.Add(entityNameList[i]);
