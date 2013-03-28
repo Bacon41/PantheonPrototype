@@ -14,24 +14,17 @@ namespace PantheonPrototype
 {
     class DialogueNode
     {
-<<<<<<< HEAD
-
-=======
->>>>>>> origin
         // VARIABLE DECLARATION --
         protected string text;
         protected int nextState;
         protected TextBubble textBubble;
 
-<<<<<<< HEAD
-=======
         // ACCESSOR DEFINITION --
         public string Text
         {
             get { return this.text; }
         }
 
->>>>>>> origin
         public int NextState
         {
             get { return this.nextState; }
@@ -44,7 +37,6 @@ namespace PantheonPrototype
         /// <param name="nextState">The next state that the node should go to. States start at 0 and specifying a value of 0 will end conversation.</param>
         /// <param name="text">The text in the node in question.</param>
         public DialogueNode(int nextState, string text)
-<<<<<<< HEAD
         {
             this.nextState = nextState;
             this.text = text;
@@ -74,16 +66,5 @@ namespace PantheonPrototype
 
             return this.textBubble;
 		}
-
-        // ACCESSOR DEFINITION --
-        public string Text
-        {
-            get { return this.text; }
-=======
-        {
-            this.nextState = nextState;
-            this.text = text;
->>>>>>> origin
-        }
     }
 }

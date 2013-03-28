@@ -19,10 +19,7 @@ namespace PantheonPrototype
         protected string text;
         protected Vector2 position;
         protected Entity entity;
-<<<<<<< HEAD
-=======
         protected Sprite bubbleImage;
->>>>>>> origin
 
         public Vector2 Position
         {

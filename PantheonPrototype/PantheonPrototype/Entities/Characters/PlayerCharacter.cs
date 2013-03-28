@@ -180,15 +180,9 @@ namespace PantheonPrototype
             if (currentArmor <= 0)
             {
                 currentState = "Die";
-<<<<<<< HEAD
                 gameReference.ControlManager.disableControls(false);
             }
             if (!gameReference.ControlManager.actions.isControlEnabled)
-=======
-                gameReference.controlManager.disableControls(false);
-            }
-            if (!gameReference.controlManager.actions.isControlEnabled)
->>>>>>> origin
             {
                 drawLasar = false;
             }
@@ -336,12 +330,7 @@ namespace PantheonPrototype
             angleFacing = (float)Math.Atan2(cursorLocation.Y - Location.Y, cursorLocation.X - Location.X);
 
             //Modify the direction in which the character faces
-<<<<<<< HEAD
-
             if (gameReference.ControlManager.actions.isControlEnabled)
-=======
-            if (gameReference.controlManager.actions.isControlEnabled)
->>>>>>> origin
             {
                 facing = HamburgerHelper.reduceAngle(cursorLocation - Location);
             }

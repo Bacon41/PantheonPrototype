@@ -210,22 +210,18 @@ namespace PantheonPrototype
                         {
                             menuState = "main";
                         }
-                        if (inventoryButtons["equip"].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
-                            (int)gameReference.controlManager.actions.CursorPosition.Y))
+                        if (inventoryButtons["equip"].DrawBox.Contains((int)gameReference.ControlManager.actions.CursorPosition.X,
+                            (int)gameReference.ControlManager.actions.CursorPosition.Y))
                         {
                             menuState = "main";
                         }
                         count = 0;
                         if (inventory.Selected != -1)
                         {
-<<<<<<< HEAD
-                            if (box.Contains((int)gameReference.ControlManager.actions.CursorPosition.X,
-                                (int)gameReference.ControlManager.actions.CursorPosition.Y))
-=======
                             if (inventory.Selected < 24)
                             {
-                                if (inventory.locationBoxes.ElementAt(inventory.Selected).Contains((int)gameReference.controlManager.actions.CursorPosition.X,
-                                (int)gameReference.controlManager.actions.CursorPosition.Y))
+                                if (inventory.locationBoxes.ElementAt(inventory.Selected).Contains((int)gameReference.ControlManager.actions.CursorPosition.X,
+                                (int)gameReference.ControlManager.actions.CursorPosition.Y))
                                 {
                                     inventory.Selected = -1;
                                 }
@@ -251,10 +247,9 @@ namespace PantheonPrototype
                                 }
                             }
                             else
->>>>>>> origin
                             {
-                                if (inventory.equippedBoxes.ElementAt(inventory.Selected - 24).Contains((int)gameReference.controlManager.actions.CursorPosition.X,
-                                (int)gameReference.controlManager.actions.CursorPosition.Y))
+                                if (inventory.equippedBoxes.ElementAt(inventory.Selected - 24).Contains((int)gameReference.ControlManager.actions.CursorPosition.X,
+                                (int)gameReference.ControlManager.actions.CursorPosition.Y))
                                 {
                                     inventory.Selected = -1;
                                 }
@@ -272,8 +267,8 @@ namespace PantheonPrototype
                         {
                             foreach (Rectangle box in (inventory.locationBoxes.Union(inventory.equippedBoxes)))
                             {
-                                if (box.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
-                                    (int)gameReference.controlManager.actions.CursorPosition.Y) && 
+                                if (box.Contains((int)gameReference.ControlManager.actions.CursorPosition.X,
+                                    (int)gameReference.ControlManager.actions.CursorPosition.Y) && 
                                     !PlayerCharacter.inventory.unequipped.Union(PlayerCharacter.inventory.equipped).ElementAt(count).isNull)
                                 {
                                     inventory.Selected = count;
@@ -286,7 +281,7 @@ namespace PantheonPrototype
                   
                     }
                     // Right click to de-select
-                    if (gameReference.controlManager.actions.Deselect)
+                    if (gameReference.ControlManager.actions.Deselect)
                     {
                         inventory.Selected = -1;
                     }
@@ -315,54 +310,6 @@ namespace PantheonPrototype
 
                     break;
                 case "start":
-                    gameReference.controlManager.disableControls(true);
-                    foreach (string itemName in this.splashScreenButtons.Keys)
-                    {
-                        // Update every Button
-                        this.splashScreenButtons[itemName].Update(gameTime, gameReference);
-
-                        // If mouse is on a button, Update the isSelected variable
-                        if (this.splashScreenButtons[itemName].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
-                            (int)gameReference.controlManager.actions.CursorPosition.Y))
-                        {
-                            this.splashScreenButtons[itemName].IsSelected = true;
-                        }
-                        else
-                        {
-                            this.splashScreenButtons[itemName].IsSelected = false;
-                        }
-                    }
-                    if (gameReference.controlManager.actions.MenuSelect)
-                    {
-                        if (splashScreenButtons["start"].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
-                            (int)gameReference.controlManager.actions.CursorPosition.Y))
-                        {
-                            gameReference.controlManager.actions.Pause = false;
-                            gameReference.controlManager.enableControls();
-                            gameReference.StartGame();
-                        }
-                        if (splashScreenButtons["quit"].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
-                            (int)gameReference.controlManager.actions.CursorPosition.Y))
-                        {
-                            gameReference.Exit();
-                        }
-                        count = 0;
-                        foreach (Rectangle box in (inventory.locationBoxes.Union(inventory.equippedBoxes)))
-                        {
-                            if (box.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
-                                (int)gameReference.controlManager.actions.CursorPosition.Y))
-                            {
-                                inventory.Selected = count;
-                                break;
-                            }
-                            inventory.Selected = -1;
-                            count++;
-                        }
-                    }
-                    offset = (offset + 50) % 12000;
-                    break;
-                case "start":
-
                     gameReference.ControlManager.disableControls(true);
                     foreach (string itemName in this.splashScreenButtons.Keys)
                     {
@@ -434,11 +381,7 @@ namespace PantheonPrototype
                 case "inventory": 
                     spriteBatch.Draw(inventoryBackgroundTex, new Rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT), Color.White);
 
-<<<<<<< HEAD
-                    inventory.Draw(spriteBatch);
-=======
                     inventory.Draw(spriteBatch, Font);
->>>>>>> origin
 
                     spriteBatch.Draw(inventoryBackground, new Rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT), Color.White);
 

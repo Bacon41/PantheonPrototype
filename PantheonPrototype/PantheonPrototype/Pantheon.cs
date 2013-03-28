@@ -32,15 +32,11 @@ namespace PantheonPrototype
 
         public Entity player;
 
-        public Entity player;
-
         public Level currentLevel;
 
         Menu menu;
 
         HUD hud;
-
-        public EventManager EventManager;
 
         SpriteFont debugFont;
 
@@ -67,8 +63,8 @@ namespace PantheonPrototype
         {
             DisplayMode displayMode = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode;
             e.GraphicsDeviceInformation.PresentationParameters.BackBufferFormat = displayMode.Format;
-            e.GraphicsDeviceInformation.PresentationParameters.BackBufferWidth = 800;// displayMode.Width;
-            e.GraphicsDeviceInformation.PresentationParameters.BackBufferHeight = 600;// displayMode.Height;
+            e.GraphicsDeviceInformation.PresentationParameters.BackBufferWidth =  displayMode.Width;
+            e.GraphicsDeviceInformation.PresentationParameters.BackBufferHeight =  displayMode.Height;
         }
 
         /// <summary>
@@ -117,13 +113,7 @@ namespace PantheonPrototype
 
             menu.Load(this);
 
-<<<<<<< HEAD
-            //currentLevel.Load("map1", "map0", this);
-
             ControlManager.actions.Pause = true;
-=======
-            controlManager.actions.Pause = true;
->>>>>>> origin
         }
 
         internal void StartGame()
