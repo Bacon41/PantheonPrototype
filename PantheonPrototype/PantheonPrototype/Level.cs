@@ -217,6 +217,7 @@ namespace PantheonPrototype
 
             foreach (string entityName in this.addList.Keys)
             {
+                Console.WriteLine("Adding " + entityName);
                 this.entities.Add(entityName, addList[entityName]);
             }
             this.addList = new Dictionary<string, Entity>();

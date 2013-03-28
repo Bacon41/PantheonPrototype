@@ -77,6 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Bullet.cs" />
+    <Compile Include="Entities\Characters\Bunny.cs" />
     <Compile Include="Entities\Characters\ButterflyEnemy.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="Entities\Characters\CharacterEntity.cs" />

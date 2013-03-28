@@ -100,6 +100,15 @@ namespace PantheonPrototype
             {
                 Console.WriteLine("BUNNIES!!!!!!!!!!");
                 active = false;
+
+                int temp = eventInfo.GameReference.rand.Next(-100, 100);
+                int temp2 = eventInfo.GameReference.rand.Next(-100, 100);
+
+                BunnyNPC bunny = new BunnyNPC(this.Location + new Vector2(temp, temp2));
+                bunny.Load(eventInfo.GameReference.Content);
+
+                // Spam bunnies
+                eventInfo.GameReference.currentLevel.addList.Add("Bunny" + BunnyNPC.counter++, bunny);
             }
         }
     }
