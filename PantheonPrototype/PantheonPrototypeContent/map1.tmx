@@ -46,10 +46,5 @@
   <object name="endmap2" x="1039" y="135" width="78" height="48"/>
   <object name="FriendtheOldMan" x="273" y="363" width="97" height="93"/>
   <object name="Enemybutterfly" x="832" y="406" width="178" height="160"/>
-  <object name="BunnyTrigger" x="150" y="79" width="49" height="30">
-   <properties>
-    <property name="ReactivateTime" value="30"/>
-   </properties>
-  </object>
  </objectgroup>
 </map>

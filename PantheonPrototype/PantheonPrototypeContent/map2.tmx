@@ -37,11 +37,16 @@
  </layer>
  <layer name="Modifer" width="12" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjYKAOYMFB0woMdfOHCwAAJEAAFQ==
+   eJxjYKAOYMFB0wpQ23x082jt/uECACkgABk=
   </data>
  </layer>
  <objectgroup name="Spawn" width="12" height="12">
   <object name="startmap1" x="60" y="669" width="12" height="13"/>
   <object name="endmap1" x="0" y="640" width="19" height="64"/>
+  <object name="BunnyTrigger" x="719" y="333" width="52" height="31">
+   <properties>
+    <property name="ReactivateTime" value="30"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
