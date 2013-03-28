@@ -36,6 +36,7 @@ namespace PantheonPrototype
         public bool Reload;
 
         public bool MenuSelect;
+        public bool Deselect;
 
         public bool CursorEnabled;
 
@@ -91,6 +92,7 @@ namespace PantheonPrototype
         //public Keys ZoomButton;
         //public Keys AttackButton;
         public Keys AimKey;
+        public ButtonState Deselect;
 
         public ButtonState MenuSelectKey;
         public ButtonState PrevMenuSelectKey;
@@ -194,6 +196,15 @@ namespace PantheonPrototype
                 else { actions.MenuSelect = false; }
             }
 
+            if (keyboardAndMouse.Deselect == ButtonState.Pressed)
+            {
+                actions.Deselect = true;
+            }
+            else
+            {
+                actions.Deselect = false;
+            }
+
             actions.CursorPosition = new Vector2(mouse.X, mouse.Y);
 
             oldKeyboard = keyboard;
@@ -284,6 +295,8 @@ namespace PantheonPrototype
             keyboardAndMouse.InteractKey = Keys.E;
             keyboardAndMouse.ReloadKey = Keys.R;
 
+            keyboardAndMouse.Deselect = mouse.RightButton;
+
             keyboardAndMouse.AimKey = Keys.LeftShift;
 
             //temporary: REMOVE THIS ONCE COMBAT WORKS
@@ -319,6 +332,7 @@ namespace PantheonPrototype
             keyboardAndMouse.AttackMouseButton = mouse.LeftButton;
             keyboardAndMouse.PrevMenuSelectKey = keyboardAndMouse.MenuSelectKey;
             keyboardAndMouse.MenuSelectKey = mouse.LeftButton;
+            keyboardAndMouse.Deselect = mouse.RightButton;
         }
    
     }

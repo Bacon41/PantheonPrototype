@@ -106,9 +106,6 @@ namespace PantheonPrototype
 
             menu.Load(this);
 
-            //currentLevel.Load("map1", "map0", this);
-
-            //
             controlManager.actions.Pause = true;
         }
 
