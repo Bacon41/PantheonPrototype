@@ -342,17 +342,6 @@ namespace PantheonPrototype
                             gameReference.Exit();
                         }
                         count = 0;
-                        foreach (Rectangle box in (inventory.locationBoxes.Union(inventory.equippedBoxes)))
-                        {
-                            if (box.Contains((int)gameReference.ControlManager.actions.CursorPosition.X,
-                                (int)gameReference.ControlManager.actions.CursorPosition.Y))
-                            {
-                                inventory.Selected = count;
-                                break;
-                            }
-                            inventory.Selected = -1;
-                            count++;
-                        }
                     }
                     offset = (offset + 50) % 12000;
                     break;

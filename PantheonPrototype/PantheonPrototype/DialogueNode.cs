@@ -12,12 +12,11 @@ using Microsoft.Xna.Framework.Media;
 
 namespace PantheonPrototype
 {
-    class DialogueNode
+    public class DialogueNode
     {
         // VARIABLE DECLARATION --
         protected string text;
         protected int nextState;
-        protected TextBubble textBubble;
 
         // ACCESSOR DEFINITION --
         public string Text
@@ -42,29 +41,13 @@ namespace PantheonPrototype
             this.text = text;
         }
 
-        public virtual bool ShouldContinueRunning()
-        {
-            if (textBubble != null || textBubble.isReadyForDeletion) return false;
-            else return true;
-        }
-
         /// <summary>
-        /// Executes whatever processing the dialogue node needs.
+        /// This is a function that does stuff.
+        /// It will allow nodes to execute some sort of code
+        /// so that expansion of the dialogue events can happen.
+        /// 
+        /// <param name="param">A arbitrary string for paraming things.</param>
         /// </summary>
-        public virtual void Update(GameTime gameTime)
-        {
-        }
-
-        /// <summary>
-        /// Creates and returns the text bubble for this conversation node.
-        /// </summary>
-        /// <param name="position"></param>
-        /// <returns></returns>
-        public virtual TextBubble GetTextBubble(Vector2 position)
-        {
-            this.textBubble = new TextBubble(position, text);
-
-            return this.textBubble;
-		}
+        public void Execute(string param) {}
     }
 }

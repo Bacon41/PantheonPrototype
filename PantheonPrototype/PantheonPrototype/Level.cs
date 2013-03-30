@@ -132,9 +132,6 @@ namespace PantheonPrototype
 
             // Load the dialogue manager...
             this.dialogueManager = new DialogueManager(gameReference.Content.Load<SpriteFont>("DialogueFont"));
-
-            //this.entities.Add("BunnyTrigger", new Trigger(new Rectangle(500, 500, 1000, 1000), gameReference));
-            //this.entities["BunnyTrigger"].Load(gameReference.Content);
         }
 
         /// <summary>
@@ -217,7 +214,6 @@ namespace PantheonPrototype
 
             foreach (string entityName in this.addList.Keys)
             {
-                Console.WriteLine("Adding " + entityName);
                 this.entities.Add(entityName, addList[entityName]);
             }
             this.addList = new Dictionary<string, Entity>();
@@ -258,10 +254,10 @@ namespace PantheonPrototype
             for (int i = 0; i < entityList.Count; i++)
             {
                 // Go through the bounds
-                if (entityList[i].BoundingBox.X < 0
-                    && entityList[i].BoundingBox.Right > levelMap.Width * levelMap.TileWidth
-                    && entityList[i].BoundingBox.Y < 0
-                    && entityList[i].BoundingBox.Bottom > levelMap.Height * levelMap.TileHeight)
+                if (entityList[i].BoundingBox.X <= 0
+                    || entityList[i].BoundingBox.Right >= levelMap.Width * levelMap.TileWidth
+                    || entityList[i].BoundingBox.Y <= 0
+                    || entityList[i].BoundingBox.Bottom >= levelMap.Height * levelMap.TileHeight)
                 {
                     // The entity is outside the bounds, so delete it
                     this.removeList.Add(entityNameList[i]);
@@ -398,6 +394,9 @@ namespace PantheonPrototype
         /// <param name="entityTwo">The second entity in the collision.</param>
         private void checkEntities(List<string> entityNames, List<Entity> entityList, Pantheon gameReference)
         {
+
+
+
 
 
             // Check for collisions from the first entity to the second and from the second to the first
