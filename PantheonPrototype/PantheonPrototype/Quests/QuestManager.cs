@@ -28,30 +28,6 @@ namespace PantheonPrototype
         }
 
         /// <summary>
-        /// Notifies the quest manager that an entity has changed its state.
-        /// 
-        /// Basically, all relevant quests will be notified that something happened. Then
-        /// the quest status is updated, the appropriate objectives are updated/completed
-        /// and the quest manager returns to a dormant state.
-        /// 
-        /// The basic idea was to only update the quests when they need to be updated. This
-        /// saves per frame updating costs. Since there aren't going to be that many
-        /// quests at a time and the amount of events we can expect per frame are relatively
-        /// small, we can hopefully expect this method to scale well.
-        /// 
-        /// NOTE: The parameters for this function may need to change based on different notification types.
-        /// For instance, we may have events not associated with entity state changes.
-        /// </summary>
-        /// <param name="eventType">A list of keys that identify the type of event that has occurred.</param>
-        public void Notify(List<string> eventType, List<string> names)
-        {
-            foreach(Quest quest in quests)
-            {
-                quest.Notify(eventType, names);
-            }
-        }
-
-        /// <summary>
         /// Updates any time sensitive events in quests.
         /// 
         /// Most of the quest updating should occur through the notify function. This
@@ -59,14 +35,11 @@ namespace PantheonPrototype
         /// etc...
         /// </summary>
         /// <param name="gameTime">Time since the last update cycle.</param>
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Pantheon gameReference)
         {
             foreach (Quest quest in this.quests)
             {
-                foreach (TimedObjective objective in quest.timeSensitiveObjectives)
-                {
-                    objective.Update(gameTime);
-                }
+                quest.Update(gameTime, gameReference);
             }
         }
     }

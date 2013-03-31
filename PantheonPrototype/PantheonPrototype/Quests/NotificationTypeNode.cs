@@ -38,7 +38,7 @@ namespace PantheonPrototype
         public Dictionary<string, NotificationTypeNode> Children;
 
         /// <summary>
-        /// A list specifying the Quests which should be notified if this type of notification is received.
+        /// A list specifying the Objectives which should be notified if this type of notification is received.
         /// </summary>
         public List<Objective> Objectives;
 

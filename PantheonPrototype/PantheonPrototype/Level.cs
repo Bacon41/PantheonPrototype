@@ -233,7 +233,7 @@ namespace PantheonPrototype
             screenRect.Height = (int)Camera.Pos.Y + gameReference.GraphicsDevice.Viewport.Height / 2;
 
             // Update the Quest Manager
-            gameReference.QuestManager.Update(gameTime);
+            gameReference.QuestManager.Update(gameTime, gameReference);
         }
 
         /// <summary>
@@ -390,34 +390,11 @@ namespace PantheonPrototype
         /// <param name="entityTwo">The second entity in the collision.</param>
         private void checkEntities(List<string> entityNames, List<Entity> entityList, Pantheon gameReference)
         {
-
-
-
-
-
             // Check for collisions from the first entity to the second and from the second to the first
             for (int i = 0; i < entityList.Count; i++)
             {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 // Hackses to select the other entity
                 int j = (i + 1) % 2;
-
-
-
 
                 // Projectile collisions
                 if (entityList[i].Characteristics.Contains("Projectile"))
@@ -446,8 +423,6 @@ namespace PantheonPrototype
                 // Inter-walker collisions
                 if (entityList[i].Characteristics.Contains("Walking") && entityList[j].Characteristics.Contains("Walking"))
                 {
-
-
                     entityList[i].Location = entityList[i].PrevLocation;
                     entityList[j].Location = entityList[j].PrevLocation;
                 }
@@ -455,8 +430,6 @@ namespace PantheonPrototype
                 // Trigger collisions
                 if (entityList[i].Characteristics.Contains("Triggerable"))
                 {
-
-
                     if (entityList[j].Characteristics.Contains("Player"))
                     {
                         Dictionary<string, string> bunnyList = new Dictionary<string, string>();
@@ -466,13 +439,6 @@ namespace PantheonPrototype
                     }
                 }
             }
-
-
-
-
-
-
-
         }
 
         /// <summary>
