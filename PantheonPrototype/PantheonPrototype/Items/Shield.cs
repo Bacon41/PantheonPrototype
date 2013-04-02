@@ -74,7 +74,8 @@ namespace PantheonPrototype
 
             totalShield = 300;
             currentShield = 300;
-
+            type = Type.SHIELD;
+            itemTag = "shield";
             Info = "This is just your basic Shield\n" +
                    "   Use it wisely...\n";
         }

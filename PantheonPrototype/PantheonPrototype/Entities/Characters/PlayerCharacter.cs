@@ -27,6 +27,7 @@ namespace PantheonPrototype
         protected Texture2D laserTexture;
         protected Texture2D laserDot;
         protected bool drawLasar;
+        protected int currentArmedItem;
 
         public Vector2 CursorLocation
         {
@@ -37,6 +38,21 @@ namespace PantheonPrototype
         {
             static public List<Item> unequipped;
             static public List<Item> equipped;
+        }
+
+        public Dictionary<string, Item> Equippeditems
+        {
+            get { return EquippedItems; }
+            set { EquippedItems = value; }
+        }
+
+        /// <summary>
+        /// Determines which equipped weapon is currently armed. Can be 0 or 1;
+        /// </summary>
+        public int CurrentArmedItem
+        {
+            get { return currentArmedItem; }
+            set { currentArmedItem = value; }
         }
 
         /// <summary>
@@ -85,6 +101,7 @@ namespace PantheonPrototype
             {
                 inventory.equipped.Insert(i, new Item());
             }
+            CurrentArmedItem = 0;
         }
 
         /// <summary>
@@ -208,7 +225,7 @@ namespace PantheonPrototype
             ///TEMPORARY: This should be replaced by an entity feature... probably.
             ///</summary>
             int movementSpeed = 5;
-
+            
             //Reset the velocity to nothing...
             velocity = Vector2.Zero;
 
@@ -339,13 +356,21 @@ namespace PantheonPrototype
             //Fire all (one of) the weapons!
             if (gameReference.controlManager.actions.Attack)
             {
-                this.EquippedItems["weapon"].activate(gameReference, this);
+                if (this.ArmedItem.type == (Item.Type.WEAPON))
+                {
+                    this.ArmedItem.activate(gameReference, this);
+                }
             }
 
             //reload button
-            if (gameReference.controlManager.actions.Reload && !((Weapon)this.EquippedItems["weapon"]).Reloading)
+            if (this.ArmedItem.type == (Item.Type.WEAPON))
             {
-                ((Weapon)this.EquippedItems["weapon"]).Reload(gameTime);
+                if (gameReference.controlManager.actions.Reload && !((Weapon)this.ArmedItem).Reloading)
+                {
+
+                    ((Weapon)this.ArmedItem).Reload(gameTime);
+
+                }
             }
             //Ammo and shield cheat
             if (gameReference.controlManager.actions.MoveBackward
@@ -353,14 +378,23 @@ namespace PantheonPrototype
                 && gameReference.controlManager.actions.MoveLeft
                 && gameReference.controlManager.actions.MoveRight)
             {
-                ((Weapon)this.EquippedItems["weapon"]).CurrentAmmo = ((Weapon)this.EquippedItems["weapon"]).TotalAmmo;
-                ((Shield)this.EquippedItems["shield"]).CurrentShield = ((Shield)this.EquippedItems["shield"]).TotalShield;
+                if (this.Equippeditems.ContainsKey("weapon"))
+                {
+                    ((Weapon)this.EquippedItems["weapon"]).CurrentAmmo = ((Weapon)this.EquippedItems["weapon"]).TotalAmmo;
+                }
+                if (this.Equippeditems.ContainsKey("shield"))
+                {
+                    ((Shield)this.EquippedItems["shield"]).CurrentShield = ((Shield)this.EquippedItems["shield"]).TotalShield;
+                }
             }
 
             //Activate the shield
             if (gameReference.controlManager.actions.Shield == true)
             {
-                EquippedItems["shield"].activate(gameReference, this);
+                if (this.Equippeditems.ContainsKey("shield"))
+                {
+                    EquippedItems["shield"].activate(gameReference, this);
+                }
             }
         }
 

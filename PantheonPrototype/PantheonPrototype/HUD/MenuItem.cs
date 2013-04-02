@@ -21,7 +21,9 @@ namespace PantheonPrototype
         protected Texture2D selcted;
         protected SpriteFont font;
         protected Boolean isSelected;
+        protected Boolean isDisabled;
         protected Vector2 textSize;
+        private Color color;
 
         /// <summary>
         /// The text to display on the menu item.
@@ -62,11 +64,18 @@ namespace PantheonPrototype
 
             this.drawBox = new Rectangle(xCoord, yCoord, width, height);
             this.isSelected = false;
+            this.isDisabled = false;
         }
 
         public Boolean IsSelected
         {
             set { isSelected = value; }
+        }
+
+        public Boolean IsDisabled
+        {
+            get { return isDisabled; }
+            set { isDisabled = value; }
         }
 
         public void Load(Pantheon gameReference)
@@ -84,6 +93,14 @@ namespace PantheonPrototype
         public void Update(GameTime gameTime, Pantheon gameReference)
         {
             textSize = font.MeasureString(text);
+            if (isDisabled)
+            {
+                color = Color.Gray;
+            }
+            else
+            {
+                color = Color.White;
+            }
         }
 
         /// <summary>
@@ -94,13 +111,13 @@ namespace PantheonPrototype
         {
             spriteBatch.Draw(background, drawBox, Color.White);
 
-            if (isSelected)
+            if (isSelected && !isDisabled)
             {
                 spriteBatch.Draw(selcted, drawBox, Color.White);
             }
 
             spriteBatch.DrawString(font, text, new Vector2((drawBox.Width - textSize.X) / 2 + drawBox.X,
-                (drawBox.Height - 25) / 2 + drawBox.Y), Color.White);
+                (drawBox.Height - 25) / 2 + drawBox.Y), color);
             
         }
     }

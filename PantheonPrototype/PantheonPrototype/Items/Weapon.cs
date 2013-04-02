@@ -82,6 +82,8 @@ namespace PantheonPrototype
             damage = 5;
             reloadDelay = TimeSpan.FromSeconds(2);
             reloading = false;
+            type = Type.WEAPON;
+            ItemTag = "weapon";
             Info = "This is the basic weapon\n" +
                    "   It has so/so range and\n" +
                    "   reload time. Also, watch\n" +

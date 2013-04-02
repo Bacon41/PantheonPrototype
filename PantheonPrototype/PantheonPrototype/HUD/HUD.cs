@@ -142,14 +142,20 @@ namespace PantheonPrototype
                 }
 
                 // Update the Ammo Display
-                hudItems[6].Text = (((Weapon)player.ArmedItem).CurrentAmmo.ToString()) + 
-                    "/" + (((Weapon)player.ArmedItem).TotalAmmo.ToString());
+                if (player.ArmedItem.isNull)
+                {
+                    hudItems[6].Text = "0/0";
+                }
+                else
+                {
+                    hudItems[6].Text = (((Weapon)player.ArmedItem).CurrentAmmo.ToString()) +
+                        "/" + (((Weapon)player.ArmedItem).TotalAmmo.ToString());
 
-                // Update the Reload Timer Bar
-                hudItems[7].Coordinates = new Rectangle(hudItems[7].Coordinates.X, hudItems[7].Coordinates.Y,
-                    (int)(hudItems[7].DefaultWidth * (((Weapon)player.ArmedItem)).PercentToEndReload()), hudItems[7].Coordinates.Height);
-
-                debugString = (((Weapon)player.ArmedItem).ReloadDelay.Seconds * 1000 + ((Weapon)player.ArmedItem).ReloadDelay.Milliseconds).ToString();
+                    // Update the Reload Timer Bar
+                    hudItems[7].Coordinates = new Rectangle(hudItems[7].Coordinates.X, hudItems[7].Coordinates.Y,
+                        (int)(hudItems[7].DefaultWidth * (((Weapon)player.ArmedItem)).PercentToEndReload()), hudItems[7].Coordinates.Height);
+                }
+                //debugString = (((Weapon)player.ArmedItem).ReloadDelay.Seconds * 1000 + ((Weapon)player.ArmedItem).ReloadDelay.Milliseconds).ToString();
 
             }
             catch (DivideByZeroException)

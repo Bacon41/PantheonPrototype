@@ -209,7 +209,7 @@ namespace PantheonPrototype
             this.addList = new Dictionary<string, Entity>();
 
             // Update the DialogueManager.
-            this.dialogueManager.Update(gameTime, gameReference);
+           this.dialogueManager.Update(gameTime, gameReference);
 
             // Updating the camera when the character isn't scoping.
             if (!gameReference.controlManager.actions.Aim)

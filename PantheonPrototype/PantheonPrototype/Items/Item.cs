@@ -23,6 +23,8 @@ namespace PantheonPrototype
     {
         public bool isNull;
         protected String info;
+        protected String itemTag;
+        public int type;
 
         /// <summary>
         /// The text that shows in the inventory when selected
@@ -31,6 +33,27 @@ namespace PantheonPrototype
         {
             get { return info; }
             set { info = value; }
+        }
+
+        /// <summary>
+        /// This tag gets used in EquippedItems
+        /// </summary>
+        public String ItemTag
+        {
+            get { return itemTag; }
+            set { itemTag = value; }
+        }
+
+        /// <summary>
+        /// Defines the types of items
+        /// </summary>
+        public static class Type
+        {
+            public const int WEAPON = 0x8;
+            public const int HOLDABLE = 0x4;
+            public const int SHIELD = 0x2;
+            public const int USEABLE = 0x1;
+            public const int ALL = 0xF;
         }
 
         /// <summary>
@@ -56,6 +79,7 @@ namespace PantheonPrototype
             HUDRepresentation = null;
             isNull = true;
             info = "";
+            itemTag = "";
         }
 
         /// <summary>

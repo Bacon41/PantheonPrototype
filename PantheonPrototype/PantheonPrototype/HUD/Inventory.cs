@@ -19,8 +19,12 @@ namespace PantheonPrototype
     {
         public List<Rectangle> locationBoxes;
         public List<Rectangle> equippedBoxes;
+        public List<int> types;
         public Rectangle infoBox;
+        public Rectangle movingBox;
+        public Item tempStorage;
         protected Texture2D inventorySelector;
+        protected Texture2D nullImage;
         private Color color;
 
         private int SCREEN_WIDTH;
@@ -32,7 +36,9 @@ namespace PantheonPrototype
         {
             locationBoxes = new List<Rectangle>();
             equippedBoxes = new List<Rectangle>();
+            types = new List<int>();
             infoBox = new Rectangle();
+            movingBox = new Rectangle();
 
             this.SCREEN_WIDTH = SCREEN_WIDTH;
             this.SCREEN_HEIGHT = SCREEN_HEIGHT;
@@ -45,6 +51,7 @@ namespace PantheonPrototype
             color = new Color(34, 167, 222, 50);
 
             inventorySelector = Content.Load<Texture2D>("InvSelect");
+            nullImage = Content.Load<Texture2D>("Null");
         }
 
         /// <summary>
@@ -53,6 +60,14 @@ namespace PantheonPrototype
         public Texture2D InventorySelector
         {
             get { return inventorySelector; }
+        }
+
+        /// <summary>
+        /// A Blank image
+        /// </summary>
+        public Texture2D NullImage
+        {
+            get { return nullImage; }
         }
 
         /// <summary>
@@ -87,6 +102,9 @@ namespace PantheonPrototype
         /// </summary>
         private void SetBoxes()
         {
+            // Initialize size of movingBox
+            movingBox = new Rectangle(0, 0, (int)(.05 * SCREEN_WIDTH), (int)((.0835 * SCREEN_HEIGHT)));
+
             // Add Inventory slots
             for (int i = 0; i < 6; i++)
             {
@@ -113,43 +131,60 @@ namespace PantheonPrototype
             // Add info screen
 
             infoBox = new Rectangle((int)(.695 * SCREEN_WIDTH), (int)(.053 * SCREEN_HEIGHT), (int)(.305 * SCREEN_WIDTH), (int)(.417 * SCREEN_HEIGHT));
+
+            // Look under Items.Type for clarification
+            for (int i = 0; i < 24; i++)
+            {
+                types.Add(0xF);
+            }
+            types.Add(0x8);
+            types.Add(0x8);
+            for (int i = 26; i < 30; i++)
+            {
+                types.Add(0x4);
+            }
+            types.Add(0x2);
         }
 
-        public bool SwapFromEquipped(int index)
+        public void Move(Pantheon gameReference)
         {
             Item temp;
-            bool returnval;
-            int count = 0;
-            foreach (Item item in PlayerCharacter.inventory.unequipped)
+ 
+            if (PlayerCharacter.inventory.unequipped.Union(PlayerCharacter.inventory.equipped).ElementAt(hoveredOver).isNull)
             {
-                if (item.isNull || item.Equals(PlayerCharacter.inventory.unequipped.ElementAt(selected)))
+                if (hoveredOver < 24)
                 {
-                    break;
+                    PlayerCharacter.inventory.unequipped.RemoveAt(hoveredOver);
+                    PlayerCharacter.inventory.unequipped.Insert(hoveredOver, tempStorage);
+                    tempStorage = new Item();
+                    ((PlayerCharacter)gameReference.player).ArmedItem = PlayerCharacter.inventory.equipped.ElementAt(((PlayerCharacter)gameReference.player).CurrentArmedItem);
                 }
-                count++;
-            }
-            if (count >= 24)
-            {
-                return false;
+                else if (hoveredOver >= 24)
+                {
+                    PlayerCharacter.inventory.equipped.RemoveAt(hoveredOver - 24);
+                    PlayerCharacter.inventory.equipped.Insert(hoveredOver - 24, tempStorage);
+                    tempStorage = new Item();
+                    ((PlayerCharacter)gameReference.player).ArmedItem = PlayerCharacter.inventory.equipped.ElementAt(((PlayerCharacter)gameReference.player).CurrentArmedItem);
+                }
+                selected = -1;
             }
             else
             {
-                if (!PlayerCharacter.inventory.unequipped.ElementAt(count).isNull)
+                if (hoveredOver < 24)
                 {
-                    temp = PlayerCharacter.inventory.unequipped.ElementAt(count);
-                    returnval = true;
+                    temp = PlayerCharacter.inventory.unequipped.ElementAt(hoveredOver);
+                    PlayerCharacter.inventory.unequipped.RemoveAt(hoveredOver);
+                    PlayerCharacter.inventory.unequipped.Insert(hoveredOver, tempStorage);
+                    tempStorage = temp;
                 }
-                else
+                else if (hoveredOver >= 24)
                 {
-                    temp = new Item();
-                    returnval = false;
+                    temp = PlayerCharacter.inventory.equipped.ElementAt(hoveredOver - 24);
+                    PlayerCharacter.inventory.equipped.RemoveAt(hoveredOver - 24);
+                    PlayerCharacter.inventory.equipped.Insert(hoveredOver - 24, tempStorage);
+                    tempStorage = temp;
                 }
-
-                PlayerCharacter.inventory.unequipped.RemoveAt(count);
-                PlayerCharacter.inventory.unequipped.Insert(count, PlayerCharacter.inventory.equipped.ElementAt(index));
-                PlayerCharacter.inventory.equipped.RemoveAt(index);
-                PlayerCharacter.inventory.equipped.Insert(index, temp);
-                return returnval;
+                selected = hoveredOver;
             }
 
         }
@@ -158,79 +193,31 @@ namespace PantheonPrototype
         {
             if (hoveredOver != -1)
             {
-                if (selected != -1)
-                {
-                    if (selected < 24)
-                    {
-                        if (hoveredOver >= 24)
-                        {
-                            spriteBatch.Draw(inventorySelector, equippedBoxes[hoveredOver - 24], color);
-                        }
-                    }
-                    else
-                    {
-                        if (hoveredOver < 24 && PlayerCharacter.inventory.unequipped.ElementAt(hoveredOver).isNull)
-                        {
-                            spriteBatch.Draw(inventorySelector, locationBoxes[hoveredOver], color);
-                        }
-                    }
-                }
-                else
-                {
-                    if (!PlayerCharacter.inventory.unequipped.Union(PlayerCharacter.inventory.equipped).ElementAt(hoveredOver).isNull)
-                    {
-                        if (hoveredOver < 24)
-                        {
-                            spriteBatch.Draw(inventorySelector, locationBoxes.ElementAt(hoveredOver), color);
-                        }
-                        else
-                        {
-                            spriteBatch.Draw(inventorySelector, equippedBoxes.ElementAt(hoveredOver - 24), color);
-                        }
-                    }
-                }
+                spriteBatch.Draw(inventorySelector, locationBoxes.Union(equippedBoxes).ElementAt(hoveredOver), color);                
             }
-            if (selected != -1)
-            {
-                if (selected < 24)
-                {
-                    spriteBatch.Draw(inventorySelector, locationBoxes[selected], Color.White);
-                }
-                else
-                {
-                    spriteBatch.Draw(inventorySelector, equippedBoxes[selected - 24], Color.White);
-                }
-            }
+
+
             int count = 0;
 
-            foreach (Item item in PlayerCharacter.inventory.unequipped)
-            {
-                if (!item.isNull)
-                {
-                    spriteBatch.Draw(item.HUDRepresentation, locationBoxes[count], Color.White);
-                }
-                count++;
-            }
-
             count = 0;
-            foreach (Item item in PlayerCharacter.inventory.equipped)
+            foreach (Item item in PlayerCharacter.inventory.unequipped.Union(PlayerCharacter.inventory.equipped))
             {
                 if (!item.isNull)
                 {
-                    spriteBatch.Draw(item.HUDRepresentation, equippedBoxes[count], Color.White);
+                        spriteBatch.Draw(item.HUDRepresentation, locationBoxes.Union(equippedBoxes).ElementAt(count), Color.White);
                 }
                 count++;
             }
 
-            if (selected != -1)
+            if (hoveredOver != -1)
             {
-                if (selected < 24)
+                if (hoveredOver < 24)
                 {
-                    spriteBatch.DrawString(Font, PlayerCharacter.inventory.unequipped.ElementAt(selected).Info, new Vector2(infoBox.X, infoBox.Y), Color.White);
+                    spriteBatch.DrawString(Font, PlayerCharacter.inventory.unequipped.ElementAt(hoveredOver).Info, new Vector2(infoBox.X, infoBox.Y), Color.White);
                 }
                 else
                 {
-                    spriteBatch.DrawString(Font, PlayerCharacter.inventory.equipped.ElementAt(selected - 24).Info, new Vector2(infoBox.X, infoBox.Y), Color.White);
+                    spriteBatch.DrawString(Font, PlayerCharacter.inventory.equipped.ElementAt(hoveredOver - 24).Info, new Vector2(infoBox.X, infoBox.Y), Color.White);
                 }
             }
         }
