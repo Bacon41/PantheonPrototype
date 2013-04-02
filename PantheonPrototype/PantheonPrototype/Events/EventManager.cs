@@ -40,9 +40,11 @@ namespace PantheonPrototype
         /// </summary>
         private Dictionary<string, List<HandleEvent>> eventHandlers;
 
-        public EventManager()
+        public EventManager(Pantheon gameReference)
         {
             eventHandlers = new Dictionary<string, List<HandleEvent>>();
+
+            this.GameReference = gameReference;
         }
 
         /// <summary>

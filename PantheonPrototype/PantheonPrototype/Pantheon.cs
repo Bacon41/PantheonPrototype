@@ -93,10 +93,9 @@ namespace PantheonPrototype
 
             CutsceneManager = new CutsceneManager(GraphicsDevice);
 
-            QuestManager = new QuestManager();
+            EventManager = new EventManager(this);
 
-            EventManager = new EventManager();
-            EventManager.GameReference = this;
+            QuestManager = new QuestManager(this);
 
             base.Initialize();
         }

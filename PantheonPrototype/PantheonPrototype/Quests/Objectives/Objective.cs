@@ -47,7 +47,9 @@ namespace PantheonPrototype
         /// 
         /// Notably registers event handlers.
         /// </summary>
-        public virtual void Initialize()
+        /// <param name="gameReference">A reference to the game so that the event
+        /// manager is accessible. Also, other initializing actions may be taken.</param>
+        public virtual void Initialize(Pantheon gameReference)
         {
         }
 

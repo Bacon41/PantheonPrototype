@@ -65,7 +65,7 @@ namespace PantheonPrototype
                     foreach (int objectiveId in currentObjectives[i].nextObjectives)
                     {
                         currentObjectives.Add(objectives[objectiveId]);
-                        objectives[objectiveId].Initialize();
+                        objectives[objectiveId].Initialize(gameReference);
                     }
 
                     // Remove this objective from the current objectives

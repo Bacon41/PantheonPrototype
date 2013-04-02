@@ -19,5 +19,78 @@ namespace PantheonPrototype
     /// </summary>
     class TriggerObjective : Objective
     {
+        /// <summary>
+        /// The name of the trigger which this objective should be waiting for.
+        /// </summary>
+        public string TargetTrigger
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// A simple flag used for testing completion.
+        /// </summary>
+        private bool complete;
+
+        /// <summary>
+        /// Constructs a functional Target Trigger that needs only be Initialized to be used.
+        /// </summary>
+        /// <param name="targetTriggerName">The name of the trigger to which the objective should refer.</param>
+        public TriggerObjective(string targetTriggerName)
+        {
+            TargetTrigger = targetTriggerName;
+            this.EventType = "TriggerCollision";
+
+            complete = true;
+        }
+
+        /// <summary>
+        /// Initializes the objective... note that the name of the target trigger must still be set independently.
+        /// </summary>
+        /// <param name="gameReference">A reference to the game object to access the event manager.</param>
+        public override void Initialize(Pantheon gameReference)
+        {
+            base.Initialize(gameReference);
+
+            // Register the objective's handler in the event manager
+            HandleEvent eventHandler = this.HandleNotification;
+            gameReference.EventManager.register(this.EventType, eventHandler);
+
+            complete = false;
+        }
+
+        public override void HandleNotification(Event eventinfo)
+        {
+            base.HandleNotification(eventinfo);
+
+            Console.WriteLine(eventinfo.payload["Entity"] + " has collided with " + TargetTrigger);
+
+            complete = true;
+        }
+
+        /// <summary>
+        /// A very simple implementation for this functionality. In more complex objectives this function might
+        /// be more verbose.
+        /// </summary>
+        /// <returns></returns>
+        public override bool Complete()
+        {
+            return complete;
+        }
+
+        public override void WrapUp(Pantheon gameReference)
+        {
+            base.WrapUp(gameReference);
+
+            // Nothing to see here... move along...
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+
+            // Nothing much here either... please continue to... move along...
+        }
     }
 }

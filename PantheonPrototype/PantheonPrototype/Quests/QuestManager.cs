@@ -22,9 +22,49 @@ namespace PantheonPrototype
         /// </summary>
         public List<Quest> quests;
 
-        public QuestManager()
+        public QuestManager(Pantheon gameReference)
         {
             quests = new List<Quest>();
+
+            // Register the event handler with the event manager
+            HandleEvent eventHandler = AddQuest;
+            gameReference.EventManager.register("CreateQuest", eventHandler);
+        }
+
+        /// <summary>
+        /// Designed to pick up an event creation event and parse it to create a quest.
+        /// </summary>
+        /// <param name="eventInfo">The event information containing quest information.</param>
+        public void AddQuest(Event eventInfo)
+        {
+            try
+            {
+                // Try to access the quest type
+                string temp = eventInfo.payload["QuestType"];
+
+                // Catch any failure to do so
+            } catch (System.Collections.Generic.KeyNotFoundException ex)
+            {
+                Console.Error.WriteLine("Couldn't load the quest type during the quest creation process. (Correct Event Type?)\n"
+                    + ex.Message + "\n"
+                    + ex.StackTrace);
+                return;
+            }
+
+            // Create the correct type of quest
+            switch(eventInfo.payload["QuestType"])
+            {
+                case "TriggerQuest":
+                    quests.Add(new Quest());
+
+                    // Add the imperative objective
+                    quests[quests.Count - 1].objectives.Add(new TriggerObjective(eventInfo.payload["TargetTrigger"]));
+
+                    break;
+                default:
+                    // No quest type specified so exit
+                    return;
+            }
         }
 
         /// <summary>
