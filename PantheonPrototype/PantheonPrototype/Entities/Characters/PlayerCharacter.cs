@@ -78,6 +78,8 @@ namespace PantheonPrototype
             EquippedItems.Add("weapon", new Weapon(gameReference.Content));
             inventory.equipped.RemoveAt(0);
             inventory.equipped.Insert(0, EquippedItems["weapon"]);
+            inventory.unequipped.RemoveAt(0);
+            inventory.unequipped.Insert(0, new Weapon(gameReference.Content));
             EquippedItems.Add("shield", new Shield(gameReference.Content));
             inventory.equipped.RemoveAt(6);
             inventory.equipped.Insert(6, EquippedItems["shield"]);

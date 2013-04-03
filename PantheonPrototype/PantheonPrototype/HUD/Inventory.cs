@@ -22,23 +22,29 @@ namespace PantheonPrototype
         public List<int> types;
         public Rectangle infoBox;
         public Rectangle movingBox;
+        protected Rectangle trashBox;
         public Item tempStorage;
         protected Texture2D inventorySelector;
+        protected Texture2D trashCan;
         protected Texture2D nullImage;
         private Color color;
+        protected Color trashColor;
 
         private int SCREEN_WIDTH;
         private int SCREEN_HEIGHT;
         private int selected;
         private int hoveredOver;
 
-        public Inventory(int SCREEN_WIDTH, int SCREEN_HEIGHT, ContentManager Content)
+        public Inventory(int SCREEN_WIDTH, int SCREEN_HEIGHT, Pantheon gameReference)
         {
             locationBoxes = new List<Rectangle>();
             equippedBoxes = new List<Rectangle>();
             types = new List<int>();
             infoBox = new Rectangle();
             movingBox = new Rectangle();
+            trashBox = new Rectangle();
+
+            tempStorage = new Item();
 
             this.SCREEN_WIDTH = SCREEN_WIDTH;
             this.SCREEN_HEIGHT = SCREEN_HEIGHT;
@@ -49,9 +55,12 @@ namespace PantheonPrototype
             hoveredOver = -1;
 
             color = new Color(34, 167, 222, 50);
+            trashColor = Color.White;
 
-            inventorySelector = Content.Load<Texture2D>("InvSelect");
-            nullImage = Content.Load<Texture2D>("Null");
+            inventorySelector = gameReference.Content.Load<Texture2D>("InvSelect");
+            trashCan = gameReference.Content.Load<Texture2D>("TrashCan");
+            nullImage = new Texture2D(gameReference.GraphicsDevice, 1,1);
+            nullImage.SetData(new[] { new Color(0,0,0,0) });
         }
 
         /// <summary>
@@ -68,6 +77,25 @@ namespace PantheonPrototype
         public Texture2D NullImage
         {
             get { return nullImage; }
+        }
+
+        /// <summary>
+        /// A trash can texture
+        /// </summary>
+        public Texture2D TrashCan
+        {
+            get { return trashCan; }
+        }
+
+        public Rectangle TrashBox
+        {
+            get { return trashBox; }
+        }
+
+        public Color TrashColor
+        {
+            get { return trashColor; }
+            set { trashColor = value; }
         }
 
         /// <summary>
@@ -132,7 +160,7 @@ namespace PantheonPrototype
 
             infoBox = new Rectangle((int)(.695 * SCREEN_WIDTH), (int)(.053 * SCREEN_HEIGHT), (int)(.305 * SCREEN_WIDTH), (int)(.417 * SCREEN_HEIGHT));
 
-            // Look under Items.Type for clarification
+            // Adding types to all the different boxes. Look under Items.Type for clarification
             for (int i = 0; i < 24; i++)
             {
                 types.Add(0xF);
@@ -144,6 +172,9 @@ namespace PantheonPrototype
                 types.Add(0x4);
             }
             types.Add(0x2);
+
+            // Setting the box for the trash icon
+            trashBox = new Rectangle((int)(.915 * SCREEN_WIDTH), (int)(.83375 * SCREEN_HEIGHT), (int)(.05 * SCREEN_WIDTH), (int)(.0835 * SCREEN_HEIGHT));
         }
 
         public void Move(Pantheon gameReference)

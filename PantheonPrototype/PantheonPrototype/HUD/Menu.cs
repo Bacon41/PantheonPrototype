@@ -70,7 +70,7 @@ namespace PantheonPrototype
             inventoryBackground = gameReference.Content.Load<Texture2D>("InventoryBackground");
             inventoryBackgroundTex = gameReference.Content.Load<Texture2D>("InventoryBackgroundTexture");
 
-            inventory = new Inventory(SCREEN_WIDTH, SCREEN_HEIGHT, gameReference.Content);
+            inventory = new Inventory(SCREEN_WIDTH, SCREEN_HEIGHT, gameReference);
             
             loadDefaultMenu(gameReference);
         }
@@ -98,13 +98,9 @@ namespace PantheonPrototype
             // This following is not the default menu, but I wasn't sure where else to put it.
             // Inventory screen:
 
-            MenuItem equipInventory = new MenuItem("Equip/Use", new Rectangle(67, 48, 15, 6), new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
+            MenuItem equipInventory = new MenuItem("Use", new Rectangle(67, 48, 31, 6), new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
             equipInventory.Load(gameReference);
-            inventoryButtons.Add("equip", equipInventory);
-
-            MenuItem trashInventory = new MenuItem("Trash", new Rectangle(83, 48, 15, 6), new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
-            trashInventory.Load(gameReference);
-            inventoryButtons.Add("trash", trashInventory);
+            inventoryButtons.Add("use", equipInventory);
 
             MenuItem resumeInventory = new MenuItem("Resume", new Rectangle(67, 57, 31, 6), new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
             resumeInventory.Load(gameReference);
@@ -194,6 +190,15 @@ namespace PantheonPrototype
                         inventoryButtons["resumeInv"].IsDisabled = true;
                     }
 
+                    if ((inventory.tempStorage.type & Item.Type.USEABLE) > 0)
+                    {
+                        inventoryButtons["use"].IsDisabled = false;
+                    }
+                    else
+                    {
+                        inventoryButtons["use"].IsDisabled = true;
+                    }
+
                     inventory.movingBox.X = (int)(gameReference.controlManager.actions.CursorPosition.X - (.05 * SCREEN_WIDTH)/2);
                     inventory.movingBox.Y = (int)(gameReference.controlManager.actions.CursorPosition.Y - (.0835 * SCREEN_HEIGHT)/2);
 
@@ -235,7 +240,7 @@ namespace PantheonPrototype
                                 menuState = "main";
                             }
                         }
-                        if (inventoryButtons["equip"].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
+                        if (inventoryButtons["use"].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
                             (int)gameReference.controlManager.actions.CursorPosition.Y))
                         {
                             
@@ -263,9 +268,13 @@ namespace PantheonPrototype
                                 PlayerCharacter.inventory.equipped.Insert(inventory.Selected - 24, new Item());
                             }
                         }
-                        else if (inventory.HoveredOver == -1)
-                        {
 
+                        if (inventory.TrashBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
+                            (int)gameReference.controlManager.actions.CursorPosition.Y) && !inventory.tempStorage.isNull)
+                        {
+                            inventory.tempStorage = new Item();
+                            inventory.Selected = -1;
+                            ((PlayerCharacter)gameReference.player).ArmedItem = PlayerCharacter.inventory.equipped.ElementAt(((PlayerCharacter)gameReference.player).CurrentArmedItem);
                         }
                   
                     }
@@ -324,6 +333,16 @@ namespace PantheonPrototype
                     else
                     {
                         inventory.HColor = new Color(34, 255, 50, 255);
+                    }
+
+                    if (inventory.TrashBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
+                            (int)gameReference.controlManager.actions.CursorPosition.Y) && !inventory.tempStorage.isNull)
+                    {
+                        inventory.TrashColor = Color.Turquoise;
+                    }
+                    else
+                    {
+                        inventory.TrashColor = Color.White;
                     }
 
                     break;
@@ -393,16 +412,17 @@ namespace PantheonPrototype
 
                     spriteBatch.Draw(inventoryBackground, new Rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT), Color.White);
 
+                    spriteBatch.Draw(inventory.TrashCan, inventory.TrashBox, inventory.TrashColor);
+
                     foreach (string itemName in this.inventoryButtons.Keys)
                     {
                         this.inventoryButtons[itemName].Draw(spriteBatch);
                     }
 
-                    try
+                    if (!(inventory.tempStorage == null) && !inventory.tempStorage.isNull)
                     {
                         spriteBatch.Draw(inventory.tempStorage.HUDRepresentation, inventory.movingBox, Color.White);
                     }
-                    catch (Exception NullReferenceException) { }
 
                     break;
                 case "start":

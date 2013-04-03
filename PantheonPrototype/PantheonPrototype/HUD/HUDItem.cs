@@ -143,11 +143,10 @@ namespace PantheonPrototype
         {
             if (isImage)
             {
-                try
+                if (!(Image == null))
                 {
                     spriteBatch.Draw(Image, Coordinates, Opacity);
                 }
-                catch(Exception NullReferecneException) {}
             }
             else
             {

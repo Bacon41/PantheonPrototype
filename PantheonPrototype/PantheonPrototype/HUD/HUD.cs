@@ -33,7 +33,7 @@ namespace PantheonPrototype
         protected int SCREEN_HEIGHT;
         protected int danger;
 
-        private String debugString;
+        //private String debugString;
 
         public HUD(GraphicsDevice graphicsDevice, ContentManager Content, int WIDTH, int HEIGHT, SpriteFont font)
         {
