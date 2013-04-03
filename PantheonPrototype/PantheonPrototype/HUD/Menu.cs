@@ -263,6 +263,10 @@ namespace PantheonPrototype
                                 PlayerCharacter.inventory.equipped.Insert(inventory.Selected - 24, new Item());
                             }
                         }
+                        else if (inventory.HoveredOver == -1)
+                        {
+
+                        }
                   
                     }
                     // Right click to de-select

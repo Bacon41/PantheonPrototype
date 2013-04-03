@@ -56,6 +56,7 @@ namespace PantheonPrototype
         public Texture2D Image
         {
             get { return image; }
+            set { image = value; }
         }
 
         /// <summary>
@@ -142,7 +143,11 @@ namespace PantheonPrototype
         {
             if (isImage)
             {
-                spriteBatch.Draw(Image, Coordinates, Opacity);
+                try
+                {
+                    spriteBatch.Draw(Image, Coordinates, Opacity);
+                }
+                catch(Exception NullReferecneException) {}
             }
             else
             {

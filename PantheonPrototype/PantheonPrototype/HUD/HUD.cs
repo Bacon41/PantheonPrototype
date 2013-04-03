@@ -56,8 +56,9 @@ namespace PantheonPrototype
             AddItem("IndicatorR", 230, 10, Content);
             AddItem("IndicatorD", 230, 10, Content);
             AddItem("IndicatorEmpty", 230, 10, Content);
-            AddItem("AmmoDisplay", 150, 5, font);
-            AddItem("ReloadTimer", 95, 35, Content);
+            AddItem("AmmoDisplay", 215, 5, font);
+            AddItem("ReloadTimer", 162, 35, Content);
+            AddItem("Null", 0, 0, Content);
         }
 
         /// <summary>
@@ -153,8 +154,10 @@ namespace PantheonPrototype
 
                     // Update the Reload Timer Bar
                     hudItems[7].Coordinates = new Rectangle(hudItems[7].Coordinates.X, hudItems[7].Coordinates.Y,
-                        (int)(hudItems[7].DefaultWidth * (((Weapon)player.ArmedItem)).PercentToEndReload()), hudItems[7].Coordinates.Height);
+                        (int)(hudItems[7].DefaultWidth * (((Weapon)player.ArmedItem)).PercentToEndReload()), hudItems[7].Coordinates.Height);   
                 }
+                hudItems[8].Image = player.ArmedItem.HUDRepresentation;
+                hudItems[8].Coordinates = new Rectangle((int)HUDcoords.X, (int)HUDcoords.Y, (int)(SCREEN_WIDTH * .09), (int)(SCREEN_HEIGHT * .05));
                 //debugString = (((Weapon)player.ArmedItem).ReloadDelay.Seconds * 1000 + ((Weapon)player.ArmedItem).ReloadDelay.Milliseconds).ToString();
 
             }

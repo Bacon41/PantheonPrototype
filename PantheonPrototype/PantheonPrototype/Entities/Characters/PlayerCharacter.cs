@@ -205,6 +205,8 @@ namespace PantheonPrototype
             //Update the sprite appropriately
             updateSprite();
 
+            //Equippeditems.
+
             base.Update(gameTime, gameReference);
         }
 
