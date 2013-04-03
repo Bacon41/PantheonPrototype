@@ -204,6 +204,13 @@ namespace PantheonPrototype
                 drawLasar = true;
             }
 
+            // swap equipped weapons code goes here
+            if (gameReference.controlManager.actions.SwitchWeapon)
+            {
+                //TODO: Add code to switch the weapons when SwitchWeapon is true
+
+            }
+
             //Update the sprite appropriately
             updateSprite();
 
