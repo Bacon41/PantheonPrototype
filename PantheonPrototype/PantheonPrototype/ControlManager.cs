@@ -230,6 +230,7 @@ namespace PantheonPrototype
             actions.Aim = false;
             actions.Attack = false;
             actions.Interact = false;
+            actions.SwitchWeapon = false;
 
             actions.CursorPosition = Vector2.Zero;
         }
