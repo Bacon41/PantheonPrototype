@@ -182,7 +182,7 @@ namespace PantheonPrototype
                 //if (mouse.LeftButton == ButtonState.Pressed) { actions.Attack = true; }
                 if (keyboard.IsKeyDown(keyboardAndMouse.AimKey)) { actions.Aim = true; }
                 if (keyboard.IsKeyDown(keyboardAndMouse.InteractKey) && oldKeyboard.IsKeyUp(keyboardAndMouse.InteractKey)) { actions.Interact = true; }
-                if (keyboard.IsKeyDown(keyboardAndMouse.SwitchWeaponKey)) { actions.SwitchWeapon = true; }
+                if (keyboard.IsKeyDown(keyboardAndMouse.SwitchWeaponKey) && oldKeyboard.IsKeyUp(keyboardAndMouse.SwitchWeaponKey)) { actions.SwitchWeapon = true; }
 
                 if (!actions.Pause)
                 {

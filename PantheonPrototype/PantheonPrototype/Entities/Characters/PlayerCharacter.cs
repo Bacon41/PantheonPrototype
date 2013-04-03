@@ -207,8 +207,16 @@ namespace PantheonPrototype
             // swap equipped weapons code goes here
             if (gameReference.controlManager.actions.SwitchWeapon)
             {
-                //TODO: Add code to switch the weapons when SwitchWeapon is true
+                if (currentArmedItem == 0)
+                {
+                    currentArmedItem = 1;
+                }
+                else
+                {
+                    currentArmedItem = 0;
+                }
 
+                ArmedItem = PlayerCharacter.inventory.equipped.ElementAt(currentArmedItem);
             }
 
             //Update the sprite appropriately
