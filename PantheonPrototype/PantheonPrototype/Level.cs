@@ -123,9 +123,9 @@ namespace PantheonPrototype
                     this.entities.Add(obj.Name, new ButterflyEnemy(new Vector2(obj.Bounds.Center.X, obj.Bounds.Center.Y), gameReference.Content));
                     this.entities[obj.Name].Load(gameReference.Content);
                 }
-                if (obj.Name.Contains("Trigger"))
+                if (obj.Name.Contains("BunnyTrigger"))
                 {
-                    this.entities.Add(obj.Name, new Trigger(new Rectangle(obj.Bounds.Left, obj.Bounds.Top, obj.Bounds.Width, obj.Bounds.Height), gameReference));
+                    this.entities.Add(obj.Name, new BunnyTrigger(new Rectangle(obj.Bounds.Left, obj.Bounds.Top, obj.Bounds.Width, obj.Bounds.Height), gameReference));
                     this.entities[obj.Name].Load(gameReference.Content);
                     ((Trigger)this.entities[obj.Name]).ReactivateTime = (int)obj.Properties["ReactivateTime"].AsInt32;
                 }

@@ -84,7 +84,6 @@
     <Compile Include="CutsceneManager.cs" />
     <Compile Include="DialogueManager.cs" />
     <Compile Include="DialogueNode.cs" />
-    <Compile Include="Entities\Trigger.cs" />
     <Compile Include="Events\Event.cs" />
     <Compile Include="Events\EventManager.cs" />
     <Compile Include="HUD\Inventory.cs" />
@@ -116,6 +115,9 @@
     <Compile Include="Sprite.cs" />
     <Compile Include="TextBubble.cs" />
     <Compile Include="Items\Weapon.cs" />
+    <Compile Include="Entities\Triggers\Trigger.cs" />
+    <Compile Include="Entities\Triggers\QuestTrigger.cs" />
+    <Compile Include="Entities\Triggers\BunnyTrigger.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

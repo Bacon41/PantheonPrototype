@@ -17,5 +17,9 @@ namespace PantheonPrototype
     /// </summary>
     class QuestTrigger : Trigger
     {
+        public QuestTrigger(Rectangle locationBox, Pantheon gameReference)
+            : base(locationBox, gameReference)
+        {
+        }
     }
 }

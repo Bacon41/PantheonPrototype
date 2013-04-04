@@ -20,7 +20,7 @@ namespace PantheonPrototype
         /// <summary>
         /// Flag indicating if the trigger is active or not.
         /// </summary>
-        private bool active;
+        protected bool active;
 
         public bool Active
         {
@@ -28,7 +28,7 @@ namespace PantheonPrototype
             set { active = value; }
         }
 
-        private int reactivateTime;
+        protected int reactivateTime;
 
         /// <summary>
         /// Sets the number of frames it takes the trigger to reactivate after it has been triggered.
@@ -49,7 +49,7 @@ namespace PantheonPrototype
         /// The constructor for a Trigger entity. Note that the bounding box and drawing box are the same since the Trigger will not be drawn. The location 
         /// is also specified by the location box. The action point is defaultly located in the center of the trigger.
         /// </summary>
-        /// <param name="locationBox"></param>
+        /// <param name="locationBox">There is no location box...</param>
         public Trigger(Rectangle locationBox, Pantheon gameReference)
             : base(
                 new Vector2(locationBox.X + locationBox.Width/2, locationBox.Y + locationBox.Height/2),
@@ -57,9 +57,6 @@ namespace PantheonPrototype
                 new Rectangle(0, 0, locationBox.Width, locationBox.Height))
         {
             characteristics.Add("Triggerable");
-
-            HandleEvent bunnyHandler = bunnies;
-            gameReference.EventManager.register("TriggerEventWithBunnies!!!", bunnyHandler);
         }
 
         public override void Load(ContentManager contentManager)
@@ -90,25 +87,6 @@ namespace PantheonPrototype
                     // And reset the activation counter
                     timeSinceActivated = 0;
                 }
-            }
-        }
-
-        public void bunnies(Event eventInfo)
-        {
-            // Only execute if active
-            if (active)
-            {
-                Console.WriteLine("BUNNIES!!!!!!!!!!");
-                active = false;
-
-                int temp = eventInfo.GameReference.rand.Next(-100, 100);
-                int temp2 = eventInfo.GameReference.rand.Next(-100, 100);
-
-                BunnyNPC bunny = new BunnyNPC(this.Location + new Vector2(temp, temp2));
-                bunny.Load(eventInfo.GameReference.Content);
-
-                // Spam bunnies
-                eventInfo.GameReference.currentLevel.addList.Add("Bunny" + BunnyNPC.counter++, bunny);
             }
         }
     }

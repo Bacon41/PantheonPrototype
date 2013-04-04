@@ -10,12 +10,37 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-namespace PantheonPrototype.Entities.Triggers
+namespace PantheonPrototype
 {
     /// <summary>
     /// Trigger for incessantly spawning bunnies.
     /// </summary>
     class BunnyTrigger : Trigger
     {
+        public BunnyTrigger(Rectangle locationBox, Pantheon gameReference)
+            : base(locationBox, gameReference)
+        {
+            HandleEvent bunnyHandler = bunnies;
+            gameReference.EventManager.register("TriggerEventWithBunnies!!!", bunnyHandler);
+        }
+
+        public void bunnies(Event eventInfo)
+        {
+            // Only execute if active
+            if (active)
+            {
+                Console.WriteLine("BUNNIES!!!!!!!!!!");
+                active = false;
+
+                int temp = eventInfo.GameReference.rand.Next(-100, 100);
+                int temp2 = eventInfo.GameReference.rand.Next(-100, 100);
+
+                BunnyNPC bunny = new BunnyNPC(this.Location + new Vector2(temp, temp2));
+                bunny.Load(eventInfo.GameReference.Content);
+
+                // Spam bunnies
+                eventInfo.GameReference.currentLevel.addList.Add("Bunny" + BunnyNPC.counter++, bunny);
+            }
+        }
     }
 }

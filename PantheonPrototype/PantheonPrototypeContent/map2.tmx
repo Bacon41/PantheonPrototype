@@ -246,7 +246,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="4"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -329,5 +329,10 @@
  <objectgroup name="Spawn" width="12" height="12">
   <object name="endmap1" x="1" y="1131" width="33" height="113"/>
   <object name="startmap1" x="106" y="1182" width="21" height="23"/>
+  <object name="BunnyTrigger1" x="1235" y="630" width="52" height="29">
+   <properties>
+    <property name="ReactivateTime" value="30"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
