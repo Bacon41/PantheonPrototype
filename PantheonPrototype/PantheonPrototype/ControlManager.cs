@@ -34,6 +34,7 @@ namespace PantheonPrototype
         public bool Zoom;
         public bool Interact;
         public bool Reload;
+        public bool SwitchWeapon;
 
         public bool MenuSelect;
         public bool Deselect;
@@ -85,6 +86,7 @@ namespace PantheonPrototype
         public Keys ShieldKey;
         public Keys InteractKey;
         public Keys ReloadKey;
+        public Keys SwitchWeaponKey;
 
         public ButtonState AttackMouseButton;
         public Keys WeaponSwapButton;
@@ -180,6 +182,7 @@ namespace PantheonPrototype
                 //if (mouse.LeftButton == ButtonState.Pressed) { actions.Attack = true; }
                 if (keyboard.IsKeyDown(keyboardAndMouse.AimKey)) { actions.Aim = true; }
                 if (keyboard.IsKeyDown(keyboardAndMouse.InteractKey) && oldKeyboard.IsKeyUp(keyboardAndMouse.InteractKey)) { actions.Interact = true; }
+                if (keyboard.IsKeyDown(keyboardAndMouse.SwitchWeaponKey) && oldKeyboard.IsKeyUp(keyboardAndMouse.SwitchWeaponKey)) { actions.SwitchWeapon = true; }
 
                 if (!actions.Pause)
                 {
@@ -232,8 +235,9 @@ namespace PantheonPrototype
             actions.Shield = false;
             actions.Aim = false;
             actions.Attack = false;
-			
+
             actions.Interact = false;
+            actions.SwitchWeapon = false;
 
             actions.CursorPosition = Vector2.Zero;
         }
@@ -301,6 +305,7 @@ namespace PantheonPrototype
             keyboardAndMouse.ShieldKey = Keys.Space;
             keyboardAndMouse.InteractKey = Keys.E;
             keyboardAndMouse.ReloadKey = Keys.R;
+            keyboardAndMouse.SwitchWeaponKey = Keys.Q;
 
             keyboardAndMouse.Deselect = mouse.RightButton;
 

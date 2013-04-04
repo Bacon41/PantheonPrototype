@@ -27,6 +27,7 @@ namespace PantheonPrototype
         protected Texture2D laserTexture;
         protected Texture2D laserDot;
         protected bool drawLasar;
+        protected int currentArmedItem;
 
         public Vector2 CursorLocation
         {
@@ -39,14 +40,29 @@ namespace PantheonPrototype
             static public List<Item> equipped;
         }
 
+        public Dictionary<string, Item> Equippeditems
+        {
+            get { return EquippedItems; }
+            set { EquippedItems = value; }
+        }
+
+        /// <summary>
+        /// Determines which equipped weapon is currently armed. Can be 0 or 1;
+        /// </summary>
+        public int CurrentArmedItem
+        {
+            get { return currentArmedItem; }
+            set { currentArmedItem = value; }
+        }
+
         /// <summary>
         /// The constructor for the player entity class.
         /// </summary>
         public PlayerCharacter(Pantheon gameReference):
             base(
                 Vector2.Zero,
-                new Rectangle(0,0,40,40),
-                new Rectangle(15,25,10,10))
+                new Rectangle(0,0,200,159),
+                new Rectangle(85,110,30,30))
         {
             initializeInventory();
 
@@ -62,6 +78,8 @@ namespace PantheonPrototype
             EquippedItems.Add("weapon", new Weapon(gameReference.Content));
             inventory.equipped.RemoveAt(0);
             inventory.equipped.Insert(0, EquippedItems["weapon"]);
+            inventory.unequipped.RemoveAt(0);
+            inventory.unequipped.Insert(0, new Weapon(gameReference.Content));
             EquippedItems.Add("shield", new Shield(gameReference.Content));
             inventory.equipped.RemoveAt(6);
             inventory.equipped.Insert(6, EquippedItems["shield"]);
@@ -86,6 +104,7 @@ namespace PantheonPrototype
             {
                 inventory.equipped.Insert(i, new Item());
             }
+            CurrentArmedItem = 0;
         }
 
         /// <summary>
@@ -108,41 +127,41 @@ namespace PantheonPrototype
             if (sprite != null)
             {
                 //Load the sprite
-                this.Sprite.loadSprite(sprite, 17, 20, 30);
+                this.Sprite.loadSprite(sprite, 4, 4, 30);
 
                 //Add all the states to the sprite
-                this.Sprite.addState("Attack Right", 0, 12, false);
-                this.Sprite.addState("Attack Back", 13, 25, false);
-                this.Sprite.addState("Attack Back Right", 26, 38, false);
-                this.Sprite.addState("Attack Back Left", 39, 51, false);
-                this.Sprite.addState("Attack Forward", 52, 64, false);
-                this.Sprite.addState("Attack Forward Right", 65, 77, false);
-                this.Sprite.addState("Attack Forward Left", 78, 90, false);
-                this.Sprite.addState("Attack Left", 91, 103, false);
-                this.Sprite.addState("Die Right", 104, 113, false);
-                this.Sprite.addState("Die Back", 114, 123, false);
-                this.Sprite.addState("Die Back Right", 124, 133, false);
-                this.Sprite.addState("Die Back Left", 134, 143, false);
-                this.Sprite.addState("Die Forward", 144, 153, false);
-                this.Sprite.addState("Die Forward Right", 154, 163, false);
-                this.Sprite.addState("Die Forward Left", 164, 173, false);
-                this.Sprite.addState("Die Left", 174, 183, false);
-                this.Sprite.addState("Idle Right", 184, 186, true);
-                this.Sprite.addState("Idle Back", 187, 189, true);
-                this.Sprite.addState("Idle Back Right", 190, 192, true);
-                this.Sprite.addState("Idle Back Left", 193, 195, true);
-                this.Sprite.addState("Idle Forward", 196, 198, true);
-                this.Sprite.addState("Idle Forward Right", 199, 201, true);
-                this.Sprite.addState("Idle Forward Left", 202, 204, true);
-                this.Sprite.addState("Idle Left", 205, 207, true);
-                this.Sprite.addState("Move Right", 208, 223, true);
-                this.Sprite.addState("Move Back", 224, 239, true);
-                this.Sprite.addState("Move Back Right", 240, 255, true);
-                this.Sprite.addState("Move Back Left", 256, 271, true);
-                this.Sprite.addState("Move Forward", 272, 287, true);
-                this.Sprite.addState("Move Forward Right", 288, 303, true);
-                this.Sprite.addState("Move Forward Left", 304, 319, true);
-                this.Sprite.addState("Move Left", 320, 335, true);
+                this.Sprite.addState("Attack Right", 0, 3, false, true);
+                this.Sprite.addState("Attack Back", 12, 15, false, true);
+                this.Sprite.addState("Attack Back Right", 12, 15, false, true);
+                this.Sprite.addState("Attack Back Left", 12, 15, false, true);
+                this.Sprite.addState("Attack Forward", 8, 11, false, true);
+                this.Sprite.addState("Attack Forward Right", 8, 11, false, true);
+                this.Sprite.addState("Attack Forward Left", 8, 11, false, true);
+                this.Sprite.addState("Attack Left", 4, 7, false, true);
+                this.Sprite.addState("Die Right", 0, 3, false, true);
+                this.Sprite.addState("Die Back", 12, 15, false, true);
+                this.Sprite.addState("Die Back Right", 12, 15, false, true);
+                this.Sprite.addState("Die Back Left", 12, 15, false, true);
+                this.Sprite.addState("Die Forward", 8, 11, false, true);
+                this.Sprite.addState("Die Forward Right", 8, 11, false, true);
+                this.Sprite.addState("Die Forward Left", 8, 11, false, true);
+                this.Sprite.addState("Die Left", 4, 7, false, true);
+                this.Sprite.addState("Idle Right", 0, 0, false, false);
+                this.Sprite.addState("Idle Back", 12, 12, false, false);
+                this.Sprite.addState("Idle Back Right", 12, 12, false, false);
+                this.Sprite.addState("Idle Back Left", 12, 12, false, false);
+                this.Sprite.addState("Idle Forward", 8, 8, false, false);
+                this.Sprite.addState("Idle Forward Right", 8, 8, false, false);
+                this.Sprite.addState("Idle Forward Left", 8, 8, false, false);
+                this.Sprite.addState("Idle Left", 4, 4, false, false);
+                this.Sprite.addState("Move Right", 0, 3, true, true);
+                this.Sprite.addState("Move Back", 12, 15, true, true);
+                this.Sprite.addState("Move Back Right", 12, 15, true, true);
+                this.Sprite.addState("Move Back Left", 12, 15, true, true);
+                this.Sprite.addState("Move Forward", 8, 11, true, true);
+                this.Sprite.addState("Move Forward Right", 8, 11, true, true);
+                this.Sprite.addState("Move Forward Left", 8, 11, true, true);
+                this.Sprite.addState("Move Left", 4, 7, true, true);
             }
             else
             {
@@ -191,8 +210,25 @@ namespace PantheonPrototype
                 drawLasar = true;
             }
 
+            // swap equipped weapons code goes here
+            if (gameReference.controlManager.actions.SwitchWeapon)
+            {
+                if (currentArmedItem == 0)
+                {
+                    currentArmedItem = 1;
+                }
+                else
+                {
+                    currentArmedItem = 0;
+                }
+
+                ArmedItem = PlayerCharacter.inventory.equipped.ElementAt(currentArmedItem);
+            }
+
             //Update the sprite appropriately
             updateSprite();
+
+            //Equippeditems.
 
             base.Update(gameTime, gameReference);
         }
@@ -214,7 +250,7 @@ namespace PantheonPrototype
             ///TEMPORARY: This should be replaced by an entity feature... probably.
             ///</summary>
             int movementSpeed = 5;
-
+            
             //Reset the velocity to nothing...
             velocity = Vector2.Zero;
 
@@ -345,13 +381,21 @@ namespace PantheonPrototype
             //Fire all (one of) the weapons!
             if (gameReference.ControlManager.actions.Attack)
             {
-                this.EquippedItems["weapon"].activate(gameReference, this);
+                if (this.ArmedItem.type == (Item.Type.WEAPON))
+                {
+                    this.ArmedItem.activate(gameReference, this);
+                }
             }
 
             //reload button
-            if (gameReference.ControlManager.actions.Reload && !((Weapon)this.EquippedItems["weapon"]).Reloading)
+            if (this.ArmedItem.type == (Item.Type.WEAPON))
             {
-                ((Weapon)this.EquippedItems["weapon"]).Reload(gameTime);
+                if (gameReference.controlManager.actions.Reload && !((Weapon)this.ArmedItem).Reloading)
+                {
+
+                    ((Weapon)this.ArmedItem).Reload(gameTime);
+
+                }
             }
             //Ammo and shield cheat
             if (gameReference.ControlManager.actions.MoveBackward
@@ -359,14 +403,23 @@ namespace PantheonPrototype
                 && gameReference.ControlManager.actions.MoveLeft
                 && gameReference.ControlManager.actions.MoveRight)
             {
-                ((Weapon)this.EquippedItems["weapon"]).CurrentAmmo = ((Weapon)this.EquippedItems["weapon"]).TotalAmmo;
-                ((Shield)this.EquippedItems["shield"]).CurrentShield = ((Shield)this.EquippedItems["shield"]).TotalShield;
+                if (this.Equippeditems.ContainsKey("weapon"))
+                {
+                    ((Weapon)this.EquippedItems["weapon"]).CurrentAmmo = ((Weapon)this.EquippedItems["weapon"]).TotalAmmo;
+                }
+                if (this.Equippeditems.ContainsKey("shield"))
+                {
+                    ((Shield)this.EquippedItems["shield"]).CurrentShield = ((Shield)this.EquippedItems["shield"]).TotalShield;
+                }
             }
 
             //Activate the shield
             if (gameReference.ControlManager.actions.Shield == true)
             {
-                EquippedItems["shield"].activate(gameReference, this);
+                if (this.Equippeditems.ContainsKey("shield"))
+                {
+                    EquippedItems["shield"].activate(gameReference, this);
+                }
             }
         }
 

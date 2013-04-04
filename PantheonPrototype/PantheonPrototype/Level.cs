@@ -37,6 +37,7 @@ namespace PantheonPrototype
         //protected Player player;
         protected Rectangle screenRect;
 
+
         protected bool levelStart;
         protected bool levelPlaying;
 
@@ -59,10 +60,12 @@ namespace PantheonPrototype
             get { return nextLevel; }
         }
 
+
         public Dictionary<string, Entity> Entities
         {
             get { return entities; }
         }
+
 
         /// <summary>
         /// A list of entities to add to the level entity list.
@@ -99,6 +102,7 @@ namespace PantheonPrototype
             levelMap = gameReference.Content.Load<Map>(newLevel);
             levelNum = newLevel;
 
+
             this.entities.Add("character", gameReference.player);
             this.entities["character"].Load(gameReference.Content);
 
@@ -133,6 +137,7 @@ namespace PantheonPrototype
             // Load the dialogue manager...
             this.dialogueManager = new DialogueManager(gameReference.Content.Load<SpriteFont>("DialogueFont"));
         }
+
 
         /// <summary>
         /// The Update function will run through the level and perform any
@@ -280,6 +285,7 @@ namespace PantheonPrototype
                     if (entityList[i].BoundingBox.Intersects(entityList[j].BoundingBox))
                     {
 
+
                         List<string> collidedNames = new List<string>();
                         List<Entity> collidedEntities = new List<Entity>();
 
@@ -390,11 +396,31 @@ namespace PantheonPrototype
         /// <param name="entityTwo">The second entity in the collision.</param>
         private void checkEntities(List<string> entityNames, List<Entity> entityList, Pantheon gameReference)
         {
+
+
             // Check for collisions from the first entity to the second and from the second to the first
             for (int i = 0; i < entityList.Count; i++)
             {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 // Hackses to select the other entity
                 int j = (i + 1) % 2;
+
+
+
 
                 // Projectile collisions
                 if (entityList[i].Characteristics.Contains("Projectile"))
@@ -423,6 +449,8 @@ namespace PantheonPrototype
                 // Inter-walker collisions
                 if (entityList[i].Characteristics.Contains("Walking") && entityList[j].Characteristics.Contains("Walking"))
                 {
+
+
                     entityList[i].Location = entityList[i].PrevLocation;
                     entityList[j].Location = entityList[j].PrevLocation;
                 }
@@ -430,6 +458,8 @@ namespace PantheonPrototype
                 // Trigger collisions
                 if (entityList[i].Characteristics.Contains("Triggerable"))
                 {
+
+
                     if (entityList[j].Characteristics.Contains("Player"))
                     {
                         Dictionary<string, string> bunnyList = new Dictionary<string, string>();
@@ -439,6 +469,13 @@ namespace PantheonPrototype
                     }
                 }
             }
+
+
+
+
+
+
+
         }
 
         /// <summary>
@@ -450,6 +487,7 @@ namespace PantheonPrototype
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, this.Camera.getTransformation());
+
 
             levelMap.Draw(spriteBatch, screenRect);
             this.dialogueManager.Draw(spriteBatch);

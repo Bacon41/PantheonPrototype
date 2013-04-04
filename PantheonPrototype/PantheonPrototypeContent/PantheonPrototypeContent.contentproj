@@ -245,8 +245,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bunnies.png">
-      <Name>Bunnies</Name>
+    <Compile Include="Null.png">
+      <Name>Null</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="TrashCan.png">
+      <Name>TrashCan</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
