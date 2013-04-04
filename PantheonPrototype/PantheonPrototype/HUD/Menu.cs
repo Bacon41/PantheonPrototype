@@ -70,7 +70,7 @@ namespace PantheonPrototype
             inventoryBackground = gameReference.Content.Load<Texture2D>("InventoryBackground");
             inventoryBackgroundTex = gameReference.Content.Load<Texture2D>("InventoryBackgroundTexture");
 
-            inventory = new Inventory(SCREEN_WIDTH, SCREEN_HEIGHT, gameReference.Content);
+            inventory = new Inventory(SCREEN_WIDTH, SCREEN_HEIGHT, gameReference);
             
             loadDefaultMenu(gameReference);
         }
@@ -98,13 +98,9 @@ namespace PantheonPrototype
             // This following is not the default menu, but I wasn't sure where else to put it.
             // Inventory screen:
 
-            MenuItem equipInventory = new MenuItem("Equip/Use", new Rectangle(67, 48, 15, 6), new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
+            MenuItem equipInventory = new MenuItem("Use", new Rectangle(67, 48, 31, 6), new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
             equipInventory.Load(gameReference);
-            inventoryButtons.Add("equip", equipInventory);
-
-            MenuItem trashInventory = new MenuItem("Trash", new Rectangle(83, 48, 15, 6), new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
-            trashInventory.Load(gameReference);
-            inventoryButtons.Add("trash", trashInventory);
+            inventoryButtons.Add("use", equipInventory);
 
             MenuItem resumeInventory = new MenuItem("Resume", new Rectangle(67, 57, 31, 6), new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
             resumeInventory.Load(gameReference);
@@ -181,6 +177,32 @@ namespace PantheonPrototype
 
                 case "inventory":
 
+                    if (inventory.Selected == -1)
+                    {
+                        gameReference.IsMouseVisible = true;
+                        inventoryButtons["mainMenu"].IsDisabled = false;
+                        inventoryButtons["resumeInv"].IsDisabled = false;
+                    }
+                    else
+                    {
+                        gameReference.IsMouseVisible = false;
+                        inventoryButtons["mainMenu"].IsDisabled = true;
+                        inventoryButtons["resumeInv"].IsDisabled = true;
+                    }
+
+                    if ((inventory.tempStorage.type & Item.Type.USEABLE) > 0)
+                    {
+                        inventoryButtons["use"].IsDisabled = false;
+                    }
+                    else
+                    {
+                        inventoryButtons["use"].IsDisabled = true;
+                    }
+
+                    inventory.movingBox.X = (int)(gameReference.controlManager.actions.CursorPosition.X - (.05 * SCREEN_WIDTH)/2);
+                    inventory.movingBox.Y = (int)(gameReference.controlManager.actions.CursorPosition.Y - (.0835 * SCREEN_HEIGHT)/2);
+
+
                     int count = 0;
                     foreach (string itemName in this.inventoryButtons.Keys)
                     {
@@ -203,99 +225,104 @@ namespace PantheonPrototype
                         if (inventoryButtons["resumeInv"].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
                             (int)gameReference.controlManager.actions.CursorPosition.Y))
                         {
-                            gameReference.controlManager.actions.Pause = false;
+                            // Disable if in the middle of transfering an item.
+                            if (!inventoryButtons["resumeInv"].IsDisabled)
+                            {
+                                gameReference.controlManager.actions.Pause = false;
+                            }
                         }
                         if (inventoryButtons["mainMenu"].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
                             (int)gameReference.controlManager.actions.CursorPosition.Y))
                         {
-                            menuState = "main";
+                            // Disable if in the middle of transfering an item.
+                            if (!inventoryButtons["mainMenu"].IsDisabled)
+                            {
+                                menuState = "main";
+                            }
                         }
-                        if (inventoryButtons["equip"].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
+                        if (inventoryButtons["use"].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
                             (int)gameReference.controlManager.actions.CursorPosition.Y))
                         {
-                            menuState = "main";
+                            
                         }
                         count = 0;
                         if (inventory.Selected != -1)
                         {
+                            if (inventory.HoveredOver != -1)
+                            {
+                                inventory.Move(gameReference);
+                            }
+                        }
+                        else if (inventory.HoveredOver != -1)
+                        {
+                            inventory.Selected = inventory.HoveredOver;
+                            inventory.tempStorage = PlayerCharacter.inventory.unequipped.Union(PlayerCharacter.inventory.equipped).ElementAt(inventory.Selected);
                             if (inventory.Selected < 24)
                             {
-                                if (inventory.locationBoxes.ElementAt(inventory.Selected).Contains((int)gameReference.controlManager.actions.CursorPosition.X,
-                                (int)gameReference.controlManager.actions.CursorPosition.Y))
-                                {
-                                    inventory.Selected = -1;
-                                }
-                                else if (inventory.HoveredOver >= 24)
-                                {
-                                    bool swap = false; ;
-                                    if (PlayerCharacter.inventory.equipped.ElementAt(inventory.HoveredOver - 24).isNull)
-                                    {
-                                        PlayerCharacter.inventory.equipped.RemoveAt(inventory.HoveredOver - 24);
-                                    }
-                                    else
-                                    {
-                                        swap = inventory.SwapFromEquipped(inventory.HoveredOver - 24);
-                                    }
-                                    if (!swap)
-                                    {
-                                        PlayerCharacter.inventory.equipped.Insert(inventory.HoveredOver - 24, PlayerCharacter.inventory.unequipped.ElementAt(inventory.Selected));
-                                        PlayerCharacter.inventory.unequipped.RemoveAt(inventory.Selected);
-                                        PlayerCharacter.inventory.unequipped.Insert(inventory.Selected, new Item());
-                                    }
-
-                                    inventory.Selected = -1;
-                                }
+                                PlayerCharacter.inventory.unequipped.RemoveAt(inventory.Selected);
+                                PlayerCharacter.inventory.unequipped.Insert(inventory.Selected, new Item());
                             }
                             else
                             {
-                                if (inventory.equippedBoxes.ElementAt(inventory.Selected - 24).Contains((int)gameReference.controlManager.actions.CursorPosition.X,
-                                (int)gameReference.controlManager.actions.CursorPosition.Y))
-                                {
-                                    inventory.Selected = -1;
-                                }
-                                else if (inventory.HoveredOver < 24 && inventory.HoveredOver != -1 && PlayerCharacter.inventory.unequipped.ElementAt(inventory.HoveredOver).isNull)
-                                {
-                                    PlayerCharacter.inventory.unequipped.RemoveAt(inventory.HoveredOver);
-                                    PlayerCharacter.inventory.unequipped.Insert(inventory.HoveredOver, PlayerCharacter.inventory.equipped.ElementAt(inventory.Selected - 24));
-                                    PlayerCharacter.inventory.equipped.RemoveAt(inventory.Selected - 24);
-                                    PlayerCharacter.inventory.equipped.Insert(inventory.Selected - 24, new Item()); 
-                                    inventory.Selected = -1;
-                                }
+                                PlayerCharacter.inventory.equipped.RemoveAt(inventory.Selected - 24);
+                                PlayerCharacter.inventory.equipped.Insert(inventory.Selected - 24, new Item());
                             }
                         }
-                        else
+
+                        if (inventory.TrashBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
+                            (int)gameReference.controlManager.actions.CursorPosition.Y) && !inventory.tempStorage.isNull)
                         {
-                            foreach (Rectangle box in (inventory.locationBoxes.Union(inventory.equippedBoxes)))
-                            {
-                                if (box.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
-                                    (int)gameReference.controlManager.actions.CursorPosition.Y) && 
-                                    !PlayerCharacter.inventory.unequipped.Union(PlayerCharacter.inventory.equipped).ElementAt(count).isNull)
-                                {
-                                    inventory.Selected = count;
-                                    break;
-                                }
-                                inventory.Selected = -1;
-                                count++;
-                            }
+                            inventory.tempStorage = new Item();
+                            inventory.Selected = -1;
+                            ((PlayerCharacter)gameReference.player).ArmedItem = PlayerCharacter.inventory.equipped.ElementAt(((PlayerCharacter)gameReference.player).CurrentArmedItem);
                         }
                   
                     }
                     // Right click to de-select
                     if (gameReference.controlManager.actions.Deselect)
                     {
-                        inventory.Selected = -1;
+                        if (inventory.Selected != -1)
+                        {
+                            if (inventory.Selected < 24)
+                            {
+                                PlayerCharacter.inventory.unequipped.RemoveAt(inventory.Selected);
+                                PlayerCharacter.inventory.unequipped.Insert(inventory.Selected, inventory.tempStorage);
+                            }
+                            else
+                            {
+                                PlayerCharacter.inventory.equipped.RemoveAt(inventory.Selected - 24);
+                                PlayerCharacter.inventory.equipped.Insert(inventory.Selected - 24, inventory.tempStorage);
+                            }
+                            inventory.tempStorage = new Item();
+                            inventory.Selected = -1;
+                        }
                     }
 
                     count = 0;
                     foreach (Rectangle box in (inventory.locationBoxes.Union(inventory.equippedBoxes)))
                     {
-                        if (box.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
-                            (int)gameReference.controlManager.actions.CursorPosition.Y))
+                        if (inventory.Selected == -1)
                         {
-                            inventory.HoveredOver = count;
-                            break;
+                            if (box.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
+                                (int)gameReference.controlManager.actions.CursorPosition.Y) && 
+                                (!PlayerCharacter.inventory.unequipped.Union(PlayerCharacter.inventory.equipped).ElementAt(count).isNull))
+                            {
+                                inventory.HoveredOver = count;
+                                break;
+                            }
+                            inventory.HoveredOver = -1;
                         }
-                        inventory.HoveredOver = -1;
+                        else
+                        {
+                            if (box.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
+                                (int)gameReference.controlManager.actions.CursorPosition.Y) &&
+                                (inventory.tempStorage.type & inventory.types.ElementAt(count)) > 0)
+                            {
+                                inventory.HoveredOver = count;
+                                break;
+                            }
+                            inventory.HoveredOver = -1;
+                        }
                         count++;
                     }
 
@@ -306,6 +333,16 @@ namespace PantheonPrototype
                     else
                     {
                         inventory.HColor = new Color(34, 255, 50, 255);
+                    }
+
+                    if (inventory.TrashBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
+                            (int)gameReference.controlManager.actions.CursorPosition.Y) && !inventory.tempStorage.isNull)
+                    {
+                        inventory.TrashColor = Color.Turquoise;
+                    }
+                    else
+                    {
+                        inventory.TrashColor = Color.White;
                     }
 
                     break;
@@ -367,17 +404,26 @@ namespace PantheonPrototype
                         this.items[itemName].Draw(spriteBatch);
                     }
                     break;
-                case "inventory": 
+                case "inventory":
+
                     spriteBatch.Draw(inventoryBackgroundTex, new Rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT), Color.White);
 
                     inventory.Draw(spriteBatch, Font);
 
                     spriteBatch.Draw(inventoryBackground, new Rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT), Color.White);
 
+                    spriteBatch.Draw(inventory.TrashCan, inventory.TrashBox, inventory.TrashColor);
+
                     foreach (string itemName in this.inventoryButtons.Keys)
                     {
                         this.inventoryButtons[itemName].Draw(spriteBatch);
                     }
+
+                    if (!(inventory.tempStorage == null) && !inventory.tempStorage.isNull)
+                    {
+                        spriteBatch.Draw(inventory.tempStorage.HUDRepresentation, inventory.movingBox, Color.White);
+                    }
+
                     break;
                 case "start":
                     spriteBatch.Draw(splashScreen, splashScreenRect, Color.White);
