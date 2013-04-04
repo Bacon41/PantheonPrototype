@@ -42,10 +42,10 @@ namespace PantheonPrototype
 
             this.Sprite.loadSprite(image, 12, 12, 30);
 
-            this.Sprite.addState("Move Right", 0, 34, true);
-            this.Sprite.addState("Move Left", 35, 69, true);
-            this.Sprite.addState("Move Forward", 70, 104, true);
-            this.Sprite.addState("Move Back", 105, 139, true);
+            this.Sprite.addState("Move Right", 0, 34, true, false);
+            this.Sprite.addState("Move Left", 35, 69, true, false);
+            this.Sprite.addState("Move Forward", 70, 104, true, false);
+            this.Sprite.addState("Move Back", 105, 139, true, false);
 
             velocity = Vector2.Zero;
         }

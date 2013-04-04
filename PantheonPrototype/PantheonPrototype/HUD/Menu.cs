@@ -199,8 +199,8 @@ namespace PantheonPrototype
                         inventoryButtons["use"].IsDisabled = true;
                     }
 
-                    inventory.movingBox.X = (int)(gameReference.controlManager.actions.CursorPosition.X - (.05 * SCREEN_WIDTH)/2);
-                    inventory.movingBox.Y = (int)(gameReference.controlManager.actions.CursorPosition.Y - (.0835 * SCREEN_HEIGHT)/2);
+                    inventory.movingBox.X = (int)(gameReference.ControlManager.actions.CursorPosition.X - (.05 * SCREEN_WIDTH)/2);
+                    inventory.movingBox.Y = (int)(gameReference.ControlManager.actions.CursorPosition.Y - (.0835 * SCREEN_HEIGHT)/2);
 
 
                     int count = 0;
@@ -228,7 +228,7 @@ namespace PantheonPrototype
                             // Disable if in the middle of transfering an item.
                             if (!inventoryButtons["resumeInv"].IsDisabled)
                             {
-                                gameReference.controlManager.actions.Pause = false;
+                                gameReference.ControlManager.actions.Pause = false;
                             }
                         }
                         if (inventoryButtons["mainMenu"].DrawBox.Contains((int)gameReference.ControlManager.actions.CursorPosition.X,
@@ -240,8 +240,8 @@ namespace PantheonPrototype
                                 menuState = "main";
                             }
                         }
-                        if (inventoryButtons["use"].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
-                            (int)gameReference.controlManager.actions.CursorPosition.Y))
+                        if (inventoryButtons["use"].DrawBox.Contains((int)gameReference.ControlManager.actions.CursorPosition.X,
+                            (int)gameReference.ControlManager.actions.CursorPosition.Y))
                         {
                             
                         }
@@ -269,8 +269,8 @@ namespace PantheonPrototype
                             }
                         }
 
-                        if (inventory.TrashBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
-                            (int)gameReference.controlManager.actions.CursorPosition.Y) && !inventory.tempStorage.isNull)
+                        if (inventory.TrashBox.Contains((int)gameReference.ControlManager.actions.CursorPosition.X,
+                            (int)gameReference.ControlManager.actions.CursorPosition.Y) && !inventory.tempStorage.isNull)
                         {
                             inventory.tempStorage = new Item();
                             inventory.Selected = -1;
@@ -303,8 +303,8 @@ namespace PantheonPrototype
                     {
                         if (inventory.Selected == -1)
                         {
-                            if (box.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
-                                (int)gameReference.controlManager.actions.CursorPosition.Y) && 
+                            if (box.Contains((int)gameReference.ControlManager.actions.CursorPosition.X,
+                                (int)gameReference.ControlManager.actions.CursorPosition.Y) && 
                                 (!PlayerCharacter.inventory.unequipped.Union(PlayerCharacter.inventory.equipped).ElementAt(count).isNull))
                             {
                                 inventory.HoveredOver = count;
@@ -314,8 +314,8 @@ namespace PantheonPrototype
                         }
                         else
                         {
-                            if (box.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
-                                (int)gameReference.controlManager.actions.CursorPosition.Y) &&
+                            if (box.Contains((int)gameReference.ControlManager.actions.CursorPosition.X,
+                                (int)gameReference.ControlManager.actions.CursorPosition.Y) &&
                                 (inventory.tempStorage.type & inventory.types.ElementAt(count)) > 0)
                             {
                                 inventory.HoveredOver = count;
@@ -335,8 +335,8 @@ namespace PantheonPrototype
                         inventory.HColor = new Color(34, 255, 50, 255);
                     }
 
-                    if (inventory.TrashBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
-                            (int)gameReference.controlManager.actions.CursorPosition.Y) && !inventory.tempStorage.isNull)
+                    if (inventory.TrashBox.Contains((int)gameReference.ControlManager.actions.CursorPosition.X,
+                            (int)gameReference.ControlManager.actions.CursorPosition.Y) && !inventory.tempStorage.isNull)
                     {
                         inventory.TrashColor = Color.Turquoise;
                     }

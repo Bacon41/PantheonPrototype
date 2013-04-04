@@ -211,7 +211,7 @@ namespace PantheonPrototype
             }
 
             // swap equipped weapons code goes here
-            if (gameReference.controlManager.actions.SwitchWeapon)
+            if (gameReference.ControlManager.actions.SwitchWeapon)
             {
                 if (currentArmedItem == 0)
                 {
@@ -390,7 +390,7 @@ namespace PantheonPrototype
             //reload button
             if (this.ArmedItem.type == (Item.Type.WEAPON))
             {
-                if (gameReference.controlManager.actions.Reload && !((Weapon)this.ArmedItem).Reloading)
+                if (gameReference.ControlManager.actions.Reload && !((Weapon)this.ArmedItem).Reloading)
                 {
 
                     ((Weapon)this.ArmedItem).Reload(gameTime);

@@ -112,7 +112,7 @@ namespace PantheonPrototype
         public void Interact(Event firedEvent)
         {
             string entityName = firedEvent.payload["EntityKey"];
-            Entity entity = firedEvent.gameReference.currentLevel.Entities[entityName];
+            Entity entity = firedEvent.GameReference.currentLevel.Entities[entityName];
 
             if (this.currentConversation == null)
             {
