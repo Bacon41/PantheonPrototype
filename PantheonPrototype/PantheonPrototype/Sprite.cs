@@ -139,7 +139,7 @@ namespace PantheonPrototype
             //Create a temporary frame range for the default state
             FrameRange temp;
             temp.first = 0;
-            temp.last = totalFrames;
+            temp.last = totalFrames - 1;
             temp.looping = true;
             temp.sweeping = false;
 
