@@ -45,8 +45,8 @@ namespace PantheonPrototype
         public PlayerCharacter(Pantheon gameReference):
             base(
                 Vector2.Zero,
-                new Rectangle(0,0,40,40),
-                new Rectangle(15,25,10,10))
+                new Rectangle(0,0,200,159),
+                new Rectangle(85,110,30,30))
         {
             initializeInventory();
 
@@ -107,41 +107,41 @@ namespace PantheonPrototype
             if (sprite != null)
             {
                 //Load the sprite
-                this.Sprite.loadSprite(sprite, 17, 20, 30);
+                this.Sprite.loadSprite(sprite, 4, 4, 30);
 
                 //Add all the states to the sprite
-                this.Sprite.addState("Attack Right", 0, 12, false, true);
-                this.Sprite.addState("Attack Back", 13, 25, false, true);
-                this.Sprite.addState("Attack Back Right", 26, 38, false, true);
-                this.Sprite.addState("Attack Back Left", 39, 51, false, true);
-                this.Sprite.addState("Attack Forward", 52, 64, false, true);
-                this.Sprite.addState("Attack Forward Right", 65, 77, false, true);
-                this.Sprite.addState("Attack Forward Left", 78, 90, false, true);
-                this.Sprite.addState("Attack Left", 91, 103, false, true);
-                this.Sprite.addState("Die Right", 104, 113, false, true);
-                this.Sprite.addState("Die Back", 114, 123, false, true);
-                this.Sprite.addState("Die Back Right", 124, 133, false, true);
-                this.Sprite.addState("Die Back Left", 134, 143, false, true);
-                this.Sprite.addState("Die Forward", 144, 153, false, true);
-                this.Sprite.addState("Die Forward Right", 154, 163, false, true);
-                this.Sprite.addState("Die Forward Left", 164, 173, false, true);
-                this.Sprite.addState("Die Left", 174, 183, false, true);
-                this.Sprite.addState("Idle Right", 184, 186, true, true);
-                this.Sprite.addState("Idle Back", 187, 189, true, true);
-                this.Sprite.addState("Idle Back Right", 190, 192, true, true);
-                this.Sprite.addState("Idle Back Left", 193, 195, true, true);
-                this.Sprite.addState("Idle Forward", 196, 198, true, true);
-                this.Sprite.addState("Idle Forward Right", 199, 201, true, true);
-                this.Sprite.addState("Idle Forward Left", 202, 204, true, true);
-                this.Sprite.addState("Idle Left", 205, 207, true, true);
-                this.Sprite.addState("Move Right", 208, 223, true, true);
-                this.Sprite.addState("Move Back", 224, 239, true, true);
-                this.Sprite.addState("Move Back Right", 240, 255, true, true);
-                this.Sprite.addState("Move Back Left", 256, 271, true, true);
-                this.Sprite.addState("Move Forward", 272, 287, true, true);
-                this.Sprite.addState("Move Forward Right", 288, 303, true, true);
-                this.Sprite.addState("Move Forward Left", 304, 319, true, true);
-                this.Sprite.addState("Move Left", 320, 335, true, true);
+                this.Sprite.addState("Attack Right", 0, 3, false, true);
+                this.Sprite.addState("Attack Back", 12, 15, false, true);
+                this.Sprite.addState("Attack Back Right", 12, 15, false, true);
+                this.Sprite.addState("Attack Back Left", 12, 15, false, true);
+                this.Sprite.addState("Attack Forward", 8, 11, false, true);
+                this.Sprite.addState("Attack Forward Right", 8, 11, false, true);
+                this.Sprite.addState("Attack Forward Left", 8, 11, false, true);
+                this.Sprite.addState("Attack Left", 4, 7, false, true);
+                this.Sprite.addState("Die Right", 0, 3, false, true);
+                this.Sprite.addState("Die Back", 12, 15, false, true);
+                this.Sprite.addState("Die Back Right", 12, 15, false, true);
+                this.Sprite.addState("Die Back Left", 12, 15, false, true);
+                this.Sprite.addState("Die Forward", 8, 11, false, true);
+                this.Sprite.addState("Die Forward Right", 8, 11, false, true);
+                this.Sprite.addState("Die Forward Left", 8, 11, false, true);
+                this.Sprite.addState("Die Left", 4, 7, false, true);
+                this.Sprite.addState("Idle Right", 0, 0, false, false);
+                this.Sprite.addState("Idle Back", 12, 12, false, false);
+                this.Sprite.addState("Idle Back Right", 12, 12, false, false);
+                this.Sprite.addState("Idle Back Left", 12, 12, false, false);
+                this.Sprite.addState("Idle Forward", 8, 8, false, false);
+                this.Sprite.addState("Idle Forward Right", 8, 8, false, false);
+                this.Sprite.addState("Idle Forward Left", 8, 8, false, false);
+                this.Sprite.addState("Idle Left", 4, 4, false, false);
+                this.Sprite.addState("Move Right", 0, 3, true, true);
+                this.Sprite.addState("Move Back", 12, 15, true, true);
+                this.Sprite.addState("Move Back Right", 12, 15, true, true);
+                this.Sprite.addState("Move Back Left", 12, 15, true, true);
+                this.Sprite.addState("Move Forward", 8, 11, true, true);
+                this.Sprite.addState("Move Forward Right", 8, 11, true, true);
+                this.Sprite.addState("Move Forward Left", 8, 11, true, true);
+                this.Sprite.addState("Move Left", 4, 7, true, true);
             }
             else
             {
