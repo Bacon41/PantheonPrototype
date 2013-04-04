@@ -28,13 +28,14 @@ namespace PantheonPrototype
         protected ArrayList currentConversation;
         protected TextBubble currentConversationBubble;
         protected HandleEvent eventHandler;
+        protected Texture2D textbubbleImage;
 
         // METHOD AND FUNCTION DEFINITION --
         /// <summary>
         /// Constructs the basics of the DialogueManager class and prepares it to handle
         /// dialogue and conversation.
         /// </summary>
-        public DialogueManager(SpriteFont textFont)
+        public DialogueManager(ContentManager content, SpriteFont textFont)
         {
             this.textFont = textFont;
             this.activeTextBubbles = new LinkedList<TextBubble>();
@@ -42,15 +43,10 @@ namespace PantheonPrototype
 
             this.currentConversationState = 0;
 
-            // Test conversation for testing.
-            ArrayList oldManConversation = new ArrayList();
-            oldManConversation.Add(new DialogueNode(1, "Hello."));
-            oldManConversation.Add(new DialogueNode(2, "It's dangerous to go alone."));
-            oldManConversation.Add(new DialogueNode(0, "   Here.\nTake this."));
-
-            this.conversations.Add("FriendtheOldMan", oldManConversation);
-
             this.eventHandler = this.Interact;
+
+            // Load the text bubble image.
+            this.textbubbleImage = content.Load<Texture2D>("textbubble.png");
         }
 
         /// <summary>
@@ -83,7 +79,7 @@ namespace PantheonPrototype
         {
             foreach (TextBubble bubble in this.activeTextBubbles)
             {
-                bubble.Draw(context, this.textFont);
+                bubble.Draw(context, this.textFont, this.textbubbleImage);
             }
         }
 
