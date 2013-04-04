@@ -27,7 +27,7 @@ namespace PantheonPrototype
             TotalArmor = 20;
             CurrentArmor = 20;
 
-            EquippedItems.Add("weapon", new Weapon(Content));
+            EquippedItems.Add("weapon", new Scar(Content));
             ArmedItem = EquippedItems["weapon"];
         }
 

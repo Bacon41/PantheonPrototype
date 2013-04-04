@@ -75,16 +75,17 @@ namespace PantheonPrototype
             offset = Vector2.Zero;
             laserTexture = new Texture2D(gameReference.GraphicsDevice, 1, 1);
 
-            EquippedItems.Add("weapon", new Weapon(gameReference.Content));
+            EquippedItems.Add("scar", new Scar(gameReference.Content));
             inventory.equipped.RemoveAt(0);
-            inventory.equipped.Insert(0, EquippedItems["weapon"]);
-            inventory.unequipped.RemoveAt(0);
-            inventory.unequipped.Insert(0, new Weapon(gameReference.Content));
+            inventory.equipped.Insert(0, EquippedItems["scar"]);
+            EquippedItems.Add("sniper", new Sniper(gameReference.Content));
+            inventory.equipped.RemoveAt(1);
+            inventory.equipped.Insert(1, EquippedItems["sniper"]);
             EquippedItems.Add("shield", new Shield(gameReference.Content));
             inventory.equipped.RemoveAt(6);
             inventory.equipped.Insert(6, EquippedItems["shield"]);
 
-            ArmedItem = EquippedItems["weapon"];
+            ArmedItem = EquippedItems["scar"];
             drawLasar = true;
 
             characteristics.Add("Player");
@@ -243,7 +244,7 @@ namespace PantheonPrototype
             ///<summary>
             ///TEMPORARY: This should be replaced by an entity feature... probably.
             ///</summary>
-            int movementSpeed = 5;
+            int movementSpeed = 10;
             
             //Reset the velocity to nothing...
             velocity = Vector2.Zero;
