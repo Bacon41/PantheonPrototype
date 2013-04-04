@@ -38,7 +38,7 @@ namespace PantheonPrototype
             //Load the image
             spriteTex = contentManager.Load<Texture2D>("oldman");
 
-            this.Sprite.loadSprite(spriteTex, 1, 1, 30);
+            this.Sprite = new Sprite(spriteTex, 1, 1, false);
 
             //Load the interaction information
             // DO IT --

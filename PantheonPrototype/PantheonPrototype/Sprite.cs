@@ -35,6 +35,11 @@ namespace PantheonPrototype
         /// </summary>
         private int totalFrames;
 
+        /// <summary>
+        /// The increment to the next frame.
+        /// </summary>
+        private int incrementor;
+
         protected float rotation;
 
         public float Rotation
@@ -51,6 +56,7 @@ namespace PantheonPrototype
             public int first;
             public int last;
             public bool looping;
+            public bool sweeping;
         }
 
         /// <summary>
@@ -86,6 +92,7 @@ namespace PantheonPrototype
         public Sprite()
         {
             stateRange = new Dictionary<string, FrameRange>();
+            this.incrementor = 1;
         }
 
         public Sprite(Texture2D image, int rows, int columns)
@@ -93,13 +100,16 @@ namespace PantheonPrototype
             //Set the rotation of the sprite
             this.rotation = 0;
             loadSprite(image, rows, columns, 30);
+            this.incrementor = 1;
         }
 
-        public Sprite(Texture2D image, int rows, int columns, int frameRate)
+        public Sprite(Texture2D image, int rows, int columns, bool backAndForth)
         {
             //Set the rotation of the sprite
             this.rotation = 0;
-            loadSprite(image, rows, columns, frameRate);
+            loadSprite(image, rows, columns, 30);
+            this.incrementor = 1;
+            
         }
 
         /// <summary>
@@ -131,6 +141,7 @@ namespace PantheonPrototype
             temp.first = 0;
             temp.last = totalFrames;
             temp.looping = true;
+            temp.sweeping = false;
 
             //Clear the stateRange with a blank dictionary
             stateRange = new Dictionary<string, FrameRange>();
@@ -154,14 +165,18 @@ namespace PantheonPrototype
         /// so that it is not.
         /// </summary>
         /// <param name="state">The name for the new state.</param>
-        /// <param name="range">The frame range for the new state.</param>
-        public void addState(string state, int first, int last, bool looping)
+        /// <param name="first">The first frame of the new state.</param>
+        /// <param name="last">The last frame of the new state.</param>
+        /// <param name="looping">Whether or not the animation of the current state should loop.</param>
+        /// <param name="sweeping">Whether or not the animation of the current state plays back and forth.</param>
+        public void addState(string state, int first, int last, bool looping, bool sweeping)
         {
             //Initialize a range object
             FrameRange range;
             range.first = first;
             range.last = last;
             range.looping = looping;
+            range.sweeping = sweeping;
 
             if (stateRange.ContainsKey("default"))
             {
@@ -210,9 +225,11 @@ namespace PantheonPrototype
         /// <returns>False if the passed state does not exist.</returns>
         public bool changeState(string state)
         {
-            if (stateRange.ContainsKey(state))
+            if (stateRange.ContainsKey(state) && this.currentState != state)
             {
                 currentState = state;
+                this.incrementor = 1;
+                this.currentFrame = this.stateRange[currentState].first;
                 return true;
             }
             else
@@ -224,15 +241,28 @@ namespace PantheonPrototype
         public void Update(GameTime gameTime)
         {
             //Increment the current frame
-            currentFrame++;
+            currentFrame += incrementor;
 
+            // Not looping? At last frame? Stop moving.
             if (!stateRange[currentState].looping && currentFrame == stateRange[currentState].last)
             {
-                currentFrame = stateRange[currentState].last - 1;
+                incrementor = 0;
             }
 
-            //Loop around if the frame range for the current state has been exhausted.
-            if (currentFrame >= stateRange[currentState].last || currentFrame < stateRange[currentState].first)
+            // Frame sweeping? At last frame? Go backwards.
+            if (stateRange[currentState].sweeping && currentFrame >= stateRange[currentState].last)
+            {
+                incrementor = -Math.Abs(incrementor);
+            }
+
+            // Frame sweeping? At first frame? Go forwards.
+            if (stateRange[currentState].sweeping && currentFrame <= stateRange[currentState].first)
+            {
+                incrementor = Math.Abs(incrementor);
+            }
+
+            // Not frame sweeping? After last frame? Go to first frame.
+            if (!stateRange[currentState].sweeping && currentFrame > stateRange[currentState].last)
             {
                 currentFrame = stateRange[currentState].first;
             }
