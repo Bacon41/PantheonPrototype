@@ -62,7 +62,8 @@ namespace PantheonPrototype
             base(
                 Vector2.Zero,
                 new Rectangle(0,0,200,159),
-                new Rectangle(85,110,30,30))
+                new Rectangle(85,110,30,30),
+                "Player of Awesomeness Who Definitely Eats Sushi")
         {
             initializeInventory();
 

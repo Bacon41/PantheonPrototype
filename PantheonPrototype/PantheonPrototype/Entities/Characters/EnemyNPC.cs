@@ -14,8 +14,8 @@ namespace PantheonPrototype
 {
     class EnemyNPC : NPCCharacter
     {
-        public EnemyNPC(Vector2 location, Rectangle drawBox, Rectangle boundingBox)
-            : base(location, drawBox, boundingBox)
+        public EnemyNPC(Vector2 location, Rectangle drawBox, Rectangle boundingBox, string name)
+            : base(location, drawBox, boundingBox, name)
         {
             comfortZone = new Rectangle((int)location.X + drawBox.X - 200, (int)location.Y + drawBox.Y - 200, 400, 400);
 

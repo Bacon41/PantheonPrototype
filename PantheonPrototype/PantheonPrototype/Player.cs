@@ -15,7 +15,7 @@ namespace PantheonPrototype
     // Currenly Obsolete. Possibly will store Inventory. We'll see.
     class Player : CharacterEntity
     {
-        Player() : base(Vector2.Zero, Rectangle.Empty, Rectangle.Empty)
+        Player() : base(Vector2.Zero, Rectangle.Empty, Rectangle.Empty, "Player of Awesomeness Who Definitely Eats Sushi")
         {
             TotalArmor = 100;
             CurrentArmor = 100;

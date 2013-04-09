@@ -17,14 +17,12 @@ namespace PantheonPrototype
     /// </summary>
     class BunnyTrigger : Trigger
     {
-        public BunnyTrigger(Rectangle locationBox, Pantheon gameReference)
-            : base(locationBox, gameReference)
+        public BunnyTrigger(Rectangle locationBox, Pantheon gameReference, string name)
+            : base(locationBox, gameReference, name)
         {
-            HandleEvent bunnyHandler = bunnies;
-            gameReference.EventManager.register("TriggerEventWithBunnies!!!", bunnyHandler);
         }
 
-        public void bunnies(Event eventInfo)
+        public override void  triggerHandler(Event eventInfo)
         {
             // Only execute if active
             if (active)
@@ -35,7 +33,7 @@ namespace PantheonPrototype
                 int temp = eventInfo.GameReference.rand.Next(-100, 100);
                 int temp2 = eventInfo.GameReference.rand.Next(-100, 100);
 
-                BunnyNPC bunny = new BunnyNPC(this.Location + new Vector2(temp, temp2));
+                BunnyNPC bunny = new BunnyNPC(this.Location + new Vector2(temp, temp2), "Bunny" + BunnyNPC.counter);
                 bunny.Load(eventInfo.GameReference.Content);
 
                 // Spam bunnies

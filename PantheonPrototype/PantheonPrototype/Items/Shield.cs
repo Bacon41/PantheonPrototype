@@ -68,7 +68,7 @@ namespace PantheonPrototype
         {
             shieldTexture = contentManager.Load<Texture2D>("Shield");
 
-            energyField = new Entity(Vector2.Zero, new Rectangle(0, 0, 50, 50), new Rectangle(4, 10, 42, 42));
+            energyField = new Entity(Vector2.Zero, new Rectangle(0, 0, 50, 50), new Rectangle(4, 10, 42, 42), "character_shield");
             energyField.Load(contentManager);
             energyField.Sprite = new Sprite(shieldTexture, 1, 1);
 
@@ -108,7 +108,7 @@ namespace PantheonPrototype
                 }
 
                 //Update the location of the energy field
-                energyField.Location = gameReference.currentLevel.Entities["character"].Location;
+                energyField.Location = gameReference.currentLevel.Entities["Player of Awesomeness Who Definitely Eats Sushi"].Location;
 
                 currentShield--;
             }

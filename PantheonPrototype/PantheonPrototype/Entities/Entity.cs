@@ -97,6 +97,19 @@ namespace PantheonPrototype
         }
 
         /// <summary>
+        /// The name the entity has within level.
+        /// </summary>
+        protected string name;
+
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+        }
+
+        /// <summary>
         /// A string representing the current state.
         /// </summary>
         protected string currentState;
@@ -153,7 +166,7 @@ namespace PantheonPrototype
         /// A no parameter entity for conveniences sake.
         /// </summary>
         public Entity()
-            : this(0,0,new Rectangle(-20, -20, 40, 40), new Rectangle(15, 15, 10,10))
+            : this(0,0,new Rectangle(-20, -20, 40, 40), new Rectangle(15, 15, 10,10), "George I") // Please note that George the First should not be noted.
         { }
 
         /// <summary>
@@ -166,7 +179,7 @@ namespace PantheonPrototype
         /// <param name="drawBox">The draw box defines the area to which the sprite
         /// is drawn relative to the upper left hand corner..</param>
         /// <param name="boundingBox">The bounding box relative to the action point.</param>
-        public Entity(float x, float y, Rectangle drawBox, Rectangle boundingBox)
+        public Entity(float x, float y, Rectangle drawBox, Rectangle boundingBox, string name)
         {
             this.sprite = new Sprite();
             this.drawingBox = drawBox;
@@ -187,7 +200,7 @@ namespace PantheonPrototype
         /// <param name="location">The location of the entity relative to global space. Note that the reference point of the entity is the center of the bounding box.</param>
         /// <param name="drawBox">The box to which the sprite will be drawn. Only the width and height will be used.</param>
         /// <param name="boundingBox">The bounding box of the entity relative to the upper right hand corner of the entity.</param>
-        public Entity(Vector2 location, Rectangle drawBox, Rectangle boundingBox)
+        public Entity(Vector2 location, Rectangle drawBox, Rectangle boundingBox, string name)
             : this(
                 location.X,
                 location.Y,
@@ -200,8 +213,9 @@ namespace PantheonPrototype
                     boundingBox.X,
                     boundingBox.Y,
                     boundingBox.Width,
-                    boundingBox.Height)
-                    )
+                    boundingBox.Height),
+                name
+                )
         { }
 
         /// <summary>

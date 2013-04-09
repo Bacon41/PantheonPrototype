@@ -99,8 +99,8 @@ namespace PantheonPrototype
         /// <param name="location">The location of the entity relative to global space. Note that the reference point of the entity is the center of the bounding box.</param>
         /// <param name="drawBox">The box to which the sprite will be drawn. Only the width and height will be used.</param>
         /// <param name="boundingBox">The bounding box of the entity relative to the upper right hand corner of the entity.</param>
-        public CharacterEntity(Vector2 location, Rectangle drawBox, Rectangle boundingBox):
-            base(location, drawBox, boundingBox)
+        public CharacterEntity(Vector2 location, Rectangle drawBox, Rectangle boundingBox, string name):
+            base(location, drawBox, boundingBox, name)
         {
             EquippedItems = new Dictionary<string, Item>();
             ArmedItem = new Item();
