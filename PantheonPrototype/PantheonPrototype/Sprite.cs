@@ -93,7 +93,17 @@ namespace PantheonPrototype
         {
             stateRange = new Dictionary<string, FrameRange>();
 
-            this.incrementor = 1;
+            FrameRange temp;
+
+            temp.first = 0;
+            temp.last = 0;
+            temp.looping = false;
+            temp.sweeping = false;
+            this.stateRange.Add("Default", temp);
+
+            this.currentState = "Default";
+
+            this.incrementor = 0;
         }
 
         public Sprite(Texture2D image, int rows, int columns)
