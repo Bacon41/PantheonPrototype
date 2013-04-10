@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="20" height="30" tilewidth="200" tileheight="113">
+ <tileset firstgid="1" name="Base_" tilewidth="200" tileheight="113">
+  <image source="MapFiles/TileSets/RebelBase/baseTiles.png" width="400" height="113"/>
+  <tile id="0">
+   <properties>
+    <property name="isShootable" value="false"/>
+    <property name="isWalkable" value="false"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="isShootable" value="true"/>
+    <property name="isWalkable" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="3" name="Modifier_" tilewidth="200" tileheight="113">
+  <image source="MapFiles/TileSets/RebelBase/modifierTiles.png" width="400" height="113"/>
+  <tile id="1">
+   <properties>
+    <property name="isShootable" value="true"/>
+    <property name="isWalkable" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Base" width="20" height="30">
+  <data encoding="base64" compression="zlib">
+   eJxjZGBgYKQyZqISRjaPGm4aNW/wmUettELIfcSKEevfUfMG1jxqphdy0y8280gBQ8k8XPKj5o2aN2oebgwAFRQCAg==
+  </data>
+ </layer>
+ <layer name="Modifier" width="20" height="30">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApwAxYseNS8UfNGzcMPAG2vAMk=
+  </data>
+ </layer>
+ <objectgroup name="Spawn" width="20" height="30">
+  <object name="endRebelFoyer" x="8" y="900" width="85" height="121"/>
+  <object name="startRebelFoyer" x="130" y="913" width="118" height="100"/>
+ </objectgroup>
+</map>
