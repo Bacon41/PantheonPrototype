@@ -35,7 +35,7 @@ namespace PantheonPrototype
             objectives = new List<Objective>();
             currentObjectives = new List<Objective>();
 
-            if (currentObjectives.Contains(objectives[4+2])) Console.WriteLine("DRAGONS");
+            //if (currentObjectives.Contains(objectives[4+2])) Console.WriteLine("DRAGONS");
 
             // Statically set objectives id to their index in the objective list.
             // This isn't very useful right now, but it's a reminder of how I coded things to work.
@@ -43,6 +43,8 @@ namespace PantheonPrototype
             {
                 objectives[i].id = i;
             }
+
+            Console.WriteLine("Creating a quest");
         }
 
         /// <summary>
@@ -52,8 +54,9 @@ namespace PantheonPrototype
         /// <param name="gameTime">Time since the last update cycle.</param>
         public void Update(GameTime gameTime, Pantheon gameReference)
         {
+            Console.WriteLine("Doro" + currentObjectives.Count);
             // Go backwards through the array so deletions don't break anything
-            for (int i = currentObjectives.Count - 1; i >= 0; i--)
+            for (int i = currentObjectives.Count-1; i > -1; i--)
             {
                 // If the objective is complete
                 if (currentObjectives[i].Complete())

@@ -332,5 +332,11 @@
   <object name="Enemybutterfly" x="1234" y="454" width="718" height="419"/>
   <object name="startmap2" x="1968" y="222" width="35" height="31"/>
   <object name="endmap2" x="1998" y="166" width="117" height="59"/>
+  <object name="TestTrigger" x="436" y="177" width="48" height="29">
+   <properties>
+    <property name="ReactivateTime" value="30"/>
+    <property name="Type" value="TestTriggerObjective"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

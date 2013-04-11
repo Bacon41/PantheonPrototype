@@ -60,6 +60,8 @@ namespace PantheonPrototype
                 eventHandlers.Add(type, new List<HandleEvent>());
             }
 
+            Console.WriteLine("Handler registered for the \"" + type + "\" event");
+
             eventHandlers[type].Add(handler);
         }
 
@@ -83,6 +85,19 @@ namespace PantheonPrototype
         {
             // Inject that global reference non-Bunyaviridae-like thingy
             eventInfo.GameReference = this.GameReference;
+
+            try
+            {
+                // Useless statement
+                if (eventHandlers[eventInfo.Type] == null)
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An unhandled event was encountered for the \"" + eventInfo.Type + "\" type of event.");
+                return;
+            }
 
             foreach (HandleEvent handler in eventHandlers[eventInfo.Type])
             {

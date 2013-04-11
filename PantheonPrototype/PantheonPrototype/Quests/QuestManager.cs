@@ -51,6 +51,8 @@ namespace PantheonPrototype
                 return;
             }
 
+            Console.WriteLine("creating that quest");
+
             // Create the correct type of quest
             switch(eventInfo.payload["QuestType"])
             {
@@ -59,6 +61,9 @@ namespace PantheonPrototype
 
                     // Add the imperative objective
                     quests[quests.Count - 1].objectives.Add(new TriggerObjective(eventInfo.payload["TargetTrigger"]));
+                    quests[quests.Count - 1].objectives[0].Initialize(eventInfo.GameReference);
+
+                    Console.WriteLine("Have made the quest");
 
                     break;
                 default:

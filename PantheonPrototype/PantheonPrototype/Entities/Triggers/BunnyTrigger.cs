@@ -20,11 +20,9 @@ namespace PantheonPrototype
         public BunnyTrigger(Rectangle locationBox, Pantheon gameReference)
             : base(locationBox, gameReference)
         {
-            HandleEvent bunnyHandler = bunnies;
-            gameReference.EventManager.register("TriggerEventWithBunnies!!!", bunnyHandler);
         }
 
-        public void bunnies(Event eventInfo)
+        public override void  triggerHandler(Event eventInfo)
         {
             // Only execute if active
             if (active)

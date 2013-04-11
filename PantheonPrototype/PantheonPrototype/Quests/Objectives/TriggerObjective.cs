@@ -40,9 +40,11 @@ namespace PantheonPrototype
         public TriggerObjective(string targetTriggerName)
         {
             TargetTrigger = targetTriggerName;
-            this.EventType = "TriggerCollision";
+            this.EventType = targetTriggerName + "Objective";
 
-            complete = true;
+            Console.WriteLine(EventType);
+
+            complete = false;
         }
 
         /// <summary>

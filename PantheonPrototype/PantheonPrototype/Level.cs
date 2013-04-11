@@ -129,6 +129,15 @@ namespace PantheonPrototype
                     this.entities[obj.Name].Load(gameReference.Content);
                     ((Trigger)this.entities[obj.Name]).ReactivateTime = (int)obj.Properties["ReactivateTime"].AsInt32;
                 }
+                else if (obj.Name.Contains("Trigger"))
+                {
+                    this.entities.Add(obj.Name, new Trigger(new Rectangle(obj.Bounds.Left, obj.Bounds.Top, obj.Bounds.Width, obj.Bounds.Height), gameReference));
+                    this.entities[obj.Name].Load(gameReference.Content);
+                    ((Trigger)this.entities[obj.Name]).ReactivateTime = (int)obj.Properties["ReactivateTime"].AsInt32;
+                    ((Trigger)this.entities[obj.Name]).Type = obj.Properties["Type"].Value;
+                    // Don't ask... I'm just registering an event handler...
+                    gameReference.EventManager.register("Activate" + obj.Name, new HandleEvent(((Trigger)this.entities[obj.Name]).triggerHandler));
+                }
             }
             Camera.Pos = new Vector2(this.entities["character"].Location.X, this.entities["character"].Location.Y);
 
@@ -136,6 +145,13 @@ namespace PantheonPrototype
 
             // Load the dialogue manager...
             this.dialogueManager = new DialogueManager(gameReference.Content.Load<SpriteFont>("DialogueFont"));
+
+            // Fake a quest
+            Dictionary<string, string> questPayload = new Dictionary<string, string>();
+            questPayload.Add("QuestType", "TriggerQuest");
+            questPayload.Add("TargetTrigger", "TestTrigger");
+            Event fakeEventWithSushi = new Event("CreateQuest", questPayload);
+            gameReference.EventManager.notify(fakeEventWithSushi);
         }
 
 
@@ -396,31 +412,11 @@ namespace PantheonPrototype
         /// <param name="entityTwo">The second entity in the collision.</param>
         private void checkEntities(List<string> entityNames, List<Entity> entityList, Pantheon gameReference)
         {
-
-
             // Check for collisions from the first entity to the second and from the second to the first
             for (int i = 0; i < entityList.Count; i++)
             {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 // Hackses to select the other entity
                 int j = (i + 1) % 2;
-
-
-
 
                 // Projectile collisions
                 if (entityList[i].Characteristics.Contains("Projectile"))
@@ -449,8 +445,6 @@ namespace PantheonPrototype
                 // Inter-walker collisions
                 if (entityList[i].Characteristics.Contains("Walking") && entityList[j].Characteristics.Contains("Walking"))
                 {
-
-
                     entityList[i].Location = entityList[i].PrevLocation;
                     entityList[j].Location = entityList[j].PrevLocation;
                 }
@@ -458,24 +452,24 @@ namespace PantheonPrototype
                 // Trigger collisions
                 if (entityList[i].Characteristics.Contains("Triggerable"))
                 {
-
-
                     if (entityList[j].Characteristics.Contains("Player"))
                     {
-                        Dictionary<string, string> bunnyList = new Dictionary<string, string>();
-                        bunnyList.Add("Trigger", entityNames[j]);
-                        bunnyList.Add("Payload", "Bunnies");
-                        gameReference.EventManager.notify(new Event("TriggerEventWithBunnies!!!", bunnyList));
+                        if (entityNames[i].Contains("Bunny"))
+                        {
+                            Dictionary<string, string> bunnyList = new Dictionary<string, string>();
+                            bunnyList.Add("Trigger", entityNames[i]);
+                            bunnyList.Add("Payload", "Bunnies");
+                            gameReference.EventManager.notify(new Event("TriggerEventWithBunnies!!!", bunnyList));
+                        }
+                        else
+                        {
+                            Dictionary<string, string> activationPayload = new Dictionary<string, string>();
+                            activationPayload.Add("Entity", entityNames[j]);
+                            gameReference.EventManager.notify(new Event("Activate" + entityNames[i], activationPayload));
+                        }
                     }
                 }
             }
-
-
-
-
-
-
-
         }
 
         /// <summary>
@@ -487,7 +481,6 @@ namespace PantheonPrototype
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, this.Camera.getTransformation());
-
 
             levelMap.Draw(spriteBatch, screenRect);
             this.dialogueManager.Draw(spriteBatch);

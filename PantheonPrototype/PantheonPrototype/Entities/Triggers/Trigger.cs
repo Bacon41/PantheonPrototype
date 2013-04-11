@@ -41,6 +41,17 @@ namespace PantheonPrototype
         }
 
         /// <summary>
+        /// Stores the type of event that should be sent off when the trigger activates.
+        /// </summary>
+        private string type;
+
+        public string Type
+        {
+            get { return type; }
+            set { type = value; }
+        }
+
+        /// <summary>
         /// The actual counter for the number of frames since activated.
         /// </summary>
         private int timeSinceActivated = 0;
@@ -88,6 +99,16 @@ namespace PantheonPrototype
                     timeSinceActivated = 0;
                 }
             }
+        }
+
+        /// <summary>
+        /// The handler for the Trigger which will be registered to an event with the same name as the trigger.
+        /// </summary>
+        /// <param name="eventInfo">The general event information structure.</param>
+        public virtual void triggerHandler(Event eventInfo)
+        {
+            // Create the event that corresponds to the trigger type
+            eventInfo.GameReference.EventManager.notify(new Event(type, eventInfo.payload));
         }
     }
 }
