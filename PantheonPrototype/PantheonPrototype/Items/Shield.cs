@@ -64,9 +64,9 @@ namespace PantheonPrototype
         private Texture2D shieldTexture;
 
         public Shield(ContentManager contentManager)
-            : base(contentManager.Load<Texture2D>("Shield"))
+            : base(contentManager.Load<Texture2D>("Sprites/Shield"))
         {
-            shieldTexture = contentManager.Load<Texture2D>("Shield");
+            shieldTexture = contentManager.Load<Texture2D>("Sprites/Shield");
 
             energyField = new Entity(Vector2.Zero, new Rectangle(0, 0, 50, 50), new Rectangle(4, 10, 42, 42));
             energyField.Load(contentManager);

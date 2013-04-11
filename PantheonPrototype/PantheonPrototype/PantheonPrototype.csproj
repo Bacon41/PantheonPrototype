@@ -87,6 +87,8 @@
     <Compile Include="Events\EventManager.cs" />
     <Compile Include="HUD\Inventory.cs" />
     <Compile Include="Entities\Characters\FriendNPC.cs" />
+    <Compile Include="Items\Scar.cs" />
+    <Compile Include="Items\Sniper.cs" />
     <Compile Include="Objective.cs" />
     <Compile Include="Quest.cs" />
     <Compile Include="QuestManager.cs" />

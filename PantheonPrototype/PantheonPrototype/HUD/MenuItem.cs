@@ -80,10 +80,10 @@ namespace PantheonPrototype
 
         public void Load(Pantheon gameReference)
         {
-            background = gameReference.Content.Load<Texture2D>("Button");
-            selcted = gameReference.Content.Load<Texture2D>("ButtonSelect");
+            background = gameReference.Content.Load<Texture2D>("Menu/Button");
+            selcted = gameReference.Content.Load<Texture2D>("Menu/ButtonSelect");
 
-            font = gameReference.Content.Load<SpriteFont>("DebugFont");
+            font = gameReference.Content.Load<SpriteFont>("Fonts/DebugFont");
         }
 
         /// The method for updating the actual item.

@@ -27,7 +27,7 @@ namespace PantheonPrototype
             TotalArmor = 20;
             CurrentArmor = 20;
 
-            EquippedItems.Add("weapon", new Weapon(Content));
+            EquippedItems.Add("weapon", new Scar(Content));
             ArmedItem = EquippedItems["weapon"];
         }
 
@@ -42,7 +42,7 @@ namespace PantheonPrototype
             Texture2D spriteTex;
 
             //Load the image
-            spriteTex = contentManager.Load<Texture2D>("butterfly");
+            spriteTex = contentManager.Load<Texture2D>("Sprites/butterfly");
 
             this.Sprite.loadSprite(spriteTex, 4, 3, 30);
 

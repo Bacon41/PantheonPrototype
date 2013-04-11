@@ -61,14 +61,14 @@ namespace PantheonPrototype
             mainBackgroundTex = new Texture2D(gameReference.GraphicsDevice, 1, 1);
             mainBackgroundTex.SetData(new[] { Color.White });
 
-            splashScreen = gameReference.Content.Load<Texture2D>("Giraffesplean");
-            splashScreenMask = gameReference.Content.Load<Texture2D>("GiraffespleanMask");
-            splashShine = gameReference.Content.Load<Texture2D>("Shine");
+            splashScreen = gameReference.Content.Load<Texture2D>("Menu/Giraffesplean");
+            splashScreenMask = gameReference.Content.Load<Texture2D>("Menu/GiraffespleanMask");
+            splashShine = gameReference.Content.Load<Texture2D>("Menu/Shine");
             splashScreenRect = new Rectangle((int)(SCREEN_WIDTH/2 - (SCREEN_WIDTH * .75)/2),
                 200, (int)(SCREEN_WIDTH * .75), (int)(SCREEN_HEIGHT * .33));
             
-            inventoryBackground = gameReference.Content.Load<Texture2D>("InventoryBackground");
-            inventoryBackgroundTex = gameReference.Content.Load<Texture2D>("InventoryBackgroundTexture");
+            inventoryBackground = gameReference.Content.Load<Texture2D>("Inventory/InventoryBackground");
+            inventoryBackgroundTex = gameReference.Content.Load<Texture2D>("Inventory/InventoryBackgroundTexture");
 
             inventory = new Inventory(SCREEN_WIDTH, SCREEN_HEIGHT, gameReference);
             
