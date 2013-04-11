@@ -98,10 +98,9 @@ namespace PantheonPrototype
 
             QuestManager = new QuestManager(this);
 
-            XMLTest testObject = this.Content.Load<XMLTest>("XMLTestObject");
-            Console.WriteLine("Test object output");
-            Console.WriteLine(testObject.Name);
-            foreach (string line in testObject.Thingies)
+            XMLTest testingStuffs = this.Content.Load<XMLTest>("TestXML");
+            Console.WriteLine(testingStuffs.Name);
+            foreach(string line in testingStuffs.List)
             {
                 Console.WriteLine(line);
             }

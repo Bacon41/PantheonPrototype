@@ -14,6 +14,6 @@ namespace Test
     public class XMLTest
     {
         public string Name;
-        public List<string> Thingies;
+        public List<string> List;
     }
 }

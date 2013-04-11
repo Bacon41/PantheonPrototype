@@ -31,7 +31,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Test\Test.csproj">
-      <Project>{880B2A34-BE8F-48A3-919B-72DA24B74C41}</Project>
+      <Project>{75707D70-9B6F-4A01-BB25-762352814144}</Project>
       <Name>Test</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\XTiledExtensions\XTiledExtensions.csproj">
@@ -270,8 +270,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="XMLTestObject.xml">
-      <Name>XMLTestObject</Name>
+    <Compile Include="TestXML.xml">
+      <Name>TestXML</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
     </Compile>
