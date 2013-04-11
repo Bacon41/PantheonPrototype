@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010 Express for Windows Phone
+# Visual C# Express 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PantheonPrototype", "PantheonPrototype\PantheonPrototype\PantheonPrototype.csproj", "{2F255D0B-FCAD-4C05-BB9A-FBD9A11924D9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PantheonPrototypeContent", "PantheonPrototype\PantheonPrototypeContent\PantheonPrototypeContent.contentproj", "{3F554306-7A52-4C17-97F9-34A715F0794B}"
@@ -8,6 +8,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XTiled [Windows]", "XTiled\XTiled [Windows].csproj", "{B2FDF76B-253A-4D65-A622-712DAC4BD2B2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XTiledExtensions", "XTiledExtensions\XTiledExtensions.csproj", "{AC3FAE00-C94C-4FE3-969F-232241195224}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{75707D70-9B6F-4A01-BB25-762352814144}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +32,10 @@ Global
 		{AC3FAE00-C94C-4FE3-969F-232241195224}.Debug|x86.Build.0 = Debug|x86
 		{AC3FAE00-C94C-4FE3-969F-232241195224}.Release|x86.ActiveCfg = Release|x86
 		{AC3FAE00-C94C-4FE3-969F-232241195224}.Release|x86.Build.0 = Release|x86
+		{75707D70-9B6F-4A01-BB25-762352814144}.Debug|x86.ActiveCfg = Debug|x86
+		{75707D70-9B6F-4A01-BB25-762352814144}.Debug|x86.Build.0 = Debug|x86
+		{75707D70-9B6F-4A01-BB25-762352814144}.Release|x86.ActiveCfg = Release|x86
+		{75707D70-9B6F-4A01-BB25-762352814144}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

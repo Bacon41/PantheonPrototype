@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using FuncWorks.XNA.XTiled;
+using Test;
 
 namespace PantheonPrototype
 {
@@ -96,6 +97,13 @@ namespace PantheonPrototype
             EventManager = new EventManager(this);
 
             QuestManager = new QuestManager(this);
+
+            XMLTest testingStuffs = this.Content.Load<XMLTest>("TestXML");
+            Console.WriteLine(testingStuffs.Name);
+            foreach(string line in testingStuffs.List)
+            {
+                Console.WriteLine(line);
+            }
 
             base.Initialize();
         }

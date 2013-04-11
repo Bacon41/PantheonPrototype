@@ -126,6 +126,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Test\Test.csproj">
+      <Project>{75707D70-9B6F-4A01-BB25-762352814144}</Project>
+      <Name>Test</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\XTiled\XTiled [Windows].csproj">
       <Project>{B2FDF76B-253A-4D65-A622-712DAC4BD2B2}</Project>
       <Name>XTiled [Windows]</Name>

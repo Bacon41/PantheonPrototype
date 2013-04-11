@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Asset Type="Test.XMLTest">
+    <Name>Caviar</Name>
+    <List>
+      <Item>Test</Item>
+      <Item>Cows</Item>
+      <Item>Moo</Item>
+      <Item>What in the cosmos</Item>
+      <Item>Fad</Item>
+      <Item>Dragons</Item>
+      <Item>With sushi</Item>
+    </List>
+  </Asset>
+</XnaContent>
