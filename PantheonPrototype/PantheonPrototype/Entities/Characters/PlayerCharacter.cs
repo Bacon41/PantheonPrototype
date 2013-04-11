@@ -185,6 +185,7 @@ namespace PantheonPrototype
             updateLaser(gameReference, Vector2.Zero);
             updateScope(gameReference);
             updateEquipped(gameReference, gameTime);
+            updateInteractions(gameReference);
 
             if (gameReference.controlManager.actions.beingDamaged == true)
             {
@@ -227,6 +228,26 @@ namespace PantheonPrototype
             //Equippeditems.
 
             base.Update(gameTime, gameReference);
+        }
+
+
+        /// <summary>
+        /// Updates the interactions between the NPCs and the player,
+        /// firing off an event for the DialogueManager to handle.
+        /// </summary>
+        /// <param name="gameReference">A reference to the entire game.</param>
+        private void updateInteractions(Pantheon gameReference)
+        {
+            // Get list of NPCs.
+            var activeNPCs = from entity in gameReference.currentLevel.Entities where entity.Key.Contains("Friend") select entity.Key;
+
+            // Cycle through and check the social bubbles of the NPCs.
+            foreach (String entityKey in activeNPCs)
+            {
+                // gameReference.currentLevel.Entities[entityKey];
+            }
+
+            // If there is more then one NPC with the player in its social bubble, check the distances to find the closest.
         }
 
         /// <summary>
