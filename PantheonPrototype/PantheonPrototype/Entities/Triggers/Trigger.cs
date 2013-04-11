@@ -46,16 +46,31 @@ namespace PantheonPrototype
         private int timeSinceActivated = 0;
 
         /// <summary>
+        /// The type of event the trigger should activate when collided with.
+        /// </summary>
+        private string type;
+
+        public string Type
+        {
+            get { return type; }
+            set { type = value; }
+        }
+
+        /// <summary>
         /// The constructor for a Trigger entity. Note that the bounding box and drawing box are the same since the Trigger will not be drawn. The location 
         /// is also specified by the location box. The action point is defaultly located in the center of the trigger.
         /// </summary>
         /// <param name="locationBox">There is no location box...</param>
-        public Trigger(Rectangle locationBox, Pantheon gameReference)
+        public Trigger(Rectangle locationBox, Pantheon gameReference, string name)
             : base(
                 new Vector2(locationBox.X + locationBox.Width/2, locationBox.Y + locationBox.Height/2),
                 locationBox,
-                new Rectangle(0, 0, locationBox.Width, locationBox.Height))
+                new Rectangle(0, 0, locationBox.Width, locationBox.Height),
+                name)
         {
+            HandleEvent handler = triggerHandler;
+            gameReference.EventManager.register("Activate" + name, handler);
+
             characteristics.Add("Triggerable");
         }
 
@@ -88,6 +103,16 @@ namespace PantheonPrototype
                     timeSinceActivated = 0;
                 }
             }
+        }
+
+        /// <summary>
+        /// The handler for the Trigger which will be registered to an event with the same name as the trigger.
+        /// </summary>
+        /// <param name="eventInfo">The general event information structure.</param>
+        public virtual void triggerHandler(Event eventInfo)
+        {
+            // Create the vent that corresponds to the trigger type
+            eventInfo.GameReference.EventManager.notify(new Event(type, eventInfo.payload));
         }
     }
 }

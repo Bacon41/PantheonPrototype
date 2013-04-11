@@ -41,8 +41,8 @@ namespace PantheonPrototype
             set { isRoaming = value; }
         }
 
-        public NPCCharacter(Vector2 location, Rectangle drawBox, Rectangle boundingBox)
-            : base(location, drawBox, boundingBox)
+        public NPCCharacter(Vector2 location, Rectangle drawBox, Rectangle boundingBox, string name)
+            : base(location, drawBox, boundingBox, name)
         {
             isRoaming = true;
         }

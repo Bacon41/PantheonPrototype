@@ -14,8 +14,8 @@ namespace PantheonPrototype
 {
     class FriendNPC : NPCCharacter
     {
-        public FriendNPC(Vector2 location, Rectangle drawBox, Rectangle boundingBox)
-            : base(location, drawBox, boundingBox)
+        public FriendNPC(Vector2 location, Rectangle drawBox, Rectangle boundingBox, string name)
+            : base(location, drawBox, boundingBox, name)
         {
             comfortZone = new Rectangle((int)location.X + drawBox.X - 100, (int)location.Y + drawBox.Y - 100, 200, 200);
 

@@ -19,8 +19,8 @@ namespace PantheonPrototype
     {
         public static int counter = 0;
 
-        public BunnyNPC(Vector2 location)
-            : base(location, new Rectangle(0, 0, 60,60), new Rectangle (10, 10, 40, 40))
+        public BunnyNPC(Vector2 location, string name)
+            : base(location, new Rectangle(0, 0, 60,60), new Rectangle (10, 10, 40, 40), name)
         {
             facing = Direction.Right;
             currentState = "Move";

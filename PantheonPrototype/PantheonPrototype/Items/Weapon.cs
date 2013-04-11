@@ -137,7 +137,7 @@ namespace PantheonPrototype
         private void shootABullet(Pantheon gameReference, CharacterEntity holder)
         {
             Bullet bullet = new Bullet(holder.Location + new Vector2((float)(25*Math.Cos(holder.AngleFacing)), (float)(25*Math.Sin(holder.AngleFacing))),
-                25, holder.AngleFacing, range, damage, gameReference);
+                25, holder.AngleFacing, range, damage, gameReference, "bullet_" + Bullet.NextId);
             bullet.Load(gameReference.Content);
 
             gameReference.currentLevel.addList.Add("bullet_" + Bullet.NextId, bullet);

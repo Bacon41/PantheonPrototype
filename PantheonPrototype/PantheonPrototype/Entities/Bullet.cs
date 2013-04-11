@@ -48,10 +48,11 @@ namespace PantheonPrototype
         /// </summary>
         /// <param name="location">The initial position for the bullet.</param>
         /// <param name="velocity">The initial velocity of the bullet.</param>
-        public Bullet(Vector2 location, int speed, float angle, int range, int damage, Pantheon gameReference)
+        public Bullet(Vector2 location, int speed, float angle, int range, int damage, Pantheon gameReference, string name)
             : base(location,
                 new Rectangle(0,0,20,20),
-                new Rectangle(1,1,18,18))
+                new Rectangle(1,1,18,18),
+                name)
         {
             // If scoping, then use perfect accuracy.
             // otherwies use a random deviation.

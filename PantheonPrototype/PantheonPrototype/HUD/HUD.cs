@@ -90,7 +90,7 @@ namespace PantheonPrototype
         /// <param name="gameTime">The object that holds all the time information.</param>
         public void Update(GameTime gameTime, Pantheon gameReference, Level level) 
         {
-            PlayerCharacter player = (PlayerCharacter)(level.Entities["character"]);
+            PlayerCharacter player = (PlayerCharacter)(level.Entities["Player of Awesomeness Who Definitely Eats Sushi"]);
             // Set the width of the Armor Bar with respect to the current percent of the player's armor.
             try
             {
