@@ -83,7 +83,7 @@ namespace PantheonPrototype
 
             player = new PlayerCharacter(this);
 
-            debugFont = Content.Load<SpriteFont>("DebugFont");
+            debugFont = Content.Load<SpriteFont>("Fonts/DebugFont");
 
             hud = new HUD(GraphicsDevice, Content, SCREEN_WIDTH, SCREEN_HEIGHT, debugFont);
 
@@ -111,7 +111,7 @@ namespace PantheonPrototype
 
         internal void StartGame()
         {
-            currentLevel.Load("map1", "map0", this);
+            currentLevel.Load("Maps/map1", "Maps/map0", this);
         }
 
         /// <summary>

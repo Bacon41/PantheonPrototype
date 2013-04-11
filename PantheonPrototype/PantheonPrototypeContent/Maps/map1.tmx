@@ -321,7 +321,7 @@
   </data>
  </layer>
  <objectgroup name="Spawn" width="12" height="12">
-  <object name="startmap0" x="633" y="1119" width="46" height="37"/>
+  <object name="startmap0" x="581" y="1072" width="46" height="37"/>
   <object name="FriendtheOldMan" x="435" y="604" width="316" height="241"/>
   <object name="Enemybutterfly" x="1234" y="454" width="718" height="419"/>
   <object name="startmap2" x="1732" y="350" width="55" height="51"/>

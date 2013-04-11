@@ -57,8 +57,8 @@ namespace PantheonPrototype
             color = new Color(34, 167, 222, 50);
             trashColor = Color.White;
 
-            inventorySelector = gameReference.Content.Load<Texture2D>("InvSelect");
-            trashCan = gameReference.Content.Load<Texture2D>("TrashCan");
+            inventorySelector = gameReference.Content.Load<Texture2D>("Inventory/InvSelect");
+            trashCan = gameReference.Content.Load<Texture2D>("Inventory/TrashCan");
             nullImage = new Texture2D(gameReference.GraphicsDevice, 1,1);
             nullImage.SetData(new[] { new Color(0,0,0,0) });
         }

@@ -118,7 +118,7 @@ namespace PantheonPrototype
             Texture2D sprite;
 
             //Load the image
-            sprite = contentManager.Load<Texture2D>("PlayerSprite");
+            sprite = contentManager.Load<Texture2D>("Sprites/PlayerSprite");
 
             //Load the laser Dot
             laserDot = contentManager.Load<Texture2D>("laserDot");

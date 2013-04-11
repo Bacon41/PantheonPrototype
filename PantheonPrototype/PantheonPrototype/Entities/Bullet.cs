@@ -82,7 +82,7 @@ namespace PantheonPrototype
         {
             base.Load(contentManager);
 
-            Texture2D bulletimage = contentManager.Load<Texture2D>("BulletSprite");
+            Texture2D bulletimage = contentManager.Load<Texture2D>("Sprites/BulletSprite");
 
             if (bulletimage != null)
             {

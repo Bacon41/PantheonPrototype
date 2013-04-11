@@ -36,7 +36,7 @@ namespace PantheonPrototype
             Texture2D spriteTex;
 
             //Load the image
-            spriteTex = contentManager.Load<Texture2D>("oldman");
+            spriteTex = contentManager.Load<Texture2D>("Sprites/oldman");
 
             this.Sprite = new Sprite(spriteTex, 1, 1, false);
 
