@@ -331,7 +331,7 @@
   <object name="startmap1" x="106" y="1182" width="21" height="23"/>
   <object name="BunnyTrigger1" x="1235" y="630" width="52" height="29">
    <properties>
-    <property name="ReactivateTime" value="1"/>
+    <property name="ReactivateTime" value="30"/>
    </properties>
   </object>
  </objectgroup>

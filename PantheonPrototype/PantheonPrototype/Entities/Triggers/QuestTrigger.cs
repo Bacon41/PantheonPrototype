@@ -17,19 +17,8 @@ namespace PantheonPrototype
     /// </summary>
     class QuestTrigger : Trigger
     {
-        public QuestTrigger(Rectangle locationBox, Pantheon gameReference, string name)
-            : base(locationBox, gameReference, name)
-        {
-            HandleEvent temp = AlertQuests;
-            gameReference.EventManager.register("Trigger", temp);
-        }
-
-        public override void Update(GameTime gameTime, Pantheon gameReference)
-        {
-            base.Update(gameTime, gameReference);
-        }
-
-        public void AlertQuests(Event eventInfo)
+        public QuestTrigger(Rectangle locationBox, Pantheon gameReference)
+            : base(locationBox, gameReference)
         {
         }
     }

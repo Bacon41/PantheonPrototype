@@ -332,11 +332,5 @@
   <object name="Enemybutterfly" x="1234" y="454" width="718" height="419"/>
   <object name="startmap2" x="1968" y="222" width="35" height="31"/>
   <object name="endmap2" x="1998" y="166" width="117" height="59"/>
-  <object name="QuestTrigger" x="436" y="176" width="49" height="32">
-   <properties>
-    <property name="ReactivateTime" value="30"/>
-    <property name="Type" value="Objective1"/>
-   </properties>
-  </object>
  </objectgroup>
 </map>
