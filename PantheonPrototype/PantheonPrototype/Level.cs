@@ -103,34 +103,41 @@ namespace PantheonPrototype
             levelNum = newLevel;
 
 
-            this.entities.Add("character", gameReference.player);
-            this.entities["character"].Load(gameReference.Content);
+            this.entities.Add("Player of Awesomeness Who Definitely Eats Sushi", gameReference.player);
+            this.entities["Player of Awesomeness Who Definitely Eats Sushi"].Load(gameReference.Content);
 
             // This spawns the character in the right place in the map.
             foreach (MapObject obj in levelMap.ObjectLayers["Spawn"].MapObjects)
             {
                 if (obj.Name.Substring(0, 5) == "start" && obj.Name.Substring(5) == oldLevel)
                 {
-                    this.entities["character"].Location = new Vector2(obj.Bounds.Center.X, obj.Bounds.Center.Y);
+                    this.entities["Player of Awesomeness Who Definitely Eats Sushi"].Location = new Vector2(obj.Bounds.Center.X, obj.Bounds.Center.Y);
                 }
                 if (obj.Name.Contains("Friend"))
                 {
-                    this.entities.Add(obj.Name, new OldManFriend(new Vector2(obj.Bounds.Center.X, obj.Bounds.Center.Y)));
+                    this.entities.Add(obj.Name, new OldManFriend(new Vector2(obj.Bounds.Center.X, obj.Bounds.Center.Y), obj.Name));
                     this.entities[obj.Name].Load(gameReference.Content);
                 }
                 if (obj.Name.Contains("Enemy"))
                 {
-                    this.entities.Add(obj.Name, new ButterflyEnemy(new Vector2(obj.Bounds.Center.X, obj.Bounds.Center.Y), gameReference.Content));
+                    this.entities.Add(obj.Name, new ButterflyEnemy(new Vector2(obj.Bounds.Center.X, obj.Bounds.Center.Y), gameReference.Content, obj.Name));
                     this.entities[obj.Name].Load(gameReference.Content);
                 }
                 if (obj.Name.Contains("BunnyTrigger"))
                 {
-                    this.entities.Add(obj.Name, new BunnyTrigger(new Rectangle(obj.Bounds.Left, obj.Bounds.Top, obj.Bounds.Width, obj.Bounds.Height), gameReference));
+                    this.entities.Add(obj.Name, new BunnyTrigger(new Rectangle(obj.Bounds.Left, obj.Bounds.Top, obj.Bounds.Width, obj.Bounds.Height), gameReference, obj.Name));
                     this.entities[obj.Name].Load(gameReference.Content);
                     ((Trigger)this.entities[obj.Name]).ReactivateTime = (int)obj.Properties["ReactivateTime"].AsInt32;
                 }
+                if(obj.Name.Contains("QuestTrigger"))
+                {
+                    this.entities.Add(obj.Name, new Trigger(new Rectangle(obj.Bounds.Left, obj.Bounds.Top, obj.Bounds.Width, obj.Bounds.Height), gameReference, obj.Name));
+                    this.entities[obj.Name].Load(gameReference.Content);
+                    ((Trigger)this.entities[obj.Name]).ReactivateTime = (int)obj.Properties["ReactivateTime"].AsInt32;
+                    ((Trigger)this.entities[obj.Name]).Type = (string)obj.Properties["Type"].Value;
+                }
             }
-            Camera.Pos = new Vector2(this.entities["character"].Location.X, this.entities["character"].Location.Y);
+            Camera.Pos = new Vector2(this.entities["Player of Awesomeness Who Definitely Eats Sushi"].Location.X, this.entities["Player of Awesomeness Who Definitely Eats Sushi"].Location.Y);
 
             gameReference.CutsceneManager.PlayLevelLoad(gameReference);
 
@@ -171,14 +178,14 @@ namespace PantheonPrototype
             // Update AI roaming (might consider putting this in an AI manager class)
             foreach (String friendKey in friendEntityQuery)
             {
-                if (this.entities["character"].BoundingBox.Intersects(((NPCCharacter)this.entities[friendKey]).ComfortZone))
+                if (this.entities["Player of Awesomeness Who Definitely Eats Sushi"].BoundingBox.Intersects(((NPCCharacter)this.entities[friendKey]).ComfortZone))
                 {
                     ((NPCCharacter)this.entities[friendKey]).IsRoaming = false;
-                    float angle = (float)Math.Atan2(entities["character"].Location.Y - entities[friendKey].Location.Y,
-                        entities["character"].Location.X - entities[friendKey].Location.X);
+                    float angle = (float)Math.Atan2(entities["Player of Awesomeness Who Definitely Eats Sushi"].Location.Y - entities[friendKey].Location.Y,
+                        entities["Player of Awesomeness Who Definitely Eats Sushi"].Location.X - entities[friendKey].Location.X);
                     ((CharacterEntity)this.entities[friendKey]).AngleFacing = angle;
                     ((CharacterEntity)this.entities[friendKey]).Facing =
-                        HamburgerHelper.reduceAngle(entities["character"].Location - entities[friendKey].Location);
+                        HamburgerHelper.reduceAngle(entities["Player of Awesomeness Who Definitely Eats Sushi"].Location - entities[friendKey].Location);
                 }
                 else
                 {
@@ -188,14 +195,14 @@ namespace PantheonPrototype
 
             foreach (String enemyKey in enemyEntityQuery)
             {
-                if (this.entities["character"].BoundingBox.Intersects(((EnemyNPC)this.entities[enemyKey]).ComfortZone))
+                if (this.entities["Player of Awesomeness Who Definitely Eats Sushi"].BoundingBox.Intersects(((EnemyNPC)this.entities[enemyKey]).ComfortZone))
                 {
                     ((NPCCharacter)this.entities[enemyKey]).IsRoaming = false;
-                    float angle = (float)Math.Atan2(entities["character"].Location.Y - entities[enemyKey].Location.Y,
-                        entities["character"].Location.X - entities[enemyKey].Location.X);
+                    float angle = (float)Math.Atan2(entities["Player of Awesomeness Who Definitely Eats Sushi"].Location.Y - entities[enemyKey].Location.Y,
+                        entities["Player of Awesomeness Who Definitely Eats Sushi"].Location.X - entities[enemyKey].Location.X);
                     ((CharacterEntity)this.entities[enemyKey]).AngleFacing = angle;
                     ((CharacterEntity)this.entities[enemyKey]).Facing =
-                        HamburgerHelper.reduceAngle(entities["character"].Location - entities[enemyKey].Location);
+                        HamburgerHelper.reduceAngle(entities["Player of Awesomeness Who Definitely Eats Sushi"].Location - entities[enemyKey].Location);
                 }
                 else
                 {
@@ -225,8 +232,8 @@ namespace PantheonPrototype
             // Updating the camera when the character isn't scoping.
             if (!gameReference.ControlManager.actions.Aim)
             {
-                Camera.Pos = new Vector2(this.entities["character"].DrawingBox.X + entities["character"].DrawingBox.Width / 2,
-                    this.entities["character"].DrawingBox.Y + entities["character"].DrawingBox.Height / 2);
+                Camera.Pos = new Vector2(this.entities["Player of Awesomeness Who Definitely Eats Sushi"].DrawingBox.X + entities["Player of Awesomeness Who Definitely Eats Sushi"].DrawingBox.Width / 2,
+                    this.entities["Player of Awesomeness Who Definitely Eats Sushi"].DrawingBox.Y + entities["Player of Awesomeness Who Definitely Eats Sushi"].DrawingBox.Height / 2);
             }
 
             // This is a fairly ugly way of making the tiles draw in the right locations.
@@ -396,31 +403,11 @@ namespace PantheonPrototype
         /// <param name="entityTwo">The second entity in the collision.</param>
         private void checkEntities(List<string> entityNames, List<Entity> entityList, Pantheon gameReference)
         {
-
-
             // Check for collisions from the first entity to the second and from the second to the first
             for (int i = 0; i < entityList.Count; i++)
             {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 // Hackses to select the other entity
                 int j = (i + 1) % 2;
-
-
-
 
                 // Projectile collisions
                 if (entityList[i].Characteristics.Contains("Projectile"))
@@ -449,8 +436,6 @@ namespace PantheonPrototype
                 // Inter-walker collisions
                 if (entityList[i].Characteristics.Contains("Walking") && entityList[j].Characteristics.Contains("Walking"))
                 {
-
-
                     entityList[i].Location = entityList[i].PrevLocation;
                     entityList[j].Location = entityList[j].PrevLocation;
                 }
@@ -458,24 +443,15 @@ namespace PantheonPrototype
                 // Trigger collisions
                 if (entityList[i].Characteristics.Contains("Triggerable"))
                 {
-
-
                     if (entityList[j].Characteristics.Contains("Player"))
                     {
                         Dictionary<string, string> bunnyList = new Dictionary<string, string>();
                         bunnyList.Add("Trigger", entityNames[j]);
                         bunnyList.Add("Payload", "Bunnies");
-                        gameReference.EventManager.notify(new Event("TriggerEventWithBunnies!!!", bunnyList));
+                        gameReference.EventManager.notify(new Event("Activate" + entityNames[i], bunnyList));
                     }
                 }
             }
-
-
-
-
-
-
-
         }
 
         /// <summary>
