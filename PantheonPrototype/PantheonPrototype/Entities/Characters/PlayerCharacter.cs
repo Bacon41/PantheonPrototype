@@ -245,7 +245,7 @@ namespace PantheonPrototype
             ///<summary>
             ///TEMPORARY: This should be replaced by an entity feature... probably.
             ///</summary>
-            int movementSpeed = 10;
+            int movementSpeed = 1;
             
             //Reset the velocity to nothing...
             velocity = Vector2.Zero;
