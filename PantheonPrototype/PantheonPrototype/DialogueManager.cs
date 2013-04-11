@@ -46,7 +46,7 @@ namespace PantheonPrototype
             this.eventHandler = this.Interact;
 
             // Load the text bubble image.
-            this.textbubbleImage = content.Load<Texture2D>("textbubble.png");
+            this.textbubbleImage = content.Load<Texture2D>("textbubble");
         }
 
         /// <summary>
