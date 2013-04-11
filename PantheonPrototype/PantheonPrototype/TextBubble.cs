@@ -47,18 +47,6 @@ namespace PantheonPrototype
             this.text = text;
         }
 
-        // METHOD AND FUNCTION DEFINITION --
-        /// <summary>
-        /// IT CREATES A TEXT BUBBLE. WOAH.
-        /// </summary>
-        /// <param name="position">The location of the text bubble anchor.</param>
-        /// <param name="text">This text to say.</param>
-        public TextBubble(Vector2 position, string text, Texture2D image)
-            : this(position, text)
-        {
-            this.bubbleImage = image;
-        }
-
         /// <summary>
         /// IT CREATES A TEXT BUBBLE. WOAH. Also anchors it to a character.
         /// NOTE: At the moment this will just hook it to the character at that current point,
@@ -74,35 +62,6 @@ namespace PantheonPrototype
             // Set the position of the text bubble based on the position of the character.
             this.position = this.entity.Location;
             this.position.Y = this.position.Y - (float)(this.entity.BoundingBox.Height * 1.1);
-        }
-
-        public TextBubble(Entity entity, string text, Texture2D image)
-            : this(entity, text)
-        {
-            this.bubbleImage = image;
-        }
-
-        /// <summary>
-        /// IT CREATES A TEXT BUBBLE. WOAH. Also anchors it to a character.
-        /// NOTE: At the moment this will just hook it to the character at that current point,
-        /// it will not follow, while that could be possible in the future.
-        /// </summary>
-        /// <param name="entityName">The entity to tie the text bubble to.</param>
-        /// <param name="text">This text to say.</param>
-        public TextBubble(Entity entity, string text, ContentManager content, string imageName)
-            : this(entity, text)
-        {
-            this.Load(content, imageName);
-        }
-
-        /// <summary>
-        /// Loads the image for use as a textbubble.
-        /// </summary>
-        /// <param name="content">The content manager to load the image from.</param>
-        /// <param name="imageName">The name of the image to load.</param>
-        public void Load(ContentManager content, string imageName)
-        {
-            this.bubbleImage = content.Load<Texture2D>(imageName);
         }
 
         /// <summary>
@@ -124,7 +83,7 @@ namespace PantheonPrototype
         /// </summary>
         /// <param name="context">The SpriteBatch the bubble should be drawn on.</param>
         /// <param name="textFont">The font used to draw the text bubbles.</param>
-        public void Draw(SpriteBatch context, SpriteFont textFont)
+        public void Draw(SpriteBatch context, SpriteFont textFont, Texture2D textbubbleImage)
         {
             Vector2 newPosition = Vector2.Zero;
             Vector2 measurement = textFont.MeasureString(this.text);
@@ -132,6 +91,24 @@ namespace PantheonPrototype
             newPosition.X = this.position.X - measurement.X/2;
             newPosition.Y = this.position.Y - measurement.Y + 5;
 
+            // Draw the text bubble thingy.
+            // -- Corners
+            Rectangle cornerRect = new Rectangle(0, 0, 10, 10);
+            context.Draw(textbubbleImage, new Rectangle((int)(newPosition.X - cornerRect.Width), (int)(newPosition.Y - cornerRect.Height), (int)cornerRect.Width, (int)cornerRect.Height), cornerRect, Color.White, 0.0f, new Vector2(cornerRect.Width / 2, cornerRect.Height / 2), SpriteEffects.None, 0.0f);
+            context.Draw(textbubbleImage, new Rectangle((int)(newPosition.X - cornerRect.Width), (int)(newPosition.Y + measurement.Y), (int)cornerRect.Width, (int)cornerRect.Height), cornerRect, Color.White, -(float)(Math.PI / 2), new Vector2(cornerRect.Width / 2, cornerRect.Height / 2), SpriteEffects.None, 0.0f);
+            context.Draw(textbubbleImage, new Rectangle((int)(newPosition.X + measurement.X), (int)(newPosition.Y - cornerRect.Height), (int)cornerRect.Width, (int)cornerRect.Height), cornerRect, Color.White, (float)(Math.PI/2), new Vector2(cornerRect.Width / 2, cornerRect.Height / 2), SpriteEffects.None, 0.0f);
+            context.Draw(textbubbleImage, new Rectangle((int)(newPosition.X + measurement.X), (int)(newPosition.Y + measurement.Y), (int)cornerRect.Width, (int)cornerRect.Height), cornerRect, Color.White, (float)(Math.PI), new Vector2(cornerRect.Width / 2, cornerRect.Height / 2), SpriteEffects.None, 0.0f);
+
+            // -- Horizontal Sides
+            Rectangle hSideRect = new Rectangle(10, 0, 120, 10);
+
+            // -- Vertical Sides
+            Rectangle vSideRect = new Rectangle(0, 10, 10, 34);
+
+            // -- Tail
+            Rectangle tailRect = new Rectangle(20, 20, 64, 47);
+
+            // -- The text!
             context.DrawString(textFont, this.text, newPosition, Color.WhiteSmoke);
         }
     }
