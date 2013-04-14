@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="12" height="12" tilewidth="200" tileheight="113">
+ <properties>
+  <property name="Proof" value="This is a proof of concept."/>
+ </properties>
  <tileset firstgid="1" name="Base" tilewidth="200" tileheight="113">
   <image source="TileMapSeamless.png" width="400" height="113"/>
   <tile id="0">

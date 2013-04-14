@@ -11,5 +11,6 @@
       <Item>Dragons</Item>
       <Item>With sushi</Item>
     </List>
+    <MapPath>Map1</MapPath>
   </Asset>
 </XnaContent>

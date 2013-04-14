@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using FuncWorks.XNA.XTiled;
 
 namespace Test
 {
@@ -15,5 +16,20 @@ namespace Test
     {
         public string Name;
         public List<string> List;
+
+        public string MapPath;
+
+        private Map map;
+
+        public Map getMap()
+        {
+            return map;
+        }
+
+        public void Load(ContentManager content)
+        {
+            // Load the map thingy
+            map = content.Load<Map>(MapPath);
+        }
     }
 }
