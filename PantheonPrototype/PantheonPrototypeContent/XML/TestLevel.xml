@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Asset Type="CustomLoad.LevelLoader">
+    <entityLoaders>
+      <Item>
+        <Key>testEntity</Key>
+        <Value>
+          <DrawingBox>0 0 40 40</DrawingBox>
+          <BoundingBox>10 10 20 20</BoundingBox>
+          <ActionPoint>20 20</ActionPoint>
+          <ImagePath>Inventory/TrashCan</ImagePath>
+        </Value>
+      </Item>
+      <Item>
+        <Key>anotherEntity</Key>
+        <Value>
+          <DrawingBox>0 0 100 100</DrawingBox>
+          <BoundingBox>25 40 50 50</BoundingBox>
+          <ActionPoint>50 65</ActionPoint>
+          <ImagePath>Inventory/InvSelect</ImagePath>
+        </Value>
+      </Item>
+    </entityLoaders>
+    <mapPath>Maps/map1</mapPath>
+    <nextLevelPath>XML/TestLevel</nextLevelPath>
+  </Asset>
+</XnaContent>

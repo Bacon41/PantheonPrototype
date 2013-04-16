@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using FuncWorks.XNA.XTiled;
+using CustomLoad;
 
 namespace PantheonPrototype
 {
@@ -77,7 +78,7 @@ namespace PantheonPrototype
             controlManager = new ControlManager();
 
             int SCREEN_WIDTH = GraphicsDevice.Viewport.Width;
-            int SCREEN_HEIGHT = GraphicsDevice.Viewport.Height;
+            int SCREEN_HEIGHT =  GraphicsDevice.Viewport.Height;
 
             menu = new Menu(SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -90,6 +91,10 @@ namespace PantheonPrototype
             currentLevel = new Level(GraphicsDevice);
 
             CutsceneManager = new CutsceneManager(GraphicsDevice);
+
+            // Test some stuff
+            LevelLoader test = this.Content.Load<LevelLoader>("XML/TestLevel");
+            Console.WriteLine(test.ToString());
 
             base.Initialize();
         }
