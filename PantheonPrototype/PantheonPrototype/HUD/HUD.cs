@@ -43,22 +43,22 @@ namespace PantheonPrototype
             SCREEN_WIDTH = WIDTH;
             SCREEN_HEIGHT = HEIGHT;
 
-            backing = Content.Load<Texture2D>("HUDbacking");
-            background = Content.Load<Texture2D>("HUDbackground");
+            backing = Content.Load<Texture2D>("HUD/HUDbacking");
+            background = Content.Load<Texture2D>("HUD/HUDbackground");
             hudItems = new List<HUDItem>();
             HUDcoords = new Vector2(0, SCREEN_HEIGHT - background.Height - 20);
 
             danger = 0;
 
-            AddItem("ArmorBar", 5, 46, Content);
-            AddItem("IndicatorG", 230, 10, Content);
-            AddItem("IndicatorY", 230, 10, Content);
-            AddItem("IndicatorR", 230, 10, Content);
-            AddItem("IndicatorD", 230, 10, Content);
-            AddItem("IndicatorEmpty", 230, 10, Content);
-            AddItem("AmmoDisplay", 215, 5, font);
-            AddItem("ReloadTimer", 162, 35, Content);
-            AddItem("Null", 0, 0, Content);
+            AddItem("HUD/ArmorBar", 5, 46, Content);
+            AddItem("HUD/IndicatorG", 230, 10, Content);
+            AddItem("HUD/IndicatorY", 230, 10, Content);
+            AddItem("HUD/IndicatorR", 230, 10, Content);
+            AddItem("HUD/IndicatorD", 230, 10, Content);
+            AddItem("HUD/IndicatorEmpty", 230, 10, Content);
+            AddItem("HUD/AmmoDisplay", 215, 5, font);
+            AddItem("HUD/ReloadTimer", 162, 35, Content);
+            AddItem("HUD/Null", 0, 0, Content);
         }
 
         /// <summary>

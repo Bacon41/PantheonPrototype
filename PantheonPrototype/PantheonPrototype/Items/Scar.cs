@@ -23,7 +23,7 @@ namespace PantheonPrototype
         /// Initializes key values of a weapon.
         /// </summary>
         public Scar(ContentManager Content)
-            : base(Content.Load<Texture2D>("Rifle"))
+            : base(Content.Load<Texture2D>("Sprites/Rifle"))
         {
             //LastShot = TimeSpan.Zero;
             fireRate = 5;

@@ -105,7 +105,7 @@ namespace PantheonPrototype
             // This spawns the character in the right place in the map.
             foreach (MapObject obj in levelMap.ObjectLayers["Spawn"].MapObjects)
             {
-                if (obj.Name.Substring(0, 5) == "start" && obj.Name.Substring(5) == oldLevel)
+                if (obj.Name.Substring(0, 5) == "start" && obj.Name.Substring(5) == oldLevel.Substring(5))
                 {
                     this.entities["character"].Location = new Vector2(obj.Bounds.Center.X, obj.Bounds.Center.Y);
                 }
@@ -125,7 +125,7 @@ namespace PantheonPrototype
             gameReference.CutsceneManager.PlayLevelLoad(gameReference);
 
             // Load the dialogue manager...
-            this.dialogueManager = new DialogueManager(gameReference.Content.Load<SpriteFont>("DialogueFont"));
+            this.dialogueManager = new DialogueManager(gameReference.Content, gameReference.Content.Load<SpriteFont>("Fonts/DialogueFont"));
         }
         
         /// <summary>
@@ -209,7 +209,7 @@ namespace PantheonPrototype
             this.addList = new Dictionary<string, Entity>();
 
             // Update the DialogueManager.
-           this.dialogueManager.Update(gameTime, gameReference);
+            this.dialogueManager.Update(gameTime, gameReference);
 
             // Updating the camera when the character isn't scoping.
             if (!gameReference.controlManager.actions.Aim)
@@ -353,7 +353,7 @@ namespace PantheonPrototype
                 if (obj.Name.Substring(0, 3).Equals("end") && obj.Bounds.Intersects(entity.BoundingBox))
                 {
                     levelPlaying = !gameReference.CutsceneManager.CutsceneEnded;
-                    nextLevel = obj.Name.Substring(3);
+                    nextLevel = "Maps/" + obj.Name.Substring(3);
                     if (!gameReference.CutsceneManager.CutscenePlaying)
                     {
                         //if (!levelPlaying) { break; }

@@ -35,7 +35,7 @@ namespace PantheonPrototype
         {
             // Saving all of the values
             zoom = 1f;
-            rotation = 0.0f;
+            rotation = 0;
             Position = Vector2.Zero;
 
             WIDTH = w;

@@ -36,103 +36,103 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DebugFont.spritefont">
+    <Compile Include="Fonts\DebugFont.spritefont">
       <Name>DebugFont</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PlayerSprite.png">
+    <Compile Include="Sprites\PlayerSprite.png">
       <Name>PlayerSprite</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="butterfly.png">
+    <Compile Include="Sprites\butterfly.png">
       <Name>butterfly</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IndicatorG.png">
+    <Compile Include="HUD\IndicatorG.png">
       <Name>IndicatorG</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HUDbackground.png">
+    <Compile Include="HUD\HUDbackground.png">
       <Name>HUDbackground</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArmorBar.png">
+    <Compile Include="HUD\ArmorBar.png">
       <Name>ArmorBar</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HUDbacking.png">
+    <Compile Include="HUD\HUDbacking.png">
       <Name>HUDbacking</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="map2.tmx">
+    <Compile Include="Maps\map2.tmx">
       <Name>map2</Name>
       <Importer>TMXContentImporter</Importer>
       <Processor>TMXContentProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IndicatorY.png">
+    <Compile Include="HUD\IndicatorY.png">
       <Name>IndicatorY</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="IndicatorR.png">
+    <Compile Include="HUD\IndicatorR.png">
       <Name>IndicatorR</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IndicatorD.png">
+    <Compile Include="HUD\IndicatorD.png">
       <Name>IndicatorD</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IndicatorEmpty.png">
+    <Compile Include="HUD\IndicatorEmpty.png">
       <Name>IndicatorEmpty</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="map1.tmx">
+    <Compile Include="Maps\map1.tmx">
       <Name>map1</Name>
       <Importer>TMXContentImporter</Importer>
       <Processor>TMXContentProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BulletSprite.png">
+    <Compile Include="Sprites\BulletSprite.png">
       <Name>BulletSprite</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="oldman.png">
+    <Compile Include="Sprites\oldman.png">
       <Name>oldman</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -146,77 +146,77 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Button.png">
+    <Compile Include="Menu\Button.png">
       <Name>Button</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ButtonSelect.png">
+    <Compile Include="Menu\ButtonSelect.png">
       <Name>ButtonSelect</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InventoryBackgroundTexture.png">
+    <Compile Include="Inventory\InventoryBackgroundTexture.png">
       <Name>InventoryBackgroundTexture</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Shield.png">
+    <Compile Include="Sprites\Shield.png">
       <Name>Shield</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ReloadTimer.png">
+    <Compile Include="HUD\ReloadTimer.png">
       <Name>ReloadTimer</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InvSelect.png">
+    <Compile Include="Inventory\InvSelect.png">
       <Name>InvSelect</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InventoryBackground.png">
+    <Compile Include="Inventory\InventoryBackground.png">
       <Name>InventoryBackground</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HUDfiller.png">
+    <Compile Include="HUD\HUDfiller.png">
       <Name>HUDfiller</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GiraffeSplean.png">
+    <Compile Include="Menu\GiraffeSplean.png">
       <Name>GiraffeSplean</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GiraffeSpleanMask.png">
+    <Compile Include="Menu\GiraffeSpleanMask.png">
       <Name>GiraffeSpleanMask</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Shine.png">
+    <Compile Include="Menu\Shine.png">
       <Name>Shine</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -230,7 +230,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DialogueFont.spritefont">
+    <Compile Include="Fonts\DialogueFont.spritefont">
       <Name>DialogueFont</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
@@ -238,43 +238,43 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Rifle.png">
+    <Compile Include="Sprites\Rifle.png">
       <Name>Rifle</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Null.png">
-      <Name>Null</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="TrashCan.png">
+    <Compile Include="Inventory\TrashCan.png">
       <Name>TrashCan</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sniper.png">
+    <Compile Include="Sprites\Sniper.png">
       <Name>Sniper</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RebelFoyer.tmx">
+    <Compile Include="Maps\RebelFoyer.tmx">
       <Name>RebelFoyer</Name>
       <Importer>TMXContentImporter</Importer>
       <Processor>TMXContentProcessor</Processor>
     </Compile>
-    <Compile Include="RebelMain.tmx">
+    <Compile Include="Maps\RebelMain.tmx">
       <Name>RebelMain</Name>
       <Importer>TMXContentImporter</Importer>
       <Processor>TMXContentProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="HUD\Null.png">
+      <Name>Null</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

@@ -42,7 +42,7 @@ namespace PantheonPrototype
             Texture2D spriteTex;
 
             //Load the image
-            spriteTex = contentManager.Load<Texture2D>("butterfly");
+            spriteTex = contentManager.Load<Texture2D>("Sprites/butterfly");
 
             this.Sprite.loadSprite(spriteTex, 4, 3, 30);
 

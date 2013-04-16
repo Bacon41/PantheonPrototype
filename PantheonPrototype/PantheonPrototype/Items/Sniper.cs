@@ -23,7 +23,7 @@ namespace PantheonPrototype
         /// Initializes key values of a weapon.
         /// </summary>
         public Sniper(ContentManager Content)
-            : base(Content.Load<Texture2D>("Sniper"))
+            : base(Content.Load<Texture2D>("Sprites/Sniper"))
         {
             //LastShot = TimeSpan.Zero;
             fireRate = 1;
