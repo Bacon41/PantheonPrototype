@@ -27,7 +27,7 @@ namespace PantheonPrototype
         protected Dictionary<string, ArrayList> conversations;
         protected ArrayList currentConversation;
         protected TextBubble currentConversationBubble;
-        protected HandleEvent eventHandler;
+        protected HandleEvent interactionEventHandler;
         protected Texture2D textbubbleImage;
 
         // METHOD AND FUNCTION DEFINITION --
@@ -35,15 +35,21 @@ namespace PantheonPrototype
         /// Constructs the basics of the DialogueManager class and prepares it to handle
         /// dialogue and conversation.
         /// </summary>
-        public DialogueManager(ContentManager content, SpriteFont textFont)
+        public DialogueManager(Pantheon gameReference, SpriteFont textFont)
         {
+            ContentManager content = gameReference.Content;
+
             this.textFont = textFont;
             this.activeTextBubbles = new LinkedList<TextBubble>();
             this.conversations = new Dictionary<string, ArrayList>();
 
             this.currentConversationState = 0;
 
-            this.eventHandler = this.Interact;
+            // Set up event handling...
+            this.interactionEventHandler = this.interact;
+            
+            gameReference.EventManager.register("Interaction", this.interactionEventHandler);
+            gameReference.EventManager.register("InteractionAlert", this.interactionEventHandler);
 
             // Load the text bubble image.
             this.textbubbleImage = content.Load<Texture2D>("textbubble");
@@ -103,12 +109,15 @@ namespace PantheonPrototype
         /// Is used to interact with NPCs. If there is no conversation going, it will initialize one.
         /// If the end of a conversation has been reached, it will end the conversation.
         /// </summary>
-        /// <param name="entityName">The entity to interact with.</param>
-        /// <param name="entity">The entity that the dialogue is happening with.</param>
-        public void Interact(Event firedEvent)
+        /// <param name="firedEvent">The event of the fired thingy.</param>
+        protected void interact(Event firedEvent)
         {
             string entityName = firedEvent.payload["EntityKey"];
             Entity entity = firedEvent.gameReference.currentLevel.Entities[entityName];
+
+            Console.Write("Got Interaction[" + firedEvent.Type + "]: \n");
+            foreach(string payloadName in firedEvent.payload.Keys) Console.Write("\t" + payloadName + " := " + firedEvent.payload[payloadName] + "\n");
+            Console.WriteLine("END\n");
 
             if (this.currentConversation == null)
             {

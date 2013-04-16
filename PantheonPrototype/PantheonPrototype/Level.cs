@@ -125,7 +125,7 @@ namespace PantheonPrototype
             gameReference.CutsceneManager.PlayLevelLoad(gameReference);
 
             // Load the dialogue manager...
-            this.dialogueManager = new DialogueManager(gameReference.Content, gameReference.Content.Load<SpriteFont>("Fonts/DialogueFont"));
+            this.dialogueManager = new DialogueManager(gameReference, gameReference.Content.Load<SpriteFont>("Fonts/DialogueFont"));
         }
         
         /// <summary>
