@@ -62,8 +62,9 @@ namespace PantheonPrototype
                     // Add the imperative objective
                     quests[quests.Count - 1].objectives.Add(new TriggerObjective(eventInfo.payload["TargetTrigger"]));
                     quests[quests.Count - 1].objectives[0].Initialize(eventInfo.GameReference);
+                    quests[quests.Count - 1].setCurrentObjective(0);
 
-                    Console.WriteLine("Have made the quest");
+                    Console.WriteLine("Have made the quest (" + quests[quests.Count - 1].objectives.Count + ")");
 
                     break;
                 default:

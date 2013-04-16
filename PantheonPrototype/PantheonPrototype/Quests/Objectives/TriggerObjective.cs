@@ -31,20 +31,21 @@ namespace PantheonPrototype
         /// <summary>
         /// A simple flag used for testing completion.
         /// </summary>
-        private bool complete;
+        private enum condition { initialized, active, complete };
+        private condition state;
 
         /// <summary>
         /// Constructs a functional Target Trigger that needs only be Initialized to be used.
         /// </summary>
         /// <param name="targetTriggerName">The name of the trigger to which the objective should refer.</param>
-        public TriggerObjective(string targetTriggerName)
+        public TriggerObjective(string targetTriggerName) : base()
         {
             TargetTrigger = targetTriggerName;
             this.EventType = targetTriggerName + "Objective";
 
             Console.WriteLine(EventType);
 
-            complete = false;
+            state = condition.initialized;
         }
 
         /// <summary>
@@ -59,7 +60,7 @@ namespace PantheonPrototype
             HandleEvent eventHandler = this.HandleNotification;
             gameReference.EventManager.register(this.EventType, eventHandler);
 
-            complete = false;
+            state = condition.active;
         }
 
         public override void HandleNotification(Event eventinfo)
@@ -68,7 +69,7 @@ namespace PantheonPrototype
 
             Console.WriteLine(eventinfo.payload["Entity"] + " has collided with " + TargetTrigger);
 
-            complete = true;
+            state = condition.complete;
         }
 
         /// <summary>
@@ -78,14 +79,15 @@ namespace PantheonPrototype
         /// <returns></returns>
         public override bool Complete()
         {
-            return complete;
+            return state == condition.complete;
         }
 
         public override void WrapUp(Pantheon gameReference)
         {
             base.WrapUp(gameReference);
 
-            // Nothing to see here... move along...
+            HandleEvent eventHandler = this.HandleNotification;
+            gameReference.EventManager.unregister(this.EventType, eventHandler);
         }
 
         public override void Update(GameTime gameTime)

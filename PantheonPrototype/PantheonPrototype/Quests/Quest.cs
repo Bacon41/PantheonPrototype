@@ -54,7 +54,6 @@ namespace PantheonPrototype
         /// <param name="gameTime">Time since the last update cycle.</param>
         public void Update(GameTime gameTime, Pantheon gameReference)
         {
-            Console.WriteLine("Doro" + currentObjectives.Count);
             // Go backwards through the array so deletions don't break anything
             for (int i = currentObjectives.Count-1; i > -1; i--)
             {
@@ -65,10 +64,13 @@ namespace PantheonPrototype
                     currentObjectives[i].WrapUp(gameReference);
 
                     // Activate the appropriate next objectives
-                    foreach (int objectiveId in currentObjectives[i].nextObjectives)
+                    if (currentObjectives[i].nextObjectives.Count > 0)
                     {
-                        currentObjectives.Add(objectives[objectiveId]);
-                        objectives[objectiveId].Initialize(gameReference);
+                        foreach (int objectiveId in currentObjectives[i].nextObjectives)
+                        {
+                            currentObjectives.Add(objectives[objectiveId]);
+                            objectives[objectiveId].Initialize(gameReference);
+                        }
                     }
 
                     // Remove this objective from the current objectives
@@ -82,6 +84,17 @@ namespace PantheonPrototype
                     currentObjectives[i].Update(gameTime);
                 }
             }
+        }
+
+        /// <summary>
+        /// Adds the specified index to the current objective list.
+        /// 
+        /// Note: Assumes that the objective has already been initialized.
+        /// </summary>
+        /// <param name="index">The index indicating the objective to add from the objective list.</param>
+        public void setCurrentObjective(int index)
+        {
+            currentObjectives.Add(objectives[index]);
         }
     }
 }

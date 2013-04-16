@@ -42,6 +42,14 @@ namespace PantheonPrototype
         }
 
         /// <summary>
+        /// Constructor... yeah
+        /// </summary>
+        public Objective()
+        {
+            nextObjectives = new List<int>();
+        }
+
+        /// <summary>
         /// Sets the objective to a starting state. This way, an objective may be
         /// predictable when reused.
         /// 
