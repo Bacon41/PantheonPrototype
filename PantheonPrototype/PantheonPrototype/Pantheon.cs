@@ -107,6 +107,7 @@ namespace PantheonPrototype
             testingStuffs.Load(this.Content);
             Map testMap = testingStuffs.getMap();
             Console.WriteLine(testMap.Properties["Proof"].Value);
+            Console.WriteLine(testingStuffs.InlineObject.InnerName);
 
             base.Initialize();
         }

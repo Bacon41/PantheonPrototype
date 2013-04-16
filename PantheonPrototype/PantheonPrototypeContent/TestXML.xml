@@ -12,5 +12,8 @@
       <Item>With sushi</Item>
     </List>
     <MapPath>Map1</MapPath>
+    <InlineObject>
+      <InnerName>The name within the name</InnerName>
+    </InlineObject>
   </Asset>
 </XnaContent>

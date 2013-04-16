@@ -19,6 +19,8 @@ namespace Test
 
         public string MapPath;
 
+        public XMLTest12 InlineObject;
+
         private Map map;
 
         public Map getMap()
