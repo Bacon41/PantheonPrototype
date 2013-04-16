@@ -531,7 +531,15 @@ namespace PantheonPrototype
         {
             if (drawLasar)
             {
-                HamburgerHelper.DrawLine(spriteBatch, laserTexture, 1.25f, Color.Red, Location, this.cursorLocation);
+                Vector2 temp = new Vector2(cursorLocation.X - Location.X, cursorLocation.Y - Location.Y);
+                temp.Normalize();
+                temp *= 20;
+                double dist= Math.Sqrt(Math.Pow(DrawingBox.Center.X - cursorLocation.X, 2) + Math.Pow(DrawingBox.Center.Y - cursorLocation.Y,2));
+                if (dist >= 20)
+                {
+                    HamburgerHelper.DrawLine(spriteBatch, laserTexture, 1.25f, Color.Red,
+                        new Vector2(DrawingBox.Center.X, DrawingBox.Center.Y) + temp, this.cursorLocation);
+                }
             }
             base.Draw(spriteBatch);
 
