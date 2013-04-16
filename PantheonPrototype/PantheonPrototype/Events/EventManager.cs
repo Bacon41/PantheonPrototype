@@ -34,6 +34,14 @@ namespace PantheonPrototype
         private Dictionary<string, List<HandleEvent>> eventHandlers;
 
         /// <summary>
+        /// Temporary constructor for instansiating the list of events.
+        /// </summary>
+        public EventManager()
+        {
+            this.eventHandlers = new Dictionary<string,List<HandleEvent>>();
+        }
+
+        /// <summary>
         /// Registers an event handling function with the EventManager class. When the EventManager
         /// receives an event of the given type, the given handler will be called.
         /// </summary>

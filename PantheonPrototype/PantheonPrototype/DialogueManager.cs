@@ -119,26 +119,31 @@ namespace PantheonPrototype
             foreach(string payloadName in firedEvent.payload.Keys) Console.Write("\t" + payloadName + " := " + firedEvent.payload[payloadName] + "\n");
             Console.WriteLine("END\n");
 
-            if (this.currentConversation == null)
+            if (this.conversations.Keys.Contains(firedEvent.payload["EntityKey"]))
             {
-                this.StartConversation(entityName, entity);
-            }
-            else if (((DialogueNode)this.currentConversation[this.currentConversationState]).NextState == 0)
-            {
-                this.EndConversation();
+                if (this.currentConversation == null)
+                {
+                    this.StartConversation(entityName, entity);
+                }
+                else if (((DialogueNode)this.currentConversation[this.currentConversationState]).NextState == 0)
+                {
+                    this.EndConversation();
+                }
+                else
+                {
+                    DialogueNode currentDiagNode = (DialogueNode)this.currentConversation[this.currentConversationState];
+
+                    this.currentConversationBubble.isReadyForDeletion = true;
+                    this.currentConversationState = currentDiagNode.NextState;
+
+                    currentDiagNode = (DialogueNode)this.currentConversation[this.currentConversationState];
+
+                    this.currentConversationBubble = new TextBubble(entity, currentDiagNode.Text);
+                    this.activeTextBubbles.AddLast(this.currentConversationBubble);
+                }
             }
             else
-            {
-                DialogueNode currentDiagNode = (DialogueNode)this.currentConversation[this.currentConversationState];
-
-                this.currentConversationBubble.isReadyForDeletion = true;
-                this.currentConversationState = currentDiagNode.NextState;
-
-                currentDiagNode = (DialogueNode)this.currentConversation[this.currentConversationState];
-
-                this.currentConversationBubble = new TextBubble(entity, currentDiagNode.Text);
-                this.activeTextBubbles.AddLast(this.currentConversationBubble);
-            }
+                Console.WriteLine("ENTITY[" + firedEvent.payload["EntityKey"] + "] HAS NO DIALOGUE");
         }
 
         /// <summary>

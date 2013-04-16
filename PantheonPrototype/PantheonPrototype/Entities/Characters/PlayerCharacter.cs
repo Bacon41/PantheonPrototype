@@ -252,7 +252,7 @@ namespace PantheonPrototype
                 theCurrentDude = (NPCCharacter)gameReference.currentLevel.Entities[entityKey];
 
                 // INTERSECT, WITH YOUR SPLEEN
-                if (this.boundingBox.Intersects(theCurrentDude.ComfortZone))
+                if (this.BoundingBox.Intersects(theCurrentDude.ComfortZone))
                 {
                     // If no dude, then he is the dude.
                     if (theClosestDude == null)
