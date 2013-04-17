@@ -85,6 +85,7 @@ namespace PantheonPrototype
         /// <param name="textFont">The font used to draw the text bubbles.</param>
         public void Draw(SpriteBatch context, SpriteFont textFont, Texture2D textbubbleImage)
         {
+            float depth = 0.00001f;
             Vector2 newPosition = Vector2.Zero;
             Vector2 measurement = textFont.MeasureString(this.text);
 
@@ -94,22 +95,31 @@ namespace PantheonPrototype
             // Draw the text bubble thingy.
             // -- Corners
             Rectangle cornerRect = new Rectangle(0, 0, 10, 10);
-            context.Draw(textbubbleImage, new Rectangle((int)(newPosition.X - cornerRect.Width), (int)(newPosition.Y - cornerRect.Height), (int)cornerRect.Width, (int)cornerRect.Height), cornerRect, Color.White, 0.0f, new Vector2(cornerRect.Width / 2, cornerRect.Height / 2), SpriteEffects.None, 0.0f);
-            context.Draw(textbubbleImage, new Rectangle((int)(newPosition.X - cornerRect.Width), (int)(newPosition.Y + measurement.Y), (int)cornerRect.Width, (int)cornerRect.Height), cornerRect, Color.White, -(float)(Math.PI / 2), new Vector2(cornerRect.Width / 2, cornerRect.Height / 2), SpriteEffects.None, 0.0f);
-            context.Draw(textbubbleImage, new Rectangle((int)(newPosition.X + measurement.X + cornerRect.Width), (int)(newPosition.Y - cornerRect.Height), (int)cornerRect.Width, (int)cornerRect.Height), cornerRect, Color.White, (float)(Math.PI/2), new Vector2(cornerRect.Width / 2, cornerRect.Height / 2), SpriteEffects.None, 0.0f);
-            context.Draw(textbubbleImage, new Rectangle((int)(newPosition.X + measurement.X + cornerRect.Width), (int)(newPosition.Y + measurement.Y), (int)cornerRect.Width, (int)cornerRect.Height), cornerRect, Color.White, (float)(Math.PI), new Vector2(cornerRect.Width / 2, cornerRect.Height / 2), SpriteEffects.None, 0.0f);
+            context.Draw(textbubbleImage, new Rectangle((int)(newPosition.X - cornerRect.Width / 2), (int)(newPosition.Y - cornerRect.Height / 2), (int)cornerRect.Width, (int)cornerRect.Height), cornerRect, Color.White, 0.0f, new Vector2(cornerRect.Width / 2, cornerRect.Height / 2), SpriteEffects.None, depth);
+            context.Draw(textbubbleImage, new Rectangle((int)(newPosition.X - cornerRect.Width / 2), (int)(newPosition.Y + measurement.Y + cornerRect.Height / 2), (int)cornerRect.Width, (int)cornerRect.Height), cornerRect, Color.White, -(float)(Math.PI / 2), new Vector2(cornerRect.Width / 2, cornerRect.Height / 2), SpriteEffects.None, depth);
+            context.Draw(textbubbleImage, new Rectangle((int)(newPosition.X + measurement.X + cornerRect.Width / 2), (int)(newPosition.Y - cornerRect.Height / 2), (int)cornerRect.Width, (int)cornerRect.Height), cornerRect, Color.White, (float)(Math.PI/2), new Vector2(cornerRect.Width / 2, cornerRect.Height / 2), SpriteEffects.None, depth);
+            context.Draw(textbubbleImage, new Rectangle((int)(newPosition.X + measurement.X + cornerRect.Width / 2), (int)(newPosition.Y + measurement.Y + cornerRect.Height / 2), (int)cornerRect.Width, (int)cornerRect.Height), cornerRect, Color.White, (float)(Math.PI), new Vector2(cornerRect.Width / 2, cornerRect.Height / 2), SpriteEffects.None, depth);
 
             // -- Horizontal Sides
-            Rectangle hSideRect = new Rectangle(10, 0, 120, 10);
+            Rectangle hSideRect = new Rectangle(11, 0, 1, 10);
+            context.Draw(textbubbleImage, new Rectangle((int)(newPosition.X), (int)(newPosition.Y - hSideRect.Height/2), (int)(measurement.X), (int)(hSideRect.Height)), hSideRect, Color.White, 0.0f, new Vector2(hSideRect.Width / 2, hSideRect.Height / 2), SpriteEffects.None, depth);
+            context.Draw(textbubbleImage, new Rectangle((int)(newPosition.X + measurement.X), (int)(newPosition.Y + measurement.Y + hSideRect.Height/2), (int)(measurement.X), (int)(hSideRect.Height)), hSideRect, Color.White, (float)(Math.PI), new Vector2(hSideRect.Width / 2, hSideRect.Height / 2), SpriteEffects.None, depth);
 
             // -- Vertical Sides
-            Rectangle vSideRect = new Rectangle(0, 10, 10, 34);
+            Rectangle vSideRect = new Rectangle(0, 11, 10, 1);
+            context.Draw(textbubbleImage, new Rectangle((int)(newPosition.X - vSideRect.Width / 2), (int)(newPosition.Y), (int)vSideRect.Width, (int)measurement.Y), vSideRect, Color.White, 0.0f, new Vector2(vSideRect.Width / 2, vSideRect.Height / 2), SpriteEffects.None, depth);
+            context.Draw(textbubbleImage, new Rectangle((int)(newPosition.X + measurement.X + vSideRect.Width / 2), (int)(newPosition.Y + measurement.Y), (int)vSideRect.Width, (int)measurement.Y), vSideRect, Color.White, (float)(Math.PI), new Vector2(vSideRect.Width / 2, vSideRect.Height / 2), SpriteEffects.None, depth);
 
             // -- Tail
-            Rectangle tailRect = new Rectangle(20, 20, 64, 47);
+            Rectangle tailRect = new Rectangle(75, 54, 19, 19);
+            context.Draw(textbubbleImage, new Rectangle((int)(this.position.X), (int)(this.position.Y + tailRect.Height / 2), (int)tailRect.Width, (int)tailRect.Height), tailRect, Color.White, 0.0f, new Vector2(tailRect.Width / 2, tailRect.Height / 2), SpriteEffects.None, depth);
+
+            // -- Backgroudn
+            Rectangle background = new Rectangle(11, 11, 1, 1);
+            context.Draw(textbubbleImage, new Rectangle((int)newPosition.X, (int)newPosition.Y, (int)measurement.X, (int)measurement.Y), background, Color.White, 0.0f, Vector2.Zero, SpriteEffects.None, depth);
 
             // -- The text!
-            context.DrawString(textFont, this.text, newPosition, Color.WhiteSmoke);
+            context.DrawString(textFont, this.text, newPosition, Color.Black);
         }
     }
 }
