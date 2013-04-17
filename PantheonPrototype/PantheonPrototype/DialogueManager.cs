@@ -20,14 +20,21 @@ namespace PantheonPrototype
     /// </summary>
     public class DialogueManager
     {
+        // CLASS CONSTANTS --
+        protected static string STATE_NONE     = "NONE";
+        protected static string STATE_ALERT    = "ALERT";
+        protected static string STATE_TALKABLE = "ANTIAPHASIA";
+
         // VARIABLE DECLARATION --
         protected int currentConversationState;
         protected SpriteFont textFont;
         protected LinkedList<TextBubble> activeTextBubbles;
         protected Dictionary<string, ArrayList> conversations;
+        protected Dictionary<string, int> npcStates;
         protected ArrayList currentConversation;
         protected TextBubble currentConversationBubble;
         protected HandleEvent interactionEventHandler;
+        protected HandleEvent interactionAlertEventHandler;
         protected Texture2D textbubbleImage;
 
         // METHOD AND FUNCTION DEFINITION --
@@ -49,7 +56,7 @@ namespace PantheonPrototype
             this.interactionEventHandler = this.interact;
             
             gameReference.EventManager.register("Interaction", this.interactionEventHandler);
-            gameReference.EventManager.register("InteractionAlert", this.interactionEventHandler);
+            gameReference.EventManager.register("InteractionAlert", this.interactionAlertEventHandler);
 
             // Load the text bubble image.
             this.textbubbleImage = content.Load<Texture2D>("textbubble");
@@ -352,12 +359,6 @@ namespace PantheonPrototype
             string entityName = firedEvent.payload["EntityKey"];
             Entity entity = firedEvent.gameReference.currentLevel.Entities[entityName];
 
-            Console.Write("Got Interaction[" + firedEvent.Type + "]: \n");
-            foreach(string payloadName in firedEvent.payload.Keys) Console.Write("\t" + payloadName + " := " + firedEvent.payload[payloadName] + "\n");
-            Console.WriteLine("END\n");
-
-            if (firedEvent.Type == "InteractionAlert") return; // HACK HACK HACK REMOVE LATER WHEN NOT STUPID
-
             if (this.conversations.Keys.Contains(firedEvent.payload["EntityKey"]))
             {
                 if (this.currentConversation == null)
@@ -383,6 +384,15 @@ namespace PantheonPrototype
             }
             else
                 Console.WriteLine("ENTITY[" + firedEvent.payload["EntityKey"] + "] HAS NO DIALOGUE");
+        }
+
+        /// <summary>
+        /// Handles an event for an interaction alert, such as a "close poximity" alert or a flagged NPC.
+        /// </summary>
+        /// <param name="firedEvent">The incoming event.</param>
+        protected void interactAlert(Event firedEvent)
+        {
+            // CONTINUE HERE. ADD STATES FOR ENTITIES IN CONVERSATION AND SUCH.
         }
 
         /// <summary>
