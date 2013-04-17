@@ -96,8 +96,8 @@ namespace PantheonPrototype
             Rectangle cornerRect = new Rectangle(0, 0, 10, 10);
             context.Draw(textbubbleImage, new Rectangle((int)(newPosition.X - cornerRect.Width), (int)(newPosition.Y - cornerRect.Height), (int)cornerRect.Width, (int)cornerRect.Height), cornerRect, Color.White, 0.0f, new Vector2(cornerRect.Width / 2, cornerRect.Height / 2), SpriteEffects.None, 0.0f);
             context.Draw(textbubbleImage, new Rectangle((int)(newPosition.X - cornerRect.Width), (int)(newPosition.Y + measurement.Y), (int)cornerRect.Width, (int)cornerRect.Height), cornerRect, Color.White, -(float)(Math.PI / 2), new Vector2(cornerRect.Width / 2, cornerRect.Height / 2), SpriteEffects.None, 0.0f);
-            context.Draw(textbubbleImage, new Rectangle((int)(newPosition.X + measurement.X), (int)(newPosition.Y - cornerRect.Height), (int)cornerRect.Width, (int)cornerRect.Height), cornerRect, Color.White, (float)(Math.PI/2), new Vector2(cornerRect.Width / 2, cornerRect.Height / 2), SpriteEffects.None, 0.0f);
-            context.Draw(textbubbleImage, new Rectangle((int)(newPosition.X + measurement.X), (int)(newPosition.Y + measurement.Y), (int)cornerRect.Width, (int)cornerRect.Height), cornerRect, Color.White, (float)(Math.PI), new Vector2(cornerRect.Width / 2, cornerRect.Height / 2), SpriteEffects.None, 0.0f);
+            context.Draw(textbubbleImage, new Rectangle((int)(newPosition.X + measurement.X + cornerRect.Width), (int)(newPosition.Y - cornerRect.Height), (int)cornerRect.Width, (int)cornerRect.Height), cornerRect, Color.White, (float)(Math.PI/2), new Vector2(cornerRect.Width / 2, cornerRect.Height / 2), SpriteEffects.None, 0.0f);
+            context.Draw(textbubbleImage, new Rectangle((int)(newPosition.X + measurement.X + cornerRect.Width), (int)(newPosition.Y + measurement.Y), (int)cornerRect.Width, (int)cornerRect.Height), cornerRect, Color.White, (float)(Math.PI), new Vector2(cornerRect.Width / 2, cornerRect.Height / 2), SpriteEffects.None, 0.0f);
 
             // -- Horizontal Sides
             Rectangle hSideRect = new Rectangle(10, 0, 120, 10);
