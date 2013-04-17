@@ -74,7 +74,7 @@ namespace PantheonPrototype
             if (this.entity != null)
             {
                 this.position = this.entity.Location;
-                this.position.Y = this.position.Y - (float)(this.entity.DrawingBox.Height*1.1);
+                this.position.Y = this.position.Y - (float)(this.entity.DrawingBox.Height + 12);
             }
         }
 
@@ -90,7 +90,7 @@ namespace PantheonPrototype
             Vector2 measurement = textFont.MeasureString(this.text);
 
             newPosition.X = this.position.X - measurement.X/2;
-            newPosition.Y = this.position.Y - measurement.Y + 5;
+            newPosition.Y = this.position.Y - measurement.Y - 3;
 
             // Draw the text bubble thingy.
             // -- Corners
@@ -112,7 +112,7 @@ namespace PantheonPrototype
 
             // -- Tail
             Rectangle tailRect = new Rectangle(75, 54, 19, 19);
-            context.Draw(textbubbleImage, new Rectangle((int)(this.position.X), (int)(this.position.Y + tailRect.Height / 2), (int)tailRect.Width, (int)tailRect.Height), tailRect, Color.White, 0.0f, new Vector2(tailRect.Width / 2, tailRect.Height / 2), SpriteEffects.None, depth);
+            context.Draw(textbubbleImage, new Rectangle((int)(this.position.X + this.entity.BoundingBox.Width * 0.35), (int)(this.position.Y + tailRect.Height / 2), (int)tailRect.Width, (int)tailRect.Height), tailRect, Color.White, 0.0f, new Vector2(tailRect.Width / 2, tailRect.Height / 2), SpriteEffects.None, depth / 2f);
 
             // -- Backgroudn
             Rectangle background = new Rectangle(11, 11, 1, 1);
