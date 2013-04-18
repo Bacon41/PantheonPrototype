@@ -317,6 +317,8 @@ namespace PantheonPrototype
             // Update the states...
             foreach (string key in this.npcStates.Keys)
             {
+                if (!gameReference.currentLevel.Entities.Keys.Contains(key)) continue; // BAD, FIX
+
                 Entity theEntity = gameReference.currentLevel.Entities[key];
 
                 switch (this.npcStates[key])

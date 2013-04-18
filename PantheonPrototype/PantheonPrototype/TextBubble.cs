@@ -82,7 +82,7 @@ namespace PantheonPrototype
 
             // Set the position of the text bubble based on the position of the character.
             this.position = this.entity.Location;
-            this.position.Y = this.position.Y - (float)(this.entity.BoundingBox.Height * 1.05);
+            this.position.Y = this.position.Y - (float)(this.entity.BoundingBox.Height);
         }
 
         /// <summary>
