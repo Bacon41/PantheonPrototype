@@ -196,7 +196,7 @@ namespace PantheonPrototype
             if (currentArmor <= 0)
             {
                 currentState = "Die";
-                gameReference.controlManager.actions.isControlEnabled = false;
+                gameReference.ControlManager.actions.isControlEnabled = false;
             }
             if (currentArmor <= 0)
             {
@@ -287,7 +287,7 @@ namespace PantheonPrototype
                 
                 talkWithPeople.payload["EntityKey"] = theClosestDudesName;
 
-                if (gameReference.controlManager.actions.Interact)
+                if (gameReference.ControlManager.actions.Interact)
                 {
                     talkWithPeople.Type = "Interaction";
                 }
@@ -468,7 +468,7 @@ namespace PantheonPrototype
             
 
             //Activate the shield (Actually a toggle)
-            if (gameReference.controlManager.actions.Shield == true)
+            if (gameReference.ControlManager.actions.Shield == true)
             {
                 if (!(inventory.equipped.ElementAt(6).isNull))
                 {
