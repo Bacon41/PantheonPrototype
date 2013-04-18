@@ -17,14 +17,17 @@ namespace PantheonPrototype
     /// This class will handle the basics of dialogue and what all that entails.
     /// This includes drawing the appropriate bubbles and text, as well as possibly
     /// handling some basic dialogue pathing and such.
+    /// 
+    /// TODO: Refactor to set up the textbubbles per entity instead of just "floating" text bubbles.
     /// </summary>
     public class DialogueManager
     {
         // CLASS CONSTANTS --
-        public const string STATE_NONE     = "NONE";
-        public const string STATE_ALERT    = "ALERT";
-        public const string STATE_TALKABLE = "ANTIAPHASIA";
-        public const string STATE_TALKING  = "TALKINGDONTINTERRUPTYOUFOOL";
+        public const string STATE_NONE        = "NONE";
+        public const string STATE_ALERT       = "ALERT";
+        public const string STATE_TALKABLE    = "ANTIAPHASIA";
+        public const string STATE_TALKING     = "TALKINGDONTINTERRUPTYOUFOOL";
+        public const string STATE_SPONTANEOUS = "SPONTANEOUSCONVERSATION";
 
         // VARIABLE DECLARATION --
         protected int currentConversationState;
@@ -37,6 +40,7 @@ namespace PantheonPrototype
         protected TextBubble currentConversationBubble;
         protected HandleEvent interactionEventHandler;
         protected HandleEvent interactionAlertEventHandler;
+        protected HandleEvent spontaneousConversationEventHandler;
         protected Texture2D textbubbleImage;
 
         // METHOD AND FUNCTION DEFINITION --
@@ -59,9 +63,11 @@ namespace PantheonPrototype
             // Set up event handling...
             this.interactionEventHandler = this.interact;
             this.interactionAlertEventHandler = this.interactAlert;
+            this.spontaneousConversationEventHandler = this.spontaneousConversation;
             
             gameReference.EventManager.register("Interaction", this.interactionEventHandler);
             gameReference.EventManager.register("InteractionAlert", this.interactionAlertEventHandler);
+            gameReference.EventManager.register("SpontaneousConversation", this.spontaneousConversationEventHandler);
 
             // Load the text bubble image.
             this.textbubbleImage = content.Load<Texture2D>("textbubble");
@@ -478,6 +484,12 @@ namespace PantheonPrototype
             {
                 this.npcStates.Add(entityName, firedEvent.payload["State"]);
             }
+        }
+
+        protected void spontaneousConversation(Event firedEvent)
+        {
+            string entityName = firedEvent.payload["EntityKey"];
+            Entity entity = firedEvent.gameReference.currentLevel.Entities[entityName];
         }
 
         /// <summary>
