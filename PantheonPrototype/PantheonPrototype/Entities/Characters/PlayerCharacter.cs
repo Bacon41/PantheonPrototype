@@ -185,6 +185,7 @@ namespace PantheonPrototype
             updateLaser(gameReference, Vector2.Zero);
             updateScope(gameReference);
             updateEquipped(gameReference, gameTime);
+            updateInteractions(gameReference);
 
             if (gameReference.controlManager.actions.beingDamaged == true)
             {
@@ -193,7 +194,7 @@ namespace PantheonPrototype
             }
             if (currentArmor <= 0)
             {
-                currentState = "Die";                
+                currentState = "Die";
                 gameReference.controlManager.actions.isControlEnabled = false;
 
             }
@@ -227,6 +228,72 @@ namespace PantheonPrototype
             //Equippeditems.
 
             base.Update(gameTime, gameReference);
+        }
+
+        /// <summary>
+        /// Updates the interactions between the NPCs and the player,
+        /// firing off an event for the DialogueManager to handle.
+        /// </summary>
+        /// <param name="gameReference">A reference to the entire game.</param>
+        private void updateInteractions(Pantheon gameReference)
+        {
+            // Variable initialization --
+            NPCCharacter theClosestDude = null;
+            NPCCharacter theCurrentDude;
+
+            string theClosestDudesName = "";
+
+            // Get list of NPCs.
+            var activeNPCs = from entity in gameReference.currentLevel.Entities where entity.Key.Contains("Friend") select entity.Key;
+
+            // Cycle through and check the social bubbles of the NPCs.
+            foreach (String entityKey in activeNPCs)
+            {
+                theCurrentDude = (NPCCharacter)gameReference.currentLevel.Entities[entityKey];
+
+                // INTERSECT, WITH YOUR SPLEEN
+                if (this.BoundingBox.Intersects(theCurrentDude.ComfortZone))
+                {
+                    // If no dude, then he is the dude.
+                    if (theClosestDude == null)
+                    {
+                        theClosestDude = theCurrentDude;
+                        theClosestDudesName = entityKey;
+
+                        continue;
+                    }
+                    // Check to see if we have a new dude.
+                    else if (Vector2.Distance(theCurrentDude.ActionPoint, this.ActionPoint) < Vector2.Distance(theClosestDude.ActionPoint, this.ActionPoint))
+                    {
+                        theClosestDude = theCurrentDude;
+                        theClosestDudesName = entityKey;
+                    }
+                }
+            }
+
+            // If there is a closest dude, we need to see if we want to interact with him, if so, shoot the event, if not, shoot the other event to make the bubbles appear on top of his head and into the sky.
+            if (theClosestDude != null)
+            {
+                Event talkWithPeople = new Event();
+
+                talkWithPeople.Type = "NONE";
+                talkWithPeople.gameReference = gameReference;
+                talkWithPeople.payload = new Dictionary<string,string>();
+                
+                talkWithPeople.payload["EntityKey"] = theClosestDudesName;
+
+                if (gameReference.controlManager.actions.Interact)
+                {
+                    talkWithPeople.Type = "Interaction";
+                }
+                else
+                {
+                    talkWithPeople.Type = "InteractionAlert";
+                    talkWithPeople.payload["State"] = DialogueManager.STATE_TALKABLE;
+                }
+
+                gameReference.EventManager.notify(talkWithPeople);
+            }
         }
 
         /// <summary>
@@ -472,7 +539,15 @@ namespace PantheonPrototype
         {
             if (drawLasar)
             {
-                HamburgerHelper.DrawLine(spriteBatch, laserTexture, 1.25f, Color.Red, Location, this.cursorLocation);
+                Vector2 temp = new Vector2(cursorLocation.X - Location.X, cursorLocation.Y - Location.Y);
+                temp.Normalize();
+                temp *= 20;
+                double dist= Math.Sqrt(Math.Pow(DrawingBox.Center.X - cursorLocation.X, 2) + Math.Pow(DrawingBox.Center.Y - cursorLocation.Y,2));
+                if (dist >= 20)
+                {
+                    HamburgerHelper.DrawLine(spriteBatch, laserTexture, 1.25f, Color.Red,
+                        new Vector2(DrawingBox.Center.X, DrawingBox.Center.Y) + temp, this.cursorLocation);
+                }
             }
             base.Draw(spriteBatch);
 

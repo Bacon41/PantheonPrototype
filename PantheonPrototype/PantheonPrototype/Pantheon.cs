@@ -91,6 +91,8 @@ namespace PantheonPrototype
 
             CutsceneManager = new CutsceneManager(GraphicsDevice);
 
+            EventManager = new EventManager();
+
             base.Initialize();
         }
 

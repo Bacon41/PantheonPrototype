@@ -31,6 +31,12 @@ namespace PantheonPrototype
         public override void Update(GameTime gameTime, Pantheon gameReference)
         {
             base.Update(gameTime, gameReference);
+
+            PlayerCharacter theCharacter = (PlayerCharacter)gameReference.player;
+
+            // Fish goes on head.
+            this.actionPoint.X = (int)(theCharacter.DrawingBox.Left + theCharacter.DrawingBox.Width/2);
+            this.actionPoint.Y = (int)(theCharacter.DrawingBox.Top - this.DrawingBox.Height / 2);
         }
 
         /// <summary>
