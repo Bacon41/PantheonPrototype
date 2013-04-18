@@ -289,7 +289,7 @@ namespace PantheonPrototype
                 else
                 {
                     talkWithPeople.Type = "InteractionAlert";
-                    talkWithPeople.payload["AlertType"] = "AntiAphasia";
+                    talkWithPeople.payload["State"] = DialogueManager.STATE_TALKABLE;
                 }
 
                 gameReference.EventManager.notify(talkWithPeople);

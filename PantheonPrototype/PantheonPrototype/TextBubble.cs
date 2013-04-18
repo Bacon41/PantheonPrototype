@@ -21,17 +21,22 @@ namespace PantheonPrototype
         protected Entity entity;
         protected Texture2D bubbleImage;
 
+        // ACCESSORS --
         public Vector2 Position
         {
             get { return this.position; }
             set { this.position = value; }
         }
 
-        // ACCESSORS --
         public bool isReadyForDeletion
         {
             get { return this.readyForDeletion; }
             set { this.readyForDeletion = value; }
+        }
+
+        public string Text
+        {
+            get { return this.text; }
         }
         
         // METHOD AND FUNCTION DEFINITION --

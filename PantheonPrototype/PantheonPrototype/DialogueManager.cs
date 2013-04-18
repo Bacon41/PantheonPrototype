@@ -21,16 +21,17 @@ namespace PantheonPrototype
     public class DialogueManager
     {
         // CLASS CONSTANTS --
-        protected static string STATE_NONE     = "NONE";
-        protected static string STATE_ALERT    = "ALERT";
-        protected static string STATE_TALKABLE = "ANTIAPHASIA";
+        public const string STATE_NONE     = "NONE";
+        public const string STATE_ALERT    = "ALERT";
+        public const string STATE_TALKABLE = "ANTIAPHASIA";
 
         // VARIABLE DECLARATION --
         protected int currentConversationState;
         protected SpriteFont textFont;
         protected LinkedList<TextBubble> activeTextBubbles;
         protected Dictionary<string, ArrayList> conversations;
-        protected Dictionary<string, int> npcStates;
+        protected Dictionary<string, string> npcStates;
+        protected Dictionary<string, TextBubble> npcStateBubbles;
         protected ArrayList currentConversation;
         protected TextBubble currentConversationBubble;
         protected HandleEvent interactionEventHandler;
@@ -49,11 +50,14 @@ namespace PantheonPrototype
             this.textFont = textFont;
             this.activeTextBubbles = new LinkedList<TextBubble>();
             this.conversations = new Dictionary<string, ArrayList>();
+            this.npcStates = new Dictionary<string, string>();
+            this.npcStateBubbles = new Dictionary<string, TextBubble>();
 
             this.currentConversationState = 0;
 
             // Set up event handling...
             this.interactionEventHandler = this.interact;
+            this.interactionAlertEventHandler = this.interactAlert;
             
             gameReference.EventManager.register("Interaction", this.interactionEventHandler);
             gameReference.EventManager.register("InteractionAlert", this.interactionAlertEventHandler);
@@ -297,6 +301,8 @@ namespace PantheonPrototype
                 convo.Add(new DialogueNode(0, "Goodbye!"));
 
             this.conversations.Add("FriendtheOldMan", convo);
+            this.npcStates.Add("FriendtheOldMan", DialogueManager.STATE_NONE);
+            this.npcStateBubbles.Add("FriendtheOldMan", null);
         }
 
         /// <summary>
@@ -306,6 +312,53 @@ namespace PantheonPrototype
         public void Update(GameTime gameTime, Pantheon gameReference)
         {
             LinkedListNode<TextBubble> currentNode;
+
+            // Update the states...
+            foreach (string key in this.npcStates.Keys)
+            {
+                Entity theEntity = gameReference.currentLevel.Entities[key];
+
+                switch (this.npcStates[key])
+                {
+                    case DialogueManager.STATE_NONE:
+                        if (this.npcStateBubbles[key] != null)
+                        {
+                            this.npcStateBubbles[key].isReadyForDeletion = true;
+                            this.npcStateBubbles[key] = null;
+                        }
+
+                        break;
+
+                    case DialogueManager.STATE_ALERT:
+                        if (this.npcStateBubbles[key] == null)
+                        {
+                            this.npcStateBubbles[key] = new TextBubble(theEntity, "!");
+                        }
+                        else if (this.npcStateBubbles[key].Text != "!")
+                        {
+                            this.npcStateBubbles[key].isReadyForDeletion = true;
+                            this.npcStateBubbles[key] = new TextBubble(theEntity, "!");
+                        }
+
+                        break;
+
+                    case DialogueManager.STATE_TALKABLE:
+                        if (this.npcStateBubbles[key] == null)
+                        {
+                            this.npcStateBubbles[key] = new TextBubble(theEntity, "...");
+                        }
+                        else if (this.npcStateBubbles[key].Text != "...")
+                        {
+                            this.npcStateBubbles[key].isReadyForDeletion = true;
+                            this.npcStateBubbles[key] = new TextBubble(theEntity, "...");
+                        }
+
+                        break;
+                }
+
+                if(this.npcStateBubbles[key] != null)
+                    this.npcStateBubbles[key].Update(gameTime, gameReference);
+            }
 
             // Update each of the text bubbles...
             currentNode = this.activeTextBubbles.First;
@@ -327,6 +380,11 @@ namespace PantheonPrototype
         /// </summary>
         public void Draw(SpriteBatch context)
         {
+            foreach (string key in this.npcStateBubbles.Keys)
+            {
+                // if(this.npcStateBubbles[key] != null) this.npcStateBubbles[key].Draw(context, this.textFont, this.textbubbleImage);
+            }
+
             foreach (TextBubble bubble in this.activeTextBubbles)
             {
                 bubble.Draw(context, this.textFont, this.textbubbleImage);
@@ -361,6 +419,8 @@ namespace PantheonPrototype
 
             if (this.conversations.Keys.Contains(firedEvent.payload["EntityKey"]))
             {
+                this.npcStates[entityName] = DialogueManager.STATE_NONE;
+
                 if (this.currentConversation == null)
                 {
                     this.StartConversation(entityName, entity);
@@ -392,7 +452,17 @@ namespace PantheonPrototype
         /// <param name="firedEvent">The incoming event.</param>
         protected void interactAlert(Event firedEvent)
         {
-            // CONTINUE HERE. ADD STATES FOR ENTITIES IN CONVERSATION AND SUCH.
+            string entityName = firedEvent.payload["EntityKey"];
+            Entity entity = firedEvent.gameReference.currentLevel.Entities[entityName];
+
+            if (this.conversations.Keys.Contains(entityName))
+            {
+                this.npcStates[entityName] = firedEvent.payload["State"];
+            }
+            else
+            {
+                this.npcStates.Add(entityName, firedEvent.payload["State"]);
+            }
         }
 
         /// <summary>
