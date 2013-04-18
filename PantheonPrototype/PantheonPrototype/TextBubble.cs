@@ -95,7 +95,7 @@ namespace PantheonPrototype
             if (this.entity != null)
             {
                 this.position = this.entity.Location;
-                this.position.Y = this.position.Y - (float)(this.entity.DrawingBox.Height + 12);
+                this.position.Y = this.position.Y - (float)(this.entity.DrawingBox.Height);
             }
         }
 
