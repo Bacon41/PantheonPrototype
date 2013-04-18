@@ -24,6 +24,7 @@ namespace PantheonPrototype
         public const string STATE_NONE     = "NONE";
         public const string STATE_ALERT    = "ALERT";
         public const string STATE_TALKABLE = "ANTIAPHASIA";
+        public const string STATE_TALKING  = "TALKINGDONTINTERRUPTYOUFOOL";
 
         // VARIABLE DECLARATION --
         protected int currentConversationState;
@@ -329,6 +330,15 @@ namespace PantheonPrototype
 
                         break;
 
+                    case DialogueManager.STATE_TALKING: // DON'T INTERRUPT, IT'S RUDE
+                        if (this.npcStateBubbles[key] != null)
+                        {
+                            this.npcStateBubbles[key].isReadyForDeletion = true;
+                            this.npcStateBubbles[key] = null;
+                        }
+
+                        break;
+
                     case DialogueManager.STATE_ALERT:
                         if (this.npcStateBubbles[key] == null)
                         {
@@ -382,7 +392,7 @@ namespace PantheonPrototype
         {
             foreach (string key in this.npcStateBubbles.Keys)
             {
-                // if(this.npcStateBubbles[key] != null) this.npcStateBubbles[key].Draw(context, this.textFont, this.textbubbleImage);
+                if(this.npcStateBubbles[key] != null) this.npcStateBubbles[key].Draw(context, this.textFont, this.textbubbleImage);
             }
 
             foreach (TextBubble bubble in this.activeTextBubbles)
@@ -404,6 +414,9 @@ namespace PantheonPrototype
 
             if (this.currentConversation == null) return false;
 
+            // Flag that we're currently talking, it's rude to interrupt.
+            this.npcStates[entityName] = DialogueManager.STATE_TALKING;
+
             return true;
         }
 
@@ -419,15 +432,13 @@ namespace PantheonPrototype
 
             if (this.conversations.Keys.Contains(firedEvent.payload["EntityKey"]))
             {
-                this.npcStates[entityName] = DialogueManager.STATE_NONE;
-
                 if (this.currentConversation == null)
                 {
                     this.StartConversation(entityName, entity);
                 }
                 else if (((DialogueNode)this.currentConversation[this.currentConversationState]).NextState == 0)
                 {
-                    this.EndConversation();
+                    this.EndConversation(entityName);
                 }
                 else
                 {
@@ -455,6 +466,8 @@ namespace PantheonPrototype
             string entityName = firedEvent.payload["EntityKey"];
             Entity entity = firedEvent.gameReference.currentLevel.Entities[entityName];
 
+            if (this.npcStates[entityName] == DialogueManager.STATE_TALKING) return;
+
             if (this.conversations.Keys.Contains(entityName))
             {
                 this.npcStates[entityName] = firedEvent.payload["State"];
@@ -468,7 +481,7 @@ namespace PantheonPrototype
         /// <summary>
         /// Ends all current conversations and resets the conversation handles and anchors.
         /// </summary>
-        public void EndConversation()
+        public void EndConversation(string entityName)
         {
             this.currentConversation = null;
             this.currentConversationState = 0;
@@ -479,6 +492,9 @@ namespace PantheonPrototype
                 this.currentConversationBubble.isReadyForDeletion = true;
                 this.currentConversationBubble = null;
             }
+
+            // Switch the NPC's talking state off.
+            this.npcStates[entityName] = DialogueManager.STATE_NONE;
         }
     }
 }

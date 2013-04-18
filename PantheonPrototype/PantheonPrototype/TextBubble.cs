@@ -14,6 +14,8 @@ namespace PantheonPrototype
 {
     public class TextBubble
     {
+        // CLASS CONST/STATIC DECLARATION --
+        public const int MINIMUM_WIDTH = 5;
         // VARIABLE DECLARATION --
         protected bool readyForDeletion;
         protected string text;
@@ -50,6 +52,14 @@ namespace PantheonPrototype
             this.entity = null;
             this.position = position;
             this.text = text;
+
+            if (this.text.Length < TextBubble.MINIMUM_WIDTH)
+            {
+                int padding = (int)((TextBubble.MINIMUM_WIDTH - this.text.Length) / 2);
+
+                this.text.PadRight(this.text.Length + padding);
+                this.text.PadLeft(this.text.Length + padding);
+            }
         }
 
         /// <summary>
@@ -63,6 +73,12 @@ namespace PantheonPrototype
         {
             this.entity = entity;
             this.text = text;
+
+            if (this.text.Length < TextBubble.MINIMUM_WIDTH)
+            {
+                this.text = this.text.PadLeft((int)(this.text.Length + (TextBubble.MINIMUM_WIDTH - this.text.Length) / 2));
+                this.text = this.text.PadRight(TextBubble.MINIMUM_WIDTH);
+            }
 
             // Set the position of the text bubble based on the position of the character.
             this.position = this.entity.Location;
