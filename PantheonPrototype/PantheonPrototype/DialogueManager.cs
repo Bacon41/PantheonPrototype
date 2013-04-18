@@ -488,10 +488,23 @@ namespace PantheonPrototype
             }
         }
 
+        /// <summary>
+        /// Adds the ability for spontaneous conversation, such as timed text boxes or temporary text boxes.
+        /// </summary>
+        /// <param name="firedEvent">The incoming event.</param>
         protected void spontaneousConversation(Event firedEvent)
         {
             string entityName = firedEvent.payload["EntityKey"];
             Entity entity = firedEvent.gameReference.currentLevel.Entities[entityName];
+
+            if (this.npcStates[entityName] == DialogueManager.STATE_TALKING) return;
+
+            if (this.conversations.Keys.Contains(entityName))
+            {
+                this.npcStates[entityName] = DialogueManager.STATE_SPONTANEOUS;
+                this.npcStateBubbles[entityName].isReadyForDeletion = true;
+                this.npcStateBubbles[entityName] = new TextBubble(entity, firedEvent.payload["Text"]);
+            }
         }
 
         /// <summary>

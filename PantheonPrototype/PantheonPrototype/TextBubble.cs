@@ -16,6 +16,7 @@ namespace PantheonPrototype
     {
         // CLASS CONST/STATIC DECLARATION --
         public const int MINIMUM_WIDTH = 5;
+
         // VARIABLE DECLARATION --
         protected bool readyForDeletion;
         protected string text;
