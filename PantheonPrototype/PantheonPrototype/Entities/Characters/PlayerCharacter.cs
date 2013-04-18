@@ -468,6 +468,23 @@ namespace PantheonPrototype
 
                 }
             }
+            
+
+            //Activate the shield (Actually a toggle)
+            if (gameReference.controlManager.actions.Shield == true)
+            {
+                if (!(inventory.equipped.ElementAt(6).isNull))
+                {
+                    EquippedItems["shield"].activate(gameReference, this);
+                }
+            }
+
+            //Bad hardcode that turns the shield off if it's on and we've unequipped the shield in the inventory
+            if (((Shield)(EquippedItems["shield"])).ShieldOn && inventory.equipped.ElementAt(6).isNull)
+            {
+                EquippedItems["shield"].activate(gameReference, this);
+            }
+
             //Ammo and shield cheat
             if (gameReference.controlManager.actions.MoveBackward
                 && gameReference.controlManager.actions.MoveForward
@@ -481,15 +498,6 @@ namespace PantheonPrototype
                 if (this.Equippeditems.ContainsKey("shield"))
                 {
                     ((Shield)this.EquippedItems["shield"]).CurrentShield = ((Shield)this.EquippedItems["shield"]).TotalShield;
-                }
-            }
-
-            //Activate the shield
-            if (gameReference.controlManager.actions.Shield == true)
-            {
-                if (this.Equippeditems.ContainsKey("shield"))
-                {
-                    EquippedItems["shield"].activate(gameReference, this);
                 }
             }
         }
