@@ -254,6 +254,14 @@ namespace PantheonPrototype
             // Cycle through and check the social bubbles of the NPCs.
             foreach (String entityKey in activeNPCs)
             {
+                Event resetAlerts = new Event();
+                resetAlerts.Type = "InteractionAlert";
+                resetAlerts.gameReference = gameReference;
+                resetAlerts.payload["EntityKey"] = entityKey;
+                resetAlerts.payload["State"] = DialogueManager.STATE_NONE;
+
+                gameReference.EventManager.notify(resetAlerts);
+
                 theCurrentDude = (NPCCharacter)gameReference.currentLevel.Entities[entityKey];
 
                 // INTERSECT, WITH YOUR SPLEEN
