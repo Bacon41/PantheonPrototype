@@ -177,12 +177,17 @@ namespace PantheonPrototype
             trashBox = new Rectangle((int)(.915 * SCREEN_WIDTH), (int)(.83375 * SCREEN_HEIGHT), (int)(.05 * SCREEN_WIDTH), (int)(.0835 * SCREEN_HEIGHT));
         }
 
+        /// <summary>
+        /// Moves item in iventory from one slot to another
+        /// </summary>
+        /// <param name="gameReference"></param>
         public void Move(Pantheon gameReference)
         {
             Item temp;
  
             if (PlayerCharacter.inventory.unequipped.Union(PlayerCharacter.inventory.equipped).ElementAt(hoveredOver).isNull)
             {
+                // If you're hovering over an unequipped slot...
                 if (hoveredOver < 24)
                 {
                     PlayerCharacter.inventory.unequipped.RemoveAt(hoveredOver);

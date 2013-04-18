@@ -220,6 +220,7 @@ namespace PantheonPrototype
                             this.inventoryButtons[itemName].IsSelected = false;
                         }
                     }
+                    // If you click...
                     if (gameReference.controlManager.actions.MenuSelect)
                     {
                         if (inventoryButtons["resumeInv"].DrawBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
@@ -269,6 +270,7 @@ namespace PantheonPrototype
                             }
                         }
 
+                        // Trash the selected item if you click on the trash can
                         if (inventory.TrashBox.Contains((int)gameReference.controlManager.actions.CursorPosition.X,
                             (int)gameReference.controlManager.actions.CursorPosition.Y) && !inventory.tempStorage.isNull)
                         {
