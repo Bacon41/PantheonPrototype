@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -52,6 +52,18 @@ namespace PantheonPrototype
             this.text = text;
         }
 
+        // METHOD AND FUNCTION DEFINITION --
+        /// <summary>
+        /// IT CREATES A TEXT BUBBLE. WOAH.
+        /// </summary>
+        /// <param name="position">The location of the text bubble anchor.</param>
+        /// <param name="text">This text to say.</param>
+        public TextBubble(Vector2 position, string text, Texture2D image)
+            : this(position, text)
+        {
+            this.bubbleImage = image;
+        }
+
         /// <summary>
         /// IT CREATES A TEXT BUBBLE. WOAH. Also anchors it to a character.
         /// NOTE: At the moment this will just hook it to the character at that current point,
@@ -67,6 +79,35 @@ namespace PantheonPrototype
             // Set the position of the text bubble based on the position of the character.
             this.position = this.entity.Location;
             this.position.Y = this.position.Y - (float)(this.entity.BoundingBox.Height * 1.1);
+        }
+
+        public TextBubble(Entity entity, string text, Texture2D image)
+            : this(entity, text)
+        {
+            this.bubbleImage = image;
+        }
+
+        /// <summary>
+        /// IT CREATES A TEXT BUBBLE. WOAH. Also anchors it to a character.
+        /// NOTE: At the moment this will just hook it to the character at that current point,
+        /// it will not follow, while that could be possible in the future.
+        /// </summary>
+        /// <param name="entityName">The entity to tie the text bubble to.</param>
+        /// <param name="text">This text to say.</param>
+        public TextBubble(Entity entity, string text, ContentManager content, string imageName)
+            : this(entity, text)
+        {
+            this.Load(content, imageName);
+        }
+
+        /// <summary>
+        /// Loads the image for use as a textbubble.
+        /// </summary>
+        /// <param name="content">The content manager to load the image from.</param>
+        /// <param name="imageName">The name of the image to load.</param>
+        public void Load(ContentManager content, string imageName)
+        {
+            this.bubbleImage = content.Load<Texture2D>(imageName);
         }
 
         /// <summary>

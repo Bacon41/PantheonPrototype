@@ -22,19 +22,21 @@ namespace PantheonPrototype
 
         public Random rand;
 
-        public ControlManager controlManager;
+        public ControlManager ControlManager;
 
-        Menu menu;
+        public CutsceneManager CutsceneManager;
 
-        HUD hud;
+        public QuestManager QuestManager;
+
+        public EventManager EventManager;
 
         public Entity player;
 
         public Level currentLevel;
 
-        public CutsceneManager CutsceneManager;
+        Menu menu;
 
-        public EventManager EventManager;
+        HUD hud;
 
         SpriteFont debugFont;
 
@@ -61,8 +63,8 @@ namespace PantheonPrototype
         {
             DisplayMode displayMode = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode;
             e.GraphicsDeviceInformation.PresentationParameters.BackBufferFormat = displayMode.Format;
-            e.GraphicsDeviceInformation.PresentationParameters.BackBufferWidth = displayMode.Width;
-            e.GraphicsDeviceInformation.PresentationParameters.BackBufferHeight = displayMode.Height;
+            e.GraphicsDeviceInformation.PresentationParameters.BackBufferWidth = 800; // displayMode.Width;
+            e.GraphicsDeviceInformation.PresentationParameters.BackBufferHeight = 600; // displayMode.Height;
         }
 
         /// <summary>
@@ -74,7 +76,7 @@ namespace PantheonPrototype
         protected override void Initialize()
         {
             rand = new Random();
-            controlManager = new ControlManager();
+            ControlManager = new ControlManager();
 
             int SCREEN_WIDTH = GraphicsDevice.Viewport.Width;
             int SCREEN_HEIGHT = GraphicsDevice.Viewport.Height;
@@ -93,6 +95,10 @@ namespace PantheonPrototype
 
             EventManager = new EventManager();
 
+            EventManager = new EventManager(this);
+
+            QuestManager = new QuestManager(this);
+
             base.Initialize();
         }
 
@@ -108,7 +114,7 @@ namespace PantheonPrototype
 
             menu.Load(this);
 
-            controlManager.actions.Pause = true;
+            ControlManager.actions.Pause = true;
         }
 
         internal void StartGame()
@@ -134,12 +140,12 @@ namespace PantheonPrototype
         {
             CutsceneManager.Update(gameTime, this);
 
-            controlManager.Update();
+            ControlManager.Update();
 
             // REMOVE LATER
             if (Keyboard.GetState().IsKeyDown(Keys.Back)) { this.Exit(); }
 
-            if (controlManager.actions.Pause)
+            if (ControlManager.actions.Pause)
             {
                 this.IsMouseVisible = true;
                 menu.Update(gameTime, this);
@@ -184,7 +190,7 @@ namespace PantheonPrototype
         {
             GraphicsDevice.Clear(Color.Black);
 
-            if (controlManager.actions.Pause)
+            if (ControlManager.actions.Pause)
             {
                 menu.Draw(spriteBatch, debugFont);
             }

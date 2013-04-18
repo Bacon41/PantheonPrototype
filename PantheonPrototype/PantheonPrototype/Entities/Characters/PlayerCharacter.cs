@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -89,6 +89,7 @@ namespace PantheonPrototype
             drawLasar = true;
 
             characteristics.Add("Player");
+            drawLasar = true;
         }
 
 
@@ -187,18 +188,22 @@ namespace PantheonPrototype
             updateEquipped(gameReference, gameTime);
             updateInteractions(gameReference);
 
-            if (gameReference.controlManager.actions.beingDamaged == true)
+            if (gameReference.ControlManager.actions.beingDamaged == true)
             {
                 Damage(10);
-                gameReference.controlManager.actions.beingDamaged = false;
+                gameReference.ControlManager.actions.beingDamaged = false;
             }
             if (currentArmor <= 0)
             {
                 currentState = "Die";
                 gameReference.controlManager.actions.isControlEnabled = false;
-
             }
-            if (!gameReference.controlManager.actions.isControlEnabled)
+            if (currentArmor <= 0)
+            {
+                currentState = "Die";
+                gameReference.ControlManager.disableControls(false);
+            }
+            if (!gameReference.ControlManager.actions.isControlEnabled)
             {
                 drawLasar = false;
             }
@@ -208,7 +213,7 @@ namespace PantheonPrototype
             }
 
             // swap equipped weapons code goes here
-            if (gameReference.controlManager.actions.SwitchWeapon)
+            if (gameReference.ControlManager.actions.SwitchWeapon)
             {
                 if (currentArmedItem == 0)
                 {
@@ -318,22 +323,22 @@ namespace PantheonPrototype
             velocity = Vector2.Zero;
 
             //Poll for input and update velocity accordingly
-            if (gameReference.controlManager.actions.MoveForward)
+            if (gameReference.ControlManager.actions.MoveForward)
             {
                 velocity += new Vector2(0, 1);
             }
 
-            if (gameReference.controlManager.actions.MoveBackward)
+            if (gameReference.ControlManager.actions.MoveBackward)
             {
                 velocity += new Vector2(0, -1);
             }
 
-            if (gameReference.controlManager.actions.MoveLeft)
+            if (gameReference.ControlManager.actions.MoveLeft)
             {
                 velocity += new Vector2(-1, 0);
             }
 
-            if (gameReference.controlManager.actions.MoveRight)
+            if (gameReference.ControlManager.actions.MoveRight)
             {
                 velocity += new Vector2(1, 0);
             }
@@ -361,10 +366,10 @@ namespace PantheonPrototype
         /// <param name="gameReference">The key to accessing the camera.</param>
         private void updateScope(Pantheon gameReference)
         {
-            if (gameReference.controlManager.actions.Aim)
+            if (gameReference.ControlManager.actions.Aim)
             {
                 int offsetNum = 15;
-                gameReference.controlManager.disableMotion();
+                gameReference.ControlManager.disableMotion();
                 if (offset.Length() == 0)
                 {
                     switch (facing)
@@ -411,7 +416,7 @@ namespace PantheonPrototype
             }
             else
             {
-                gameReference.controlManager.enableMotion();
+                gameReference.ControlManager.enableMotion();
                 totalOffset = Vector2.Zero;
                 offset = Vector2.Zero;
             }
@@ -423,13 +428,13 @@ namespace PantheonPrototype
         /// <param name="gameReference">Object to access the control manager.</param>
         private void updateLaser(Pantheon gameReference, Vector2 offset)
         {
-            cursorLocation = gameReference.controlManager.actions.CursorPosition;
+            cursorLocation = gameReference.ControlManager.actions.CursorPosition;
             cursorLocation.X += Location.X - gameReference.GraphicsDevice.Viewport.Width / 2 + offset.X;
             cursorLocation.Y += Location.Y - gameReference.GraphicsDevice.Viewport.Height / 2 + offset.Y;
             angleFacing = (float)Math.Atan2(cursorLocation.Y - Location.Y, cursorLocation.X - Location.X);
 
             //Modify the direction in which the character faces
-            if (gameReference.controlManager.actions.isControlEnabled)
+            if (gameReference.ControlManager.actions.isControlEnabled)
             {
                 facing = HamburgerHelper.reduceAngle(cursorLocation - Location);
             }
@@ -442,7 +447,7 @@ namespace PantheonPrototype
         private void updateEquipped(Pantheon gameReference, GameTime gameTime)
         {
             //Fire all (one of) the weapons!
-            if (gameReference.controlManager.actions.Attack)
+            if (gameReference.ControlManager.actions.Attack)
             {
                 if (this.ArmedItem.type == (Item.Type.WEAPON))
                 {
@@ -453,7 +458,7 @@ namespace PantheonPrototype
             //reload button
             if (this.ArmedItem.type == (Item.Type.WEAPON))
             {
-                if (gameReference.controlManager.actions.Reload && !((Weapon)this.ArmedItem).Reloading)
+                if (gameReference.ControlManager.actions.Reload && !((Weapon)this.ArmedItem).Reloading)
                 {
 
                     ((Weapon)this.ArmedItem).Reload(gameTime);
@@ -478,10 +483,10 @@ namespace PantheonPrototype
             }
 
             //Ammo and shield cheat
-            if (gameReference.controlManager.actions.MoveBackward
-                && gameReference.controlManager.actions.MoveForward
-                && gameReference.controlManager.actions.MoveLeft
-                && gameReference.controlManager.actions.MoveRight)
+            if (gameReference.ControlManager.actions.MoveBackward
+                && gameReference.ControlManager.actions.MoveForward
+                && gameReference.ControlManager.actions.MoveLeft
+                && gameReference.ControlManager.actions.MoveRight)
             {
                 if (this.Equippeditems.ContainsKey("weapon"))
                 {
