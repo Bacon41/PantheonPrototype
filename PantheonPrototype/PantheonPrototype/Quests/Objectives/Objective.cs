@@ -42,11 +42,21 @@ namespace PantheonPrototype
         }
 
         /// <summary>
+        /// A simple flag used for testing completion.
+        /// </summary>
+        protected enum condition { initialized, active, complete };
+        protected condition state;
+
+        /// <summary>
         /// Constructor... yeah
         /// </summary>
-        public Objective()
+        public Objective(int id)
         {
             nextObjectives = new List<int>();
+
+            state = condition.initialized;
+
+            this.id = id;
         }
 
         /// <summary>
@@ -59,6 +69,11 @@ namespace PantheonPrototype
         /// manager is accessible. Also, other initializing actions may be taken.</param>
         public virtual void Initialize(Pantheon gameReference)
         {
+            // Register the objective's handler in the event manager
+            HandleEvent eventHandler = this.HandleNotification;
+            gameReference.EventManager.register(this.EventType, eventHandler);
+
+            state = condition.active;
         }
 
         /// <summary>
@@ -67,6 +82,7 @@ namespace PantheonPrototype
         /// <param name="eventinfo">The event data passed to the handler</param>
         public virtual void HandleNotification(Event eventinfo)
         {
+            state = condition.complete;
         }
 
         /// <summary>
@@ -75,8 +91,7 @@ namespace PantheonPrototype
         /// <returns>Returns true if objective is complete.</returns>
         public virtual bool Complete()
         {
-            // Placeholder
-            return false;
+            return state == condition.complete;
         }
 
         /// <summary>
@@ -87,6 +102,8 @@ namespace PantheonPrototype
         /// </summary>
         public virtual void WrapUp(Pantheon gameReference)
         {
+            HandleEvent eventHandler = this.HandleNotification;
+            gameReference.EventManager.unregister(this.EventType, eventHandler);
         }
 
         /// <summary>

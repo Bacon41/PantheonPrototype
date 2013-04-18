@@ -48,6 +48,21 @@ namespace PantheonPrototype
         }
 
         /// <summary>
+        /// Initializes all current objectives and sets the current objective to the
+        /// first one given.
+        /// </summary>
+        /// <param name="gameReference">Game reference... why not.</param>
+        public void Initialize(Pantheon gameReference)
+        {
+            for (int i = 0; i < currentObjectives.Count; i++)
+            {
+                currentObjectives[i].Initialize(gameReference);
+            }
+
+            setCurrentObjective(0);
+        }
+
+        /// <summary>
         /// Checks to see if any of the current objectives need to be registered
         /// or deregistered for events.
         /// </summary>

@@ -29,23 +29,15 @@ namespace PantheonPrototype
         }
 
         /// <summary>
-        /// A simple flag used for testing completion.
-        /// </summary>
-        private enum condition { initialized, active, complete };
-        private condition state;
-
-        /// <summary>
         /// Constructs a functional Target Trigger that needs only be Initialized to be used.
         /// </summary>
         /// <param name="targetTriggerName">The name of the trigger to which the objective should refer.</param>
-        public TriggerObjective(string targetTriggerName) : base()
+        public TriggerObjective(string targetTriggerName, int id) : base(id)
         {
             TargetTrigger = targetTriggerName;
             this.EventType = targetTriggerName + "Objective";
 
             Console.WriteLine(EventType);
-
-            state = condition.initialized;
         }
 
         /// <summary>
@@ -55,12 +47,6 @@ namespace PantheonPrototype
         public override void Initialize(Pantheon gameReference)
         {
             base.Initialize(gameReference);
-
-            // Register the objective's handler in the event manager
-            HandleEvent eventHandler = this.HandleNotification;
-            gameReference.EventManager.register(this.EventType, eventHandler);
-
-            state = condition.active;
         }
 
         public override void HandleNotification(Event eventinfo)
@@ -68,8 +54,6 @@ namespace PantheonPrototype
             base.HandleNotification(eventinfo);
 
             Console.WriteLine(eventinfo.payload["Entity"] + " has collided with " + TargetTrigger);
-
-            state = condition.complete;
         }
 
         /// <summary>
@@ -79,15 +63,14 @@ namespace PantheonPrototype
         /// <returns></returns>
         public override bool Complete()
         {
-            return state == condition.complete;
+            return base.Complete();
         }
 
         public override void WrapUp(Pantheon gameReference)
         {
             base.WrapUp(gameReference);
 
-            HandleEvent eventHandler = this.HandleNotification;
-            gameReference.EventManager.unregister(this.EventType, eventHandler);
+            Console.WriteLine("Wrapping up the objective.");
         }
 
         public override void Update(GameTime gameTime)

@@ -148,8 +148,9 @@ namespace PantheonPrototype
 
             // Fake a quest
             Dictionary<string, string> questPayload = new Dictionary<string, string>();
-            questPayload.Add("QuestType", "TriggerQuest");
-            questPayload.Add("TargetTrigger", "TestTrigger");
+            questPayload.Add("QuestInfo", "2;0");
+            questPayload.Add("Objective1", "0;Trigger;TestTrigger;1");
+            questPayload.Add("Objective2", "1;Kill;Enemybutterfly;0");
             Event fakeEventWithSushi = new Event("CreateQuest", questPayload);
             gameReference.EventManager.notify(fakeEventWithSushi);
         }
@@ -225,6 +226,9 @@ namespace PantheonPrototype
             // Update the entity list
             foreach (string entityName in this.removeList)
             {
+                // Notify of death
+                gameReference.EventManager.notify(new Event(entityName + "Dead", null));
+
                 this.entities.Remove(entityName);
             }
             this.removeList.RemoveRange(0, this.removeList.Count);
