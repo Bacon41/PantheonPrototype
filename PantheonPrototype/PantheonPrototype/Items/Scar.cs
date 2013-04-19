@@ -17,8 +17,6 @@ namespace PantheonPrototype
     /// </summary>
     class Scar : Weapon
     {
-
-
         /// <summary>
         /// Initializes key values of a weapon.
         /// </summary>
@@ -30,6 +28,7 @@ namespace PantheonPrototype
             totalAmmo = 10;
             currentAmmo = totalAmmo;
             range = 500;
+            speed = 30;
             damage = 5;
             reloadDelay = TimeSpan.FromSeconds(2);
             reloading = false;
