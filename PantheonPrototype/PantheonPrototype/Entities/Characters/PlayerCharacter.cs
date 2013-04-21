@@ -213,7 +213,7 @@ namespace PantheonPrototype
             }
 
             // swap equipped weapons code goes here
-            if (gameReference.ControlManager.actions.SwitchWeapon)
+            if (!gameReference.ControlManager.actions.Aim && gameReference.ControlManager.actions.SwitchWeapon)
             {
                 if (currentArmedItem == 0)
                 {
@@ -374,48 +374,48 @@ namespace PantheonPrototype
         /// <param name="gameReference">The key to accessing the camera.</param>
         private void updateScope(Pantheon gameReference)
         {
-            if (gameReference.ControlManager.actions.Aim)
+            if (gameReference.ControlManager.actions.Aim && this.ArmedItem.type == Item.Type.WEAPON)
             {
-                int offsetNum = 15;
+                int offsetSpeed = 30;
                 gameReference.ControlManager.disableMotion();
                 if (offset.Length() == 0)
                 {
                     switch (facing)
                     {
                         case Direction.forward:
-                            offset.Y = offsetNum;
+                            offset.Y = offsetSpeed;
                             break;
                         case Direction.forwardLeft:
-                            offset.X = (int)(-offsetNum / Math.Sqrt(2));
-                            offset.Y = (int)(offsetNum / Math.Sqrt(2));
+                            offset.X = (int)(-offsetSpeed / Math.Sqrt(2));
+                            offset.Y = (int)(offsetSpeed / Math.Sqrt(2));
                             break;
                         case Direction.Left:
-                            offset.X = -offsetNum;
+                            offset.X = -offsetSpeed;
                             break;
                         case Direction.backLeft:
-                            offset.X = (int)(-offsetNum / Math.Sqrt(2));
-                            offset.Y = (int)(-offsetNum / Math.Sqrt(2));
+                            offset.X = (int)(-offsetSpeed / Math.Sqrt(2));
+                            offset.Y = (int)(-offsetSpeed / Math.Sqrt(2));
                             break;
                         case Direction.back:
-                            offset.Y = -offsetNum;
+                            offset.Y = -offsetSpeed;
                             break;
                         case Direction.backRight:
-                            offset.X = (int)(offsetNum / Math.Sqrt(2));
-                            offset.Y = (int)(-offsetNum / Math.Sqrt(2));
+                            offset.X = (int)(offsetSpeed / Math.Sqrt(2));
+                            offset.Y = (int)(-offsetSpeed / Math.Sqrt(2));
                             break;
                         case Direction.Right:
-                            offset.X = offsetNum;
+                            offset.X = offsetSpeed;
                             break;
                         case Direction.forwardRight:
-                            offset.X = (int)(offsetNum / Math.Sqrt(2));
-                            offset.Y = (int)(offsetNum / Math.Sqrt(2));
+                            offset.X = (int)(offsetSpeed / Math.Sqrt(2));
+                            offset.Y = (int)(offsetSpeed / Math.Sqrt(2));
                             break;
                         default:
                             offset = Vector2.Zero;
                             break;
                     }
                 }
-                if (totalOffset.Length() < 300)
+                if (totalOffset.Length() < ((Weapon)ArmedItem).Range / 2)
                 {
                     gameReference.GetCamera().Pos += offset;
                     totalOffset += offset;
@@ -439,12 +439,12 @@ namespace PantheonPrototype
             cursorLocation = gameReference.ControlManager.actions.CursorPosition;
             cursorLocation.X += Location.X - gameReference.GraphicsDevice.Viewport.Width / 2 + offset.X;
             cursorLocation.Y += Location.Y - gameReference.GraphicsDevice.Viewport.Height / 2 + offset.Y;
-            angleFacing = (float)Math.Atan2(cursorLocation.Y - Location.Y, cursorLocation.X - Location.X);
+            angleFacing = (float)Math.Atan2(cursorLocation.Y - DrawingBox.Center.Y, cursorLocation.X - DrawingBox.Center.X);
 
             //Modify the direction in which the character faces
             if (gameReference.ControlManager.actions.isControlEnabled)
             {
-                facing = HamburgerHelper.reduceAngle(cursorLocation - Location);
+                facing = HamburgerHelper.reduceAngle(cursorLocation - new Vector2(DrawingBox.Center.X, DrawingBox.Center.Y));
             }
         }
 
@@ -457,7 +457,7 @@ namespace PantheonPrototype
             //Fire all (one of) the weapons!
             if (gameReference.ControlManager.actions.Attack)
             {
-                if (this.ArmedItem.type == (Item.Type.WEAPON))
+                if (this.ArmedItem.type == (Item.Type.WEAPON) && !((Weapon)this.ArmedItem).Reloading)
                 {
                     this.ArmedItem.activate(gameReference, this);
                 }
@@ -468,12 +468,9 @@ namespace PantheonPrototype
             {
                 if (gameReference.ControlManager.actions.Reload && !((Weapon)this.ArmedItem).Reloading)
                 {
-
                     ((Weapon)this.ArmedItem).Reload(gameTime);
-
                 }
             }
-            
 
             //Activate the shield (Actually a toggle)
             if (gameReference.ControlManager.actions.Shield == true)
