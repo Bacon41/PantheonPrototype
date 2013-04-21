@@ -30,6 +30,10 @@
     <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.VideoImporters, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\LevelLoad\LevelLoad.csproj">
+      <Project>{9FC7AC56-9778-47C8-9BFD-8BD0DA4AD399}</Project>
+      <Name>LevelLoad</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\XTiledExtensions\XTiledExtensions.csproj">
       <Project>{AC3FAE00-C94C-4FE3-969F-232241195224}</Project>
       <Name>XTiledExtensions</Name>
