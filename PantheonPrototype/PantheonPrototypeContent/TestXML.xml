@@ -14,6 +14,12 @@
     <MapPath>Map1</MapPath>
     <InlineObject>
       <InnerName>The name within the name</InnerName>
+      <Range>
+        <beginFrame>0</beginFrame>
+        <endFrame>10</endFrame>
+        <looping>true</looping>
+        <sweeping>false</sweeping>
+      </Range>
     </InlineObject>
   </Asset>
 </XnaContent>

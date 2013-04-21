@@ -15,5 +15,20 @@ namespace Test
     public class XMLTest12
     {
         public string InnerName;
+
+        public struct frameRange
+        {
+            public int beginFrame;
+            public int endFrame;
+            public bool looping;
+            public bool sweeping;
+
+            public string ToString()
+            {
+                return beginFrame + ", " + endFrame + " " + looping + " " + sweeping;
+            }
+        }
+
+        public frameRange Range;
     }
 }
