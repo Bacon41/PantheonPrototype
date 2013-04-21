@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using FuncWorks.XNA.XTiled;
+using LevelLoad;
 
 namespace PantheonPrototype
 {
@@ -98,8 +99,6 @@ namespace PantheonPrototype
             currentLevel = new Level(GraphicsDevice);
 
             CutsceneManager = new CutsceneManager(GraphicsDevice);
-
-            EventManager = new EventManager();
 
             EventManager = new EventManager(this);
 
