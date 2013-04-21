@@ -8,7 +8,7 @@ namespace LevelLoad
     /// <summary>
     /// Contains all characteristics needed to load quests.
     /// </summary>
-    class QuestLoader
+    public class QuestLoader
     {
     }
 }

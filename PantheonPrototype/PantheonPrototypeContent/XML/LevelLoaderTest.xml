@@ -1,6 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <XnaContent>
   <Asset Type="LevelLoad.LevelLoader">
-    
+    <MapPath>Maps/map1</MapPath>
+    <Player>
+    </Player>
+    <Enemies>
+      <Item>
+        <Key>EnemyKey</Key>
+        <Value>
+        </Value>
+      </Item>
+    </Enemies>
+    <NPCs>
+      <Item>
+        <Key>NPCKey</Key>
+        <Value>
+        </Value>
+      </Item>
+    </NPCs>
+    <Dialogue>
+    </Dialogue>
+    <Quests>
+    </Quests>
+    <NextLevelPath>XML/LevelLoaderTest</NextLevelPath>
   </Asset>
 </XnaContent>

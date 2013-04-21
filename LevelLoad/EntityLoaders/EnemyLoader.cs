@@ -8,7 +8,7 @@ namespace LevelLoad
     /// <summary>
     /// Contains all characteristics specific to an enemy character.
     /// </summary>
-    class EnemyLoader : CharacterLoader
+    public class EnemyLoader : CharacterLoader
     {
     }
 }

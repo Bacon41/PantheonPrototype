@@ -8,7 +8,7 @@ namespace LevelLoad
     /// <summary>
     /// Contains all characteristics specific to an NPC.
     /// </summary>
-    class NPCLoader : CharacterLoader
+    public class NPCLoader : CharacterLoader
     {
     }
 }
