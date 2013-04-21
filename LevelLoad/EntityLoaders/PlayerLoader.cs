@@ -5,7 +5,10 @@ using System.Text;
 
 namespace LevelLoad
 {
-    public class PlayerLoader : EntityLoader
+    /// <summary>
+    /// Contains all characteristics specific to the player.
+    /// </summary>
+    public class PlayerLoader : CharacterLoader
     {
     }
 }

@@ -5,7 +5,10 @@ using System.Text;
 
 namespace LevelLoad
 {
-    class EnemyLoader : EntityLoader
+    /// <summary>
+    /// Contains all characteristics specific to an enemy character.
+    /// </summary>
+    class EnemyLoader : CharacterLoader
     {
     }
 }

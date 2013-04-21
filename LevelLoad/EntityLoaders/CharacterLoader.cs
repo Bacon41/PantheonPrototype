@@ -6,9 +6,9 @@ using System.Text;
 namespace LevelLoad
 {
     /// <summary>
-    /// Contains all characteristics specific to an NPC.
+    /// Contains all characteristics common to all types of characters.
     /// </summary>
-    class NPCLoader : CharacterLoader
+    public class CharacterLoader
     {
     }
 }
