@@ -68,8 +68,6 @@ namespace PantheonPrototype
                 eventHandlers.Add(type, new List<HandleEvent>());
             }
 
-            Console.WriteLine("Handler registered for the \"" + type + "\" event");
-
             eventHandlers[type].Add(handler);
         }
 
@@ -80,8 +78,6 @@ namespace PantheonPrototype
         /// <param name="handler">The handler to remove from the notification list.</param>
         public void unregister(string type, HandleEvent handler)
         {
-            Console.WriteLine("Handler unregistered for " + type);
-
             List<HandleEvent> handlerList = eventHandlers[type];
 
             handlerList.Remove(handler);
@@ -93,8 +89,6 @@ namespace PantheonPrototype
         /// <param name="eventInfo">Information about the event.</param>
         public void notify(Event eventInfo)
         {
-            Console.WriteLine("Event occuring of type \"" + eventInfo.Type + "\"");
-
             // Inject that global reference non-Bunyaviridae-like thingy
             eventInfo.GameReference = this.GameReference;
 
