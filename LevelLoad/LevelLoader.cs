@@ -88,9 +88,19 @@ namespace LevelLoad
         /// not be inititialized.
         /// </summary>
         /// <returns>A map object.</returns>
-        public Map getLevelMap()
+        public Map GetLevelMap()
         {
             return levelMap;
+        }
+
+        /// <summary>
+        /// Gets the next level.
+        /// </summary>
+        /// <param name="contentManager">Content manager used to load the next level.</param>
+        /// <returns>An uninitialized level. Must still call the Load function.</returns>
+        public LevelLoader GetNextLevel(ContentManager contentManager)
+        {
+            return contentManager.Load<LevelLoader>(NextLevelPath);
         }
     }
 }
