@@ -249,11 +249,11 @@ namespace PantheonPrototype
             {
                 if (hoveredOver < 24)
                 {
-                    spriteBatch.DrawString(Font, PlayerCharacter.inventory.unequipped.ElementAt(hoveredOver).Info, new Vector2(infoBox.X, infoBox.Y), Color.White);
+                    spriteBatch.DrawString(Font, PlayerCharacter.inventory.unequipped.ElementAt(hoveredOver).Info, new Vector2(infoBox.X, infoBox.Y), Color.Black);
                 }
                 else
                 {
-                    spriteBatch.DrawString(Font, PlayerCharacter.inventory.equipped.ElementAt(hoveredOver - 24).Info, new Vector2(infoBox.X, infoBox.Y), Color.White);
+                    spriteBatch.DrawString(Font, PlayerCharacter.inventory.equipped.ElementAt(hoveredOver - 24).Info, new Vector2(infoBox.X, infoBox.Y), Color.Black);
                 }
             }
         }
