@@ -259,6 +259,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bunnies.png">
+      <Name>Bunnies</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Maps\RebelFoyer.tmx">
       <Name>RebelFoyer</Name>
       <Importer>TMXContentImporter</Importer>

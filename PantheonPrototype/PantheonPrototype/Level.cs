@@ -119,6 +119,21 @@ namespace PantheonPrototype
                     this.entities.Add(obj.Name, new ButterflyEnemy(new Vector2(obj.Bounds.Center.X, obj.Bounds.Center.Y), gameReference.Content));
                     this.entities[obj.Name].Load(gameReference.Content);
                 }
+				if (obj.Name.Contains("BunnyTrigger"))
+                {
+                    this.entities.Add(obj.Name, new BunnyTrigger(new Rectangle(obj.Bounds.Left, obj.Bounds.Top, obj.Bounds.Width, obj.Bounds.Height), gameReference));
+                    this.entities[obj.Name].Load(gameReference.Content);
+                    ((Trigger)this.entities[obj.Name]).ReactivateTime = (int)obj.Properties["ReactivateTime"].AsInt32;
+                }
+                else if (obj.Name.Contains("Trigger"))
+                {
+                    this.entities.Add(obj.Name, new Trigger(new Rectangle(obj.Bounds.Left, obj.Bounds.Top, obj.Bounds.Width, obj.Bounds.Height), gameReference));
+                    this.entities[obj.Name].Load(gameReference.Content);
+                    ((Trigger)this.entities[obj.Name]).ReactivateTime = (int)obj.Properties["ReactivateTime"].AsInt32;
+                    ((Trigger)this.entities[obj.Name]).Type = obj.Properties["Type"].Value;
+                    // Don't ask... I'm just registering an event handler...
+                    gameReference.EventManager.register("Activate" + obj.Name, new HandleEvent(((Trigger)this.entities[obj.Name]).triggerHandler));
+                }
             }
             Camera.Pos = new Vector2(this.entities["character"].Location.X, this.entities["character"].Location.Y);
 
@@ -126,6 +141,14 @@ namespace PantheonPrototype
 
             // Load the dialogue manager...
             this.dialogueManager = new DialogueManager(gameReference, gameReference.Content.Load<SpriteFont>("Fonts/DialogueFont"));
+			
+			// Fake a quest
+            Dictionary<string, string> questPayload = new Dictionary<string, string>();
+            questPayload.Add("QuestInfo", "2;0");
+            questPayload.Add("Objective1", "0;Trigger;TestTrigger;1");
+            questPayload.Add("Objective2", "1;Kill;Enemybutterfly;0");
+            Event fakeEventWithSushi = new Event("CreateQuest", questPayload);
+            gameReference.EventManager.notify(fakeEventWithSushi);
         }
         
         /// <summary>
@@ -198,6 +221,8 @@ namespace PantheonPrototype
             // Update the entity list
             foreach (string entityName in this.removeList)
             {
+				// Notify of death
+                gameReference.EventManager.notify(new Event(entityName + "Dead", null));
                 this.entities.Remove(entityName);
             }
             this.removeList.RemoveRange(0, this.removeList.Count);
@@ -212,7 +237,7 @@ namespace PantheonPrototype
             this.dialogueManager.Update(gameTime, gameReference);
 
             // Updating the camera when the character isn't scoping.
-            if (!gameReference.controlManager.actions.Aim)
+            if (!gameReference.ControlManager.actions.Aim)
             {
                 Camera.Pos = new Vector2(this.entities["character"].DrawingBox.X + entities["character"].DrawingBox.Width / 2,
                     this.entities["character"].DrawingBox.Y + entities["character"].DrawingBox.Height / 2);
@@ -225,6 +250,9 @@ namespace PantheonPrototype
             if (screenRect.Y < 0) screenRect.Y = 0;
             screenRect.Width = (int)Camera.Pos.X + gameReference.GraphicsDevice.Viewport.Width / 2;
             screenRect.Height = (int)Camera.Pos.Y + gameReference.GraphicsDevice.Viewport.Height / 2;
+			
+			// Update the Quest Manager
+            gameReference.QuestManager.Update(gameTime, gameReference);
         }
 
         /// <summary>
@@ -270,7 +298,15 @@ namespace PantheonPrototype
                 {
                     if (entityList[i].BoundingBox.Intersects(entityList[j].BoundingBox))
                     {
-                        checkEntities(entityNameList[i], entityList[i], entityNameList[j], entityList[j]);
+						List<string> collidedNames = new List<string>();
+                        List<Entity> collidedEntities = new List<Entity>();
+
+                        collidedNames.Add(entityNameList[i]);
+                        collidedEntities.Add(entityList[i]);
+                        collidedNames.Add(entityNameList[j]);
+                        collidedEntities.Add(entityList[j]);
+
+                        checkEntities(collidedNames, collidedEntities, gameReference);
                     }
                 }
             }
@@ -370,51 +406,64 @@ namespace PantheonPrototype
         /// <param name="entityOne">The first entity in the collision.</param>
         /// <param name="entityTwoName">The name of the second entity in the collision.</param>
         /// <param name="entityTwo">The second entity in the collision.</param>
-        private void checkEntities(string entityOneName, Entity entityOne, string entityTwoName, Entity entityTwo)
+        private void checkEntities(List<string> entityNames, List<Entity> entityList, Pantheon gameReference)
         {
-            // Projectile collision checking
-            if (entityOne.Characteristics.Contains("Projectile"))
+            // Check for collisions from the first entity to the second and from the second to the first
+            for (int i = 0; i < entityList.Count; i++)
             {
-                if (entityTwo.Characteristics.Contains("Friendly"))
-                {
-                    this.removeList.Add(entityOneName);
-                }
-                else if (entityTwo.Characteristics.Contains("Enemy"))
-                {
-                    this.removeList.Add(entityOneName);
-                    ((EnemyNPC)entityTwo).Damage(((Bullet)entityOne).Damage);
-                }
-                else if (entityTwo.Characteristics.Contains("Player"))
-                {
-                    this.removeList.Add(entityOneName);
-                    ((PlayerCharacter)entityTwo).Damage(((Bullet)entityOne).Damage);
-                }
-            }
+                // Hackses to select the other entity
+                int j = (i + 1) % 2;
 
-            // Always check the reverse pairing
-            if (entityTwo.Characteristics.Contains("Projectile"))
-            {
-                if (entityOne.Characteristics.Contains("Friendly"))
+                // Projectile collisions
+                if (entityList[i].Characteristics.Contains("Projectile"))
                 {
-                    this.removeList.Add(entityTwoName);
+                    if (entityList[j].Characteristics.Contains("Friendly"))
+                    {
+                        this.removeList.Add(entityNames[i]);
+                    }
+                    else if (entityList[j].Characteristics.Contains("Enemy"))
+                    {
+                        this.removeList.Add(entityNames[i]);
+                        ((EnemyNPC)entityList[j]).Damage(((Bullet)entityList[i]).Damage);
+                    }
+                    else if (entityList[j].Characteristics.Contains("Player"))
+                    {
+                        this.removeList.Add(entityNames[i]);
+                        ((PlayerCharacter)entityList[j]).Damage(((Bullet)entityList[i]).Damage);
+                    }
+                    if (entityNames[j].Contains("Bunny"))
+                    {
+                        Console.WriteLine(entityNames[j] + " collided with " + entityNames[i]);
+                    }
                 }
-                else if (entityOne.Characteristics.Contains("Enemy"))
-                {
-                    this.removeList.Add(entityTwoName);
-                    ((EnemyNPC)entityOne).Damage(((Bullet)entityTwo).Damage);
-                }
-                else if (entityOne.Characteristics.Contains("Player"))
-                {
-                    this.removeList.Add(entityTwoName);
-                    ((PlayerCharacter)entityOne).Damage(((Bullet)entityTwo).Damage);
-                }
-            }
 
-            // Inter-walker collisions.
-            if (entityOne.Characteristics.Contains("Walking") && entityTwo.Characteristics.Contains("Walking"))
-            {
-                entityOne.Location = entityOne.PrevLocation;
-                entityTwo.Location = entityTwo.PrevLocation;
+                // Inter-walker collisions
+                if (entityList[i].Characteristics.Contains("Walking") && entityList[j].Characteristics.Contains("Walking"))
+                {
+                    entityList[i].Location = entityList[i].PrevLocation;
+                    entityList[j].Location = entityList[j].PrevLocation;
+                }
+				
+                // Trigger collisions
+                if (entityList[i].Characteristics.Contains("Triggerable"))
+                {
+                    if (entityList[j].Characteristics.Contains("Player"))
+                    {
+                        if (entityNames[i].Contains("Bunny"))
+                        {
+                            Dictionary<string, string> bunnyList = new Dictionary<string, string>();
+                            bunnyList.Add("Trigger", entityNames[i]);
+                            bunnyList.Add("Payload", "Bunnies");
+                            gameReference.EventManager.notify(new Event("TriggerEventWithBunnies!!!", bunnyList));
+                        }
+                        else
+                        {
+                            Dictionary<string, string> activationPayload = new Dictionary<string, string>();
+                            activationPayload.Add("Entity", entityNames[j]);
+                            gameReference.EventManager.notify(new Event("Activate" + entityNames[i], activationPayload));
+                        }
+                    }
+                }
             }
         }
 
@@ -440,4 +489,3 @@ namespace PantheonPrototype
         }
     }
 }
-﻿

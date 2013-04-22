@@ -30,6 +30,7 @@ namespace PantheonPrototype
             totalAmmo = 5;
             currentAmmo = totalAmmo;
             range = 2000;
+            speed = 50;
             damage = 15;
             reloadDelay = TimeSpan.FromSeconds(2);
             reloading = false;

@@ -28,6 +28,13 @@ namespace PantheonPrototype
     public class EventManager
     {
         /// <summary>
+        /// Event manager passes the game reference into events as they pass through it.
+        /// That way, we can inject Pantheon references where ever we want... somewhat
+        /// like the Bunyaviridae virus... except a lot less like a living organism.
+        /// </summary>
+        public Pantheon GameReference;
+
+        /// <summary>
         /// A dictionary that maps each type of event to a list of delegate functions to call when
         /// that specific type of event occurs.
         /// </summary>
@@ -39,6 +46,13 @@ namespace PantheonPrototype
         public EventManager()
         {
             this.eventHandlers = new Dictionary<string,List<HandleEvent>>();
+        }
+
+        public EventManager(Pantheon gameReference)
+        {
+            eventHandlers = new Dictionary<string, List<HandleEvent>>();
+
+            this.GameReference = gameReference;
         }
 
         /// <summary>
@@ -58,11 +72,39 @@ namespace PantheonPrototype
         }
 
         /// <summary>
+        /// Unregisters the given event handler with the given type of event notification.
+        /// </summary>
+        /// <param name="type">The type of event from which to remove the handler.</param>
+        /// <param name="handler">The handler to remove from the notification list.</param>
+        public void unregister(string type, HandleEvent handler)
+        {
+            List<HandleEvent> handlerList = eventHandlers[type];
+
+            handlerList.Remove(handler);
+        }
+
+        /// <summary>
         /// Notifies the appropriate handlers of an Event.
         /// </summary>
         /// <param name="eventInfo">Information about the event.</param>
         public void notify(Event eventInfo)
         {
+            // Inject that global reference non-Bunyaviridae-like thingy
+            eventInfo.GameReference = this.GameReference;
+
+            try
+            {
+                // Useless statement
+                if (eventHandlers[eventInfo.Type] == null)
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An unhandled event was encountered for the \"" + eventInfo.Type + "\" type of event.");
+                return;
+            }
+
             foreach (HandleEvent handler in eventHandlers[eventInfo.Type])
             {
                 handler(eventInfo);

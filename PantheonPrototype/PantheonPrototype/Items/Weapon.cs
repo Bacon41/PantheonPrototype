@@ -53,8 +53,18 @@ namespace PantheonPrototype
             set { totalAmmo = value; }
         }
 
+        /// <summary>
+        /// The distance that the bullet can travel.
+        /// </summary>
         protected int range;
+
+        public int Range
+        {
+            get { return range; }
+        }
+
         protected int damage;
+        protected int speed;
         protected TimeSpan reloadDelay;
         protected bool reloading;
 
@@ -128,8 +138,8 @@ namespace PantheonPrototype
         /// <param name="holder">A reference to the holder character.</param>
         private void shootABullet(Pantheon gameReference, CharacterEntity holder)
         {
-            Bullet bullet = new Bullet(holder.Location + new Vector2((float)(41*Math.Cos(holder.AngleFacing)), (float)(41*Math.Sin(holder.AngleFacing))),
-                41, holder.AngleFacing, range, damage, gameReference);
+            Bullet bullet = new Bullet(new Vector2(holder.DrawingBox.Center.X, holder.DrawingBox.Center.Y) + new Vector2((float)(speed*Math.Cos(holder.AngleFacing)),
+                (float)(speed*Math.Sin(holder.AngleFacing))), speed, holder.AngleFacing, range, damage, gameReference);
             bullet.Load(gameReference.Content);
 
             gameReference.currentLevel.addList.Add("bullet_" + Bullet.NextId, bullet);

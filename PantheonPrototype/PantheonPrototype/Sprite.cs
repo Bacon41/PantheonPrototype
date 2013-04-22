@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -92,7 +92,18 @@ namespace PantheonPrototype
         public Sprite()
         {
             stateRange = new Dictionary<string, FrameRange>();
-            this.incrementor = 1;
+
+            FrameRange temp;
+
+            temp.first = 0;
+            temp.last = 0;
+            temp.looping = false;
+            temp.sweeping = false;
+            this.stateRange.Add("Default", temp);
+
+            this.currentState = "Default";
+
+            this.incrementor = 0;
         }
 
         public Sprite(Texture2D image, int rows, int columns)
@@ -109,7 +120,6 @@ namespace PantheonPrototype
             this.rotation = 0;
             loadSprite(image, rows, columns, 30);
             this.incrementor = 1;
-            
         }
 
         /// <summary>

@@ -13,16 +13,12 @@ using Microsoft.Xna.Framework.Media;
 namespace PantheonPrototype
 {
     /// <summary>
-    /// A variation of an Objective. The big difference is that a timed objective
-    /// is updated every frame.
+    /// Target for an objective for that one quest that's used for testing but eventually for other quests too.
     /// </summary>
-    class TimedObjective : Objective
+    class QuestTrigger : Trigger
     {
-        /// <summary>
-        /// Updates time sensitive data in the timed objective.
-        /// </summary>
-        /// <param name="gameTime">Time since the last update cycle.</param>
-        public virtual void Update(GameTime gameTime)
+        public QuestTrigger(Rectangle locationBox, Pantheon gameReference)
+            : base(locationBox, gameReference)
         {
         }
     }

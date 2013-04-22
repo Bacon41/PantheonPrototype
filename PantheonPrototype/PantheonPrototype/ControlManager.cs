@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -208,6 +208,12 @@ namespace PantheonPrototype
                 actions.Deselect = false;
             }
 
+            if (actions.Pause && actions.isMouseClickEnabled)
+            {
+                if (keyboardAndMouse.MenuSelectKey == ButtonState.Pressed && keyboardAndMouse.PrevMenuSelectKey != ButtonState.Pressed)
+                { actions.MenuSelect = true; }
+                else { actions.MenuSelect = false; }
+            }
             actions.CursorPosition = new Vector2(mouse.X, mouse.Y);
 
             oldKeyboard = keyboard;

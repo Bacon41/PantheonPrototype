@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,13 +17,17 @@ namespace PantheonPrototype
     /// This class will handle the basics of dialogue and what all that entails.
     /// This includes drawing the appropriate bubbles and text, as well as possibly
     /// handling some basic dialogue pathing and such.
+    /// 
+    /// TODO: Refactor to set up the textbubbles per entity instead of just "floating" text bubbles.
     /// </summary>
     public class DialogueManager
     {
         // CLASS CONSTANTS --
-        public const string STATE_NONE     = "NONE";
-        public const string STATE_ALERT    = "ALERT";
-        public const string STATE_TALKABLE = "ANTIAPHASIA";
+        public const string STATE_NONE        = "NONE";
+        public const string STATE_ALERT       = "ALERT";
+        public const string STATE_TALKABLE    = "ANTIAPHASIA";
+        public const string STATE_TALKING     = "TALKINGDONTINTERRUPTYOUFOOL";
+        public const string STATE_SPONTANEOUS = "SPONTANEOUSCONVERSATION";
 
         // VARIABLE DECLARATION --
         protected int currentConversationState;
@@ -36,6 +40,7 @@ namespace PantheonPrototype
         protected TextBubble currentConversationBubble;
         protected HandleEvent interactionEventHandler;
         protected HandleEvent interactionAlertEventHandler;
+        protected HandleEvent spontaneousConversationEventHandler;
         protected Texture2D textbubbleImage;
 
         // METHOD AND FUNCTION DEFINITION --
@@ -58,9 +63,11 @@ namespace PantheonPrototype
             // Set up event handling...
             this.interactionEventHandler = this.interact;
             this.interactionAlertEventHandler = this.interactAlert;
+            this.spontaneousConversationEventHandler = this.spontaneousConversation;
             
             gameReference.EventManager.register("Interaction", this.interactionEventHandler);
             gameReference.EventManager.register("InteractionAlert", this.interactionAlertEventHandler);
+            gameReference.EventManager.register("SpontaneousConversation", this.spontaneousConversationEventHandler);
 
             // Load the text bubble image.
             this.textbubbleImage = content.Load<Texture2D>("textbubble");
@@ -316,11 +323,22 @@ namespace PantheonPrototype
             // Update the states...
             foreach (string key in this.npcStates.Keys)
             {
+                if (!gameReference.currentLevel.Entities.Keys.Contains(key)) continue; // BAD, FIX
+
                 Entity theEntity = gameReference.currentLevel.Entities[key];
 
                 switch (this.npcStates[key])
                 {
                     case DialogueManager.STATE_NONE:
+                        if (this.npcStateBubbles[key] != null)
+                        {
+                            this.npcStateBubbles[key].isReadyForDeletion = true;
+                            this.npcStateBubbles[key] = null;
+                        }
+
+                        break;
+
+                    case DialogueManager.STATE_TALKING: // DON'T INTERRUPT, IT'S RUDE
                         if (this.npcStateBubbles[key] != null)
                         {
                             this.npcStateBubbles[key].isReadyForDeletion = true;
@@ -382,7 +400,7 @@ namespace PantheonPrototype
         {
             foreach (string key in this.npcStateBubbles.Keys)
             {
-                // if(this.npcStateBubbles[key] != null) this.npcStateBubbles[key].Draw(context, this.textFont, this.textbubbleImage);
+                if(this.npcStateBubbles[key] != null) this.npcStateBubbles[key].Draw(context, this.textFont, this.textbubbleImage);
             }
 
             foreach (TextBubble bubble in this.activeTextBubbles)
@@ -404,6 +422,9 @@ namespace PantheonPrototype
 
             if (this.currentConversation == null) return false;
 
+            // Flag that we're currently talking, it's rude to interrupt.
+            this.npcStates[entityName] = DialogueManager.STATE_TALKING;
+
             return true;
         }
 
@@ -419,7 +440,7 @@ namespace PantheonPrototype
 
             if (this.conversations.Keys.Contains(firedEvent.payload["EntityKey"]))
             {
-                this.npcStates[entityName] = DialogueManager.STATE_NONE;
+
 
                 if (this.currentConversation == null)
                 {
@@ -427,7 +448,7 @@ namespace PantheonPrototype
                 }
                 else if (((DialogueNode)this.currentConversation[this.currentConversationState]).NextState == 0)
                 {
-                    this.EndConversation();
+                    this.EndConversation(entityName);
                 }
                 else
                 {
@@ -455,6 +476,8 @@ namespace PantheonPrototype
             string entityName = firedEvent.payload["EntityKey"];
             Entity entity = firedEvent.gameReference.currentLevel.Entities[entityName];
 
+            if (this.npcStates[entityName] == DialogueManager.STATE_TALKING) return;
+
             if (this.conversations.Keys.Contains(entityName))
             {
                 this.npcStates[entityName] = firedEvent.payload["State"];
@@ -466,9 +489,28 @@ namespace PantheonPrototype
         }
 
         /// <summary>
+        /// Adds the ability for spontaneous conversation, such as timed text boxes or temporary text boxes.
+        /// </summary>
+        /// <param name="firedEvent">The incoming event.</param>
+        protected void spontaneousConversation(Event firedEvent)
+        {
+            string entityName = firedEvent.payload["EntityKey"];
+            Entity entity = firedEvent.gameReference.currentLevel.Entities[entityName];
+
+            if (this.npcStates[entityName] == DialogueManager.STATE_TALKING) return;
+
+            if (this.conversations.Keys.Contains(entityName))
+            {
+                this.npcStates[entityName] = DialogueManager.STATE_SPONTANEOUS;
+                this.npcStateBubbles[entityName].isReadyForDeletion = true;
+                this.npcStateBubbles[entityName] = new TextBubble(entity, firedEvent.payload["Text"]);
+            }
+        }
+
+        /// <summary>
         /// Ends all current conversations and resets the conversation handles and anchors.
         /// </summary>
-        public void EndConversation()
+        public void EndConversation(string entityName)
         {
             this.currentConversation = null;
             this.currentConversationState = 0;
@@ -479,6 +521,9 @@ namespace PantheonPrototype
                 this.currentConversationBubble.isReadyForDeletion = true;
                 this.currentConversationBubble = null;
             }
+
+            // Switch the NPC's talking state off.
+            this.npcStates[entityName] = DialogueManager.STATE_NONE;
         }
     }
 }

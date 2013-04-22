@@ -28,6 +28,7 @@ namespace PantheonPrototype
             if (currentArmor <= 0)
             {
                 currentState = "Die";
+
                 toDestroy = true;
             }
         }
