@@ -1,0 +1,144 @@
+<XnaContent>
+	<Asset Type="LevelLoad.LevelLoader">
+		<!-- Content Paths -->
+		<MapPath>./Maps/courtroom.tmx</MapPath>
+		<NextLevelPath>./XML/Hallway.xml</NextLevelPath>
+		
+		<Player>
+			<!-- Player stuff -->
+		</Player>
+		
+		<!-- Contains information on all the enemies in the level. -->
+		<Enemies>
+			<Item>
+				<Key>Butterfly</Key>
+				<Value>
+					<!-- Butterfly information -->
+				</Value>
+			</Item>
+			
+			<Item>
+				<Key>Chen</Key>
+				<Value>
+					<!-- Chen information -->
+				</Value>
+			</Item>
+			
+			<Item>
+				<Key>Bunnies</Key>
+				<Value>
+					<!-- Bunny Information -->
+				</Value>
+			</Item>
+		</Enemies>
+		
+		<!-- Contains information on all the friendly NPCs in the level. -->
+		<NPCs>
+			<Item>
+				<Key>Radiation</Key>
+				<Value>
+					<!-- Radiation friend information. -->
+				</Value>
+			</Item>
+			
+			<Item>
+				<Key>GordonFreeman</Key>
+				<Value>
+					<!-- Gordon Freeman information -->
+				</Value>
+			</Item>
+			
+			<Item>
+				<Key>DRAGON</Key>
+				<Value>
+					<!-- Dragon information -->
+				</Value>
+			</Item>
+		</NPCs>
+		
+		<!-- Contains all the dialogue for the level. Can only refer to NPCs. -->
+		<Dialogue>
+			<!--
+				Conversations is a dictionary, contains a key of the NPC being talked
+				to, as well as a value which is a List of DialogueNodes.
+			-->
+			<Conversations>
+				
+				<!-- Conversation Entry: Radiation NPC -->
+				<Item>
+					<!-- NPC name -->
+					<Key>Radiation</Key>
+					
+					<!-- List of conversation nodes. -->
+					<Value>
+						<!--
+							DialogueNodes have to properties to them, the "NextState"(starting
+							from zero) and the text for this node. A next state of 0 ends
+							the conversation.
+						-->
+						<Item>
+							<!-- Next state -->
+							<NextState>1</NextState>
+							
+							<!-- Text to be said -->
+							<Text>CHZZZKKXXXKKKK</Text>
+						</Item>
+						
+						<!-- Next node -->
+						<Item>
+							<!--
+								The next dialogue state, note that this
+								ends the conversation (zero).
+							-->
+							<NextState>0</NextState>
+							<Text>ZZZZZCHRKZZ</Text>
+						</Item>
+					</Value>
+				</Item>
+				
+				<!-- Next NPC -->
+				<Item>
+					<Key>GordonFreeman</Key>
+					<Value>
+						<Item>
+							<NextState>1</NextState>
+							<Text>. . .</Text>
+						</Item>
+						
+						<Item>
+							<NextState>2</NextState>
+							<Text>I don't speak.</Text>
+						</Item>
+						
+						<Item>
+							<NextState>3</NextState>
+							<Text>Really, go away.</Text>
+						</Item>
+						
+						<Item>
+							<NextState>0</NextState>
+							<Text>Stop. . .</Text>
+						</Item>
+					</Value>
+				</Item>
+				
+				<!-- Next (and final) NPC -->
+				<Item>
+					<Key>DRAGON</Key>
+					<Value>
+						<Item>
+							<NextState>0</NextState>
+							<Text>ROAR</Text>
+						</Item>
+					</Value>
+				</Item>
+				
+			</Conversations>
+		</Dialogue>
+		
+		<!-- Contains all the information for quests and objectives. -->
+		<Quests>
+			<!-- Quest stuff -->
+		</Quests>
+	</Asset>
+</XnaContent>
