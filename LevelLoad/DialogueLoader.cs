@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using System.Collections;
 
 namespace LevelLoad
 {
@@ -17,5 +18,9 @@ namespace LevelLoad
     /// </summary>
     public class DialogueLoader
     {
+        /// <summary>
+        /// Contains the conversations for the dialogue manager to load.
+        /// </summary>
+        Dictionary<string, ArrayList> conversations;
     }
 }
