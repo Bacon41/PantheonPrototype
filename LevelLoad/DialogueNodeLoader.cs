@@ -13,11 +13,11 @@ namespace LevelLoad
         /// <summary>
         /// Contains the number, in array index, of the next conversation state.
         /// </summary>
-        int nextState;
+        public int NextState;
 
         /// <summary>
         /// Contains the text spoken by the NPC.
         /// </summary>
-        string text;
+        public string Text;
     }
 }
