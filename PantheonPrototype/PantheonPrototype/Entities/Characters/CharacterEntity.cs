@@ -85,12 +85,18 @@ namespace PantheonPrototype
         /// <summary>
         /// The direction in which the character is facing.
         /// </summary>
-        protected Direction facing;
+        //protected Direction facing;
 
         public Direction Facing
         {
-            get { return facing; }
-            set { facing = value; }
+            get
+            {
+                return HamburgerHelper.reduceAngle(angleFacing);
+            }
+            set
+            {
+                angleFacing = (float)HamburgerHelper.AnglesAreNotAngels(value);
+            }
         }
 
         /// <summary>

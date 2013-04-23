@@ -1,27 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <XnaContent>
-  <Asset Type="LevelLoad.LevelLoader">
-    <MapPath>Maps/map1</MapPath>
-    <Player>
-    </Player>
-    <Enemies>
+  <Asset Type="LevelLoad.SpriteLoader">
+    <ImagePath>image/path</ImagePath>
+    <Rows>1</Rows>
+    <Columns>10</Columns>
+    <AnimationStates>
       <Item>
-        <Key>EnemyKey</Key>
+        <Key>StateName</Key>
         <Value>
+          <Begin>0</Begin>
+          <End>10</End>
+          <Looping>true</Looping>
+          <Sweeping>false</Sweeping>
         </Value>
       </Item>
-    </Enemies>
-    <NPCs>
-      <Item>
-        <Key>NPCKey</Key>
-        <Value>
-        </Value>
-      </Item>
-    </NPCs>
-    <Dialogue>
-    </Dialogue>
-    <Quests>
-    </Quests>
-    <NextLevelPath>XML/LevelLoaderTest</NextLevelPath>
+    </AnimationStates>
   </Asset>
 </XnaContent>

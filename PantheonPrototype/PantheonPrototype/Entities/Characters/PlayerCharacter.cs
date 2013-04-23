@@ -380,7 +380,7 @@ namespace PantheonPrototype
                 gameReference.ControlManager.disableMotion();
                 if (offset.Length() == 0)
                 {
-                    switch (facing)
+                    switch (Facing)
                     {
                         case Direction.forward:
                             offset.Y = offsetSpeed;
@@ -444,7 +444,7 @@ namespace PantheonPrototype
             //Modify the direction in which the character faces
             if (gameReference.ControlManager.actions.isControlEnabled)
             {
-                facing = HamburgerHelper.reduceAngle(cursorLocation - new Vector2(DrawingBox.Center.X, DrawingBox.Center.Y));
+                Facing = HamburgerHelper.reduceAngle(cursorLocation - new Vector2(DrawingBox.Center.X, DrawingBox.Center.Y));
             }
         }
 
@@ -509,7 +509,7 @@ namespace PantheonPrototype
         /// </summary>
         private void updateSprite()
         {
-            switch (facing)
+            switch (Facing)
             {
                 case Direction.forward:
                     sprite.changeState(currentState + " Forward");

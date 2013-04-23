@@ -15,7 +15,7 @@ namespace LevelLoad
     /// <summary>
     /// Loads a sprite from an XML file.
     /// </summary>
-    class SpriteLoader
+    public class SpriteLoader
     {
         /// <summary>
         /// Defines the necessary components for a range of frames for animation.
@@ -49,7 +49,7 @@ namespace LevelLoad
         /// The animation states of the sprite. Note that the key is a string
         /// representing the state name.
         /// </summary>
-        Dictionary<string, FrameRange> AnimationStates;
+        public Dictionary<string, FrameRange> AnimationStates;
 
         /// END: XML Parsing Section
 

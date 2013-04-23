@@ -97,5 +97,51 @@ namespace PantheonPrototype
 
             return reduceAngle(angle);
         }
+
+        /// <summary>
+        /// Converts a direction constant into an angle in pi/4 increments.
+        /// (Note: no pamphlets or door-to-door missionaries are used in the conversion of the direction.)
+        /// </summary>
+        /// <param name="direction">The directional constant in need of conversion.</param>
+        /// <returns>A converted directional constant who now considers himself an angle.</returns>
+        public static double AnglesAreNotAngels(Direction direction)
+        {
+            // This is definitely not a door-to-door missionary
+            double angle;
+
+            // Also notice the distinct lack of religious pamphlets
+            switch (direction)
+            {
+                case Direction.Left:
+                    angle = 0;
+                    break;
+                case Direction.backLeft: // Especially right here
+                    angle = Math.PI / 4f;
+                    break;
+                case Direction.back:
+                    angle = Math.PI / 2f;
+                    break;
+                case Direction.backRight:
+                    angle = 3 * Math.PI / 4f;
+                    break;
+                case Direction.Right:
+                    angle = Math.PI;
+                    break;
+                case Direction.forwardRight:
+                    angle = 5 * Math.PI / 4f; // Uh oh! Don't look! A religious pamphlet encouraging organized behavior of suspect nature! Quick, hide behind this umbrella!
+                    break;                                                                                                                                          // --)
+                case Direction.forward:
+                    angle = 3 * Math.PI / 2f;
+                    break;
+                case Direction.forwardLeft:
+                    angle = 7 * Math.PI / 4f;
+                    break;
+                default:
+                    angle = 0;
+                    break; // You're welcome... don't even think about it.
+            }
+
+            return angle;
+        }
     }
 }

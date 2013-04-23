@@ -26,6 +26,16 @@ namespace LevelLoad
         public int TotalArmor;
 
         /// <summary>
+        /// The starting state of the character.
+        /// </summary>
+        public string InitialState;
+
+        /// <summary>
+        /// The initial facing direction of the character.
+        /// </summary>
+        public string InitialDirection;
+
+        /// <summary>
         /// A list of strings which indicate items that should be in the
         /// character's inventory.
         /// </summary>
