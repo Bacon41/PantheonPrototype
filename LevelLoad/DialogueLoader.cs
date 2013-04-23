@@ -14,7 +14,7 @@ using System.Collections;
 namespace LevelLoad
 {
     /// <summary>
-    /// Contains all characteristics needed to load dialogue.
+    /// Contains all characteristics needed to load dialogue and move it into a DialogueManager.
     /// </summary>
     public class DialogueLoader
     {
