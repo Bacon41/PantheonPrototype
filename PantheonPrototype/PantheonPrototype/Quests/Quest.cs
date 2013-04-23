@@ -21,6 +21,17 @@ namespace PantheonPrototype
     public class Quest
     {
         /// <summary>
+        /// The title. Be creative. I think you'll figure it out.
+        /// </summary>
+        private string questTitle;
+
+        public string QuestTitle
+        {
+            get { return questTitle; }
+            set { questTitle = value; }
+        }
+
+        /// <summary>
         /// The objectives for this quest.
         /// </summary>
         public List<Objective> objectives;

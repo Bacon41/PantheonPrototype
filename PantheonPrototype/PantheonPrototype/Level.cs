@@ -144,9 +144,9 @@ namespace PantheonPrototype
 			
 			// Fake a quest
             Dictionary<string, string> questPayload = new Dictionary<string, string>();
-            questPayload.Add("QuestInfo", "2;0");
-            questPayload.Add("Objective1", "0;Trigger;TestTrigger;1");
-            questPayload.Add("Objective2", "1;Kill;Enemybutterfly;0");
+            questPayload.Add("QuestInfo", "2;0;QuestName");
+            questPayload.Add("Objective1", "0;Trigger;TestTrigger;1;Name;Text");
+            questPayload.Add("Objective2", "1;Kill;Enemybutterfly;0;fish;Barracuda");
             Event fakeEventWithSushi = new Event("CreateQuest", questPayload);
             gameReference.EventManager.notify(fakeEventWithSushi);
         }

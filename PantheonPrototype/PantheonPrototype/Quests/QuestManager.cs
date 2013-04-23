@@ -46,12 +46,15 @@ namespace PantheonPrototype
         ///     * Type (Trigger, Speak, Kill)
         ///     * Target (most objectives require a target string for the constructor)
         ///     * Next Objective(s) (list of numeric ids separated by commas)
+        ///     * Objective Title
+        ///     * Objective Text
         /// 
         /// In addition to the objectives, the payload shall contain a meta-information pair. This
         /// shall be labelled as QuestInfo. The information in QuestInfo is as follows (divided by
         /// semi-colon):
         ///     * Number of Objectives
         ///     * Number(s) of the First Objective(s) (list separated by commas)
+        ///     * Quest Title
         /// </summary>
         /// <param name="eventInfo">The event information containing quest information.</param>
         public void AddQuest(Event eventInfo)
@@ -97,6 +100,8 @@ namespace PantheonPrototype
                 firstObjectives[i] = Int32.Parse(firstIds[i]);
             }
 
+            string questName = questInfo[2];
+
             // More LINQ magix (Thank you MSDN... I has bad memory)
             var objectives = from objectiveKey in eventInfo.payload.Keys
                              where objectiveKey.Contains("Objective")
@@ -125,6 +130,12 @@ namespace PantheonPrototype
                     nextObjectives[i] = Int32.Parse(nextIds[i]);
                 }
 
+                // Get the objective name
+                string objectiveName = objectiveParameters[4];
+
+                // Get the objective text
+                string objectiveText = objectiveParameters[5];
+
                 // Decide which objective type to build
                 switch (objectiveType)
                 {
@@ -146,6 +157,9 @@ namespace PantheonPrototype
                     default:
                         break;
                 }
+
+                buildList[objectiveId].ObjectiveName = objectiveName;
+                buildList[objectiveId].ObjectiveText = objectiveText;
             }
 
             // Set the objective list of the quest
@@ -156,6 +170,9 @@ namespace PantheonPrototype
             {
                 buildQuest.setCurrentObjective(firstObjectives[i]);
             }
+
+            // Set the quest name
+            buildQuest.QuestTitle = questName;
 
             // Initialize the quest
             buildQuest.Initialize(eventInfo.GameReference);
