@@ -136,5 +136,9 @@
 			</Conversations>
 		</Dialogue>
 		
+		<!-- Contains all the information for quests and objectives. -->
+		<Quests>
+			<!-- Quest stuff -->
+		</Quests>
 	</Asset>
 </XnaContent>
