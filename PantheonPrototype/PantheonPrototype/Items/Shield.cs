@@ -79,6 +79,11 @@ namespace PantheonPrototype
             Info = "This is just your basic Shield\n" +
                    "   Use it wisely...\n";
         }
+
+        public Shield()
+            : base()
+        {
+        }
         /// <summary>
         /// Turn the shield on.
         /// 
