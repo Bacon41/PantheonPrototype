@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DialogueLoader.cs" />
+    <Compile Include="DialogueNodeLoader.cs" />
     <Compile Include="EntityLoaders\CharacterLoader.cs" />
     <Compile Include="EntityLoaders\EnemyLoader.cs" />
     <Compile Include="LevelLoader.cs" />
