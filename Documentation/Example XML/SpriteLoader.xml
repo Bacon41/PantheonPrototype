@@ -1,0 +1,18 @@
+<XnaContent>
+	<Asset Type="LevelLoad.Sprite">
+		<ImagePath>image/path</ImagePath>
+		<Rows>1</Rows>
+		<Columns>10</Columns>
+		<AnimationStates>
+			<Item>
+				<Key>StateName</Key>
+				<Value>
+					<Begin>0</Begin>
+					<End>10</End>
+					<Looping>true</Looping>
+					<Sweeping>false</Sweeping>
+				</Value>
+			</Item>
+		</AnimationStates>
+	</Asset>
+</XnaContent>
