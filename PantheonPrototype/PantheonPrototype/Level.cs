@@ -135,7 +135,15 @@ namespace PantheonPrototype
                     gameReference.EventManager.register("Activate" + obj.Name, new HandleEvent(((Trigger)this.entities[obj.Name]).triggerHandler));
                 }
             }
-            Camera.Pos = new Vector2(this.entities["character"].Location.X, this.entities["character"].Location.Y);
+            Camera.Pos = new Vector2(this.entities["character"].DrawingBox.X + entities["character"].DrawingBox.Width / 2,
+                    this.entities["character"].DrawingBox.Y + entities["character"].DrawingBox.Height / 2);
+            // This is a fairly ugly way of making the tiles draw in the right locations.
+            screenRect.X = (int)Camera.Pos.X - gameReference.GraphicsDevice.Viewport.Width / 2;
+            if (screenRect.X < 0) screenRect.X = 0;
+            screenRect.Y = (int)Camera.Pos.Y - gameReference.GraphicsDevice.Viewport.Height / 2;
+            if (screenRect.Y < 0) screenRect.Y = 0;
+            screenRect.Width = (int)Camera.Pos.X + gameReference.GraphicsDevice.Viewport.Width / 2;
+            screenRect.Height = (int)Camera.Pos.Y + gameReference.GraphicsDevice.Viewport.Height / 2;
 
             gameReference.CutsceneManager.PlayLevelLoad(gameReference);
 
@@ -144,9 +152,9 @@ namespace PantheonPrototype
 			
 			// Fake a quest
             Dictionary<string, string> questPayload = new Dictionary<string, string>();
-            questPayload.Add("QuestInfo", "2;0");
-            questPayload.Add("Objective1", "0;Trigger;TestTrigger;1");
-            questPayload.Add("Objective2", "1;Kill;Enemybutterfly;0");
+            questPayload.Add("QuestInfo", "2;0;QuestName");
+            questPayload.Add("Objective1", "0;Trigger;TestTrigger;1;Name;Text");
+            questPayload.Add("Objective2", "1;Kill;Enemybutterfly;0;fish;Barracuda");
             Event fakeEventWithSushi = new Event("CreateQuest", questPayload);
             gameReference.EventManager.notify(fakeEventWithSushi);
         }

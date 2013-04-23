@@ -42,6 +42,28 @@ namespace PantheonPrototype
         }
 
         /// <summary>
+        /// The title of the objective.
+        /// </summary>
+        private string objectiveName;
+
+        public string ObjectiveName
+        {
+            get { return objectiveName; }
+            set { objectiveName = value; }
+        }
+
+        /// <summary>
+        /// Text describing the objective.
+        /// </summary>
+        private string objectiveText;
+
+        public string ObjectiveText
+        {
+            get { return objectiveText; }
+            set { objectiveText = value; }
+        }
+
+        /// <summary>
         /// A simple flag used for testing completion.
         /// </summary>
         protected enum condition { initialized, active, complete };
