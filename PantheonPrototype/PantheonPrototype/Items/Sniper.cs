@@ -37,8 +37,8 @@ namespace PantheonPrototype
             type = Type.WEAPON;
             ItemTag = "weapon";
             Info = "This is the sniper Rifle\n" +
-                   "   It has MUCH better range and damage but\n" +
-                   "   it's reload time is not great.\n";
+                   "   It has MUCH better range and damage\n" +
+                   "   but it's reload time is not great.\n";
         }
 
     }

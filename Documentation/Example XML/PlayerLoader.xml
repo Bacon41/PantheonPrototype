@@ -1,0 +1,14 @@
+<XnaContent>
+	<Asset Type="LevelLoad.PlayerLoader">
+		<TotalArmor>100</TotalArmor>
+		<Inventory>
+			<Item>shield</Item>
+		</Inventory>
+		<Characteristics>
+			<Item>Walking</Item>
+			<Item>Player</Item>
+		</Characteristics>
+		<Sprite>See SpriteLoader.xml</Sprite>
+		<LaserTexturePath>laserDot</LaserTexturePath>
+	</Asset>
+</XnaContent>

@@ -330,7 +330,7 @@ namespace PantheonPrototype
 
                     if (inventory.Selected == -1)
                     {
-                        inventory.HColor = new Color(34, 167, 222, 50);
+                        inventory.HColor = new Color(0, 50, 255, 150);
                     }
                     else
                     {

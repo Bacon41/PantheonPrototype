@@ -73,8 +73,6 @@ namespace PantheonPrototype
                 return;
             }
 
-            Console.WriteLine("creating that quest");
-
             // Begin to create the quest
             Quest buildQuest = new Quest();
 

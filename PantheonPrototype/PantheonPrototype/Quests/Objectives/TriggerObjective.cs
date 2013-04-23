@@ -36,8 +36,6 @@ namespace PantheonPrototype
         {
             TargetTrigger = targetTriggerName;
             this.EventType = targetTriggerName + "Objective";
-
-            Console.WriteLine(EventType);
         }
 
         /// <summary>
@@ -53,7 +51,7 @@ namespace PantheonPrototype
         {
             base.HandleNotification(eventinfo);
 
-            Console.WriteLine(eventinfo.payload["Entity"] + " has collided with " + TargetTrigger);
+            Console.WriteLine(eventinfo.payload["Entity"] + " has collided with " + TargetTrigger + "\nObjective Complete!");
         }
 
         /// <summary>
@@ -69,8 +67,6 @@ namespace PantheonPrototype
         public override void WrapUp(Pantheon gameReference)
         {
             base.WrapUp(gameReference);
-
-            Console.WriteLine("Wrapping up the objective.");
         }
 
         public override void Update(GameTime gameTime)

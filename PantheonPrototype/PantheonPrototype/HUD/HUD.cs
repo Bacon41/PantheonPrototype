@@ -90,6 +90,8 @@ namespace PantheonPrototype
         /// <param name="gameTime">The object that holds all the time information.</param>
         public void Update(GameTime gameTime, Pantheon gameReference, Level level) 
         {
+            Shield shield;
+
             PlayerCharacter player = (PlayerCharacter)(level.Entities["character"]);
             // Set the width of the Armor Bar with respect to the current percent of the player's armor.
             try
@@ -98,22 +100,34 @@ namespace PantheonPrototype
                     (int)(hudItems[0].DefaultWidth * ((float)player.CurrentArmor / player.TotalArmor)), hudItems[0].Coordinates.Height);
                 
                 // Get the Shield item
-                Shield shield = (Shield)player.EquippedItems["shield"];
+                if (!PlayerCharacter.inventory.equipped.ElementAt(6).isNull)
+                {
+                    shield = (Shield)PlayerCharacter.inventory.equipped.ElementAt(6);
+                }
+                else
+                {
+                    shield = new Shield();
+                }
 
                 // Update the Shield indicator
                 int shieldPercent = (int)(100 * (float)shield.CurrentShield / shield.TotalShield);
                 hudItems[1].SetOpacity((int)((shieldPercent - 55) * 5.66)); // (% - min) * (255 / (max - min))
 
-                if (shieldPercent > 55)
+
+                if (shieldPercent > 55 && !shield.isNull)
                 {
                     hudItems[2].SetOpacity((int)(255 - (shieldPercent - 55) * 5.66));
                 }
-                else
+                else if (!shield.isNull)
                 {
                     hudItems[2].SetOpacity((int)((shieldPercent - 10) * 5.66));
                 }
+                else
+                {
+                    hudItems[2].SetOpacity(0);
+                }
 
-                if (shieldPercent > 10)
+                if (shieldPercent > 10 && !shield.isNull)
                 {
                     hudItems[3].SetOpacity((int)(255 - (shieldPercent - 10) * 5.66));
                 }
@@ -122,7 +136,7 @@ namespace PantheonPrototype
                     hudItems[3].SetOpacity(0);
                 }
 
-                if (shieldPercent <= 10 && shieldPercent > 0)
+                if (shieldPercent <= 10 && shieldPercent > 0 && !shield.isNull)
                 {
                     hudItems[4].SetOpacity(danger);
                     danger = (danger + (30 - (shieldPercent * 2))) % 256; 
@@ -133,7 +147,7 @@ namespace PantheonPrototype
                     danger = 0;
                 }
 
-                if (shieldPercent == 0)
+                if (shieldPercent == 0 || shield.isNull)
                 {
                     hudItems[5].SetOpacity(255);
                 }

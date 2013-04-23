@@ -164,7 +164,10 @@ namespace PantheonPrototype
 
                 if (currentLevel.LevelPlaying)
                 {
-                    currentLevel.Update(gameTime, this);
+                    if (!CutsceneManager.CutscenePlaying)
+                    {
+                        currentLevel.Update(gameTime, this);
+                    }
                 }
                 else
                 {
