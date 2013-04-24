@@ -13,7 +13,19 @@
 			<Item>
 				<Key>Butterfly</Key>
 				<Value>
-					<!-- Butterfly information -->
+					<TotalArmor>20</TotalArmor>
+					
+					<InitialState>"Move"</InitialState>
+					
+					<InitialDirection>Left</InitialDirection>
+					
+					<Inventory>
+						<Item>"Weapon"</Item>
+					</Inventory>
+					
+					<Characteristics>
+						<Item>"CanFly?"</Item>
+					</Characteristics>
 				</Value>
 			</Item>
 			
