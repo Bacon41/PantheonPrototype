@@ -78,11 +78,10 @@ namespace PantheonPrototype
         /// Loads the bullet.
         /// </summary>
         /// <param name="contentManager">Using this content manager.</param>
-        public override void Load(ContentManager contentManager)
+        public void Load(ContentManager contentManager, String type)
         {
             base.Load(contentManager);
-
-            Texture2D bulletimage = contentManager.Load<Texture2D>("Sprites/BulletSprite");
+            Texture2D bulletimage = contentManager.Load<Texture2D>("Sprites/" + type);
 
             if (bulletimage != null)
             {

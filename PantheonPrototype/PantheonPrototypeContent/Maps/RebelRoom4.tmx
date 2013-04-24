@@ -10,7 +10,7 @@
   </tile>
   <tile id="1">
    <properties>
-    <property name="isShootable" value="false"/>
+    <property name="isShootable" value="true"/>
     <property name="isWalkable" value="true"/>
    </properties>
   </tile>
@@ -31,8 +31,8 @@
  <objectgroup name="Spawn" width="8" height="7">
   <object name="endRebelMain" x="-20" y="196" width="140" height="176"/>
   <object name="startRebelMain" x="165" y="251" width="62" height="52"/>
-  <object name="Enemyboogershooter0" x="252" y="107" width="1131" height="524"/>
-  <object name="Enemyboogershooter1" x="253" y="138" width="1140" height="548"/>
-  <object name="Enemyboogershooter2" x="249" y="183" width="1178" height="523"/>
+  <object name="Enemyboogershooter0" x="773" y="138" width="604" height="551"/>
+  <object name="Enemyboogershooter1" x="247" y="123" width="1134" height="218"/>
+  <object name="Enemyboogershooter2" x="224" y="359" width="1151" height="326"/>
  </objectgroup>
 </map>

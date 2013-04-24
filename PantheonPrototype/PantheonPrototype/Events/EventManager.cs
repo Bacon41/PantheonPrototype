@@ -107,6 +107,7 @@ namespace PantheonPrototype
 
             foreach (HandleEvent handler in eventHandlers[eventInfo.Type])
             {
+
                 handler(eventInfo);
             }
         }

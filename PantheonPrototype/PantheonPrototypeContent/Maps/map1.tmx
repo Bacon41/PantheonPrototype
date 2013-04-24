@@ -339,6 +339,6 @@
     <property name="DialogPath" value="xml/map1Dialog.xml"/>
    </properties>
   </object>
-  <object name="Enemybooger" x="784" y="197" width="196" height="147"/>
+  <object name="Enemybooger" x="872" y="245" width="964" height="565"/>
  </objectgroup>
 </map>
