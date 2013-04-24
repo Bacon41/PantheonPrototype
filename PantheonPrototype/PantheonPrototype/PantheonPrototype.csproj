@@ -84,6 +84,7 @@
     <Compile Include="CutsceneManager.cs" />
     <Compile Include="DialogueManager.cs" />
     <Compile Include="DialogueNode.cs" />
+    <Compile Include="Entities\Characters\BoogerShooterEnemy.cs" />
     <Compile Include="Events\Event.cs" />
     <Compile Include="Events\EventManager.cs" />
     <Compile Include="HUD\Inventory.cs" />

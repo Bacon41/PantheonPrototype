@@ -31,5 +31,8 @@
  <objectgroup name="Spawn" width="7" height="7">
   <object name="endRebelMain" x="-28" y="196" width="70" height="186"/>
   <object name="startRebelMain" x="164" y="258" width="56" height="42"/>
+  <object name="Enemyboogershooter2" x="220" y="164" width="987" height="517"/>
+  <object name="Enemyboogershooter1" x="224" y="119" width="964" height="542"/>
+  <object name="Enemyboogershooter0" x="223" y="88" width="970" height="530"/>
  </objectgroup>
 </map>

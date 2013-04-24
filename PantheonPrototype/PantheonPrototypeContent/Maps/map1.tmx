@@ -329,10 +329,16 @@
  <objectgroup name="Spawn" width="12" height="12">
   <object name="startmap0" x="633" y="1119" width="46" height="37"/>
   <object name="FriendtheOldMan" x="435" y="604" width="316" height="241"/>
-  <object name="Enemybutterfly" x="1234" y="454" width="718" height="419"/>
+  <object name="Enemybutterfly" x="1223" y="466" width="718" height="419"/>
   <object name="startmap2" x="1732" y="350" width="55" height="51"/>
   <object name="endmap2" x="1804" y="218" width="221" height="119"/>
   <object name="endRebelFoyer" x="231" y="111" width="148" height="120"/>
   <object name="startRebelFoyer" x="406" y="241" width="73" height="55"/>
+  <object name="LvlInfo" x="-1" y="-83" width="73" height="75">
+   <properties>
+    <property name="DialogPath" value="xml/map1Dialog.xml"/>
+   </properties>
+  </object>
+  <object name="Enemybooger" x="784" y="197" width="196" height="147"/>
  </objectgroup>
 </map>

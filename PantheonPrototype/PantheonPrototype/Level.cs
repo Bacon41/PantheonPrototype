@@ -114,9 +114,14 @@ namespace PantheonPrototype
                     this.entities.Add(obj.Name, new OldManFriend(new Vector2(obj.Bounds.Center.X, obj.Bounds.Center.Y)));
                     this.entities[obj.Name].Load(gameReference.Content);
                 }
-                if (obj.Name.Contains("Enemy"))
+                if (obj.Name.Contains("Enemybutterfly"))
                 {
                     this.entities.Add(obj.Name, new ButterflyEnemy(new Vector2(obj.Bounds.Center.X, obj.Bounds.Center.Y), gameReference.Content));
+                    this.entities[obj.Name].Load(gameReference.Content);
+                }
+                if (obj.Name.Contains("Enemybooger"))
+                {
+                    this.entities.Add(obj.Name, new BoogerShooterEnemy(new Vector2(obj.Bounds.Center.X, obj.Bounds.Center.Y), gameReference.Content));
                     this.entities[obj.Name].Load(gameReference.Content);
                 }
 				if (obj.Name.Contains("BunnyTrigger"))
