@@ -16,16 +16,14 @@ namespace PantheonPrototype
     /// An upgrade, A sniper rifle.
     /// </summary>
     class Sniper : Weapon
-    {
-        
-
+    { 
         /// <summary>
         /// Initializes key values of a weapon.
         /// </summary>
         public Sniper(ContentManager Content)
             : base(Content.Load<Texture2D>("Sprites/Sniper"))
         {
-            //LastShot = TimeSpan.Zero;
+            offset = .33;
             fireRate = 1;
             totalAmmo = 5;
             currentAmmo = totalAmmo;

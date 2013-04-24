@@ -23,11 +23,11 @@ namespace PantheonPrototype
         public Scar(ContentManager Content)
             : base(Content.Load<Texture2D>("Sprites/Rifle"))
         {
-            //LastShot = TimeSpan.Zero;
+            offset = .37;
             fireRate = 5;
             totalAmmo = 10;
             currentAmmo = totalAmmo;
-            range = 500;
+            range = 750;
             speed = 30;
             damage = 5;
             reloadDelay = TimeSpan.FromSeconds(2);
