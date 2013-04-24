@@ -71,14 +71,6 @@ namespace PantheonPrototype
 
             // Load the text bubble image.
             this.textbubbleImage = content.Load<Texture2D>("textbubble");
-
-            // Set up some temporary dialogue...
-            Random innocencegod = new Random();
-            int innocence = 1;
-            int innocenceFactor = innocencegod.Next(3, 20);
-            int evilFactor = 20;
-            StringBuilder theMessage = new StringBuilder();
-            ArrayList convo = new ArrayList();
         }
 
         /// <summary>
@@ -258,7 +250,7 @@ namespace PantheonPrototype
                     this.npcStates.Add(entityName, firedEvent.payload["State"]);
                 }
             }
-            catch (KeyNotFoundException except)
+            catch (KeyNotFoundException e)
             {
                 Console.Error.WriteLine("No NPC found for interaction alert.");
             }
