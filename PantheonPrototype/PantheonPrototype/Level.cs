@@ -34,7 +34,6 @@ namespace PantheonPrototype
         protected Dictionary<string, Entity> entities;
         protected Map levelMap;
         protected DialogueManager dialogueManager;
-        //protected Player player;
         protected Rectangle screenRect;
         
         protected bool levelStart;
@@ -138,6 +137,15 @@ namespace PantheonPrototype
                     ((Trigger)this.entities[obj.Name]).Type = obj.Properties["Type"].Value;
                     // Don't ask... I'm just registering an event handler...
                     gameReference.EventManager.register("Activate" + obj.Name, new HandleEvent(((Trigger)this.entities[obj.Name]).triggerHandler));
+                }
+
+                if (obj.Name == "LvlInfo")
+                {
+                    if(obj.Properties.Keys.Contains("DialoguePath")
+                    {
+                        // FIX ME
+                        // obj.Properties["DialoguePath"];
+                    }
                 }
             }
             Camera.Pos = new Vector2(this.entities["character"].DrawingBox.X + entities["character"].DrawingBox.Width / 2,
