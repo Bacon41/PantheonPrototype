@@ -55,6 +55,7 @@ namespace PantheonPrototype
         public NPCCharacter(Vector2 location, Rectangle drawBox, Rectangle boundingBox)
             : base(location, drawBox, boundingBox)
         {
+            this.speed = 3;
             isRoaming = true;
         }
 
