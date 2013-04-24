@@ -24,11 +24,12 @@ namespace PantheonPrototype
             facing = Direction.Left;
             currentState = "Move";
             changeDirection = TimeSpan.FromSeconds(3);
-            TotalArmor = 20;
-            CurrentArmor = 20;
+            TotalArmor = 30;
+            CurrentArmor = 30;
 
-            EquippedItems.Add("weapon", new Scar(Content));
+            EquippedItems.Add("weapon", new BoogerGun(Content));
             ArmedItem = EquippedItems["weapon"];
+            speed = 5;
         }
 
         /// <summary>
@@ -46,10 +47,14 @@ namespace PantheonPrototype
 
             this.Sprite.loadSprite(spriteTex, 8, 8, 30);
 
-            this.Sprite.addState("Move Forward", 56, 63, true, false);
+            this.Sprite.addState("Move Back", 56, 63, true, false);
+            this.Sprite.addState("Move Back Right", 48, 55, true, false);
+            this.Sprite.addState("Move Back Left", 0, 7, true, false);
             this.Sprite.addState("Move Left", 8, 15, true, false);
             this.Sprite.addState("Move Right", 40, 47, true, false);
-            this.Sprite.addState("Move Back", 24, 31, true, false);
+            this.Sprite.addState("Move Forward Right", 32, 39, true, false);
+            this.Sprite.addState("Move Forward Left", 16, 23, true, false);
+            this.Sprite.addState("Move Forward", 24, 31, true, false);
 
             //Load the interaction information
             // DO IT --

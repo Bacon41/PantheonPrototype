@@ -72,6 +72,13 @@ namespace PantheonPrototype
             get { return range; }
         }
 
+        protected String bulletType;
+
+        public String BulletType
+        {
+            get { return bulletType; }
+        }
+
         protected int damage;
         protected int speed;
         protected TimeSpan reloadDelay;
@@ -99,6 +106,7 @@ namespace PantheonPrototype
         public Weapon(Texture2D texture)
             : base(texture)
         {
+            bulletType = "BulletSprite";
             lastShot = TimeSpan.Zero;
         }
 
@@ -147,9 +155,9 @@ namespace PantheonPrototype
         /// <param name="holder">A reference to the holder character.</param>
         private void shootABullet(Pantheon gameReference, CharacterEntity holder)
         {
-            Bullet bullet = new Bullet(new Vector2(holder.DrawingBox.Center.X, holder.DrawingBox.Center.Y) + new Vector2((float)(speed*Math.Cos(holder.AngleFacing)),
-                (float)(speed*Math.Sin(holder.AngleFacing))), speed, holder.AngleFacing, range, damage, gameReference);
-            bullet.Load(gameReference.Content);
+            Bullet bullet = new Bullet(new Vector2(holder.DrawingBox.Center.X, holder.DrawingBox.Center.Y) + new Vector2((float)(72*Math.Cos(holder.AngleFacing)),
+                (float)(72*Math.Sin(holder.AngleFacing))), speed, holder.AngleFacing, range, damage, gameReference);
+                bullet.Load(gameReference.Content, bulletType);
 
             gameReference.currentLevel.addList.Add("bullet_" + Bullet.NextId, bullet);
 
