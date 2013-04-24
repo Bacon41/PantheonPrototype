@@ -22,7 +22,7 @@ namespace PantheonPrototype
         public BunnyNPC(Vector2 location)
             : base(location, new Rectangle(0, 0, 60,60), new Rectangle (10, 10, 40, 40))
         {
-            facing = Direction.Right;
+            Facing = Direction.Right;
             currentState = "Move";
             changeDirection = TimeSpan.FromSeconds(1);
 

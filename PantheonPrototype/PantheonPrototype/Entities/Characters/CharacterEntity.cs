@@ -89,8 +89,14 @@ namespace PantheonPrototype
 
         public Direction Facing
         {
-            get { return facing; }
-            set { facing = value; }
+            get
+            {
+                return facing;
+            }
+            set
+            {
+                facing = value;
+            }
         }
 
         /// <summary>

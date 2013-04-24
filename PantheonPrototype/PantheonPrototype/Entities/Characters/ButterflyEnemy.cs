@@ -21,7 +21,7 @@ namespace PantheonPrototype
         public ButterflyEnemy(Vector2 location, ContentManager Content)
             : base(location, new Rectangle(0, 0, 40, 40), new Rectangle(15, 25, 10, 10))
         {
-            facing = Direction.Left;
+            Facing = Direction.Left;
             currentState = "Move";
             changeDirection = TimeSpan.FromSeconds(3);
             TotalArmor = 20;

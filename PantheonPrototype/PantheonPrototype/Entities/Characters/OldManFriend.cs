@@ -21,7 +21,7 @@ namespace PantheonPrototype
         public OldManFriend(Vector2 location)
             : base(location, new Rectangle(0, 0, 40, 40), new Rectangle(0, 20, 40, 20))
         {
-            facing = Direction.Left;
+            Facing = Direction.Left;
             changeDirection = TimeSpan.FromSeconds(3);
         }
 

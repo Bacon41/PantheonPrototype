@@ -53,7 +53,7 @@ namespace PantheonPrototype
 
             if (!isRoaming)
             {
-                switch (facing)
+                switch (Facing)
                 {
                     case Direction.forward:
                         sprite.changeState(currentState + " Forward");
@@ -108,55 +108,55 @@ namespace PantheonPrototype
             switch (dir)
             {
                 case 0:
-                    facing = Direction.forward;
+                    Facing = Direction.forward;
                     angleFacing = (float)Math.PI / 2;
                     velocity = new Vector2(0, 3);
                     sprite.changeState(currentState + " Forward");
                     break;
                 case 1:
-                    facing = Direction.forwardLeft;
+                    Facing = Direction.forwardLeft;
                     angleFacing = 3 * (float)Math.PI / 4;
                     velocity = new Vector2(-3, 3);
                     sprite.changeState(currentState + " Forward Left");
                     break;
                 case 2:
-                    facing = Direction.Left;
+                    Facing = Direction.Left;
                     angleFacing = (float)Math.PI;
                     velocity = new Vector2(-3, 0);
                     sprite.changeState(currentState + " Left");
                     break;
                 case 3:
-                    facing = Direction.backLeft;
+                    Facing = Direction.backLeft;
                     angleFacing = 5 * (float)Math.PI / 4;
                     velocity = new Vector2(-3, -3);
                     sprite.changeState(currentState + " Back Left");
                     break;
                 case 4:
-                    facing = Direction.back;
+                    Facing = Direction.back;
                     angleFacing = 3 * (float)Math.PI / 2;
                     velocity = new Vector2(0, -3);
                     sprite.changeState(currentState + " Back");
                     break;
                 case 5:
-                    facing = Direction.backRight;
+                    Facing = Direction.backRight;
                     angleFacing = 7 * (float)Math.PI / 4;
                     velocity = new Vector2(3, -3);
                     sprite.changeState(currentState + " Back Right");
                     break;
                 case 6:
-                    facing = Direction.Right;
+                    Facing = Direction.Right;
                     angleFacing = 0;
                     velocity = new Vector2(3, 0);
                     sprite.changeState(currentState + " Right");
                     break;
                 case 7:
-                    facing = Direction.forwardRight;
+                    Facing = Direction.forwardRight;
                     angleFacing = (float)Math.PI / 4;
                     velocity = new Vector2(3, 3);
                     sprite.changeState(currentState + " Forward Right");
                     break;
                 default:
-                    facing = Direction.forward;
+                    Facing = Direction.forward;
                     angleFacing = (float)Math.PI / 2;
                     velocity = new Vector2(0, 3);
                     sprite.changeState(currentState + " Forward");
