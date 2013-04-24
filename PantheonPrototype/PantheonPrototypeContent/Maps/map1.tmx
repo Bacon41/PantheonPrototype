@@ -4,7 +4,7 @@
   <image source="MapFiles/TileSets/Outside/baseTiles.png" width="400" height="113"/>
   <tile id="0">
    <properties>
-    <property name="isShootable" value="false"/>
+    <property name="isShootable" value="true"/>
     <property name="isWalkable" value="false"/>
    </properties>
   </tile>
@@ -20,6 +20,12 @@
   <tile id="0">
    <properties>
     <property name="isShootable" value="true"/>
+    <property name="isWalkable" value="true"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="isShootable" value="false"/>
     <property name="isWalkable" value="true"/>
    </properties>
   </tile>
@@ -187,7 +193,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="4"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -326,6 +332,7 @@
   <object name="Enemybutterfly" x="1234" y="454" width="718" height="419"/>
   <object name="startmap2" x="1732" y="350" width="55" height="51"/>
   <object name="endmap2" x="1804" y="218" width="221" height="119"/>
-  <object name="endRebelFoyer" x="224" y="106" width="316" height="241"/>
+  <object name="endRebelFoyer" x="231" y="111" width="148" height="120"/>
+  <object name="startRebelFoyer" x="406" y="241" width="73" height="55"/>
  </objectgroup>
 </map>

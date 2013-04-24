@@ -4,7 +4,7 @@
   <image source="MapFiles/TileSets/RebelBase/baseTiles.png" width="400" height="113"/>
   <tile id="0">
    <properties>
-    <property name="isShootable" value="false"/>
+    <property name="isShootable" value="true"/>
     <property name="isWalkable" value="false"/>
    </properties>
   </tile>
@@ -26,7 +26,7 @@
  </tileset>
  <layer name="Base" width="20" height="30">
   <data encoding="base64" compression="zlib">
-   eJxjZGBgYKQyZqISRjaPGm4aNW/wmUettELIfcSKEevfUfMG1jxqphdy0y8280gBQ8k8XPKj5o2aN2oebgwAFRQCAg==
+   eJxjZGBgYKQyZqISRjaPEU2MHDdhY4+aN7DmUSutEHIfsWLE+heXGC4z0c1DV0cv91HLPHx+pYf7qJleyE2/2MwjBQwl83DJj5o3at6oebgxAC7oAgY=
   </data>
  </layer>
  <layer name="Modifier" width="20" height="30">
@@ -37,5 +37,13 @@
  <objectgroup name="Spawn" width="20" height="30">
   <object name="endRebelFoyer" x="8" y="900" width="85" height="121"/>
   <object name="startRebelFoyer" x="130" y="913" width="118" height="100"/>
+  <object name="endRebelRoom1" x="568" y="286" width="274" height="68"/>
+  <object name="startRebelRoom2" x="349" y="1274" width="52" height="66"/>
+  <object name="endRebelRoom3" x="1962" y="1420" width="110" height="200"/>
+  <object name="startRebelRoom4" x="2322" y="1144" width="72" height="72"/>
+  <object name="startRebelRoom1" x="645" y="164" width="82" height="66"/>
+  <object name="endRebelRoom2" x="546" y="1184" width="72" height="200"/>
+  <object name="startRebelRoom3" x="2202" y="1486" width="56" height="64"/>
+  <object name="endRebelRoom4" x="2473" y="1082" width="163" height="215"/>
  </objectgroup>
 </map>
