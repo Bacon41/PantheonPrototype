@@ -23,6 +23,9 @@
 						<Item>"Weapon"</Item>
 					</Inventory>
 					
+					<Characteristics>
+						<Item>"CanFly?"</Item>
+					</Characteristics>
 				</Value>
 			</Item>
 			
