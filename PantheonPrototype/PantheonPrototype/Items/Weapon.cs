@@ -30,6 +30,15 @@ namespace PantheonPrototype
             get { return fireRate; }
             set { fireRate = value; }
         }
+        /// <summary>
+        /// This is hacky but it works... and it's due tomorrow; So ya.
+        /// </summary>
+        protected double offset;
+
+        public double Offset
+        {
+            get { return offset; }
+        }
 
         /// <summary>
         /// The current amount of ammunition available to the player.
