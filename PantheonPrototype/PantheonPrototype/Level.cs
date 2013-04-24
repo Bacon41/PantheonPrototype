@@ -141,7 +141,7 @@ namespace PantheonPrototype
 
                 if (obj.Name == "LvlInfo")
                 {
-                    if(obj.Properties.Keys.Contains("DialoguePath")
+                    if(obj.Properties.Keys.Contains("DialoguePath"))
                     {
                         // FIX ME
                         // obj.Properties["DialoguePath"];
