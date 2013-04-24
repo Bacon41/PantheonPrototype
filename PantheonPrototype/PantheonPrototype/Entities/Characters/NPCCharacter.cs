@@ -121,55 +121,55 @@ namespace PantheonPrototype
                 case 0:
                     Facing = Direction.forward;
                     angleFacing = (float)Math.PI / 2;
-                    velocity = new Vector2(0, 3);
+                    velocity = new Vector2(0, this.speed);
                     sprite.changeState(currentState + " Forward");
                     break;
                 case 1:
                     Facing = Direction.forwardLeft;
-                    angleFacing = 3 * (float)Math.PI / 4;
-                    velocity = new Vector2(-3, 3);
+                    angleFacing = this.speed * (float)Math.PI / 4;
+                    velocity = new Vector2(-this.speed, this.speed);
                     sprite.changeState(currentState + " Forward Left");
                     break;
                 case 2:
                     Facing = Direction.Left;
                     angleFacing = (float)Math.PI;
-                    velocity = new Vector2(-3, 0);
+                    velocity = new Vector2(-this.speed, 0);
                     sprite.changeState(currentState + " Left");
                     break;
                 case 3:
                     Facing = Direction.backLeft;
                     angleFacing = 5 * (float)Math.PI / 4;
-                    velocity = new Vector2(-3, -3);
+                    velocity = new Vector2(-this.speed, -this.speed);
                     sprite.changeState(currentState + " Back Left");
                     break;
                 case 4:
                     Facing = Direction.back;
-                    angleFacing = 3 * (float)Math.PI / 2;
-                    velocity = new Vector2(0, -3);
+                    angleFacing = this.speed * (float)Math.PI / 2;
+                    velocity = new Vector2(0, -this.speed);
                     sprite.changeState(currentState + " Back");
                     break;
                 case 5:
                     Facing = Direction.backRight;
                     angleFacing = 7 * (float)Math.PI / 4;
-                    velocity = new Vector2(3, -3);
+                    velocity = new Vector2(this.speed, -this.speed);
                     sprite.changeState(currentState + " Back Right");
                     break;
                 case 6:
                     Facing = Direction.Right;
                     angleFacing = 0;
-                    velocity = new Vector2(3, 0);
+                    velocity = new Vector2(this.speed, 0);
                     sprite.changeState(currentState + " Right");
                     break;
                 case 7:
                     Facing = Direction.forwardRight;
                     angleFacing = (float)Math.PI / 4;
-                    velocity = new Vector2(3, 3);
+                    velocity = new Vector2(this.speed, this.speed);
                     sprite.changeState(currentState + " Forward Right");
                     break;
                 default:
                     Facing = Direction.forward;
                     angleFacing = (float)Math.PI / 2;
-                    velocity = new Vector2(0, 3);
+                    velocity = new Vector2(0, this.speed);
                     sprite.changeState(currentState + " Forward");
                     break;
             }
