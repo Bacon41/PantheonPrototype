@@ -13,7 +13,19 @@
 			<Item>
 				<Key>Butterfly</Key>
 				<Value>
-					<!-- Butterfly information -->
+					<TotalArmor>20</TotalArmor>
+					
+					<InitialState>"Move"</InitialState>
+					
+					<InitialDirection>Left</InitialDirection>
+					
+					<Inventory>
+						<Item>"Weapon"</Item>
+					</Inventory>
+					
+					<Characteristics>
+						<Item>"CanFly?"</Item>
+					</Characteristics>
 				</Value>
 			</Item>
 			
@@ -136,5 +148,9 @@
 			</Conversations>
 		</Dialogue>
 		
+		<!-- Contains all the information for quests and objectives. -->
+		<Quests>
+			<!-- Quest stuff -->
+		</Quests>
 	</Asset>
 </XnaContent>

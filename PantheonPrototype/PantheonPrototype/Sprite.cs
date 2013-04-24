@@ -110,7 +110,7 @@ namespace PantheonPrototype
         {
             //Set the rotation of the sprite
             this.rotation = 0;
-            loadSprite(image, rows, columns, 30);
+            loadSprite(image, rows, columns, false);
             this.incrementor = 1;
         }
 
@@ -118,7 +118,7 @@ namespace PantheonPrototype
         {
             //Set the rotation of the sprite
             this.rotation = 0;
-            loadSprite(image, rows, columns, 30);
+            loadSprite(image, rows, columns, false);
             this.incrementor = 1;
         }
 
@@ -131,7 +131,7 @@ namespace PantheonPrototype
         /// <param name="rows">The number of frame rows in the image.</param>
         /// <param name="columns">The number of frame columns in the image.</param>
         /// <param name="frameRate">The frame rate at which the sprite updates.</param>
-        public void loadSprite(Texture2D image, int rows, int columns, int frameRate)
+        public void loadSprite(Texture2D image, int rows, int columns, bool sweeping)
         {
             //Get the image
             this.image = image;
@@ -151,7 +151,7 @@ namespace PantheonPrototype
             temp.first = 0;
             temp.last = totalFrames - 1;
             temp.looping = true;
-            temp.sweeping = false;
+            temp.sweeping = sweeping;
 
             //Clear the stateRange with a blank dictionary
             stateRange = new Dictionary<string, FrameRange>();
@@ -164,6 +164,18 @@ namespace PantheonPrototype
 
             //Set the default opacity to fully opaque
             Opacity = 100;
+        }
+
+        /// <summary>
+        /// Alternative wrapper for backwards compatibility
+        /// </summary>
+        /// <param name="image">The image to be used for the sprite.</param>
+        /// <param name="rows">The number of frame rows in the image.</param>
+        /// <param name="columns">The number of frame columns in the image.</param>
+        /// <param name="frameRate">The frame rate at which the sprite updates.</param>
+        public void loadSprite(Texture2D image, int rows, int columns, int frameRate)
+        {
+            loadSprite(image, rows, columns, false);
         }
 
         /// <summary>

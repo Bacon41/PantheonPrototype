@@ -131,6 +131,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\LevelLoad\LevelLoad.csproj">
+      <Project>{9FC7AC56-9778-47C8-9BFD-8BD0DA4AD399}</Project>
+      <Name>LevelLoad</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\XTiled\XTiled [Windows].csproj">
       <Project>{B2FDF76B-253A-4D65-A622-712DAC4BD2B2}</Project>
       <Name>XTiled [Windows]</Name>
