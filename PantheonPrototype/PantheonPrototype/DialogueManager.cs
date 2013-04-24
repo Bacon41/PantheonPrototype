@@ -245,15 +245,22 @@ namespace PantheonPrototype
             string entityName = firedEvent.payload["EntityKey"];
             Entity entity = firedEvent.gameReference.currentLevel.Entities[entityName];
 
-            if (this.npcStates[entityName] == DialogueManager.STATE_TALKING) return;
+            try
+            {
+                if (this.npcStates[entityName] == DialogueManager.STATE_TALKING) return;
 
-            if (this.conversations.Keys.Contains(entityName))
-            {
-                this.npcStates[entityName] = firedEvent.payload["State"];
+                if (this.conversations.Keys.Contains(entityName))
+                {
+                    this.npcStates[entityName] = firedEvent.payload["State"];
+                }
+                else
+                {
+                    this.npcStates.Add(entityName, firedEvent.payload["State"]);
+                }
             }
-            else
+            catch (KeyNotFoundException except)
             {
-                this.npcStates.Add(entityName, firedEvent.payload["State"]);
+                Console.Error.WriteLine("No NPC found for interaction alert.");
             }
         }
 

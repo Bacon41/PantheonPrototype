@@ -41,6 +41,17 @@ namespace PantheonPrototype
             set { isRoaming = value; }
         }
 
+        /// <summary>
+        /// This is the speed in which the character will walk.
+        /// </summary>
+        protected int speed;
+
+        public int Speed
+        {
+            get { return speed; }
+            set { speed = value; }
+        }
+
         public NPCCharacter(Vector2 location, Rectangle drawBox, Rectangle boundingBox)
             : base(location, drawBox, boundingBox)
         {
@@ -60,7 +71,7 @@ namespace PantheonPrototype
                         break;
                     case Direction.forwardLeft:
                         sprite.changeState(currentState + " Forward Left");
-                        break;
+                         break;
                     case Direction.Left:
                         sprite.changeState(currentState + " Left");
                         break;
