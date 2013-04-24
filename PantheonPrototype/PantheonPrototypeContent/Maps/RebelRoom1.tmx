@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="12" height="7" tilewidth="200" tileheight="113">
+ <tileset firstgid="1" name="Base" tilewidth="200" tileheight="113">
+  <image source="MapFiles/TileSets/RebelBase/baseTiles.png" width="400" height="113"/>
+  <tile id="0">
+   <properties>
+    <property name="isShootable" value="true"/>
+    <property name="isWalkable" value="false"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="isShootable" value="true"/>
+    <property name="isWalkable" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="3" name="Modifier" tilewidth="200" tileheight="113">
+  <image source="MapFiles/TileSets/RebelBase/modifierTiles.png" width="400" height="113"/>
+ </tileset>
+ <layer name="Base" width="12" height="7">
+  <data encoding="base64" compression="zlib">
+   eJxjZGBgYAJiRhIwE5F4uKgnBQMAW5gAiA==
+  </data>
+ </layer>
+ <layer name="Modifier" width="12" height="7">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgF1AQAAVAAAQ==
+  </data>
+ </layer>
+ <objectgroup name="Spawn" width="12" height="7">
+  <object name="endRebelMain" x="161" y="-18" width="275" height="93"/>
+  <object name="startRebelMain" x="221" y="82" width="158" height="97"/>
+ </objectgroup>
+</map>

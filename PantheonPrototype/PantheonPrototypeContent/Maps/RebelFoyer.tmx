@@ -35,8 +35,9 @@
   </data>
  </layer>
  <objectgroup name="Spawn" width="20" height="30">
-  <object name="startmap1" x="198" y="637" width="131" height="85"/>
+  <object name="startmap1" x="303" y="651" width="60" height="53"/>
   <object name="endRebelMain" x="1124" y="628" width="148" height="115"/>
   <object name="startRebelMain" x="1035" y="651" width="61" height="60"/>
+  <object name="endmap1" x="141" y="339" width="90" height="693"/>
  </objectgroup>
 </map>

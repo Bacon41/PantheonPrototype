@@ -171,7 +171,7 @@ namespace PantheonPrototype
                         (int)(hudItems[7].DefaultWidth * (((Weapon)player.ArmedItem)).PercentToEndReload()), hudItems[7].Coordinates.Height);   
                 }
                 hudItems[8].Image = player.ArmedItem.HUDRepresentation;
-                hudItems[8].Coordinates = new Rectangle((int)HUDcoords.X, (int)HUDcoords.Y, (int)(SCREEN_WIDTH * .09), (int)(SCREEN_HEIGHT * .05));
+                hudItems[8].Coordinates = new Rectangle((int)HUDcoords.X, (int)HUDcoords.Y - (int)((SCREEN_WIDTH * .09)*((Weapon)player.ArmedItem).Offset), (int)(SCREEN_WIDTH * .10), (int)(SCREEN_WIDTH * .10));
                 //debugString = (((Weapon)player.ArmedItem).ReloadDelay.Seconds * 1000 + ((Weapon)player.ArmedItem).ReloadDelay.Milliseconds).ToString();
 
             }
