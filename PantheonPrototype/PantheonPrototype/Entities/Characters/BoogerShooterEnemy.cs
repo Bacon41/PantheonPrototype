@@ -52,7 +52,7 @@ namespace PantheonPrototype
             this.Sprite.addState("Move Back Left", 56, 63, true, false);
             this.Sprite.addState("Move Left", 48, 55, true, false);
             this.Sprite.addState("Move Right", 24, 31, true, false);
-            this.Sprite.addState("Move Forward Right", 32, 39, true, false);
+            this.Sprite.addState("Move Forward Right", 24, 31, true, false);
             this.Sprite.addState("Move Forward Left", 40, 47, true, false);
             this.Sprite.addState("Move Forward", 32, 39, true, false);
             this.Sprite.addState("Die Back", 64, 68, false, false);
