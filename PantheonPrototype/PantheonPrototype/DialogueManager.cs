@@ -96,11 +96,13 @@ namespace PantheonPrototype
 
                     // Add the list of nodes to the conversations.
                     this.conversations.Add(key, tempArrayList);
+                    this.npcStates.Add(key, null);
+                    this.npcStateBubbles.Add(key, null);
                 }
             }
             catch (Exception except)
             {
-                Console.Error.WriteLine("Bad things happened.");
+                Console.Error.WriteLine("Bad things happened: " + except.Message);
             }
         }
 

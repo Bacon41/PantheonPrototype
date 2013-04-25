@@ -145,10 +145,20 @@ namespace PantheonPrototype
 
                 if (obj.Name == "LvlInfo")
                 {
-                    if(obj.Properties.Keys.Contains("DialoguePath"))
+                    Console.WriteLine("Found Level Information");
+                    try
                     {
-                        DialogueLoader dialogueLoader = gameReference.Content.Load<DialogueLoader>(obj.Properties["DialoguePath"].ToString());
-                        this.dialogueManager.Load(dialogueLoader.Conversations);
+                        if (obj.Properties.Keys.Contains("DialogPath"))
+                        {
+                            DialogueLoader dialogueLoader = gameReference.Content.Load<DialogueLoader>(obj.Properties["DialogPath"].Value);
+
+                            Console.WriteLine("DialogPath Found");
+                            this.dialogueManager.Load(dialogueLoader.Conversations);
+                        }
+                    }
+                    catch (Exception except)
+                    {
+                        Console.Error.WriteLine("Could not load the dialogue properly: " + except.Message);
                     }
                 }
             }
