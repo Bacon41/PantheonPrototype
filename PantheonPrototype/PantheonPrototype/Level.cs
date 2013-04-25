@@ -108,7 +108,7 @@ namespace PantheonPrototype
             // This spawns the character in the right place in the map.
             foreach (MapObject obj in levelMap.ObjectLayers["Spawn"].MapObjects)
             {
-                if (obj.Name.Substring(0, 5) == "start" && obj.Name.Substring(5) == oldLevel.Substring(5))
+                if (obj.Name.Substring(0, 5) == "start" && obj.Name.Substring(5) == oldLevel.Substring(5))C:\projects\school\SPRING2013\COSC4843.01\pantheonproto\PantheonPrototype\PantheonPrototypeContent\XML\
                 {
                     this.entities["character"].Location = new Vector2(obj.Bounds.Center.X, obj.Bounds.Center.Y);
                 }
