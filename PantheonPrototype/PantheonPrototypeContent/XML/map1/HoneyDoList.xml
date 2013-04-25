@@ -1,36 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <XnaContent>
-  <Asset Type="LevelLoad.QuestMetaLoader">
-    <Quests>
-      <Item>
-        <QuestTitle>Honey Do List</QuestTitle>
-        <NumberOfObjectives>2</NumberOfObjectives>
-        <Objectives>
-          <Item>
-            <Id>0</Id>
-            <ObjectiveTitle>The First Objective!</ObjectiveTitle>
-            <ObjectiveText>Do this thingy!</ObjectiveText>
-            <Type>Kill</Type>
-            <Target>Enemybooger</Target>
-            <NextObjectives>
-              1
-            </NextObjectives>
-          </Item>
-          <Item>
-            <Id>1</Id>
-            <ObjectiveTitle>Speak</ObjectiveTitle>
-            <ObjectiveText>Speak to the old man.</ObjectiveText>
-            <Type>Speak</Type>
-            <Target>FriendtheOldMan,0</Target>
-            <NextObjectives>
-              0
-            </NextObjectives>
-          </Item>
-        </Objectives>
-        <InitialObjectives>
-          1
-        </InitialObjectives>
-      </Item>
-    </Quests>
-  </Asset>
+  <Asset Type="LevelLoad.QuestMetaLoader"><Quests><Item><QuestTitle>Honey Do List</QuestTitle><NumberOfObjectives>3</NumberOfObjectives><Objectives><Item><Id>0</Id><ObjectiveTitle>The First Objective!</ObjectiveTitle><ObjectiveText>Do this thingy!</ObjectiveText><Type>Kill</Type><Target>Enemybooger</Target><NextObjectives>2</NextObjectives></Item><Item><Id>1</Id><ObjectiveTitle>Speak</ObjectiveTitle><ObjectiveText>Speak to the old man.</ObjectiveText><Type>Speak</Type><Target>FriendtheOldMan,0</Target><NextObjectives>0</NextObjectives></Item><Item><Id>2</Id><ObjectiveTitle>Win!</ObjectiveTitle><ObjectiveText>Congradulations You Win!</ObjectiveText><Type>Win</Type><Target>Honey Do List</Target><NextObjectives>1</NextObjectives></Item></Objectives><InitialObjectives>1</InitialObjectives></Item></Quests></Asset>
 </XnaContent>

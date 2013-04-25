@@ -63,7 +63,7 @@ namespace LevelLoad
 
             objectiveString += NextObjectives[0];
 
-            for (int i = 0; i < NextObjectives.Count; i++)
+            for (int i = 1; i < NextObjectives.Count; i++)
             {
                 objectiveString += "," + NextObjectives[i];
             }

@@ -22,20 +22,20 @@ namespace PantheonPrototype
         public AudioCategory soundEffectCategory;
         public AudioCategory gunshotCategory;
 
-        float backgroundVolume = 0.8f;
+        float backgroundVolume = 1.0f;
         float sfxVolume = 1.0f;
         float gunshotVolume = 0.2f;
 
         Cue backgroundMusicCue = null;
         public Cue sfxCue;
-        Cue previousMusic = null;
+        Cue previousMusic = null;        
 
 
         public AudioManager()
         {
-            engine = new AudioEngine("Content\\XACT Sound File.xgs");
-            waves = new WaveBank(engine, "Content\\Wave Bank.xwb");
-            sounds = new SoundBank(engine, "Content\\Sound Bank.xsb");
+            engine = new AudioEngine("Content/Sound/XACT Sound File.xgs");
+            waves = new WaveBank(engine, "Content/Sound/Wave Bank.xwb");
+            sounds = new SoundBank(engine, "Content/Sound/Sound Bank.xsb");
 
             soundEffectCategory = engine.GetCategory("Sound Effect");
             soundEffectCategory.SetVolume(sfxVolume);
@@ -43,12 +43,15 @@ namespace PantheonPrototype
             backgroundMusicCategory = engine.GetCategory("Music");
             backgroundMusicCategory.SetVolume(backgroundVolume);
 
+            //the default gun sound was much too loud, so I created its own category to set the 
+            //volume for only that sound
             gunshotCategory = engine.GetCategory("Gunshot");
             gunshotCategory.SetVolume(gunshotVolume);
 
             Cue startSplashMusic = sounds.GetCue("Drum n Bass D Coexistant"); 
             playFirstBackgroundMusic(startSplashMusic);
         }
+
         /// <summary>
         /// This method will play the first set of music for the game
         /// </summary>
@@ -62,13 +65,22 @@ namespace PantheonPrototype
             }
         }
 
+        /// <summary>
+        /// This will play sound effects.. YAY!!!
+        /// (based on the string cueName)
+        /// </summary>
+        /// <param name="cueName">the name of the cue that the XACT file attributes to the sound file</param>
         public void playSoundEffect(string cueName)
         {
             Cue soundEffect = sounds.GetCue(cueName);
             soundEffect.Play();
 
         }
-
+        /// <summary>
+        /// This will basically stop any background music that is playing, then will select the new 
+        /// sound file based on the name of the current level 
+        /// </summary>
+        /// <param name="currentLevel">passed from Level (levelNum)</param>
         public void playBackgroundMusic(string currentLevel)
         {
             Cue newMusic;
@@ -111,7 +123,18 @@ namespace PantheonPrototype
                 newMusic.Play();
                 previousMusic = newMusic;
             }
-            
+            else if (currentLevel.Equals("Maps/RebelRoom3"))
+            {
+                newMusic = sounds.GetCue("Dark Rock");
+                newMusic.Play();
+                previousMusic = newMusic;
+            }
+            else if (currentLevel.Equals("Maps/RebelRoom4"))
+            {
+                newMusic = sounds.GetCue("Cool Chill Night");
+                newMusic.Play();
+                previousMusic = newMusic;
+            }   
 
         }
     }
