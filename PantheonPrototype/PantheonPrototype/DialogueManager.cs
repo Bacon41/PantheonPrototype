@@ -78,7 +78,7 @@ namespace PantheonPrototype
         /// 
         /// </summary>
         /// <param name="conversations"></param>
-        public void Load(Dictionary<string, IList> importedConversations)
+        public void Load(Dictionary<string, List<DialogueNodeLoader>> importedConversations)
         {
             try
             {

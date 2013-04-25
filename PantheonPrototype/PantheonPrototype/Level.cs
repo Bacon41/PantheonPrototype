@@ -147,7 +147,8 @@ namespace PantheonPrototype
                 {
                     if(obj.Properties.Keys.Contains("DialoguePath"))
                     {
-                        this.dialogueManager.Load(gameReference.Content.Load<DialogueLoader>(obj.Properties["DialoguePath"].ToString()).Conversations);
+                        DialogueLoader dialogueLoader = gameReference.Content.Load<DialogueLoader>(obj.Properties["DialoguePath"].ToString());
+                        this.dialogueManager.Load(dialogueLoader.Conversations);
                     }
                 }
             }
