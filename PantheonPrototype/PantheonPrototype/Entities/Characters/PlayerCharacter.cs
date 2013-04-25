@@ -456,7 +456,7 @@ namespace PantheonPrototype
             {
                 if (this.ArmedItem.type == (Item.Type.WEAPON) && !((Weapon)this.ArmedItem).Reloading)
                 {
-                    this.ArmedItem.activate(gameReference, this);                             
+                    this.ArmedItem.activate(gameReference, this);
                 }
             }
 

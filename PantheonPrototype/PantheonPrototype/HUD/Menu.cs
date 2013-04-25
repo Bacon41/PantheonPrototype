@@ -469,7 +469,7 @@ namespace PantheonPrototype
                                 {
                                     if (questManager.quests.ElementAt(i).CompletedObjectives != null)
                                     {
-                                        foreach (Objective objective in questManager.quests.ElementAt(i).CompletedObjectives)
+                                        foreach(Objective objective in questManager.quests.ElementAt(i).CompletedObjectives)
                                         {
                                             if (objective.ObjectiveName.Equals(Quests[i, j]))
                                             {

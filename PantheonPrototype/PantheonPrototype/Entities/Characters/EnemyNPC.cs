@@ -38,6 +38,24 @@ namespace PantheonPrototype
                     toDestroy = true;
                 }
             }
+
+            if (!isRoaming)
+            {
+                if (!gameReference.player.CurrentState.Contains("Die"))
+                {
+                    this.EquippedItems["weapon"].activate(gameReference, this);
+                }
+            }
+
+            if (((Weapon)this.EquippedItems["weapon"]).CurrentAmmo == 0 && !((Weapon)this.EquippedItems["weapon"]).Reloading)
+            {
+                ((Weapon)this.EquippedItems["weapon"]).Reload(gameTime);
+            }
+
+            if (currentState.Contains("Die"))
+            {
+                gameReference.audioManager.playSoundEffect("Death");
+            }
         }
     }
 }
