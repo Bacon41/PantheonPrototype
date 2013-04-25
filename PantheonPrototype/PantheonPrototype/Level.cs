@@ -160,6 +160,20 @@ namespace PantheonPrototype
                     {
                         Console.Error.WriteLine("Could not load the dialogue properly: " + except.Message);
                     }
+                    try
+                    {
+                        if (obj.Properties.Keys.Contains("QuestPath"))
+                        {
+                            QuestMetaLoader METALoader = gameReference.Content.Load<QuestMetaLoader>(obj.Properties["QuestPath"].Value);
+
+                            Console.WriteLine("QuestPath Found");
+                            this.dialogueManager.Load(METALoader.Conversations);
+                        }
+                    }
+                    catch (Exception except)
+                    {
+                        Console.Error.WriteLine("Could not load the dialogue properly: " + except.Message);
+                    }
                 }
             }
             Camera.Pos = new Vector2(this.entities["character"].DrawingBox.X + entities["character"].DrawingBox.Width / 2,
