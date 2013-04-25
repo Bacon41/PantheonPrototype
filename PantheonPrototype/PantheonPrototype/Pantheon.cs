@@ -40,6 +40,7 @@ namespace PantheonPrototype
         HUD hud;
 
         SpriteFont debugFont;
+        SpriteFont splashFont;
 
         public AudioManager audioManager;
 
@@ -95,6 +96,7 @@ namespace PantheonPrototype
             player = new PlayerCharacter(this);
 
             debugFont = Content.Load<SpriteFont>("Fonts/DebugFont");
+            splashFont = Content.Load<SpriteFont>("Fonts/SplashFont");
 
             hud = new HUD(GraphicsDevice, Content, SCREEN_WIDTH, SCREEN_HEIGHT, debugFont);
 
@@ -204,7 +206,7 @@ namespace PantheonPrototype
 
             if (ControlManager.actions.Pause)
             {
-                menu.Draw(spriteBatch, debugFont);
+                menu.Draw(spriteBatch, debugFont, splashFont);
             }
             else
             {

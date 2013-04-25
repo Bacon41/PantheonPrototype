@@ -53,6 +53,12 @@ namespace PantheonPrototype
             get { return completedObjectives; }
         }
 
+        public bool DeletionFlag
+        {
+            get;
+            set;
+        }
+
         public Quest()
         {
             objectives = new List<Objective>();
@@ -67,6 +73,8 @@ namespace PantheonPrototype
             {
                 objectives[i].id = i;
             }
+
+            this.DeletionFlag = false;
 
             Console.WriteLine("Creating a quest");
         }

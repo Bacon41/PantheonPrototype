@@ -50,7 +50,7 @@ namespace LevelLoad
 
             questString += InitialObjectives[0];
 
-            for (int i = 0; i < InitialObjectives.Count; i++)
+            for (int i = 1; i < InitialObjectives.Count; i++)
             {
                 questString += "," + InitialObjectives[i];
             }

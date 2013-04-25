@@ -160,6 +160,8 @@ namespace PantheonPrototype
                 bullet.Load(gameReference.Content, bulletType);
 
             gameReference.currentLevel.addList.Add("bullet_" + Bullet.NextId, bullet);
+            //Play the sound effect determined by the soundCueName of the equipped item  
+            gameReference.audioManager.playSoundEffect(holder.ArmedItem.soundCueName);
 
             //Drain a bullet from the current ammo
             currentAmmo--;
