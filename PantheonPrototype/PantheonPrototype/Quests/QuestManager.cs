@@ -155,6 +155,11 @@ namespace PantheonPrototype
                         buildList[objectiveId].nextObjectives = new List<int>(nextObjectives);
 
                         break;
+                    case "Win":
+                        buildList[objectiveId] = new WinObjective(objectiveId, quests.Count);
+                        buildList[objectiveId].nextObjectives = new List<int>(nextObjectives);
+
+                        break;
                     default:
                         break;
                 }
