@@ -26,6 +26,16 @@ namespace LevelLoad
         public int Id;
 
         /// <summary>
+        /// The title of the objective.
+        /// </summary>
+        public string ObjectiveTitle;
+
+        /// <summary>
+        /// Text explaining exactly what the player is supposed to do.
+        /// </summary>
+        public string ObjectiveText;
+
+        /// <summary>
         /// Defines the type of objective (Trigger, Speak, Kill).
         /// </summary>
         public string Type;
@@ -41,16 +51,24 @@ namespace LevelLoad
         /// </summary>
         public List<int> NextObjectives;
 
-        /// <summary>
-        /// The title of the objective.
-        /// </summary>
-        public string ObjectiveTitle;
-
-        /// <summary>
-        /// Text explaining exactly what the player is supposed to do.
-        /// </summary>
-        public string ObjectiveText;
-
         /// END: XML Parsing Section
+
+        public override string ToString()
+        {
+            string objectiveString = "";
+
+            objectiveString += Id + ";";
+            objectiveString += Type + ";";
+            objectiveString += Target + ";";
+
+            foreach (int objId in NextObjectives)
+            {
+                objectiveString += objId + ",";
+            }
+            objectiveString += ";";
+            objectiveString += ObjectiveTitle + ";" + ObjectiveText;
+
+            return objectiveString;
+        }
     }
 }

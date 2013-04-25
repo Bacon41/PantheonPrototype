@@ -94,6 +94,7 @@
   <ItemGroup>
     <Compile Include="DialogueLoader.cs" />
     <Compile Include="DialogueNodeLoader.cs" />
+    <Compile Include="ObjectiveLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuestLoader.cs" />
   </ItemGroup>

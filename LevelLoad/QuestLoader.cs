@@ -17,5 +17,46 @@ namespace LevelLoad
     /// </summary>
     public class QuestLoader
     {
+        /// BEGIN: XML Parsing Section
+
+        /// <summary>
+        /// The title of the quest.
+        /// </summary>
+        public string QuestTitle;
+
+        /// <summary>
+        /// The number of objectives in this quest.
+        /// </summary>
+        public int NumberOfObjectives;
+
+        /// <summary>
+        /// The objectives for the quest.
+        /// </summary>
+        public List<ObjectiveLoader> Objectives;
+
+        /// <summary>
+        /// A list of the initial objectives of the quest.
+        /// These are given by listing the ids of each objective.
+        /// </summary>
+        public List<int> InitialObjectives;
+
+        /// END: XML Parsing Section
+
+        public override string ToString()
+        {
+            string questString = "";
+
+            questString += NumberOfObjectives + ";";
+
+            foreach (int objId in InitialObjectives)
+            {
+                questString += objId + ",";
+            }
+            questString += ";";
+
+            questString += QuestTitle;
+
+            return questString;
+        }
     }
 }
