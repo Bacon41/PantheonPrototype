@@ -37,6 +37,7 @@ namespace PantheonPrototype
             Info = "This is the sniper Rifle\n" +
                    "   It has MUCH better range and damage\n" +
                    "   but it's reload time is not great.\n";
+            soundCueName = "sniperFire";
         }
 
     }

@@ -25,6 +25,7 @@ namespace PantheonPrototype
         protected String info;
         protected String itemTag;
         public int type;
+        public string soundCueName;
 
         /// <summary>
         /// The text that shows in the inventory when selected

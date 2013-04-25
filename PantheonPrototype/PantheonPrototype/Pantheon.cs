@@ -41,6 +41,8 @@ namespace PantheonPrototype
 
         SpriteFont debugFont;
 
+        public AudioManager audioManager;
+
         public Pantheon()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -103,6 +105,8 @@ namespace PantheonPrototype
             EventManager = new EventManager(this);
 
             QuestManager = new QuestManager(this);
+
+            audioManager = new AudioManager();
 
             base.Initialize();
         }
