@@ -105,6 +105,7 @@ namespace PantheonPrototype
         /// <param name="holder">A reference to the character holding the weapon.</param>
         public virtual void activate(Pantheon gameReference, CharacterEntity holder)
         {
+            //gameReference.audioManager.playSoundEffect(soundCueName);
         }
     }
 }

@@ -351,11 +351,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sound\Button Click.wav">
-      <Name>Button Click</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
     <Compile Include="Chill Dark.wav">
       <Name>Chill Dark</Name>
       <Importer>WavImporter</Importer>
@@ -368,11 +363,6 @@
     </Compile>
     <Compile Include="Chillectro.wav">
       <Name>Chillectro</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-    <Compile Include="Sound\defaultGunFire.wav">
-      <Name>defaultGunFire</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
@@ -391,17 +381,32 @@
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="Sound\reload.wav">
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Sound\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="defaultGunFire.wav">
+      <Name>defaultGunFire</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Laser_Cannon.wav">
+      <Name>Laser_Cannon</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="reload.wav">
       <Name>reload</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="Sound\shotgunFire.wav">
-      <Name>shotgunFire</Name>
+    <Compile Include="shieldPower.wav">
+      <Name>shieldPower</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="Sound\sniperFire.wav">
+    <Compile Include="sniperFire.wav">
       <Name>sniperFire</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>

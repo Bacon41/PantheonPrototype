@@ -40,6 +40,7 @@ namespace PantheonPrototype
                    "   reload time. Also, watch\n" +
                    "   out for Butterflies carring\n" +
                    "   this weapon!";
+            soundCueName = "laserCannon";
         }
 
     }

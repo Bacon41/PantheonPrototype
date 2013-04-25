@@ -16,8 +16,8 @@ Global Settings
     Header File = XACT Sound File.h;
     Exclude Category Names = 0;
     Exclude Variable Names = 0;
-    Last Modified Low = 0;
-    Last Modified High = 0;
+    Last Modified Low = 2309111496;
+    Last Modified High = 30294429;
 
     Category
     {
@@ -99,6 +99,32 @@ Global Settings
     Category
     {
         Name = Sound Effect;
+        Public = 1;
+        Background Music = 0;
+        Volume = 0;
+
+        Category Entry
+        {
+            Name = Global;
+        }
+
+        Instance Limit
+        {
+            Max Instances = 255;
+            Behavior = 0;
+
+            Crossfade
+            {
+                Fade In = 0;
+                Fade Out = 0;
+                Crossfade Type = 0;
+            }
+        }
+    }
+
+    Category
+    {
+        Name = Gunshot;
         Public = 1;
         Background Music = 0;
         Volume = 0;
@@ -251,15 +277,19 @@ Wave Bank
     Windows Bank Path Edited = 0;
     Seek Tables = 1;
     Compression Preset Name = <none>;
-    Bank Last Revised Low = 4261242806;
-    Bank Last Revised High = 30294417;
+    Xbox Bank Last Modified Low = 0;
+    Xbox Bank Last Modified High = 0;
+    PC Bank Last Modified Low = 4076561295;
+    PC Bank Last Modified High = 30294442;
+    Bank Last Revised Low = 3864489165;
+    Bank Last Revised High = 30294442;
 
     Wave
     {
         Name = Chill Dark;
-        File = Sounds\Chill Dark.wav;
-        Build Settings Last Modified Low = 1971891863;
-        Build Settings Last Modified High = 30294417;
+        File = C:\Users\Bob\Documents\GitHub\PantheonPrototype\PantheonPrototype\PantheonPrototypeContent\Chill Dark.wav;
+        Build Settings Last Modified Low = 1136829359;
+        Build Settings Last Modified High = 30294426;
 
         Cache
         {
@@ -272,17 +302,17 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 4062170222;
-            Last Modified High = 30292673;
+            Last Modified Low = 2791587109;
+            Last Modified High = 30294418;
         }
     }
 
     Wave
     {
         Name = Chill Deep;
-        File = Sounds\Chill Deep.wav;
-        Build Settings Last Modified Low = 1971901864;
-        Build Settings Last Modified High = 30294417;
+        File = C:\Users\Bob\Documents\GitHub\PantheonPrototype\PantheonPrototype\PantheonPrototypeContent\Chill Deep.wav;
+        Build Settings Last Modified Low = 1136839360;
+        Build Settings Last Modified High = 30294426;
 
         Cache
         {
@@ -295,17 +325,17 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 484325013;
-            Last Modified High = 30294329;
+            Last Modified Low = 2792177143;
+            Last Modified High = 30294418;
         }
     }
 
     Wave
     {
         Name = Chillectro;
-        File = Sounds\Chillectro.wav;
-        Build Settings Last Modified Low = 1971901864;
-        Build Settings Last Modified High = 30294417;
+        File = C:\Users\Bob\Documents\GitHub\PantheonPrototype\PantheonPrototype\PantheonPrototypeContent\Chillectro.wav;
+        Build Settings Last Modified Low = 1136849360;
+        Build Settings Last Modified High = 30294426;
 
         Cache
         {
@@ -318,17 +348,17 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 281505179;
-            Last Modified High = 30294417;
+            Last Modified Low = 2805207888;
+            Last Modified High = 30294418;
         }
     }
 
     Wave
     {
         Name = defaultGunFire;
-        File = Sounds\defaultGunFire.wav;
-        Build Settings Last Modified Low = 1971911864;
-        Build Settings Last Modified High = 30294417;
+        File = C:\Users\Bob\Documents\GitHub\PantheonPrototype\PantheonPrototype\PantheonPrototypeContent\defaultGunFire.wav;
+        Build Settings Last Modified Low = 1136849360;
+        Build Settings Last Modified High = 30294426;
 
         Cache
         {
@@ -341,17 +371,17 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3114757516;
-            Last Modified High = 30294073;
+            Last Modified Low = 2806507962;
+            Last Modified High = 30294418;
         }
     }
 
     Wave
     {
         Name = Drum n Bass D Coexistant;
-        File = Sounds\Drum n Bass D Coexistant.wav;
-        Build Settings Last Modified Low = 1971911864;
-        Build Settings Last Modified High = 30294417;
+        File = C:\Users\Bob\Documents\GitHub\PantheonPrototype\PantheonPrototype\PantheonPrototypeContent\Drum n Bass D Coexistant.wav;
+        Build Settings Last Modified Low = 1137439394;
+        Build Settings Last Modified High = 30294426;
 
         Cache
         {
@@ -364,17 +394,17 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 528186451;
-            Last Modified High = 30292674;
+            Last Modified Low = 2818158629;
+            Last Modified High = 30294418;
         }
     }
 
     Wave
     {
         Name = Electro DnB B Chaos;
-        File = Sounds\Electro DnB B Chaos.wav;
-        Build Settings Last Modified Low = 1971911864;
-        Build Settings Last Modified High = 30294417;
+        File = C:\Users\Bob\Documents\GitHub\PantheonPrototype\PantheonPrototype\PantheonPrototypeContent\Electro DnB B Chaos.wav;
+        Build Settings Last Modified Low = 1137669407;
+        Build Settings Last Modified High = 30294426;
 
         Cache
         {
@@ -387,17 +417,17 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 756159491;
-            Last Modified High = 30292674;
+            Last Modified Low = 2829489277;
+            Last Modified High = 30294418;
         }
     }
 
     Wave
     {
         Name = Fantastic A;
-        File = Sounds\Fantastic A.wav;
-        Build Settings Last Modified Low = 1971921865;
-        Build Settings Last Modified High = 30294417;
+        File = C:\Users\Bob\Documents\GitHub\PantheonPrototype\PantheonPrototype\PantheonPrototypeContent\Fantastic A.wav;
+        Build Settings Last Modified Low = 1137879419;
+        Build Settings Last Modified High = 30294426;
 
         Cache
         {
@@ -410,17 +440,17 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 749691957;
-            Last Modified High = 30294417;
+            Last Modified Low = 2839819868;
+            Last Modified High = 30294418;
         }
     }
 
     Wave
     {
         Name = reload;
-        File = Sounds\reload.wav;
-        Build Settings Last Modified Low = 1971921865;
-        Build Settings Last Modified High = 30294417;
+        File = C:\Users\Bob\Documents\GitHub\PantheonPrototype\PantheonPrototype\PantheonPrototypeContent\reload.wav;
+        Build Settings Last Modified Low = 1137889420;
+        Build Settings Last Modified High = 30294426;
 
         Cache
         {
@@ -433,17 +463,17 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1750769216;
-            Last Modified High = 30294417;
+            Last Modified Low = 2840759922;
+            Last Modified High = 30294418;
         }
     }
 
     Wave
     {
         Name = shotgunFire;
-        File = Sounds\shotgunFire.wav;
-        Build Settings Last Modified Low = 1971931865;
-        Build Settings Last Modified High = 30294417;
+        File = C:\Users\Bob\Documents\GitHub\PantheonPrototype\PantheonPrototype\PantheonPrototypeContent\shotgunFire.wav;
+        Build Settings Last Modified Low = 1137899420;
+        Build Settings Last Modified High = 30294426;
 
         Cache
         {
@@ -456,17 +486,17 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3164920386;
-            Last Modified High = 30294073;
+            Last Modified Low = 2842440018;
+            Last Modified High = 30294418;
         }
     }
 
     Wave
     {
         Name = sniperFire;
-        File = Sounds\sniperFire.wav;
-        Build Settings Last Modified Low = 1971931865;
-        Build Settings Last Modified High = 30294417;
+        File = C:\Users\Bob\Documents\GitHub\PantheonPrototype\PantheonPrototype\PantheonPrototypeContent\sniperFire.wav;
+        Build Settings Last Modified Low = 1137899420;
+        Build Settings Last Modified High = 30294426;
 
         Cache
         {
@@ -479,40 +509,40 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3181151314;
-            Last Modified High = 30294073;
+            Last Modified Low = 2842880043;
+            Last Modified High = 30294418;
         }
     }
 
     Wave
     {
         Name = shieldPower;
-        File = Sounds\shieldPower.wav;
-        Build Settings Last Modified Low = 3414554379;
-        Build Settings Last Modified High = 30294417;
+        File = C:\Users\Bob\Documents\GitHub\PantheonPrototype\PantheonPrototype\PantheonPrototypeContent\shieldPower.wav;
+        Build Settings Last Modified Low = 1453947497;
+        Build Settings Last Modified High = 30294426;
 
         Cache
         {
             Format Tag = 0;
             Channels = 2;
-            Sampling Rate = 96000;
+            Sampling Rate = 44100;
             Bits Per Sample = 1;
             Play Region Offset = 44;
-            Play Region Length = 483840;
+            Play Region Length = 313344;
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3123407726;
-            Last Modified High = 30294417;
+            Last Modified Low = 1545204355;
+            Last Modified High = 30294425;
         }
     }
 
     Wave
     {
         Name = Button Click;
-        File = Sounds\Button Click.wav;
-        Build Settings Last Modified Low = 4237781465;
-        Build Settings Last Modified High = 30294417;
+        File = C:\Users\Bob\Documents\GitHub\PantheonPrototype\PantheonPrototype\PantheonPrototypeContent\Button Click.wav;
+        Build Settings Last Modified Low = 1453957498;
+        Build Settings Last Modified High = 30294426;
 
         Cache
         {
@@ -525,8 +555,54 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3990097298;
-            Last Modified High = 30294417;
+            Last Modified Low = 2788186915;
+            Last Modified High = 30294418;
+        }
+    }
+
+    Wave
+    {
+        Name = warning;
+        File = warning.wav;
+        Build Settings Last Modified Low = 4089183655;
+        Build Settings Last Modified High = 30294441;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 261008;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 3686820641;
+            Last Modified High = 30294441;
+        }
+    }
+
+    Wave
+    {
+        Name = Laser_Cannon;
+        File = Laser_Cannon.wav;
+        Build Settings Last Modified Low = 3839997765;
+        Build Settings Last Modified High = 30294442;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 344656;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 1446208692;
+            Last Modified High = 30294425;
         }
     }
 }
@@ -538,6 +614,10 @@ Sound Bank
     Windows File = Win\Sound Bank.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
+    Bank Last Modified Low = 4143695135;
+    Bank Last Modified High = 30294442;
+    Header Last Modified High = 0;
+    Header Last Modified Low = 0;
 
     Sound
     {
@@ -643,7 +723,7 @@ Sound Bank
 
         Category Entry
         {
-            Name = Sound Effect;
+            Name = Gunshot;
         }
 
         Track
@@ -1109,6 +1189,100 @@ Sound Bank
         }
     }
 
+    Sound
+    {
+        Name = warning;
+        Volume = -1200;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Sound Effect;
+        }
+
+        Track
+        {
+            Volume = 0;
+            Use Filter = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaker Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = Wave Bank;
+                    Bank Index = 0;
+                    Entry Name = warning;
+                    Entry Index = 12;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = Laser_Cannon;
+        Volume = -1200;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Sound Effect;
+        }
+
+        Track
+        {
+            Volume = 0;
+            Use Filter = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaker Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = Wave Bank;
+                    Bank Index = 0;
+                    Entry Name = Laser_Cannon;
+                    Entry Index = 13;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
     Cue
     {
         Name = sniperFire;
@@ -1344,6 +1518,46 @@ Sound Bank
         {
             Name = Button Click;
             Index = 11;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
+
+    Cue
+    {
+        Name = warning;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = warning;
+            Index = 12;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
+
+    Cue
+    {
+        Name = laserCannon;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = Laser_Cannon;
+            Index = 13;
             Weight Min = 0;
             Weight Max = 255;
         }

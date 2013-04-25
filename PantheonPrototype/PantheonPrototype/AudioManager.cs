@@ -20,9 +20,11 @@ namespace PantheonPrototype
 
         public AudioCategory backgroundMusicCategory;
         public AudioCategory soundEffectCategory;
+        public AudioCategory gunshotCategory;
 
         float backgroundVolume = 0.8f;
-        float sfxVolume = 0.4f;
+        float sfxVolume = 1.0f;
+        float gunshotVolume = 0.2f;
 
         Cue backgroundMusicCue = null;
         public Cue sfxCue;
@@ -41,7 +43,9 @@ namespace PantheonPrototype
 
             backgroundMusicCategory = engine.GetCategory("Music");
             backgroundMusicCategory.SetVolume(backgroundVolume);
-            
+
+            gunshotCategory = engine.GetCategory("Gunshot");
+            gunshotCategory.SetVolume(gunshotVolume);
 
             Cue startSplashMusic = sounds.GetCue("Drum n Bass D Coexistant"); 
             playFirstBackgroundMusic(startSplashMusic);
