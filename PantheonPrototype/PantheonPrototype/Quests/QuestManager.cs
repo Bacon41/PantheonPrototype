@@ -108,6 +108,8 @@ namespace PantheonPrototype
                              where objectiveKey.Contains("Objective")
                              select objectiveKey;
 
+            Console.WriteLine("Creating quest: " + questName);
+
             // Create each objective as appropriate
             foreach(string objective in objectives)
             {
@@ -155,9 +157,16 @@ namespace PantheonPrototype
                         buildList[objectiveId].nextObjectives = new List<int>(nextObjectives);
 
                         break;
+                    case "Win":
+                        buildList[objectiveId] = new WinObjective(objectiveId, quests.Count);
+                        buildList[objectiveId].nextObjectives = new List<int>(nextObjectives);
+
+                        break;
                     default:
                         break;
                 }
+
+                Console.WriteLine("  Adding objective: " + objectiveName);
 
                 buildList[objectiveId].ObjectiveName = objectiveName;
                 buildList[objectiveId].ObjectiveText = objectiveText;
@@ -169,6 +178,8 @@ namespace PantheonPrototype
             // Set the current objectives of the quest
             for (int i = 0; i < firstObjectives.Length; i++)
             {
+                Console.WriteLine("Setting current objective: " + firstObjectives[i]);
+
                 buildQuest.setCurrentObjective(firstObjectives[i]);
             }
 
@@ -189,12 +200,13 @@ namespace PantheonPrototype
         public void CompleteQuest(Event eventInfo)
         {
             Dictionary<string, string> payload = new Dictionary<string, string>();
-            payload.Add("QuestName", eventInfo.gameReference.QuestManager.quests[Int32.Parse(eventInfo.payload["QuestId"])].QuestTitle);
+            payload.Add("QuestName", eventInfo.GameReference.QuestManager.quests[Int32.Parse(eventInfo.payload["QuestId"])].QuestTitle);
             Event questCompleteEvent = new Event("QuestComplete", payload);
-            eventInfo.gameReference.EventManager.notify(questCompleteEvent);
+            eventInfo.GameReference.EventManager.notify(questCompleteEvent);
 
             // Remove the complete quest
-            quests.RemoveAt(Int32.Parse(eventInfo.payload["QuestId"]));
+            quests[Int32.Parse(eventInfo.payload["QuestId"])].DeletionFlag = true;
+            //quests.RemoveAt(Int32.Parse(eventInfo.payload["QuestId"]));
         }
 
         /// <summary>
@@ -207,9 +219,17 @@ namespace PantheonPrototype
         /// <param name="gameTime">Time since the last update cycle.</param>
         public void Update(GameTime gameTime, Pantheon gameReference)
         {
-            foreach (Quest quest in this.quests)
+            for (int i = 0; i < quests.Count; i++ )
             {
-                quest.Update(gameTime, gameReference);
+                if (quests[i] != null)
+                {
+                    quests[i].Update(gameTime, gameReference);
+
+                    if (quests[i].DeletionFlag)
+                    {
+                        quests.RemoveAt(i);
+                    }
+                }
             }
         }
     }

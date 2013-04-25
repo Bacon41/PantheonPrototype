@@ -251,7 +251,7 @@ namespace PantheonPrototype
             {
                 Event resetAlerts = new Event();
                 resetAlerts.Type = "InteractionAlert";
-                resetAlerts.gameReference = gameReference;
+                resetAlerts.GameReference = gameReference;
                 resetAlerts.payload["EntityKey"] = entityKey;
                 resetAlerts.payload["State"] = DialogueManager.STATE_NONE;
 
@@ -285,7 +285,7 @@ namespace PantheonPrototype
                 Event talkWithPeople = new Event();
 
                 talkWithPeople.Type = "NONE";
-                talkWithPeople.gameReference = gameReference;
+                talkWithPeople.GameReference = gameReference;
                 talkWithPeople.payload = new Dictionary<string,string>();
                 
                 talkWithPeople.payload["EntityKey"] = theClosestDudesName;
@@ -456,8 +456,7 @@ namespace PantheonPrototype
             {
                 if (this.ArmedItem.type == (Item.Type.WEAPON) && !((Weapon)this.ArmedItem).Reloading)
                 {
-                    this.ArmedItem.activate(gameReference, this);            
-                    string ammo = ((Weapon)this.ArmedItem).CurrentAmmo.ToString(); 
+                    this.ArmedItem.activate(gameReference, this);
                 }
             }
 

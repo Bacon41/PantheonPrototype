@@ -230,7 +230,7 @@ namespace PantheonPrototype
         protected void interact(Event firedEvent)
         {
             string entityName = firedEvent.payload["EntityKey"];
-            Entity entity = firedEvent.gameReference.currentLevel.Entities[entityName];
+            Entity entity = firedEvent.GameReference.currentLevel.Entities[entityName];
 
             if (this.conversations.Keys.Contains(firedEvent.payload["EntityKey"]))
             {
@@ -277,7 +277,7 @@ namespace PantheonPrototype
         protected void interactAlert(Event firedEvent)
         {
             string entityName = firedEvent.payload["EntityKey"];
-            Entity entity = firedEvent.gameReference.currentLevel.Entities[entityName];
+            Entity entity = firedEvent.GameReference.currentLevel.Entities[entityName];
 
             try
             {
@@ -305,7 +305,7 @@ namespace PantheonPrototype
         protected void spontaneousConversation(Event firedEvent)
         {
             string entityName = firedEvent.payload["EntityKey"];
-            Entity entity = firedEvent.gameReference.currentLevel.Entities[entityName];
+            Entity entity = firedEvent.GameReference.currentLevel.Entities[entityName];
 
             if (this.npcStates[entityName] == DialogueManager.STATE_TALKING) return;
 
