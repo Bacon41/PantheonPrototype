@@ -6,28 +6,33 @@
 				<Value>
 					<Item>
 						<NextState>1</NextState>
-						<Text>It is dangerous to go alone.</Text>
+						<Text>Thank goodness you've come, Captain Butch Hardstone</Text>
 					</Item>
 					
 					<Item>
 						<NextState>2</NextState>
-						<Text>Here, take this...</Text>
+						<Text>We've had a serious alien invasion in our office building!</Text>
 					</Item>
 					
 					<Item>
 						<NextState>3</NextState>
-						<Text>Also, dragons are the best.</Text>
+						<Text>They're taking all our vacuum tubes and we have nothing else to use as paper weights!</Text>
 					</Item>
 					
 					<Item>
 						<NextState>4</NextState>
-						<Text>EMACs is better then VIM.</Text>
+						<Text>Can you please kill all the aliens in the building?</Text>
 					</Item>
 					
 					<Item>
-						<NextState>0</NextState>
-						<Text>Yes, Tumbler, I am serious.</Text>
+						<NextState>5</NextState>
+						<Text>Our entire livilihood depends on it!</Text>
 					</Item>
+
+          <Item>
+            <NextState>0</NextState>
+            <Text>Come back to me when you've gotten rid of all the aliens!</Text>
+          </Item>
 				</Value>
 			</Item>
 		</Conversations>
