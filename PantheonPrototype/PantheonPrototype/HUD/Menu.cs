@@ -186,7 +186,7 @@ namespace PantheonPrototype
                         }
                     }
                     int count = 0;
-
+                    Quests = new string[30, 10];
                     foreach(Quest quest in questManager.quests)
                     {
                         Quests[count,0] = quest.QuestTitle;
