@@ -262,6 +262,8 @@ namespace PantheonPrototype
                     newEvent.GameReference = firedEvent.GameReference;
                     newEvent.Type = firedEvent.payload["EntityKey"] + "Speaking";
                     newEvent.payload.Add("State", "" + this.currentConversationState);
+
+                    firedEvent.GameReference.EventManager.notify(newEvent);
                 }
             }
             else
