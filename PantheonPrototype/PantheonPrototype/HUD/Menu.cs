@@ -30,6 +30,8 @@ namespace PantheonPrototype
         protected Texture2D inventoryBackgroundTex;
         protected String menuState;
         protected Inventory inventory;
+        protected string[,] Quests;
+        QuestManager questManager;
 
         protected int SCREEN_WIDTH;
         protected int SCREEN_HEIGHT;
@@ -51,6 +53,10 @@ namespace PantheonPrototype
             this.SCREEN_WIDTH = SCREEN_WIDTH;
             this.SCREEN_HEIGHT = SCREEN_HEIGHT;
             offset = 0;
+
+            // This makes our maxiumum quests 30 and our maximum objectives per quest 10.
+            Quests = new string[30,10];
+            
         }
 
         public void Load(Pantheon gameReference)
@@ -73,6 +79,8 @@ namespace PantheonPrototype
             inventory = new Inventory(SCREEN_WIDTH, SCREEN_HEIGHT, gameReference);
             
             loadDefaultMenu(gameReference);
+
+            questManager = gameReference.QuestManager;
         }
 
         /// <summary>
@@ -173,6 +181,19 @@ namespace PantheonPrototype
                             menuState = "inventory";
                         }
                     }
+                    int count = 0;
+
+                    foreach(Quest quest in questManager.quests)
+                    {
+                        Quests[count,0] = quest.QuestTitle;
+                        int count2 = 1;
+                        foreach (Objective objective in quest.objectives)
+                        {
+                            Quests[count, count2] = objective.ObjectiveName;
+                        }
+                        count++;
+                    }
+
                     break;
 
                 case "inventory":
@@ -203,7 +224,7 @@ namespace PantheonPrototype
                     inventory.movingBox.Y = (int)(gameReference.ControlManager.actions.CursorPosition.Y - (.0835 * SCREEN_HEIGHT)/2);
 
 
-                    int count = 0;
+                    count = 0;
                     foreach (string itemName in this.inventoryButtons.Keys)
                     {
                         // Update every Button
@@ -405,6 +426,37 @@ namespace PantheonPrototype
                     {
                         this.items[itemName].Draw(spriteBatch);
                     }
+
+                    Color color;
+                    int count = 0;
+                    for (int i = 0; i < 30; i++)
+                    {
+                        if (Quests[i,0] != null)
+                        {
+                            spriteBatch.DrawString(Font, Quests[i,0], new Vector2(41, 41*(i+count)), Color.OrangeRed);
+                            color = Color.Orange;
+                            for (int j = 1; j < 10; j++)
+                            {
+                                if (Quests[i, j] != null)
+                                {
+                                    if (questManager.quests.ElementAt(i).CompletedObjectives != null)
+                                    {
+                                        foreach (Objective objective in questManager.quests.ElementAt(i).CompletedObjectives)
+                                        {
+                                            if (objective.ObjectiveName.Equals(Quests[i, j]))
+                                            {
+                                                color = Color.Gray;
+                                            }
+
+                                        }
+                                    }
+                                    spriteBatch.DrawString(Font, "    " + Quests[i, j], new Vector2(41, 41 * (i + j)), color);
+                                    count++;
+                                }
+                            }
+                        }
+                    }
+
                     break;
                 case "inventory":
 
