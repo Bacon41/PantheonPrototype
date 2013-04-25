@@ -143,5 +143,31 @@ namespace PantheonPrototype
 
             return angle;
         }
+
+        public static String GetDirection(Direction direction)
+        {
+             switch (direction)
+            {
+                case Direction.forward:
+                    return "Forward";
+                case Direction.forwardLeft:
+                    return "Forward Left";
+                case Direction.Left:
+                    return "Left";
+                case Direction.backLeft:
+                    return "Back Left";
+                case Direction.back:
+                    return "Back";
+                case Direction.backRight:
+                    return "Back Right";
+                case Direction.Right:
+                    return "Right";
+                case Direction.forwardRight:
+                    return "Forward Right";
+                default:
+                    return "Forward";
+            }
+        }
+
     }
 }

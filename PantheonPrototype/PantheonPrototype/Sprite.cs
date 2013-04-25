@@ -89,6 +89,11 @@ namespace PantheonPrototype
             set { opacity = (int)(value * (2.55)); }
         }
 
+        public bool isComplete()
+        {
+            return (incrementor == 0); 
+        }
+
         public Sprite()
         {
             stateRange = new Dictionary<string, FrameRange>();

@@ -50,6 +50,14 @@ namespace PantheonPrototype
             this.Sprite.addState("Move Left", 3, 5, true, false);
             this.Sprite.addState("Move Right", 6, 8, true, false);
             this.Sprite.addState("Move Back", 9, 11, true, false);
+            this.Sprite.addState("Die Back", 9, 11, false, false);
+            this.Sprite.addState("Die Back Right", 9, 11, false, false);
+            this.Sprite.addState("Die Back Left", 9, 11, false, false);
+            this.Sprite.addState("Die Left", 9, 11, false, false);
+            this.Sprite.addState("Die Right", 9, 11, false, false);
+            this.Sprite.addState("Die Forward Right", 9, 11, false, false);
+            this.Sprite.addState("Die Forward Left", 9, 11, false, false);
+            this.Sprite.addState("Die Forward", 9, 11, false, false);
 
             //Load the interaction information
             // DO IT --
