@@ -167,7 +167,7 @@ namespace PantheonPrototype
                             QuestMetaLoader METALoader = gameReference.Content.Load<QuestMetaLoader>(obj.Properties["QuestPath"].Value);
 
                             Console.WriteLine("QuestPath Found");
-                            this.dialogueManager.Load(METALoader.Conversations);
+                            
                         }
                     }
                     catch (Exception except)
