@@ -293,6 +293,8 @@ namespace PantheonPrototype
                 if (gameReference.ControlManager.actions.Interact)
                 {
                     talkWithPeople.Type = "Interaction";
+                    //Button Click sound when you press interaction key in the area of an interaction
+                    gameReference.audioManager.playSoundEffect("Button Click");
                 }
                 else
                 {
@@ -454,7 +456,14 @@ namespace PantheonPrototype
             {
                 if (this.ArmedItem.type == (Item.Type.WEAPON) && !((Weapon)this.ArmedItem).Reloading)
                 {
-                    this.ArmedItem.activate(gameReference, this);
+                    this.ArmedItem.activate(gameReference, this);            
+                    string ammo = ((Weapon)this.ArmedItem).CurrentAmmo.ToString(); 
+                    if (!ammo.Equals("0"))
+                    {
+                        //Play the sound effect determined by the soundCueName of the equipped item  
+                        gameReference.audioManager.playSoundEffect(this.ArmedItem.soundCueName);
+                    }
+                 
                 }
             }
 
@@ -463,7 +472,13 @@ namespace PantheonPrototype
             {
                 if (gameReference.ControlManager.actions.Reload && !((Weapon)this.ArmedItem).Reloading)
                 {
-                    ((Weapon)this.ArmedItem).Reload(gameTime);
+                    //check if you have fired a shot before you reload your gun...otherwise, what's the point?
+                    if(!(((Weapon)this.ArmedItem).CurrentAmmo.ToString().Equals(((Weapon)this.ArmedItem).TotalAmmo.ToString())))
+                    {
+                        gameReference.audioManager.playSoundEffect("reload");
+                        ((Weapon)this.ArmedItem).Reload(gameTime);
+                    }
+                        
                 }
             }
 
@@ -473,6 +488,8 @@ namespace PantheonPrototype
                 if (!(inventory.equipped.ElementAt(6).isNull))
                 {
                     EquippedItems["shield"].activate(gameReference, this);
+                    
+                    gameReference.audioManager.playSoundEffect("shieldPower");
                 }
             }
 
@@ -480,6 +497,7 @@ namespace PantheonPrototype
             if (((Shield)(EquippedItems["shield"])).ShieldOn && inventory.equipped.ElementAt(6).isNull)
             {
                 EquippedItems["shield"].activate(gameReference, this);
+                
             }
 
             //Ammo and shield cheat

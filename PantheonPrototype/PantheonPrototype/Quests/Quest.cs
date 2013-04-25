@@ -109,6 +109,8 @@ namespace PantheonPrototype
                         {
                             currentObjectives.Add(objectives[objectiveId]);
                             objectives[objectiveId].Initialize(gameReference);
+
+                            Console.WriteLine("Activating " + objectives[objectiveId].ObjectiveName);
                         }
                     }
 

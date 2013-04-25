@@ -25,6 +25,7 @@ namespace PantheonPrototype
         protected String info;
         protected String itemTag;
         public int type;
+        public string soundCueName;
 
         /// <summary>
         /// The text that shows in the inventory when selected
@@ -104,6 +105,7 @@ namespace PantheonPrototype
         /// <param name="holder">A reference to the character holding the weapon.</param>
         public virtual void activate(Pantheon gameReference, CharacterEntity holder)
         {
+            //gameReference.audioManager.playSoundEffect(soundCueName);
         }
     }
 }

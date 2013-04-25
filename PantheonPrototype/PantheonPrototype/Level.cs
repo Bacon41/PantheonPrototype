@@ -201,6 +201,8 @@ namespace PantheonPrototype
             payload.Add("QuestName", "Honey Do List");
             Event eventInfo = new Event("ActivateQuest", payload);
             gameReference.EventManager.notify(eventInfo);
+
+            gameReference.audioManager.playBackgroundMusic(levelNum);
         }
         
         /// <summary>
