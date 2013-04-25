@@ -328,7 +328,13 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="XML\map1\HoneyDoList.xml">
+      <Name>HoneyDoList</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="XML\map1\TheWords.xml">
       <Name>TheWords</Name>

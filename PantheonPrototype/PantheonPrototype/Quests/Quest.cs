@@ -41,6 +41,18 @@ namespace PantheonPrototype
         /// </summary>
         private List<Objective> currentObjectives;
 
+        public List<Objective> CurrentObjectives
+        {
+            get { return currentObjectives; }
+        }
+
+        private List<Objective> completedObjectives;
+
+        public List<Objective> CompletedObjectives
+        {
+            get { return completedObjectives; }
+        }
+
         public Quest()
         {
             objectives = new List<Objective>();

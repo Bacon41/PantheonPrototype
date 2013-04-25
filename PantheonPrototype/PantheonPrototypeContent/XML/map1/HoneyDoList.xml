@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Asset Type="LevelLoad.QuestMetaLoader">
+    <Quests>
+      <Item>
+        <QuestTitle>Honey Do List</QuestTitle>
+        <NumberOfObjectives>1</NumberOfObjectives>
+        <Objectives>
+          <Item>
+            <Id>0</Id>
+            <ObjectiveTitle>The First Objective!</ObjectiveTitle>
+            <ObjectiveText>Do this thingy!</ObjectiveText>
+            <Type>Trigger</Type>
+            <Target>ThatOneTrigger</Target>
+            <NextObjectives>
+              0
+            </NextObjectives>
+          </Item>
+        </Objectives>
+        <InitialObjectives>
+          0
+        </InitialObjectives>
+      </Item>
+    </Quests>
+  </Asset>
+</XnaContent>

@@ -126,6 +126,11 @@ namespace PantheonPrototype
         {
             HandleEvent eventHandler = this.HandleNotification;
             gameReference.EventManager.unregister(this.EventType, eventHandler);
+
+            Dictionary<string, string> payload = new Dictionary<string, string>();
+            payload.Add("ObjectiveName", objectiveName);
+            Event eventInfo = new Event("ObjectiveCompleteEvent", payload);
+            gameReference.EventManager.notify(eventInfo);
         }
 
         /// <summary>
