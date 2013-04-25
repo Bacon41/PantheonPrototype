@@ -15,7 +15,7 @@ namespace LevelLoad
     /// <summary>
     /// Loads the objective thingies. Creativity ftw.
     /// </summary>
-    class ObjectiveLoader
+    public class ObjectiveLoader
     {
         /// BEGIN: XML Parsing Section
 

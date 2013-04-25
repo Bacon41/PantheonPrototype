@@ -15,7 +15,7 @@ namespace LevelLoad
     /// <summary>
     /// Loads all the quests.
     /// </summary>
-    class QuestMetaLoader
+    public class QuestMetaLoader
     {
         /// <summary>
         /// A list of all the quests.
