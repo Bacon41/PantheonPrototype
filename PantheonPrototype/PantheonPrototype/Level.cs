@@ -178,6 +178,25 @@ namespace PantheonPrototype
                     {
                         Console.Error.WriteLine("Could not load the quests properly: " + except.Message);
                     }
+
+                    try
+                    {
+                        if (obj.Properties.Keys.Contains("InitialQuest"))
+                        {
+                            // Load the test quest
+                            Dictionary<string, string> payload = new Dictionary<string, string>();
+                            payload.Add("QuestName", obj.Properties["InitialQuest"].Value);
+                            Event eventInfo = new Event("ActivateQuest", payload);
+                            gameReference.EventManager.notify(eventInfo);
+
+                            Console.WriteLine("InitialQuest Found");
+                            
+                        }
+                    }
+                    catch (Exception except)
+                    {
+                        Console.Error.WriteLine("Could not load the initial quest properly: " + except.Message);
+                    }
                 }
             }
             Camera.Pos = new Vector2(this.entities["character"].DrawingBox.X + entities["character"].DrawingBox.Width / 2,
@@ -195,12 +214,6 @@ namespace PantheonPrototype
             // Load the dialogue manager...
             if (this.dialogueManager == null)
                 throw new NullReferenceException("Could not load the dialogue manager, or reference to dialogue XML is MISSING.", null);
-
-            // Load the test quest
-            Dictionary<string, string> payload = new Dictionary<string, string>();
-            payload.Add("QuestName", "Honey Do List");
-            Event eventInfo = new Event("ActivateQuest", payload);
-            gameReference.EventManager.notify(eventInfo);
 
             gameReference.audioManager.playBackgroundMusic(levelNum);
         }
