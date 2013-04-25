@@ -28,6 +28,7 @@ namespace PantheonPrototype
         protected Texture2D laserDot;
         protected bool drawLasar;
         protected int currentArmedItem;
+        public Boolean playOnce = true;
 
         public Vector2 CursorLocation
         {
@@ -187,7 +188,7 @@ namespace PantheonPrototype
             updateScope(gameReference);
             updateEquipped(gameReference, gameTime);
             updateInteractions(gameReference);
-
+            
             if (gameReference.ControlManager.actions.beingDamaged == true)
             {
                 Damage(10);
@@ -195,8 +196,15 @@ namespace PantheonPrototype
             }
             if (currentArmor <= 0)
             {
+
                 currentState = "Die";
                 gameReference.ControlManager.disableControls(true);
+                if (playOnce)
+                {
+                    gameReference.audioManager.playSoundEffect("Evil Laugh");
+                    playOnce = false;
+                }
+                
             }
             if (!gameReference.ControlManager.actions.isControlEnabled)
             {
