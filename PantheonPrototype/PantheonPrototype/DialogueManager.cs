@@ -234,8 +234,6 @@ namespace PantheonPrototype
 
             if (this.conversations.Keys.Contains(firedEvent.payload["EntityKey"]))
             {
-
-
                 if (this.currentConversation == null)
                 {
                     this.StartConversation(entityName, entity);
@@ -255,6 +253,17 @@ namespace PantheonPrototype
 
                     this.currentConversationBubble = new TextBubble(entity, currentDiagNode.Text);
                     this.activeTextBubbles.AddLast(this.currentConversationBubble);
+                }
+
+                if (this.currentConversation != null)
+                {
+                    Event newEvent = new Event();
+
+                    newEvent.GameReference = firedEvent.GameReference;
+                    newEvent.Type = firedEvent.payload["EntityKey"] + "Speaking";
+                    newEvent.payload.Add("State", "" + this.currentConversationState);
+
+                    firedEvent.GameReference.EventManager.notify(newEvent);
                 }
             }
             else
