@@ -84,13 +84,7 @@ namespace PantheonPrototype
 
             if (!isRoaming)
             {
-
                 this.EquippedItems["weapon"].activate(gameReference, this);
-                if (((Weapon)this.EquippedItems["weapon"]).CurrentAmmo != 0)
-                {
-                    gameReference.audioManager.playSoundEffect(this.EquippedItems["weapon"].soundCueName);
-                }
-                
                 if (((Weapon)this.EquippedItems["weapon"]).CurrentAmmo == 0 && !((Weapon)this.EquippedItems["weapon"]).Reloading)
                 {
                     ((Weapon)this.EquippedItems["weapon"]).Reload(gameTime);

@@ -160,6 +160,7 @@ namespace PantheonPrototype
                 bullet.Load(gameReference.Content, bulletType);
 
             gameReference.currentLevel.addList.Add("bullet_" + Bullet.NextId, bullet);
+            gameReference.audioManager.playSoundEffect(this.soundCueName);
 
             //Drain a bullet from the current ammo
             currentAmmo--;

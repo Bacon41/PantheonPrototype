@@ -42,6 +42,5 @@ namespace PantheonPrototype
 
             soundCueName = "defaultGunFire";
         }
-
     }
 }
