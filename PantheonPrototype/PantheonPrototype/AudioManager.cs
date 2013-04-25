@@ -29,7 +29,6 @@ namespace PantheonPrototype
         Cue backgroundMusicCue = null;
         public Cue sfxCue;
         Cue previousMusic = null;
-        string currentLevel;
 
 
         public AudioManager()

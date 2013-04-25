@@ -287,7 +287,7 @@ Wave Bank
     Wave
     {
         Name = Chill Dark;
-        File = C:\Users\Bob\Documents\GitHub\PantheonPrototype\PantheonPrototype\PantheonPrototypeContent\Chill Dark.wav;
+        File = Chill Dark.wav;
         Build Settings Last Modified Low = 1136829359;
         Build Settings Last Modified High = 30294426;
 
@@ -310,7 +310,7 @@ Wave Bank
     Wave
     {
         Name = Chill Deep;
-        File = C:\Users\Bob\Documents\GitHub\PantheonPrototype\PantheonPrototype\PantheonPrototypeContent\Chill Deep.wav;
+        File = Chill Deep.wav;
         Build Settings Last Modified Low = 1136839360;
         Build Settings Last Modified High = 30294426;
 
@@ -333,7 +333,7 @@ Wave Bank
     Wave
     {
         Name = Chillectro;
-        File = C:\Users\Bob\Documents\GitHub\PantheonPrototype\PantheonPrototype\PantheonPrototypeContent\Chillectro.wav;
+        File = Chillectro.wav;
         Build Settings Last Modified Low = 1136849360;
         Build Settings Last Modified High = 30294426;
 
@@ -356,7 +356,7 @@ Wave Bank
     Wave
     {
         Name = defaultGunFire;
-        File = C:\Users\Bob\Documents\GitHub\PantheonPrototype\PantheonPrototype\PantheonPrototypeContent\defaultGunFire.wav;
+        File = defaultGunFire.wav;
         Build Settings Last Modified Low = 1136849360;
         Build Settings Last Modified High = 30294426;
 
@@ -379,7 +379,7 @@ Wave Bank
     Wave
     {
         Name = Drum n Bass D Coexistant;
-        File = C:\Users\Bob\Documents\GitHub\PantheonPrototype\PantheonPrototype\PantheonPrototypeContent\Drum n Bass D Coexistant.wav;
+        File = Drum n Bass D Coexistant.wav;
         Build Settings Last Modified Low = 1137439394;
         Build Settings Last Modified High = 30294426;
 
@@ -402,7 +402,7 @@ Wave Bank
     Wave
     {
         Name = Electro DnB B Chaos;
-        File = C:\Users\Bob\Documents\GitHub\PantheonPrototype\PantheonPrototype\PantheonPrototypeContent\Electro DnB B Chaos.wav;
+        File = Electro DnB B Chaos.wav;
         Build Settings Last Modified Low = 1137669407;
         Build Settings Last Modified High = 30294426;
 
@@ -425,7 +425,7 @@ Wave Bank
     Wave
     {
         Name = Fantastic A;
-        File = C:\Users\Bob\Documents\GitHub\PantheonPrototype\PantheonPrototype\PantheonPrototypeContent\Fantastic A.wav;
+        File = Fantastic A.wav;
         Build Settings Last Modified Low = 1137879419;
         Build Settings Last Modified High = 30294426;
 
@@ -448,7 +448,7 @@ Wave Bank
     Wave
     {
         Name = reload;
-        File = C:\Users\Bob\Documents\GitHub\PantheonPrototype\PantheonPrototype\PantheonPrototypeContent\reload.wav;
+        File = reload.wav;
         Build Settings Last Modified Low = 1137889420;
         Build Settings Last Modified High = 30294426;
 
@@ -471,7 +471,7 @@ Wave Bank
     Wave
     {
         Name = shotgunFire;
-        File = C:\Users\Bob\Documents\GitHub\PantheonPrototype\PantheonPrototype\PantheonPrototypeContent\shotgunFire.wav;
+        File = shotgunFire.wav;
         Build Settings Last Modified Low = 1137899420;
         Build Settings Last Modified High = 30294426;
 
@@ -494,7 +494,7 @@ Wave Bank
     Wave
     {
         Name = sniperFire;
-        File = C:\Users\Bob\Documents\GitHub\PantheonPrototype\PantheonPrototype\PantheonPrototypeContent\sniperFire.wav;
+        File = sniperFire.wav;
         Build Settings Last Modified Low = 1137899420;
         Build Settings Last Modified High = 30294426;
 
@@ -517,7 +517,7 @@ Wave Bank
     Wave
     {
         Name = shieldPower;
-        File = C:\Users\Bob\Documents\GitHub\PantheonPrototype\PantheonPrototype\PantheonPrototypeContent\shieldPower.wav;
+        File = shieldPower.wav;
         Build Settings Last Modified Low = 1453947497;
         Build Settings Last Modified High = 30294426;
 
@@ -540,7 +540,7 @@ Wave Bank
     Wave
     {
         Name = Button Click;
-        File = C:\Users\Bob\Documents\GitHub\PantheonPrototype\PantheonPrototype\PantheonPrototypeContent\Button Click.wav;
+        File = Button Click.wav;
         Build Settings Last Modified Low = 1453957498;
         Build Settings Last Modified High = 30294426;
 
