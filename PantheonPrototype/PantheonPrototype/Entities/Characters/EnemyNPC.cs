@@ -54,7 +54,7 @@ namespace PantheonPrototype
 
             if (currentState.Contains("Die"))
             {
-                gameReference.audioManager.playSoundEffect("Death");
+                gameReference.audioManager.playSoundEffect("Blood");
             }
         }
     }
