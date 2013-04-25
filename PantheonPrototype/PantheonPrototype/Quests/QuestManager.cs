@@ -227,7 +227,7 @@ namespace PantheonPrototype
 
                     if (quests[i].DeletionFlag)
                     {
-                        quests[i] = null;
+                        quests.RemoveAt(i);
                     }
                 }
             }

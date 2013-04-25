@@ -25,6 +25,8 @@ namespace PantheonPrototype
         protected Texture2D splashScreen;
         protected Texture2D splashScreenMask;
         protected Texture2D splashShine;
+        protected String splashText;
+        protected bool first;
         protected Texture2D mainBackgroundTex;
         protected Texture2D inventoryBackground;
         protected Texture2D inventoryBackgroundTex;
@@ -67,9 +69,10 @@ namespace PantheonPrototype
             mainBackgroundTex = new Texture2D(gameReference.GraphicsDevice, 1, 1);
             mainBackgroundTex.SetData(new[] { Color.White });
 
-            splashScreen = gameReference.Content.Load<Texture2D>("Menu/Giraffesplean");
-            splashScreenMask = gameReference.Content.Load<Texture2D>("Menu/GiraffespleanMask");
+            splashScreen = gameReference.Content.Load<Texture2D>("Menu/PantheonText");
+            splashScreenMask = gameReference.Content.Load<Texture2D>("Menu/PantheonTextMask");
             splashShine = gameReference.Content.Load<Texture2D>("Menu/Shine");
+            splashText = "The abridged...";
             splashScreenRect = new Rectangle((int)(SCREEN_WIDTH/2 - (SCREEN_WIDTH * .75)/2),
                 200, (int)(SCREEN_WIDTH * .75), (int)(SCREEN_HEIGHT * .33));
             
@@ -81,6 +84,7 @@ namespace PantheonPrototype
             loadDefaultMenu(gameReference);
 
             questManager = gameReference.QuestManager;
+            first = true;
         }
 
         /// <summary>
@@ -125,7 +129,7 @@ namespace PantheonPrototype
             startGame.Load(gameReference);
             splashScreenButtons.Add("start", startGame);
 
-            MenuItem loadGame = new MenuItem("Load a saved game (lol)", new Rectangle((int)(50 - (15 * SCREEN_WIDTH) / SCREEN_WIDTH),
+            MenuItem loadGame = new MenuItem("Credits", new Rectangle((int)(50 - (15 * SCREEN_WIDTH) / SCREEN_WIDTH),
                 (int)(((splashScreenRect.Y + splashScreen.Height) / (SCREEN_HEIGHT + 0.0)) * 100) + 35, 30, 7), new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
             loadGame.Load(gameReference);
             splashScreenButtons.Add("load", loadGame);
@@ -182,7 +186,7 @@ namespace PantheonPrototype
                         }
                     }
                     int count = 0;
-
+                    Quests = new string[30, 10];
                     foreach(Quest quest in questManager.quests)
                     {
                         Quests[count,0] = quest.QuestTitle;
@@ -404,6 +408,30 @@ namespace PantheonPrototype
                         count = 0;
                     }
                     offset = (offset + 50) % 12000;
+
+                    if (offset > 5000 && first)
+                    {
+                        splashText = "The abridged...";
+                    }
+                    if (offset > 5250 && first)
+                    {
+                        splashText = "The v abridged...";
+                    }
+                    if (offset > 5500 && first)
+                    {
+                        splashText = "The ve abridged...";
+                    }
+                    if (offset > 5750 && first)
+                    {
+                        splashText = "The ver abridged...";
+                    }
+                    if (offset > 6000 && first)
+                    {
+                        splashText = "The very abridged...";
+                        first = false;
+                    }
+
+
                     break;
                 default:
                     break;
@@ -414,7 +442,7 @@ namespace PantheonPrototype
         /// The method for drawing the whole menu.
         /// </summary>
         /// <param name="spriteBatch">What is used to draw.</param>
-        public void Draw(SpriteBatch spriteBatch, SpriteFont Font)
+        public void Draw(SpriteBatch spriteBatch, SpriteFont Font, SpriteFont Splash)
         {
             spriteBatch.Begin();
 
@@ -450,7 +478,7 @@ namespace PantheonPrototype
 
                                         }
                                     }
-                                    spriteBatch.DrawString(Font, "    " + Quests[i, j], new Vector2(41, 41 * (i + j)), color);
+                                    spriteBatch.DrawString(Font, "    " + Quests[i, j], new Vector2(41, 41 * (i + j + count)), color);
                                     count++;
                                 }
                             }
@@ -483,6 +511,7 @@ namespace PantheonPrototype
                     spriteBatch.Draw(splashScreen, splashScreenRect, Color.White);
                     spriteBatch.Draw(splashShine, new Rectangle (splashScreenRect.X + offset - 4000, splashScreenRect.Y, splashScreenRect.Width, splashScreenRect.Height), Color.White);
                     spriteBatch.Draw(splashScreenMask, new Rectangle(0, splashScreenRect.Y, SCREEN_WIDTH, splashScreenRect.Height), Color.White);
+                    spriteBatch.DrawString(Splash, splashText,new Vector2(splashScreenRect.X + (splashScreenRect.Width/2) - (Splash.MeasureString(splashText).X/2), splashScreenRect.Y+splashScreenRect.Height), Color.Turquoise);
                     foreach (string itemName in this.splashScreenButtons.Keys)
                     {
                         this.splashScreenButtons[itemName].Draw(spriteBatch);
