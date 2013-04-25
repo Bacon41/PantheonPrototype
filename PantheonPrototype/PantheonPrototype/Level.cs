@@ -103,7 +103,7 @@ namespace PantheonPrototype
             this.entities["character"].Load(gameReference.Content);
 
             // If the dialogue manager doesn't exist, create it.
-            this.dialogueManager = new DialogueManager(gameReference, gameReference.Content.Load<SpriteFont>("Font/DialogueFont"));
+            this.dialogueManager = new DialogueManager(gameReference, gameReference.Content.Load<SpriteFont>("Fonts/DialogueFont"));
 
             // This spawns the character in the right place in the map.
             foreach (MapObject obj in levelMap.ObjectLayers["Spawn"].MapObjects)
