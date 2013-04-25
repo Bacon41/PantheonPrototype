@@ -75,15 +75,6 @@ namespace PantheonPrototype
         public override void Update(GameTime gameTime, Pantheon gameReference)
         {
             base.Update(gameTime, gameReference);
-
-            if (!isRoaming)
-            {
-                this.EquippedItems["weapon"].activate(gameReference, this);
-                if (((Weapon)this.EquippedItems["weapon"]).CurrentAmmo == 0 && !((Weapon)this.EquippedItems["weapon"]).Reloading)
-                {
-                    ((Weapon)this.EquippedItems["weapon"]).Reload(gameTime);
-                }
-            }
         }
 
         /// <summary>
