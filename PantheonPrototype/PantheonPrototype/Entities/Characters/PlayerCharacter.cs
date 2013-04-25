@@ -129,7 +129,7 @@ namespace PantheonPrototype
             if (sprite != null)
             {
                 //Load the sprite
-                this.Sprite.loadSprite(sprite, 4, 4, 30);
+                this.Sprite.loadSprite(sprite, 13, 10, 30);
 
                 //Add all the states to the sprite
                 this.Sprite.addState("Attack Right", 0, 3, false, true);
@@ -156,14 +156,14 @@ namespace PantheonPrototype
                 this.Sprite.addState("Idle Forward Right", 8, 8, false, false);
                 this.Sprite.addState("Idle Forward Left", 8, 8, false, false);
                 this.Sprite.addState("Idle Left", 4, 4, false, false);
-                this.Sprite.addState("Move Right", 0, 3, true, true);
-                this.Sprite.addState("Move Back", 12, 15, true, true);
-                this.Sprite.addState("Move Back Right", 12, 15, true, true);
-                this.Sprite.addState("Move Back Left", 12, 15, true, true);
-                this.Sprite.addState("Move Forward", 8, 11, true, true);
-                this.Sprite.addState("Move Forward Right", 8, 11, true, true);
-                this.Sprite.addState("Move Forward Left", 8, 11, true, true);
-                this.Sprite.addState("Move Left", 4, 7, true, true);
+                this.Sprite.addState("Move Right", 80, 95, true, true);
+                this.Sprite.addState("Move Back", 112, 127, true, true);
+                this.Sprite.addState("Move Back Right", 96, 111, true, true);
+                this.Sprite.addState("Move Back Left", 1, 16, true, true);
+                this.Sprite.addState("Move Forward", 49, 63, true, true);
+                this.Sprite.addState("Move Forward Right", 64, 79, true, true);
+                this.Sprite.addState("Move Forward Left", 30, 45, true, true);
+                this.Sprite.addState("Move Left", 16, 31, true, true);
             }
             else
             {

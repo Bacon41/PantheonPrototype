@@ -337,6 +337,7 @@
   <object name="LvlInfo" x="-1" y="-83" width="73" height="75">
    <properties>
     <property name="DialogPath" value="XML/map1/TheWords"/>
+    <property name="InitialQuest" value="Honey Do List"/>
     <property name="QuestPath" value="XML/map1/HoneyDoList"/>
    </properties>
   </object>
