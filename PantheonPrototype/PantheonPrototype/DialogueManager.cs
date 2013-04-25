@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using LevelLoad;
 
 namespace PantheonPrototype
 {
@@ -71,14 +72,38 @@ namespace PantheonPrototype
 
             // Load the text bubble image.
             this.textbubbleImage = content.Load<Texture2D>("textbubble");
+        }
 
-            // Set up some temporary dialogue...
-            Random innocencegod = new Random();
-            int innocence = 1;
-            int innocenceFactor = innocencegod.Next(3, 20);
-            int evilFactor = 20;
-            StringBuilder theMessage = new StringBuilder();
-            ArrayList convo = new ArrayList();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="conversations"></param>
+        public void Load(Dictionary<string, List<DialogueNodeLoader>> importedConversations)
+        {
+            try
+            {
+                foreach (string key in importedConversations.Keys)
+                {
+                    ArrayList tempArrayList = new ArrayList();
+
+                    // Build the list of DialogueNodes
+                    foreach (Object item in importedConversations[key])
+                    {
+                        DialogueNodeLoader loader = (DialogueNodeLoader)item;
+
+                        tempArrayList.Add(new DialogueNode(loader.NextState, loader.Text));
+                    }
+
+                    // Add the list of nodes to the conversations.
+                    this.conversations.Add(key, tempArrayList);
+                    this.npcStates.Add(key, null);
+                    this.npcStateBubbles.Add(key, null);
+                }
+            }
+            catch (Exception except)
+            {
+                Console.Error.WriteLine("Bad things happened: " + except.Message);
+            }
         }
 
         /// <summary>
@@ -258,7 +283,7 @@ namespace PantheonPrototype
                     this.npcStates.Add(entityName, firedEvent.payload["State"]);
                 }
             }
-            catch (KeyNotFoundException except)
+            catch (KeyNotFoundException e)
             {
                 //Console.Error.WriteLine("No NPC found for interaction alert.");
             }

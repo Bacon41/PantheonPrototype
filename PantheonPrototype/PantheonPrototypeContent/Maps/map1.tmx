@@ -336,7 +336,7 @@
   <object name="startRebelFoyer" x="406" y="241" width="73" height="55"/>
   <object name="LvlInfo" x="-1" y="-83" width="73" height="75">
    <properties>
-    <property name="DialogPath" value="xml/map1Dialog.xml"/>
+    <property name="DialogPath" value="XML/map1/TheWords"/>
    </properties>
   </object>
   <object name="Enemybooger" x="872" y="245" width="964" height="565"/>

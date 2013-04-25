@@ -99,7 +99,7 @@ namespace PantheonPrototype
                 {
                 }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
                 Console.WriteLine("An unhandled event was encountered for the \"" + eventInfo.Type + "\" type of event.");
                 return;
