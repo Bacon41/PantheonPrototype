@@ -78,6 +78,7 @@ namespace PantheonPrototype
             itemTag = "shield";
             Info = "This is just your basic Shield\n" +
                    "   Use it wisely...\n";
+            soundCueName = "shieldPower";
         }
 
         public Shield()

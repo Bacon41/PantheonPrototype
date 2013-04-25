@@ -138,8 +138,19 @@ namespace PantheonPrototype
 
                 if (shieldPercent <= 10 && shieldPercent > 0 && !shield.isNull)
                 {
+                    Boolean playSound = false;
+                    if(shieldPercent == 10)
+                    {
+                        playSound = true;
+                    }
                     hudItems[4].SetOpacity(danger);
-                    danger = (danger + (30 - (shieldPercent * 2))) % 256; 
+                    danger = (danger + (30 - (shieldPercent * 2))) % 256;
+                    // only make the noise once..otherwise it does it whenever it's less than 10%
+                    if (playSound)
+                    {
+                        gameReference.audioManager.playSoundEffect("warning");
+                        playSound = false;
+                    }
                 }
                 else
                 {
