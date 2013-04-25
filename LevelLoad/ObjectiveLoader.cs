@@ -61,9 +61,11 @@ namespace LevelLoad
             objectiveString += Type + ";";
             objectiveString += Target + ";";
 
-            foreach (int objId in NextObjectives)
+            objectiveString += NextObjectives[0];
+
+            for (int i = 0; i < NextObjectives.Count; i++)
             {
-                objectiveString += objId + ",";
+                objectiveString += "," + NextObjectives[i];
             }
             objectiveString += ";";
             objectiveString += ObjectiveTitle + ";" + ObjectiveText;

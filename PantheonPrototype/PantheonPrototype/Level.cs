@@ -35,6 +35,7 @@ namespace PantheonPrototype
         protected Dictionary<string, Entity> entities;
         protected Map levelMap;
         protected DialogueManager dialogueManager;
+        protected QuestCreator questCreator;
         protected Rectangle screenRect;
         
         protected bool levelStart;
@@ -160,6 +161,7 @@ namespace PantheonPrototype
                     {
                         Console.Error.WriteLine("Could not load the dialogue properly: " + except.Message);
                     }
+
                     try
                     {
                         if (obj.Properties.Keys.Contains("QuestPath"))
@@ -167,12 +169,14 @@ namespace PantheonPrototype
                             QuestMetaLoader METALoader = gameReference.Content.Load<QuestMetaLoader>(obj.Properties["QuestPath"].Value);
 
                             Console.WriteLine("QuestPath Found");
-                            
+
+                            // Load the quest creator
+                            this.questCreator = new QuestCreator(METALoader, gameReference);
                         }
                     }
                     catch (Exception except)
                     {
-                        Console.Error.WriteLine("Could not load the dialogue properly: " + except.Message);
+                        Console.Error.WriteLine("Could not load the quests properly: " + except.Message);
                     }
                 }
             }
@@ -191,14 +195,12 @@ namespace PantheonPrototype
             // Load the dialogue manager...
             if (this.dialogueManager == null)
                 throw new NullReferenceException("Could not load the dialogue manager, or reference to dialogue XML is MISSING.", null);
-			
-			// Fake a quest
-            Dictionary<string, string> questPayload = new Dictionary<string, string>();
-            questPayload.Add("QuestInfo", "2;0;QuestName");
-            questPayload.Add("Objective1", "0;Trigger;TestTrigger;1;Name;Text");
-            questPayload.Add("Objective2", "1;Kill;Enemybutterfly;0;fish;Barracuda");
-            Event fakeEventWithSushi = new Event("CreateQuest", questPayload);
-            gameReference.EventManager.notify(fakeEventWithSushi);
+
+            // Load the test quest
+            Dictionary<string, string> payload = new Dictionary<string, string>();
+            payload.Add("QuestName", "Honey Do List");
+            Event eventInfo = new Event("ActivateQuest", payload);
+            gameReference.EventManager.notify(eventInfo);
         }
         
         /// <summary>

@@ -48,10 +48,13 @@ namespace LevelLoad
 
             questString += NumberOfObjectives + ";";
 
-            foreach (int objId in InitialObjectives)
+            questString += InitialObjectives[0];
+
+            for (int i = 0; i < InitialObjectives.Count; i++)
             {
-                questString += objId + ",";
+                questString += "," + InitialObjectives[i];
             }
+
             questString += ";";
 
             questString += QuestTitle;

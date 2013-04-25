@@ -10,7 +10,7 @@
             <Id>0</Id>
             <ObjectiveTitle>The First Objective!</ObjectiveTitle>
             <ObjectiveText>Do this thingy!</ObjectiveText>
-            <Type>Trigger</Type>
+            <Type>Kill</Type>
             <Target>ThatOneTrigger</Target>
             <NextObjectives>
               0
