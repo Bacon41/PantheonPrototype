@@ -285,7 +285,7 @@ namespace PantheonPrototype
             }
             catch (KeyNotFoundException e)
             {
-                Console.Error.WriteLine("No NPC found for interaction alert.");
+                //Console.Error.WriteLine("No NPC found for interaction alert.");
             }
         }
 

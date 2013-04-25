@@ -27,9 +27,16 @@ namespace PantheonPrototype
             base.Update(gameTime, gameReference);
             if (currentArmor <= 0)
             {
-                currentState = "Die";
+                String command = "Die ";
+                command += HamburgerHelper.GetDirection(Facing);
 
-                toDestroy = true;
+                Console.WriteLine(command);
+                CurrentState = command;
+
+                if (sprite.isComplete())
+                {
+                    toDestroy = true;
+                }
             }
         }
     }

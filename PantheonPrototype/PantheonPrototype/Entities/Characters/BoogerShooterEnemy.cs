@@ -45,16 +45,25 @@ namespace PantheonPrototype
             //Load the image
             spriteTex = contentManager.Load<Texture2D>("Sprites/BoogerShooterSprite");
 
-            this.Sprite.loadSprite(spriteTex, 8, 8, 30);
+            this.Sprite.loadSprite(spriteTex, 13, 8, 30);
 
-            this.Sprite.addState("Move Back", 56, 63, true, false);
-            this.Sprite.addState("Move Back Right", 48, 55, true, false);
-            this.Sprite.addState("Move Back Left", 0, 7, true, false);
-            this.Sprite.addState("Move Left", 8, 15, true, false);
-            this.Sprite.addState("Move Right", 40, 47, true, false);
+            this.Sprite.addState("Move Back", 0, 7, true, false);
+            this.Sprite.addState("Move Back Right", 8, 15, true, false);
+            this.Sprite.addState("Move Back Left", 56, 63, true, false);
+            this.Sprite.addState("Move Left", 48, 55, true, false);
+            this.Sprite.addState("Move Right", 24, 31, true, false);
             this.Sprite.addState("Move Forward Right", 32, 39, true, false);
-            this.Sprite.addState("Move Forward Left", 16, 23, true, false);
-            this.Sprite.addState("Move Forward", 24, 31, true, false);
+            this.Sprite.addState("Move Forward Left", 40, 47, true, false);
+            this.Sprite.addState("Move Forward", 32, 39, true, false);
+            this.Sprite.addState("Die Back", 64, 68, false, false);
+            this.Sprite.addState("Die Back Right", 69, 73, false, false);
+            this.Sprite.addState("Die Back Left", 99, 104, false, false);
+            this.Sprite.addState("Die Left", 94, 98, false, false);
+            this.Sprite.addState("Die Right", 74, 78, false, false);
+            this.Sprite.addState("Die Forward Right", 79, 83, false, false);
+            this.Sprite.addState("Die Forward Left", 89, 93, false, false);
+            this.Sprite.addState("Die Forward", 84, 88, false, false);
+
 
             //Load the interaction information
             // DO IT --
@@ -80,6 +89,11 @@ namespace PantheonPrototype
                 {
                     ((Weapon)this.EquippedItems["weapon"]).Reload(gameTime);
                 }
+            }
+
+            if (currentState.Equals("Die"))
+            {
+
             }
         }
 
