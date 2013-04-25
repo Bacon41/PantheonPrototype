@@ -458,12 +458,6 @@ namespace PantheonPrototype
                 {
                     this.ArmedItem.activate(gameReference, this);            
                     string ammo = ((Weapon)this.ArmedItem).CurrentAmmo.ToString(); 
-                    if (!ammo.Equals("0"))
-                    {
-                        //Play the sound effect determined by the soundCueName of the equipped item  
-                        gameReference.audioManager.playSoundEffect(this.ArmedItem.soundCueName);
-                    }
-                 
                 }
             }
 
