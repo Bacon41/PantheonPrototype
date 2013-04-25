@@ -33,9 +33,9 @@ namespace PantheonPrototype
 
         public AudioManager()
         {
-            engine = new AudioEngine("Content\\XACT Sound File.xgs");
-            waves = new WaveBank(engine, "Content\\Wave Bank.xwb");
-            sounds = new SoundBank(engine, "Content\\Sound Bank.xsb");
+            engine = new AudioEngine("Content/Sound/XACT Sound File.xgs");
+            waves = new WaveBank(engine, "Content/Sound/Wave Bank.xwb");
+            sounds = new SoundBank(engine, "Content/Sound/Sound Bank.xsb");
 
             soundEffectCategory = engine.GetCategory("Sound Effect");
             soundEffectCategory.SetVolume(sfxVolume);

@@ -344,69 +344,67 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="XACT Sound File.xap">
+    <Compile Include="Sound\XACT Sound File.xap">
       <Name>XACT Sound File</Name>
       <Importer>XactImporter</Importer>
       <Processor>XactProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Chill Dark.wav">
+    <Compile Include="Sound\Chill Dark.wav">
       <Name>Chill Dark</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="Chill Deep.wav">
+    <Compile Include="Sound\Chill Deep.wav">
       <Name>Chill Deep</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="Chillectro.wav">
+    <Compile Include="Sound\Chillectro.wav">
       <Name>Chillectro</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="Drum n Bass D Coexistant.wav">
+    <Compile Include="Sound\Drum n Bass D Coexistant.wav">
       <Name>Drum n Bass D Coexistant</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="Electro DnB B Chaos.wav">
+    <Compile Include="Sound\Electro DnB B Chaos.wav">
       <Name>Electro DnB B Chaos</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="Fantastic A.wav">
+    <Compile Include="Sound\Fantastic A.wav">
       <Name>Fantastic A</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Sound\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="defaultGunFire.wav">
+    <Compile Include="Sound\defaultGunFire.wav">
       <Name>defaultGunFire</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="Laser_Cannon.wav">
+    <Compile Include="Sound\Laser_Cannon.wav">
       <Name>Laser_Cannon</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="reload.wav">
+    <Compile Include="Sound\reload.wav">
       <Name>reload</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="shieldPower.wav">
+    <Compile Include="Sound\shieldPower.wav">
       <Name>shieldPower</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="sniperFire.wav">
+    <Compile Include="Sound\sniperFire.wav">
       <Name>sniperFire</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
