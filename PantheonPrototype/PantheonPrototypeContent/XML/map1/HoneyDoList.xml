@@ -4,21 +4,31 @@
     <Quests>
       <Item>
         <QuestTitle>Honey Do List</QuestTitle>
-        <NumberOfObjectives>1</NumberOfObjectives>
+        <NumberOfObjectives>2</NumberOfObjectives>
         <Objectives>
           <Item>
             <Id>0</Id>
             <ObjectiveTitle>The First Objective!</ObjectiveTitle>
             <ObjectiveText>Do this thingy!</ObjectiveText>
             <Type>Kill</Type>
-            <Target>ThatOneTrigger</Target>
+            <Target>Enemybooger</Target>
+            <NextObjectives>
+              1
+            </NextObjectives>
+          </Item>
+          <Item>
+            <Id>1</Id>
+            <ObjectiveTitle>Speak</ObjectiveTitle>
+            <ObjectiveText>Speak to the old man.</ObjectiveText>
+            <Type>Speak</Type>
+            <Target>FriendtheOldMan,0</Target>
             <NextObjectives>
               0
             </NextObjectives>
           </Item>
         </Objectives>
         <InitialObjectives>
-          0
+          1
         </InitialObjectives>
       </Item>
     </Quests>

@@ -57,6 +57,7 @@ namespace PantheonPrototype
         {
             objectives = new List<Objective>();
             currentObjectives = new List<Objective>();
+            completedObjectives = new List<Objective>();
 
             //if (currentObjectives.Contains(objectives[4+2])) Console.WriteLine("DRAGONS");
 

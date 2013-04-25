@@ -27,8 +27,11 @@ namespace PantheonPrototype
             quests = new List<Quest>();
 
             // Register the event handler with the event manager
-            HandleEvent eventHandler = AddQuest;
-            gameReference.EventManager.register("CreateQuest", eventHandler);
+            HandleEvent createQuestHandler = AddQuest;
+            gameReference.EventManager.register("CreateQuest", createQuestHandler);
+
+            HandleEvent closeQuestHandler = CompleteQuest;
+            gameReference.EventManager.register("CloseQuest", closeQuestHandler);
         }
 
         /// <summary>
@@ -177,6 +180,21 @@ namespace PantheonPrototype
 
             // Add the quest to the current quests
             quests.Add(buildQuest);
+        }
+
+        /// <summary>
+        /// Removes a quest because it is complete.
+        /// </summary>
+        /// <param name="eventInfo">Contains the information on which quest is complete.</param>
+        public void CompleteQuest(Event eventInfo)
+        {
+            Dictionary<string, string> payload = new Dictionary<string, string>();
+            payload.Add("QuestName", eventInfo.gameReference.QuestManager.quests[Int32.Parse(eventInfo.payload["QuestId"])].QuestTitle);
+            Event questCompleteEvent = new Event("QuestComplete", payload);
+            eventInfo.gameReference.EventManager.notify(questCompleteEvent);
+
+            // Remove the complete quest
+            quests.RemoveAt(Int32.Parse(eventInfo.payload["QuestId"]));
         }
 
         /// <summary>

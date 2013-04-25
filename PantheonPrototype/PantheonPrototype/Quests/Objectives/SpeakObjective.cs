@@ -17,16 +17,27 @@ namespace PantheonPrototype
     /// </summary>
     class SpeakObjective : Objective
     {
+        /// <summary>
+        /// The target state for this objective.
+        /// </summary>
+        private string targetState;
+
         public SpeakObjective(string targetName, int id) : base (id)
         {
-            this.EventType = "Interact" + targetName;
+            string[] targets = targetName.Split(',');
+            this.targetState = targets[1];
+            this.EventType = targets[0] + "Speaking";
         }
 
         public override void HandleNotification(Event eventinfo)
         {
-            base.HandleNotification(eventinfo);
+            Console.WriteLine("Encountered a " + eventinfo.payload["State"] + " type state");
 
-            Console.WriteLine("You have interacted with so and so... yeah!");
+            if (eventinfo.payload["State"].Equals(targetState))
+            {
+                Console.WriteLine("Activated");
+                state = condition.complete;
+            }
         }
     }
 }

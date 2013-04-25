@@ -95,6 +95,7 @@
     <Compile Include="Quests\Objectives\KillObjective.cs" />
     <Compile Include="Quests\Objectives\Objective.cs" />
     <Compile Include="Quests\Objectives\SpeakObjective.cs" />
+    <Compile Include="Quests\Objectives\WinObjective.cs" />
     <Compile Include="Quests\Quest.cs" />
     <Compile Include="Quests\QuestCreator.cs" />
     <Compile Include="Quests\QuestManager.cs" />
