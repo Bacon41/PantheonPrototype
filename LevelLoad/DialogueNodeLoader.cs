@@ -8,7 +8,7 @@ namespace LevelLoad
     /// <summary>
     /// Contains all the characteristics necessary to load and supply a DialogueNode with the necessary attributes.
     /// </summary>
-    class DialogueNodeLoader
+    public class DialogueNodeLoader
     {
         /// <summary>
         /// Contains the number, in array index, of the next conversation state.

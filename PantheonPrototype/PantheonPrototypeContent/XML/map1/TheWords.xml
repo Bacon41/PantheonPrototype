@@ -1,0 +1,45 @@
+<XnaContent>
+	<Asset Type="LevelLoad.DialogueLoader">
+		<Conversations>
+			<Item>
+				<Key>FriendtheOldMan</Key>
+				<Value>
+					<Item>
+						<NextState>1</NextState>
+						<Text>
+							It is dangerous to go alone.
+						</Text>
+					</Item>
+					
+					<Item>
+						<NextSate>2</NextSate>
+						<Text>
+							Here, take this...
+						</Text>
+					</Item>
+					
+					<Item>
+						<NextState>3</NextState>
+						<Text>
+							Also, dragons are the best.
+						</Text>
+					</Item>
+					
+					<Item>
+						<NextState>4</NextState>
+						<Text>
+							Emacs is also better then EMACS
+						</Text>
+					</Item>
+					
+					<Item>
+						<NextState>0</NextState>
+						<Text>
+							Yes, Tumbler, I am serious.
+						</Text>
+					</Item>
+				</Value>
+			</Item>
+		</Conversations>
+	</Asset>
+</XnaContent>

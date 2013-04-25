@@ -21,6 +21,6 @@ namespace LevelLoad
         /// <summary>
         /// Contains the conversations for the dialogue manager to load.
         /// </summary>
-        public Dictionary<string, List<DialogueLoader>> Conversations;
+        public Dictionary<string, List<DialogueNodeLoader>> Conversations;
     }
 }
