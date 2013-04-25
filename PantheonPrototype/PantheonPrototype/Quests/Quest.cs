@@ -111,6 +111,9 @@ namespace PantheonPrototype
                         }
                     }
 
+                    // The objective is now complete
+                    completedObjectives.Add(currentObjectives[i]);
+
                     // Remove this objective from the current objectives
                     currentObjectives.RemoveAt(i);
                 }
