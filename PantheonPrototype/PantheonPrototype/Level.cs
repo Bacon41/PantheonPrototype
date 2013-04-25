@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using FuncWorks.XNA.XTiled;
+using LevelLoad;
 
 namespace PantheonPrototype
 {
@@ -101,6 +102,9 @@ namespace PantheonPrototype
             this.entities.Add("character", gameReference.player);
             this.entities["character"].Load(gameReference.Content);
 
+            // If the dialogue manager doesn't exist, create it.
+            this.dialogueManager = new DialogueManager(gameReference, gameReference.Content.Load<SpriteFont>("Font/DialogueFont"));
+
             // This spawns the character in the right place in the map.
             foreach (MapObject obj in levelMap.ObjectLayers["Spawn"].MapObjects)
             {
@@ -143,8 +147,7 @@ namespace PantheonPrototype
                 {
                     if(obj.Properties.Keys.Contains("DialoguePath"))
                     {
-                        // FIX ME
-                        // obj.Properties["DialoguePath"];
+                        this.dialogueManager.Load(gameReference.Content.Load<DialogueLoader>(obj.Properties["DialoguePath"].ToString()).Conversations);
                     }
                 }
             }
@@ -161,7 +164,8 @@ namespace PantheonPrototype
             gameReference.CutsceneManager.PlayLevelLoad(gameReference);
 
             // Load the dialogue manager...
-            this.dialogueManager = new DialogueManager(gameReference, gameReference.Content.Load<SpriteFont>("Fonts/DialogueFont"));
+            if (this.dialogueManager == null)
+                throw new NullReferenceException("Could not load the dialogue manager, or reference to dialogue XML is MISSING.", null);
 			
 			// Fake a quest
             Dictionary<string, string> questPayload = new Dictionary<string, string>();

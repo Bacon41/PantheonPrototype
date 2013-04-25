@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using LevelLoad;
 
 namespace PantheonPrototype
 {
@@ -71,6 +72,36 @@ namespace PantheonPrototype
 
             // Load the text bubble image.
             this.textbubbleImage = content.Load<Texture2D>("textbubble");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="conversations"></param>
+        public void Load(Dictionary<string, IList> importedConversations)
+        {
+            try
+            {
+                foreach (string key in importedConversations.Keys)
+                {
+                    ArrayList tempArrayList = new ArrayList();
+
+                    // Build the list of DialogueNodes
+                    foreach (Object item in importedConversations[key])
+                    {
+                        DialogueNodeLoader loader = (DialogueNodeLoader)item;
+
+                        tempArrayList.Add(new DialogueNode(loader.NextState, loader.Text));
+                    }
+
+                    // Add the list of nodes to the conversations.
+                    this.conversations.Add(key, tempArrayList);
+                }
+            }
+            catch (Exception except)
+            {
+                Console.Error.WriteLine("Bad things happened.");
+            }
         }
 
         /// <summary>
