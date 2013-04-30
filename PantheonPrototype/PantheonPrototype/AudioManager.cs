@@ -125,13 +125,13 @@ namespace PantheonPrototype
             }
             else if (currentLevel.Equals("Maps/RebelRoom3"))
             {
-                newMusic = sounds.GetCue("Dark Rock");
+                newMusic = sounds.GetCue("Chillectro");
                 newMusic.Play();
                 previousMusic = newMusic;
             }
             else if (currentLevel.Equals("Maps/RebelRoom4"))
             {
-                newMusic = sounds.GetCue("Chill Cool Night");
+                newMusic = sounds.GetCue("Chill Cool Night 2");
                 newMusic.Play();
                 previousMusic = newMusic;
             }   
