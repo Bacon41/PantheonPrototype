@@ -316,14 +316,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="XML\map1\HoneyDoList.xml">
-      <Name>HoneyDoList</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-      <SubType>Designer</SubType>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="XML\map1\TheWords.xml">
       <Name>TheWords</Name>
       <Importer>XmlImporter</Importer>
@@ -356,6 +348,13 @@
       <Name>SplashFont</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="XML\map1\First Quest.xml">
+      <Name>First Quest</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

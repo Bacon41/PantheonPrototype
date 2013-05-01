@@ -3,7 +3,7 @@
   <Asset Type="LevelLoad.QuestMetaLoader">
     <Quests>
       <Item>
-        <QuestTitle>Honey Do List</QuestTitle>
+        <QuestTitle>First Quest</QuestTitle>
         <NumberOfObjectives>3</NumberOfObjectives>
         <Objectives>
           <Item>
