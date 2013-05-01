@@ -20,6 +20,8 @@ namespace PantheonPrototype
         /// </summary>
         private QuestMetaLoader metaLoader;
 
+        private HandleEvent handler;
+
         /// <summary>
         /// Initializes the quest creator object with possible quests and
         /// registers the quest creator for quest creation notifications.
@@ -30,8 +32,13 @@ namespace PantheonPrototype
             this.metaLoader = metaLoader;
 
             // Register the activate quest function for handling requests to activate a quest
-            HandleEvent handler = ActivateQuest;
+            handler = ActivateQuest;
             gameReference.EventManager.register("ActivateQuest", handler);
+        }
+
+        public void Unregister(Pantheon gameReference)
+        {
+            gameReference.EventManager.unregister("ActivateQuest", handler);
         }
 
         /// <summary>

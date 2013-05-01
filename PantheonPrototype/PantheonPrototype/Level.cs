@@ -484,6 +484,14 @@ namespace PantheonPrototype
                     {
                         //if (!levelPlaying) { break; }
                         gameReference.CutsceneManager.PlayLevelEnd(gameReference);
+                        if (questCreator != null)
+                        {
+                            this.questCreator.Unregister(gameReference);
+                        }
+                        if (dialogueManager != null)
+                        {
+                            this.dialogueManager.Unregister(gameReference);
+                        }
                     }
                 }
             }
