@@ -31,7 +31,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ProductName>Pantheon</ProductName>
     <PublisherName>LeTourneau University Game Project Spring 2013</PublisherName>
-    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationRevision>2</ApplicationRevision>
     <ApplicationVersion>0.6.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
