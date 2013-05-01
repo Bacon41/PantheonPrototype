@@ -65,7 +65,7 @@ namespace PantheonPrototype
                     "Game Project class. It was made by students as\n" +
                     "a demonstration of the game engine they created\n" +
                     "The five and a half students that created this game are:\n\n" +
-                    "Spencer Bray (Comedic Comment Writing Dragon)\n" +
+                    "SpenSer Bray (Comedic Comment Writing Dragon)\n" +
                     "Bob \"He's a Chicken\" Charney (Music)\n" +
                     "Michael \"Summit\" Eaton (3D Art)\n" +
                     "Hazen Johnson (Git Wizard)\n" +
