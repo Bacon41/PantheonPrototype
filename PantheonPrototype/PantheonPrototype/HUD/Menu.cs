@@ -185,20 +185,6 @@ namespace PantheonPrototype
                             menuState = "inventory";
                         }
                     }
-                    int count = 0;
-                    Quests = new string[30, 10];
-                    foreach(Quest quest in questManager.quests)
-                    {
-                        Quests[count,0] = quest.QuestTitle;
-                        int count2 = 1;
-                        foreach (Objective objective in quest.CurrentObjectives)
-                        {
-                            Quests[count, count2] = objective.ObjectiveName;
-                            count2++;
-                        }
-                        count++;
-                    }
-
                     break;
 
                 case "inventory":
@@ -229,7 +215,7 @@ namespace PantheonPrototype
                     inventory.movingBox.Y = (int)(gameReference.ControlManager.actions.CursorPosition.Y - (.0835 * SCREEN_HEIGHT)/2);
 
 
-                    count = 0;
+                    int count = 0;
                     foreach (string itemName in this.inventoryButtons.Keys)
                     {
                         // Update every Button
@@ -456,33 +442,29 @@ namespace PantheonPrototype
                         this.items[itemName].Draw(spriteBatch);
                     }
 
-                    Color color;
-                    int count = 0;
-                    for (int i = 0; i < 30; i++)
+                    // Printing out the quest info.
+                    int lineNum = 0;
+                    for (int x = 0; x < questManager.quests.Count; x++)
                     {
-                        if (Quests[i,0] != null)
-                        {
-                            spriteBatch.DrawString(Font, Quests[i,0], new Vector2(41, 41*(i+count)), Color.OrangeRed);
-                            color = Color.Orange;
-                            for (int j = 1; j < 10; j++)
-                            {
-                                if (Quests[i, j] != null)
-                                {
-                                    if (questManager.quests.ElementAt(i).CompletedObjectives != null)
-                                    {
-                                        foreach(Objective objective in questManager.quests.ElementAt(i).CompletedObjectives)
-                                        {
-                                            if (objective.ObjectiveName.Equals(Quests[i, j]))
-                                            {
-                                                color = Color.Gray;
-                                            }
+                        spriteBatch.DrawString(Font, questManager.quests.ElementAt(x).QuestTitle,
+                            new Vector2(41, 41 * lineNum), Color.Red);
+                        lineNum++;
 
-                                        }
-                                    }
-                                    count++;
-                                    spriteBatch.DrawString(Font, "    " + Quests[i, j], new Vector2(41, 41 * (i + count)), color);
-                                }
-                            }
+                        for (int y = 0; y < questManager.quests.ElementAt(x).CurrentObjectives.Count; y++)
+                        {
+                            spriteBatch.DrawString(Font, "      " + questManager.quests.ElementAt(x).CurrentObjectives.ElementAt(y).ObjectiveName,
+                                new Vector2(41, 41 * lineNum), Color.Orange);
+                            lineNum++;
+                            spriteBatch.DrawString(Font, "          " + questManager.quests.ElementAt(x).CurrentObjectives.ElementAt(y).ObjectiveText,
+                                new Vector2(41, 41 * lineNum), Color.Azure);
+                            lineNum++;
+                        }
+
+                        for (int y = 0; y < questManager.quests.ElementAt(x).CompletedObjectives.Count; y++)
+                        {
+                            spriteBatch.DrawString(Font, "      " + questManager.quests.ElementAt(x).CompletedObjectives.ElementAt(y).ObjectiveName,
+                                new Vector2(41, 41 * lineNum), Color.DarkGray);
+                            lineNum++;
                         }
                     }
 

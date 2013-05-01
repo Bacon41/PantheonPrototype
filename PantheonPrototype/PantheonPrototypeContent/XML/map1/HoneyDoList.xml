@@ -8,8 +8,8 @@
         <Objectives>
           <Item>
             <Id>0</Id>
-            <ObjectiveTitle>The First Objective!</ObjectiveTitle>
-            <ObjectiveText>Do this thingy!</ObjectiveText>
+            <ObjectiveTitle>Free Office Building</ObjectiveTitle>
+            <ObjectiveText>Kill one alien</ObjectiveText>
             <Type>Kill</Type>
             <Target>Enemybooger</Target>
             <NextObjectives>2</NextObjectives>
