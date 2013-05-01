@@ -20,8 +20,10 @@ namespace PantheonPrototype
         protected Dictionary<string, MenuItem> items;
         protected Dictionary<string, MenuItem> inventoryButtons;
         protected Dictionary<string, MenuItem> splashScreenButtons;
+        protected Dictionary<string, MenuItem> creditsButtons;
         protected Rectangle mainBackgroundRect;
         protected Rectangle splashScreenRect;
+        protected Rectangle creditsRect;
         protected Texture2D splashScreen;
         protected Texture2D splashScreenMask;
         protected Texture2D splashShine;
@@ -39,6 +41,8 @@ namespace PantheonPrototype
         protected int SCREEN_HEIGHT;
         protected int offset;
 
+        private String creditText;
+
         public String MenuState
         {
             get { return menuState; }
@@ -50,6 +54,7 @@ namespace PantheonPrototype
             items = new Dictionary<string, MenuItem>();
             inventoryButtons = new Dictionary<string, MenuItem>();
             splashScreenButtons = new Dictionary<string, MenuItem>();
+            creditsButtons = new Dictionary<string, MenuItem>();
             menuState = "start";
 
             this.SCREEN_WIDTH = SCREEN_WIDTH;
@@ -58,7 +63,18 @@ namespace PantheonPrototype
 
             // This makes our maxiumum quests 30 and our maximum objectives per quest 10.
             Quests = new string[30,10];
-            
+
+            // These are the current credits. Feel free to change them if you want to.
+            creditText = "Pantheon is a game made for LeTourneau University's\n" +
+                    "Game Project class. It was made by students as\n" +
+                    "a demonstration of the game engine they created\n" +
+                    "The six students that created this game are:\n\n" +
+                    "Spencer Bray (Comedic comment writer)\n" +
+                    "Bob \"Chicken\" Charney (Music)\n" +
+                    "Micheal \"Summit\" Eaton (3D art)\n" +
+                    "Hazen Johnson (Git Wizard)\n" +
+                    "Terry \"Bacon\" Penner (Code and story writer)\n" +
+                    "Tumber Terrall (Code)\n";
         }
 
         public void Load(Pantheon gameReference)
@@ -75,6 +91,8 @@ namespace PantheonPrototype
             splashText = "The abridged...";
             splashScreenRect = new Rectangle((int)(SCREEN_WIDTH/2 - (SCREEN_WIDTH * .75)/2),
                 200, (int)(SCREEN_WIDTH * .75), (int)(SCREEN_HEIGHT * .33));
+            creditsRect = new Rectangle((int)(SCREEN_WIDTH / 2 - (SCREEN_WIDTH * .75) / 2),
+                50, (int)(SCREEN_WIDTH * .75), (int)(SCREEN_HEIGHT * .33));
             
             inventoryBackground = gameReference.Content.Load<Texture2D>("Inventory/InventoryBackground");
             inventoryBackgroundTex = gameReference.Content.Load<Texture2D>("Inventory/InventoryBackgroundTexture");
@@ -132,13 +150,19 @@ namespace PantheonPrototype
             MenuItem loadGame = new MenuItem("Credits", new Rectangle((int)(50 - (15 * SCREEN_WIDTH) / SCREEN_WIDTH),
                 (int)(((splashScreenRect.Y + splashScreen.Height) / (SCREEN_HEIGHT + 0.0)) * 100) + 35, 30, 7), new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
             loadGame.Load(gameReference);
-            splashScreenButtons.Add("load", loadGame);
+            splashScreenButtons.Add("credits", loadGame);
 
             MenuItem quitGame = new MenuItem("Quit", new Rectangle((int)(50 - (15 * SCREEN_WIDTH) / SCREEN_WIDTH),
                 (int)(((splashScreenRect.Y + splashScreen.Height) / (SCREEN_HEIGHT + 0.0)) * 100) + 45, 30, 7), new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
             quitGame.Load(gameReference);
             splashScreenButtons.Add("quit", quitGame);
 
+            // Crdit Screen
+
+            MenuItem back = new MenuItem("Back", new Rectangle((int)(50 - (15 * SCREEN_WIDTH) / SCREEN_WIDTH),
+                (int)(((splashScreenRect.Y + splashScreen.Height) / (SCREEN_HEIGHT + 0.0)) * 100) + 45, 30, 7), new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
+            back.Load(gameReference);
+            creditsButtons.Add("back", back);
         }
 
         /// <summary>
@@ -401,6 +425,11 @@ namespace PantheonPrototype
                             gameReference.ControlManager.enableControls();
                             gameReference.StartGame();
                         }
+                        if (splashScreenButtons["credits"].DrawBox.Contains((int)gameReference.ControlManager.actions.CursorPosition.X,
+                           (int)gameReference.ControlManager.actions.CursorPosition.Y))
+                        {
+                            menuState = "credits";
+                        }
                         if (splashScreenButtons["quit"].DrawBox.Contains((int)gameReference.ControlManager.actions.CursorPosition.X,
                             (int)gameReference.ControlManager.actions.CursorPosition.Y))
                         {
@@ -433,6 +462,32 @@ namespace PantheonPrototype
                     }
 
 
+                    break;
+                case "credits":
+                    foreach (string itemName in this.creditsButtons.Keys)
+                    {
+                        // Update every Button
+                        this.creditsButtons[itemName].Update(gameTime, gameReference);
+
+                        // If mouse is on a button, Update the isSelected variable
+                        if (this.creditsButtons[itemName].DrawBox.Contains((int)gameReference.ControlManager.actions.CursorPosition.X,
+                            (int)gameReference.ControlManager.actions.CursorPosition.Y))
+                        {
+                            this.creditsButtons[itemName].IsSelected = true;
+                        }
+                        else
+                        {
+                            this.creditsButtons[itemName].IsSelected = false;
+                        }
+                    }
+                    if (gameReference.ControlManager.actions.MenuSelect)
+                    {
+                        if (creditsButtons["back"].DrawBox.Contains((int)gameReference.ControlManager.actions.CursorPosition.X,
+                            (int)gameReference.ControlManager.actions.CursorPosition.Y))
+                        {
+                            menuState = "start";
+                        }
+                    }
                     break;
                 default:
                     break;
@@ -516,6 +571,13 @@ namespace PantheonPrototype
                     foreach (string itemName in this.splashScreenButtons.Keys)
                     {
                         this.splashScreenButtons[itemName].Draw(spriteBatch);
+                    }
+                    break;
+                case "credits":
+                    spriteBatch.DrawString(Font, creditText, new Vector2(creditsRect.X + (creditsRect.Width / 2) - (Font.MeasureString(creditText).X / 2), creditsRect.Y + creditsRect.Height), Color.White);
+                    foreach (string itemName in this.creditsButtons.Keys)
+                    {
+                        this.creditsButtons[itemName].Draw(spriteBatch);
                     }
                     break;
             }
