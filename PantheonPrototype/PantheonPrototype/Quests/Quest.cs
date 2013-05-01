@@ -90,8 +90,6 @@ namespace PantheonPrototype
             {
                 currentObjectives[i].Initialize(gameReference);
             }
-
-            setCurrentObjective(0);
         }
 
         /// <summary>
