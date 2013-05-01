@@ -191,9 +191,10 @@ namespace PantheonPrototype
                     {
                         Quests[count,0] = quest.QuestTitle;
                         int count2 = 1;
-                        foreach (Objective objective in quest.objectives)
+                        foreach (Objective objective in quest.CurrentObjectives)
                         {
                             Quests[count, count2] = objective.ObjectiveName;
+                            count2++;
                         }
                         count++;
                     }
@@ -478,8 +479,8 @@ namespace PantheonPrototype
 
                                         }
                                     }
-                                    spriteBatch.DrawString(Font, "    " + Quests[i, j], new Vector2(41, 41 * (i + j + count)), color);
                                     count++;
+                                    spriteBatch.DrawString(Font, "    " + Quests[i, j], new Vector2(41, 41 * (i + count)), color);
                                 }
                             }
                         }
