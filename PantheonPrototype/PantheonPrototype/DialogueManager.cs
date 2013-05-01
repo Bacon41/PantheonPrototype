@@ -75,7 +75,7 @@ namespace PantheonPrototype
         }
 
         /// <summary>
-        /// 
+        /// Loads the stuff.
         /// </summary>
         /// <param name="conversations"></param>
         public void Load(Dictionary<string, List<DialogueNodeLoader>> importedConversations)
@@ -334,6 +334,17 @@ namespace PantheonPrototype
 
             // Switch the NPC's talking state off.
             this.npcStates[entityName] = DialogueManager.STATE_NONE;
+        }
+
+        /// <summary>
+        /// Seems legit.
+        /// </summary>
+        /// <param name="gameREFERENCEOFDOOMFORTHESAVINGOFTHEUNIVERSE">yep</param>
+        public void Unregister(Pantheon gameREFERENCEOFDOOMFORTHESAVINGOFTHEUNIVERSE)
+        {
+            gameREFERENCEOFDOOMFORTHESAVINGOFTHEUNIVERSE.EventManager.unregister("Interaction", this.interactionEventHandler);
+            gameREFERENCEOFDOOMFORTHESAVINGOFTHEUNIVERSE.EventManager.unregister("InteractionAlert", this.interactionAlertEventHandler);
+            gameREFERENCEOFDOOMFORTHESAVINGOFTHEUNIVERSE.EventManager.unregister("SpontaneousConversation", this.spontaneousConversationEventHandler);
         }
     }
 }
