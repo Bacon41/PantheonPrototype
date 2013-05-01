@@ -67,10 +67,10 @@ namespace PantheonPrototype
                     "The six students that created this game are:\n\n" +
                     "Spencer Bray (Comedic comment writer)\n" +
                     "Bob \"Chicken\" Charney (Music)\n" +
-                    "Micheal \"Summit\" Eaton (3D art)\n" +
+                    "Michael \"Summit\" Eaton (3D art)\n" +
                     "Hazen Johnson (Git Wizard)\n" +
                     "Terry \"Bacon\" Penner (Code and story writer)\n" +
-                    "Tumber Terrall (Code)\n";
+                    "Tumbler Terrall (Code)\n";
 
         }
 
