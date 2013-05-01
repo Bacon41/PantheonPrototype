@@ -94,21 +94,26 @@ namespace PantheonPrototype
 
             try
             {
-                // Useless statement
-                if (eventHandlers[eventInfo.Type] == null)
+                string eventName = null;
+                foreach (string name in eventHandlers.Keys)
                 {
+                    if (eventInfo.Type.Contains(name))
+                    {
+                        eventName = name;
+                    }
+                }
+                if (eventName != null)
+                {
+                    foreach (HandleEvent handler in eventHandlers[eventName])
+                    {
+                        handler(eventInfo);
+                    }
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine("An unhandled event was encountered for the \"" + eventInfo.Type + "\" type of event.");
                 return;
-            }
-
-            foreach (HandleEvent handler in eventHandlers[eventInfo.Type])
-            {
-
-                handler(eventInfo);
             }
         }
     }

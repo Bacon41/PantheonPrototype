@@ -45,10 +45,10 @@
   <object name="endRebelRoom2" x="546" y="1184" width="72" height="200"/>
   <object name="startRebelRoom3" x="2202" y="1486" width="56" height="64"/>
   <object name="endRebelRoom4" x="2473" y="1082" width="163" height="215"/>
-  <object name="Enemyboogershooter2" x="2787" y="2496" width="1002" height="771"/>
-  <object name="Enemyboogershooter1" x="239" y="108" width="3524" height="116"/>
-  <object name="Enemyboogershooter0" x="3598" y="141" width="203" height="1924"/>
-  <object name="Enemyboogershooter4" x="178" y="1702" width="3683" height="124"/>
-  <object name="Enemyboogershooter5" x="191" y="90" width="179" height="1716"/>
+  <object name="2Enemybooger" x="2787" y="2496" width="1002" height="771"/>
+  <object name="1Enemybooger" x="239" y="108" width="3524" height="116"/>
+  <object name="0Enemybooger" x="3598" y="141" width="203" height="1924"/>
+  <object name="4Enemybooger" x="178" y="1702" width="3683" height="124"/>
+  <object name="3Enemybooger" x="191" y="90" width="179" height="1716"/>
  </objectgroup>
 </map>
