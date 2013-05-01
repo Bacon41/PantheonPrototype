@@ -64,12 +64,12 @@ namespace PantheonPrototype
             creditText = "Pantheon is a game made for LeTourneau University's\n" +
                     "Game Project class. It was made by students as\n" +
                     "a demonstration of the game engine they created\n" +
-                    "The six students that created this game are:\n\n" +
+                    "The five and a half students that created this game are:\n\n" +
                     "Spencer Bray (Comedic Comment Writing Dragon)\n" +
                     "Bob \"He's a Chicken\" Charney (Music)\n" +
                     "Michael \"Summit\" Eaton (3D Art)\n" +
                     "Hazen Johnson (Git Wizard)\n" +
-                    "Terry \"Bacon\" Penner (Code and Story Writer)\n" +
+                    "Terry \"Bacon\" Penner (Canadian Code and Story Writer)\n" +
                     "Tumbler Terrall (Git Dolphin)\n";
 
         }
