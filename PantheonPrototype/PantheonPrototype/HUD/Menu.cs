@@ -32,7 +32,6 @@ namespace PantheonPrototype
         protected Texture2D inventoryBackgroundTex;
         protected String menuState;
         protected Inventory inventory;
-        protected string[,] Quests;
         QuestManager questManager;
 
         protected int SCREEN_WIDTH;
@@ -55,9 +54,6 @@ namespace PantheonPrototype
             this.SCREEN_WIDTH = SCREEN_WIDTH;
             this.SCREEN_HEIGHT = SCREEN_HEIGHT;
             offset = 0;
-
-            // This makes our maxiumum quests 30 and our maximum objectives per quest 10.
-            Quests = new string[30,10];
             
         }
 
@@ -417,8 +413,6 @@ namespace PantheonPrototype
                         splashText = "The very abridged...";
                         first = false;
                     }
-
-
                     break;
                 default:
                     break;
@@ -470,7 +464,6 @@ namespace PantheonPrototype
 
                     break;
                 case "inventory":
-
                     spriteBatch.Draw(inventoryBackgroundTex, new Rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT), Color.White);
 
                     inventory.Draw(spriteBatch, Font);

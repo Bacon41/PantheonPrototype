@@ -170,8 +170,22 @@ namespace PantheonPrototype
 
                             Console.WriteLine("QuestPath Found");
 
-                            // Load the quest creator
-                            this.questCreator = new QuestCreator(METALoader, gameReference);
+                            for (int x = 0; x < METALoader.Quests.Count; x++)
+                            {
+                                var questIn = from quest in gameReference.QuestManager.quests
+                                              where quest.QuestTitle.Equals(METALoader.Quests.ElementAt(x).QuestTitle)
+                                              select quest.QuestTitle;
+                                bool found = false;
+                                foreach (string name in questIn)
+                                {
+                                    found = true;
+                                }
+                                if (!found)
+                                {
+                                    // Load the quest creator
+                                    this.questCreator = new QuestCreator(METALoader, gameReference);
+                                }
+                            }
                         }
                     }
                     catch (Exception except)
@@ -183,14 +197,23 @@ namespace PantheonPrototype
                     {
                         if (obj.Properties.Keys.Contains("InitialQuest"))
                         {
-                            // Load the test quest
-                            Dictionary<string, string> payload = new Dictionary<string, string>();
-                            payload.Add("QuestName", obj.Properties["InitialQuest"].Value);
-                            Event eventInfo = new Event("ActivateQuest", payload);
-                            gameReference.EventManager.notify(eventInfo);
-
+                            var questIn = from quest in gameReference.QuestManager.quests
+                                          where quest.QuestTitle.Equals(obj.Properties["InitialQuest"].Value)
+                                          select quest.QuestTitle;
+                            bool found = false;
+                            foreach (string name in questIn)
+                            {
+                                found = true;
+                            }
+                            if (!found)
+                            {
+                                // Load the test quest
+                                Dictionary<string, string> payload = new Dictionary<string, string>();
+                                payload.Add("QuestName", obj.Properties["InitialQuest"].Value);
+                                Event eventInfo = new Event("ActivateQuest", payload);
+                                gameReference.EventManager.notify(eventInfo);
+                            }
                             Console.WriteLine("InitialQuest Found");
-                            
                         }
                     }
                     catch (Exception except)
