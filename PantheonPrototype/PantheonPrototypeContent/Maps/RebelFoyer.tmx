@@ -26,7 +26,7 @@
  </tileset>
  <layer name="Base" width="20" height="30">
   <data encoding="base64" compression="zlib">
-   eJxjZGBgYMSByQHI+pmgmBrmMaFhSsxDN4va5lHqX1q7j5rmsUAxNc2j1H3IZlLLPJiZ1DSPGvltFIyCUTAKRsHgBAAJ5ACJ
+   eJztkzEKADAIA1X6/zd3sSCii83gkIOMHsmgiog2mRDvzYPwWZGpr3KhfdO9Xbctvrz3eJC+337RifI9J9KH+DdCCCE7uTJAAI4=
   </data>
  </layer>
  <layer name="Modifier" width="20" height="30">
@@ -35,9 +35,9 @@
   </data>
  </layer>
  <objectgroup name="Spawn" width="20" height="30">
-  <object name="startmap1" x="303" y="651" width="60" height="53"/>
-  <object name="endRebelMain" x="1124" y="628" width="148" height="115"/>
-  <object name="startRebelMain" x="1035" y="651" width="61" height="60"/>
-  <object name="endmap1" x="141" y="339" width="90" height="693"/>
+  <object name="startmap1" x="131" y="658" width="60" height="53"/>
+  <object name="endRebelMain" x="1346" y="170" width="43" height="365"/>
+  <object name="startRebelMain" x="1215" y="309" width="61" height="60"/>
+  <object name="endmap1" x="6" y="502" width="44" height="332"/>
  </objectgroup>
 </map>
